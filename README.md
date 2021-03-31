@@ -10,4 +10,4 @@
 -  **APIs**:
     - [https://sos2021-01.herokuapp.com/api/v1/divorce/docs](https://sos2021-01.herokuapp.com/api/v1/divorce-stats/docs) (developed by [Juan Buitrago Ruiz](https://github.com/19juaniyo99))
     - [https://sos2021-01.herokuapp.com/api/v1/life/docs](https://sos2021-01.herokuapp.com/api/v1/life-stats/docs) (developed by [Lucia Castro Perez](https://github.com/Lucia2712))
-    - [https://sos2021-01.herokuapp.com/api/v1/natality/docs](https://sos2021-01.herokuapp.com/api/v1/natality-stats/docs) (developed by [Abraham Corta Ramírez](https://github.com/AbramsM1A2))
+    - [https://sos2021-01.herokuapp.com/api/v1/natality-stats/](https://sos2021-01.herokuapp.com/api/v1/natality-stats) (developed by [Abraham Corta Ramírez](https://github.com/AbramsM1A2))
