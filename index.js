@@ -15,6 +15,7 @@ var port = process.env.PORT || 10000;
 
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
+app.use(express.json());
 
 //-------------------------------Recurso /cool - F02-----------------------
 app.get("/cool", (request, response) => {
@@ -243,4 +244,74 @@ app.delete(BASE_API_PATH + "/natality-stats", (req, res) => {
 //------------------------------------Server-status------------------------
 app.listen(port, () => {
   console.log("server ready listening on port " + port);
+});
+
+
+//________________Life-stats_____________________
+var lifeStatsDS = [];
+
+//GET /api/v1/YYYYYY/loadInitialData 
+//Crea 2 o más recursos.
+app.get(BASE_API_PATH + "/life-stats/loadInitialData", (req, res) => {
+  var initialData = [
+    {
+      "country" : "denmark",
+      "date" : 2019,
+      "quality-life-index": 198.57,
+      "purchasing-power-index": 114.39,
+      "safety-index": 75.75
+    },
+    {
+      "country": "switzerland",
+      "date" : 2019,
+      "quality-life-index": 195.93,
+      "purchasing-power-index": 129.7,
+      "safety-index": 78.5
+    }    ];
+    lifeStatsDS.push(initialData);
+    console.log(`Loaded initial data: <${JSON.stringify(lifeStatsDS, null, 2)}>`);
+    return res.sendStatus(200);
+});
+
+//GET /api/v1/YYYYYY 
+//Devuelve una lista con todos los recursos (un array de objetos en JSON)
+app.get(BASE_API_PATH + "/life-stats", (req, res) => {
+  if (lifeStatsDS.length != 0) {
+    console.log(`requested life stats dataset`);
+    return res.send(JSON.stringify(lifeStatsDS, null, 2));  //return res.sendStatus(200);
+  } else {
+    console.log("No data found");
+    return res.sendStatus(404);
+  }
+});
+
+//POST /api/v1/YYYYYY 
+//crea un nuevo recurso.
+app.post(BASE_API_PATH + "/life-stats", (req,res) => {
+  var newData = req.body;
+
+  if(lifeStatsDS.length !=0){  //Si hay datos iniciales
+    for (var data of lifeStatsDS){
+      if (data.country === newData.country && data.date === newData.date) {
+        console.log("Ya existe un recurso con la misma fecha y país");
+        return res.sendStatus(409);
+      } else if (!newData.country || !newData.date || !newData.quality-life-index
+        || !newData.purchasing-power-index || !newData.safety-index) {
+          console.log("Faltan datos para crear el recurso");
+          return res.sendStatus(400);
+        }else {
+          lifeStatsDS.push(newData);
+          console.log(`Se ha añadido el recurso <${JSON.stringify(newData,null,2)}>`);
+          return res.sendStatus(201);
+        }
+    } //si no hay datos iniciales
+  } else if (!newData.country || !newData.date || !newData.quality-life-index
+    || !newData.purchasing-power-index || !newData.safety-index){
+      console.log("Faltan datos para crear el recurso");
+      return res.sendStatus(400);
+  } else {
+      lifeStatsDS.push(newData);
+      console.log(`Se ha añadido el recurso <${JSON.stringify(newData,null,2)}>`);
+      return res.sendStatus(201);
+  }
 });
