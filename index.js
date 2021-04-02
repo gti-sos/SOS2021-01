@@ -418,7 +418,7 @@ app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
         return res.sendStatus(400);
       } else {
         
-        natalityStatsDataSet.push(newNatalityStat);
+        divorceStatsDataSet.push(newDivorceStat);
         return res.sendStatus(201);
       }
 
@@ -466,9 +466,9 @@ app.delete(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
 
   console.log(`DELETE by country <${country}> and date: <${date}>`);
 
-  for (var stat of natalityStatsDataSet) {
+  for (var stat of divorceStatsDataSet) {
     if (stat.country === country && stat.date === date) {
-      natalityStatsDataSet = natalityStatsDataSet.filter(i => {
+      divorceStatsDataSet = divorceStatsDataSet.filter(i => {
         if (i.country !== country && i.date !== date) {
           return true;
         }
