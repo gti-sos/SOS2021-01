@@ -340,7 +340,7 @@ app.get(BASE_API_PATH+ "/life-stats/:country/:date", (req,res) => {
   return res.sendStatus(404);  
 });
 
-
+//DELETE un recurso
 app.delete(BASE_API_PATH+ "/life-stats/:country/:date", (req,res) => {
   var del_data = req.params;
   for(var i=0; i < lifeStatsDS.length; i++){
@@ -353,6 +353,7 @@ app.delete(BASE_API_PATH+ "/life-stats/:country/:date", (req,res) => {
   return res.sendStatus(404);
 });
 
+//PUT a un recurso
 app.put(BASE_API_PATH + "/life-stats/:country/:date", (req,res) => {
   var put_data = req.params; //variable con el recurso a actualizar
   var newData = req.body; //variable con el nuevo recurso (recurso actualizado)
@@ -377,16 +378,19 @@ app.put(BASE_API_PATH + "/life-stats/:country/:date", (req,res) => {
   }
 });
 
+//POST a un recurso
 app.post(BASE_API_PATH + "/life-stats/:country/:date", (req,res) => {
   console.log("No se puede realizar POST a un recurso concreto");
   return res.sendStatus(405);
 });
 
+//PUT a una lista de recursos
 app.put(BASE_API_PATH + "/life-stats/", (req,res) => {
   console.log("No se puede realizar PUT a una lista de recursos");
   return res.sendStatus(405);
 });
 
+//DELETE a una lista de recursos
 app.delete(BASE_API_PATH + "/life-stats/", (req,res) => {
   lifeStatsDS = [];
   console.log("Recursos de life-stats eliminados");
