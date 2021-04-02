@@ -539,7 +539,3 @@ app.delete(BASE_API_PATH + "/divorce-stats", (req, res) => {
 
 })
 
-//------------------------------------Server-status------------------------
-app.listen(port, () => {
-  console.log("server ready listening on port " + port);
-});
