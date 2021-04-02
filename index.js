@@ -289,29 +289,57 @@ app.get(BASE_API_PATH + "/life-stats", (req, res) => {
 //crea un nuevo recurso.
 app.post(BASE_API_PATH + "/life-stats", (req,res) => {
   var newData = req.body;
+  var existe = false;
 
   if(lifeStatsDS.length !=0){  //Si hay datos iniciales
     for (var data of lifeStatsDS){
       if (data.country === newData.country && data.date === newData.date) {
-        console.log("Ya existe un recurso con la misma fecha y país");
-        return res.sendStatus(409);
-      } else if (!newData.country || !newData.date || !newData.quality-life-index
-        || !newData.purchasing-power-index || !newData.safety-index) {
-          console.log("Faltan datos para crear el recurso");
-          return res.sendStatus(400);
-        }else {
-          lifeStatsDS.push(newData);
-          console.log(`Se ha añadido el recurso <${JSON.stringify(newData,null,2)}>`);
-          return res.sendStatus(201);
-        }
-    } //si no hay datos iniciales
-  } else if (!newData.country || !newData.date || !newData.quality-life-index
-    || !newData.purchasing-power-index || !newData.safety-index){
+        existe = true;  //Existe el recurso
+      } 
+    }
+    if (existe){
+      console.log("Ya existe un recurso con la misma fecha y país");
+      return res.sendStatus(409);
+    
+    } else if (!newData.country || !newData.date || !newData['quality-life-index']|| !newData['purchasing-power-index'] || !newData['safety-index']) {
       console.log("Faltan datos para crear el recurso");
       return res.sendStatus(400);
+
+    } else {
+      lifeStatsDS.push(newData);
+      console.log(`Se ha añadido el recurso <${JSON.stringify(newData,null,2)}>`);
+      return res.sendStatus(201);
+    }
+    //si no hay datos iniciales
+  } else if (!newData.country || !newData.date || !newData['quality-life-index']|| !newData['purchasing-power-index'] || !newData['safety-index']) {
+      console.log("Faltan datos para crear el recurso");
+      return res.sendStatus(400);
+
   } else {
       lifeStatsDS.push(newData);
       console.log(`Se ha añadido el recurso <${JSON.stringify(newData,null,2)}>`);
       return res.sendStatus(201);
   }
 });
+
+//GET /api/v1/YYYY/XXX/ZZZ
+//Devuelve un recurso concreto
+
+/*Nota: necesitamos pasar rutas parametrizadas porque sino tendriamos que hacer infinutas rutas "estaticas" para cada país y fecha */
+app.get(BASE_API_PATH+ "/life-stats/:country/:date", (req,res) => {
+  var req_data_country = req.params.country;
+  var req_data_date = req.params.date;
+  var soluc = [];
+  console.log(`GET stat by country: <${req_data_country}> and date: <${req_data_date}>`);
+  for (var data of lifeStatsDS){
+    if (String(data.country) === req_data_country && data.date === parseInt(req_data_date)){     
+      soluc.push(lifeStatsDS[data]);
+     
+    }
+  }
+  return res.status(200).send(JSON.stringify(soluc,null,2));
+  //return res.sendStatus(404);
+  //console.log(JSON.stringify(lifeStatsDS[data], null, 2));  
+})
+
+// return res.status(200).json(stat);
