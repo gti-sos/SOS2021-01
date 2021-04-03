@@ -456,8 +456,9 @@ app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
 
         console.log("Conflict detected");
         return res.sendStatus(409);
-
-      } else if (newDivorceStat.country === null
+      }
+    }
+      if (newDivorceStat.country === null
         || newDivorceStat.date === null
         || newDivorceStat['marriage-rate'] === null
         || newDivorceStat['divorce-rate'] === null
@@ -473,7 +474,7 @@ app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
         return res.sendStatus(201);
       }
 
-    }//Si no hay datos iniciales
+    //Si no hay datos iniciales
   } else if (!newDivorceStat.country
     || !newDivorceStat.date
     || !newDivorceStat['marriage-rate']
