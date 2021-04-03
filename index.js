@@ -94,8 +94,8 @@ app.get(BASE_API_PATH + "/natality-stats", (req, res) => {
 //crea un nuevo recurso.
 app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
   var newNatalityStat = req.body;
-  var country = req.params.country;
-  var date = parseInt(req.params.date);
+  var country = req.body.country;
+  var date = parseInt(req.body.date);
 
   //Si hay datos iniciales
   if (natalityStatsDataSet.length != 0) {
@@ -104,8 +104,9 @@ app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
 
         console.log("Conflict detected");
         return res.sendStatus(409);
-
-      } else if (!newNatalityStat.country
+      }
+    } 
+      if (!newNatalityStat.country
         || !newNatalityStat.date
         || !newNatalityStat.born
         || !newNatalityStat['men-born']
@@ -117,12 +118,12 @@ app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
         console.log("Numero de parametros incorrectos");
         return res.sendStatus(400);
       } else {
-        
+        console.log(`new natality stat to be added: <${JSON.stringify(newNatalityStat, null, 2)}>`);
         natalityStatsDataSet.push(newNatalityStat);
         return res.sendStatus(201);
       }
 
-    }//Si no hay datos iniciales
+    //Si no hay datos iniciales
   } else if (!newNatalityStat.country
     || !newNatalityStat.date
     || !newNatalityStat.born
@@ -167,14 +168,9 @@ app.delete(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
 
   console.log(`DELETE by country <${country}> and date: <${date}>`);
 
-  for (var stat of natalityStatsDataSet) {
-    if (stat.country === country && stat.date === date) {
-      natalityStatsDataSet = natalityStatsDataSet.filter(i => {
-        if (i.country !== country && i.date !== date) {
-          return true;
-        }
-        return false;
-      });
+  for( var i = 0; i < natalityStatsDataSet.length; i++){ 
+    if(natalityStatsDataSet[i]["country"]===country && natalityStatsDataSet[i]["date"]===date){
+      natalityStatsDataSet.splice(i,1);
       return res.sendStatus(200);
     }
   }
