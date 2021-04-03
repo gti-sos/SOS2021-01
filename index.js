@@ -94,8 +94,8 @@ app.get(BASE_API_PATH + "/natality-stats", (req, res) => {
 //crea un nuevo recurso.
 app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
   var newNatalityStat = req.body;
-  var country = req.body.country;
-  var date = parseInt(req.body.date);
+  var country = req.params.country;
+  var date = parseInt(req.params.date);
 
   //Si hay datos iniciales
   if (natalityStatsDataSet.length != 0) {
