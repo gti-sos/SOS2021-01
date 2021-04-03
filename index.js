@@ -448,7 +448,7 @@ app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
   var newDivorceStat = req.body;
   var country = req.body.country;
   var date = parseInt(req.body.date);
-
+  console.log(req.body);
   //Si hay datos iniciales
   if (divorceStatsDataSet.length != 0) {
     for (var stat of divorceStatsDataSet) {
@@ -457,12 +457,12 @@ app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
         console.log("Conflict detected");
         return res.sendStatus(409);
 
-      } else if (!newDivorceStat.country
-        || !newDivorceStat.date
-        || !newDivorceStat['marriage-rate']
-        || !newDivorceStat['divorce-rate']
-        || !newDivorceStat['ratio-actual']
-        || !newDivorceStat['ratio-percent']
+      } else if (newDivorceStat.country === null
+        || newDivorceStat.date === null
+        || newDivorceStat['marriage-rate'] === null
+        || newDivorceStat['divorce-rate'] === null
+        || newDivorceStat['ratio-actual'] === null
+        || newDivorceStat['ratio-percent'] === null
         || Object.keys(newDivorceStat).length != 6) {
 
         console.log("Numero de parametros incorrectos");
@@ -511,24 +511,15 @@ app.get(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
 });
 
 //DELETE /api/v1/YYYYYY/XXX/ZZZ 
-app.delete(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
-  var country = req.params.country;
-  var date = parseInt(req.body.date);
-
-  console.log(`DELETE by country <${country}> and date: <${date}>`);
-
-  for (var stat of divorceStatsDataSet) {
-    if (stat.country === country && stat.date === date) {
-      divorceStatsDataSet = divorceStatsDataSet.filter(i => {
-        if (i.country !== country && i.date !== date) {
-          return true;
-        }
-        return false;
-      });
+app.delete(BASE_API_PATH+ "/divorce-stats/:country/:date", (req,res) => {
+  var del_data = req.params;
+  for(var i=0; i < divorceStatsDataSet.length; i++){
+    if(divorceStatsDataSet[i].country=== del_data.country && divorceStatsDataSet[i].date === parseInt(del_data.date)){
+      divorceStatsDataSet.splice(i, 1); /*al metodo splice le pasamos el índice del objeto a partir del cual vamos a borrar objetos del array y el número de objetos a eliminar*/
+      console.log(`El recurso con país: <${del_data.country}> y fecha: <${del_data.date}> ha sido eliminado`);
       return res.sendStatus(200);
     }
   }
-
   return res.sendStatus(404);
 });
 
