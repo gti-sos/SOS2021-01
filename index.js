@@ -70,7 +70,7 @@ app.get(BASE_API_PATH + "/natality-stats/loadInitialData", (req, res) => {
     }
   ];
   console.log(`Loaded initial data: <${JSON.stringify(natalityStatsDataSet, null, 2)}>`);
-  return res.sendStatus(200);
+  return res.sendStatus(201);
 
 });
 
@@ -94,37 +94,20 @@ app.get(BASE_API_PATH + "/natality-stats", (req, res) => {
 //crea un nuevo recurso.
 app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
   var newNatalityStat = req.body;
+
   var country = req.body.country;
   var date = parseInt(req.body.date);
 
-  //Si hay datos iniciales
-  if (natalityStatsDataSet.length != 0) {
-    for (var stat of natalityStatsDataSet) {
-      if (stat.country === country && stat.date === date) {
+  //Comprobamos si el recurso a crear ya existe
+  for (var stat of natalityStatsDataSet) {
+    if (stat.country === country && stat.date === date) {
 
-        console.log("Conflict detected");
-        return res.sendStatus(409);
-      }
-    } 
-      if (!newNatalityStat.country
-        || !newNatalityStat.date
-        || !newNatalityStat.born
-        || !newNatalityStat['men-born']
-        || !newNatalityStat['women-born']
-        || !newNatalityStat['natality-rate']
-        || !newNatalityStat['fertility-rate']
-        || Object.keys(newNatalityStat).length != 7) {
-
-        console.log("Numero de parametros incorrectos");
-        return res.sendStatus(400);
-      } else {
-        console.log(`new natality stat to be added: <${JSON.stringify(newNatalityStat, null, 2)}>`);
-        natalityStatsDataSet.push(newNatalityStat);
-        return res.sendStatus(201);
-      }
-
-    //Si no hay datos iniciales
-  } else if (!newNatalityStat.country
+      console.log("Conflict detected");
+      return res.sendStatus(409);
+    }
+  }
+//Comprobamos los parametros
+  if (!newNatalityStat.country
     || !newNatalityStat.date
     || !newNatalityStat.born
     || !newNatalityStat['men-born']
@@ -133,16 +116,14 @@ app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
     || !newNatalityStat['fertility-rate']
     || Object.keys(newNatalityStat).length != 7) {
 
-    console.log("Numero de parametros incorrectos")
+    console.log("Numero de parametros incorrectos");
     return res.sendStatus(400);
   } else {
+    //Añadimos
     console.log(`new natality stat to be added: <${JSON.stringify(newNatalityStat, null, 2)}>`);
     natalityStatsDataSet.push(newNatalityStat);
     return res.sendStatus(201);
-
-
   }
-
 });
 
 
@@ -164,13 +145,11 @@ app.get(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
 //DELETE /api/v1/YYYYYY/XXX/ZZZ 
 app.delete(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
   var country = req.params.country;
-  var date = parseInt(req.body.date);
+  var date = parseInt(req.params.date);
 
-  console.log(`DELETE by country <${country}> and date: <${date}>`);
-
-  for( var i = 0; i < natalityStatsDataSet.length; i++){ 
-    if(natalityStatsDataSet[i]["country"]===country && natalityStatsDataSet[i]["date"]===date){
-      natalityStatsDataSet.splice(i,1);
+  for (var i = 0; i < natalityStatsDataSet.length; i++) {
+    if (natalityStatsDataSet[i]["country"] === country && natalityStatsDataSet[i]["date"] === date) {
+      natalityStatsDataSet.splice(i, 1);
       return res.sendStatus(200);
     }
   }
@@ -185,12 +164,23 @@ app.put(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
   var date = parseInt(req.params.date);
   var newNatalityStat = req.body;
 
-  console.log(`Modficar ${newNatalityStat.country}  Actual ${country} `);
-  console.log(`Modficar ${newNatalityStat.date} Actual ${date} `);
+  //Si esta vacio el dataset
   if (natalityStatsDataSet.length == 0) {
     console.log("Recurso no encontrado")
     return res.sendStatus(404);
-  } else if (!newNatalityStat.country
+  }
+  //Si no existe en el dataset
+  var encontrado=false;
+  for (var stat of natalityStatsDataSet) {
+    if (stat.country === country && stat.date === date) {
+      encontrado=true;
+    }
+  }
+  if(!encontrado){
+    console.log("Recurso no encontrado")
+    return res.sendStatus(404);
+  }//Si los parametros son invalidos
+  else if (!newNatalityStat.country
     || !newNatalityStat.date
     || !newNatalityStat.born
     || !newNatalityStat['men-born']
@@ -202,13 +192,13 @@ app.put(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
     || Object.keys(newNatalityStat).length != 7) {
 
     console.log("Actualizacion de campos no valida")
-    return res.sendStatus(409);
+    return res.sendStatus(400);
   } else {
     for (var i = 0; i < natalityStatsDataSet.length; i++) {
       var stat = natalityStatsDataSet[i];
       if (stat.country === country && stat.date === date) {
         natalityStatsDataSet[i] = newNatalityStat;
-        return res.send('PUT success');
+        return res.sendStatus(200);
       }
     }
   }
@@ -251,24 +241,24 @@ var lifeStatsDS = [];
 app.get(BASE_API_PATH + "/life-stats/loadInitialData", (req, res) => {
   var initialData = [
     {
-      "country" : "denmark",
-      "date" : 2019,
+      "country": "denmark",
+      "date": 2019,
       "quality-life-index": 198.57,
       "purchasing-power-index": 114.39,
       "safety-index": 75.75
     },
     {
       "country": "switzerland",
-      "date" : 2019,
+      "date": 2019,
       "quality-life-index": 195.93,
       "purchasing-power-index": 129.7,
       "safety-index": 78.5
-    }    ];
-    for(var i=0; i< initialData.length; i++){
-      lifeStatsDS.push(initialData[i]);
-    }
-    console.log(`Loaded initial data: <${JSON.stringify(lifeStatsDS, null, 2)}>`);
-    return res.sendStatus(200);
+    }];
+  for (var i = 0; i < initialData.length; i++) {
+    lifeStatsDS.push(initialData[i]);
+  }
+  console.log(`Loaded initial data: <${JSON.stringify(lifeStatsDS, null, 2)}>`);
+  return res.sendStatus(200);
 });
 
 //GET /api/v1/YYYYYY 
@@ -285,38 +275,38 @@ app.get(BASE_API_PATH + "/life-stats", (req, res) => {
 
 //POST /api/v1/YYYYYY 
 //crea un nuevo recurso.
-app.post(BASE_API_PATH + "/life-stats", (req,res) => {
+app.post(BASE_API_PATH + "/life-stats", (req, res) => {
   var newData = req.body;
   var existe = false;
 
-  if(lifeStatsDS.length !=0){  //Si hay datos iniciales
-    for (var data of lifeStatsDS){
+  if (lifeStatsDS.length != 0) {  //Si hay datos iniciales
+    for (var data of lifeStatsDS) {
       if (data.country === newData.country && data.date === newData.date) {
         existe = true;  //Existe el recurso
-      } 
+      }
     }
-    if (existe){
+    if (existe) {
       console.log("Ya existe un recurso con la misma fecha y país");
       return res.sendStatus(409);
-    
-    } else if (!newData.country || !newData.date || !newData['quality-life-index']|| !newData['purchasing-power-index'] || !newData['safety-index']) {
+
+    } else if (!newData.country || !newData.date || !newData['quality-life-index'] || !newData['purchasing-power-index'] || !newData['safety-index']) {
       console.log("Faltan datos para crear el recurso");
       return res.sendStatus(400);
 
     } else {
       lifeStatsDS.push(newData);
-      console.log(`Se ha añadido el recurso <${JSON.stringify(newData,null,2)}>`);
+      console.log(`Se ha añadido el recurso <${JSON.stringify(newData, null, 2)}>`);
       return res.sendStatus(201);
     }
     //si no hay datos iniciales
-  } else if (!newData.country || !newData.date || !newData['quality-life-index']|| !newData['purchasing-power-index'] || !newData['safety-index']) {
-      console.log("Faltan datos para crear el recurso");
-      return res.sendStatus(400);
+  } else if (!newData.country || !newData.date || !newData['quality-life-index'] || !newData['purchasing-power-index'] || !newData['safety-index']) {
+    console.log("Faltan datos para crear el recurso");
+    return res.sendStatus(400);
 
   } else {
-      lifeStatsDS.push(newData);
-      console.log(`Se ha añadido el recurso <${JSON.stringify(newData,null,2)}>`);
-      return res.sendStatus(201);
+    lifeStatsDS.push(newData);
+    console.log(`Se ha añadido el recurso <${JSON.stringify(newData, null, 2)}>`);
+    return res.sendStatus(201);
   }
 });
 
@@ -324,23 +314,23 @@ app.post(BASE_API_PATH + "/life-stats", (req,res) => {
 //Devuelve un recurso concreto
 
 /*Nota: necesitamos pasar rutas parametrizadas porque sino tendriamos que hacer infinutas rutas "estaticas" para cada país y fecha */
-app.get(BASE_API_PATH+ "/life-stats/:country/:date", (req,res) => {
+app.get(BASE_API_PATH + "/life-stats/:country/:date", (req, res) => {
   var req_data = req.params;
-  
+
   console.log(`GET recurso por país: <${req_data.country}> y fecha: <${req_data.date}>`);
-  for (var data of lifeStatsDS){
-    if (data.country === req_data.country && data.date === parseInt(req_data.date)){     
-      return res.status(200).send(JSON.stringify(data,null,2));
+  for (var data of lifeStatsDS) {
+    if (data.country === req_data.country && data.date === parseInt(req_data.date)) {
+      return res.status(200).send(JSON.stringify(data, null, 2));
     }
   }
-  return res.sendStatus(404);  
+  return res.sendStatus(404);
 });
 
 //DELETE un recurso
-app.delete(BASE_API_PATH+ "/life-stats/:country/:date", (req,res) => {
+app.delete(BASE_API_PATH + "/life-stats/:country/:date", (req, res) => {
   var del_data = req.params;
-  for(var i=0; i < lifeStatsDS.length; i++){
-    if(lifeStatsDS[i].country=== del_data.country && lifeStatsDS[i].date === parseInt(del_data.date)){
+  for (var i = 0; i < lifeStatsDS.length; i++) {
+    if (lifeStatsDS[i].country === del_data.country && lifeStatsDS[i].date === parseInt(del_data.date)) {
       lifeStatsDS.splice(i, 1); /*al metodo splice le pasamos el índice del objeto a partir del cual vamos a borrar objetos del array y el número de objetos a eliminar*/
       console.log(`El recurso con país: <${del_data.country}> y fecha: <${del_data.date}> ha sido eliminado`);
       return res.sendStatus(200);
@@ -350,24 +340,24 @@ app.delete(BASE_API_PATH+ "/life-stats/:country/:date", (req,res) => {
 });
 
 //PUT a un recurso
-app.put(BASE_API_PATH + "/life-stats/:country/:date", (req,res) => {
+app.put(BASE_API_PATH + "/life-stats/:country/:date", (req, res) => {
   var put_data = req.params; //variable con el recurso a actualizar
   var newData = req.body; //variable con el nuevo recurso (recurso actualizado)
   var existe = false;
 
-  if (!newData.country || !newData.date || !newData['quality-life-index']|| !newData['purchasing-power-index'] || !newData['safety-index']){
+  if (!newData.country || !newData.date || !newData['quality-life-index'] || !newData['purchasing-power-index'] || !newData['safety-index']) {
     console.log("Faltan datos para actualizar el recurso");
     return res.sendStatus(400);
   } else {
-    for(var i=0; i< lifeStatsDS.length; i++) {
-      if(lifeStatsDS[i].country === put_data.country && lifeStatsDS[i].date === parseInt(put_data.date)){
+    for (var i = 0; i < lifeStatsDS.length; i++) {
+      if (lifeStatsDS[i].country === put_data.country && lifeStatsDS[i].date === parseInt(put_data.date)) {
         lifeStatsDS[i] = newData;
         existe = true;
         console.log("PUT realizado con éxito");
         return res.sendStatus(200);
       }
     }
-    if(!existe){
+    if (!existe) {
       console.log("No exite el recurso que se quiere actualizar");
       return res.sendStatus(404);
     }
@@ -375,19 +365,19 @@ app.put(BASE_API_PATH + "/life-stats/:country/:date", (req,res) => {
 });
 
 //POST a un recurso
-app.post(BASE_API_PATH + "/life-stats/:country/:date", (req,res) => {
+app.post(BASE_API_PATH + "/life-stats/:country/:date", (req, res) => {
   console.log("No se puede realizar POST a un recurso concreto");
   return res.sendStatus(405);
 });
 
 //PUT a una lista de recursos
-app.put(BASE_API_PATH + "/life-stats/", (req,res) => {
+app.put(BASE_API_PATH + "/life-stats/", (req, res) => {
   console.log("No se puede realizar PUT a una lista de recursos");
   return res.sendStatus(405);
 });
 
 //DELETE a una lista de recursos
-app.delete(BASE_API_PATH + "/life-stats/", (req,res) => {
+app.delete(BASE_API_PATH + "/life-stats/", (req, res) => {
   lifeStatsDS = [];
   console.log("Recursos de life-stats eliminados");
   return res.sendStatus(200);
@@ -410,7 +400,7 @@ app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
       "divorce-rate": 1.7,
       "ratio-actual": 4.76,
       "ratio-percent": 20.99,
-  
+
     },
     {
       "country": "Armenia",
@@ -458,21 +448,21 @@ app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
         return res.sendStatus(409);
       }
     }
-      if (newDivorceStat.country === null
-        || newDivorceStat.date === null
-        || newDivorceStat['marriage-rate'] === null
-        || newDivorceStat['divorce-rate'] === null
-        || newDivorceStat['ratio-actual'] === null
-        || newDivorceStat['ratio-percent'] === null
-        || Object.keys(newDivorceStat).length != 6) {
+    if (newDivorceStat.country === null
+      || newDivorceStat.date === null
+      || newDivorceStat['marriage-rate'] === null
+      || newDivorceStat['divorce-rate'] === null
+      || newDivorceStat['ratio-actual'] === null
+      || newDivorceStat['ratio-percent'] === null
+      || Object.keys(newDivorceStat).length != 6) {
 
-        console.log("Numero de parametros incorrectos");
-        return res.sendStatus(400);
-      } else {
-        
-        divorceStatsDataSet.push(newDivorceStat);
-        return res.sendStatus(201);
-      }
+      console.log("Numero de parametros incorrectos");
+      return res.sendStatus(400);
+    } else {
+
+      divorceStatsDataSet.push(newDivorceStat);
+      return res.sendStatus(201);
+    }
 
     //Si no hay datos iniciales
   } else if (!newDivorceStat.country
@@ -512,10 +502,10 @@ app.get(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
 });
 
 //DELETE /api/v1/YYYYYY/XXX/ZZZ 
-app.delete(BASE_API_PATH+ "/divorce-stats/:country/:date", (req,res) => {
+app.delete(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
   var del_data = req.params;
-  for(var i=0; i < divorceStatsDataSet.length; i++){
-    if(divorceStatsDataSet[i].country=== del_data.country && divorceStatsDataSet[i].date === parseInt(del_data.date)){
+  for (var i = 0; i < divorceStatsDataSet.length; i++) {
+    if (divorceStatsDataSet[i].country === del_data.country && divorceStatsDataSet[i].date === parseInt(del_data.date)) {
       divorceStatsDataSet.splice(i, 1); /*al metodo splice le pasamos el índice del objeto a partir del cual vamos a borrar objetos del array y el número de objetos a eliminar*/
       console.log(`El recurso con país: <${del_data.country}> y fecha: <${del_data.date}> ha sido eliminado`);
       return res.sendStatus(200);
