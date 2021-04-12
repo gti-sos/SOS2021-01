@@ -1,4 +1,3 @@
-//-----------------------------Recurso /api/v1 - F04-------------------------------
 //________________Natality-stats_____________________
 var BASE_API_PATH = "/api/v1";
 var natalityStatsDataSet = [];

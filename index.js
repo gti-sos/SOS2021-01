@@ -21,7 +21,9 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(express.json());
 
+//--------------------------Server-APIs----------------------
 lifeAPI.register(app);
+natalityStatsAPI.register(app);
 DivorceAPI.register(app);
 
 //-------------------------------Recurso /cool - F02-----------------------
@@ -53,9 +55,3 @@ app.get("/info/divorce-stats", (req, res) => {
 app.listen(port, () => {
   console.log("server ready listening on port " + port);
 });
-
-
-
-
-
-
