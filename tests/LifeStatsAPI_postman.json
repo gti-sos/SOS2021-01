@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "af6e1049-7b94-4925-b381-59e304624dc5",
+		"name": "API Life-stats SOS2021-01",
+		"description": "Life data management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api/v1/life-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{heroku}}/api/v1/life-stats",
+					"protocol": "http",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					]
+				},
+				"description": "Request for the list of resources."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{heroku}}/api/v1/life-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"loadInitialData"
+					]
+				},
+				"description": "Request to load initial data"
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats check 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"There are 2 data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{heroku}}/api/v1/life-stats",
+					"protocol": "http",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					]
+				},
+				"description": "With this request we can test that the initial data has been loaded."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"filipines\",\r\n\"date\" : 2019,\r\n\"quality-life-index\": 195.93,\r\n\"purchasing-power-index\": 129.7,\r\n\"safety-index\": 78.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					]
+				},
+				"description": "Request to add a new resource."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats check 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"There are 3 data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{heroku}}/api/v1/life-stats",
+					"protocol": "http",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					]
+				},
+				"description": "With this request we can test that the new resource has been loaded."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats/denmark/2019",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The data is about Denmark in 2019\", () => {\r",
+							"  const responseJson = pm.response.json();\r",
+							"  pm.expect(responseJson.country).to.eql(\"denmark\");\r",
+							"  pm.expect(responseJson.date).to.eql(2019);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats/denmark/2019 ",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"denmark",
+						"2019 "
+					]
+				},
+				"description": "Request to obtain a concret resource."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats/denmark/2019",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats/denmark/2019",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"denmark",
+						"2019"
+					]
+				},
+				"description": "Request to delete a resource."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats/denmark/2019 check 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats/denmark/2019 ",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"denmark",
+						"2019 "
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats/switzerland/2019",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"switzerland\",\r\n\"date\": 2019,\r\n\"quality-life-index\": 200.03,\r\n\"purchasing-power-index\": 39.7,\r\n\"safety-index\": 28.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats/switzerland/2019",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"switzerland",
+						"2019"
+					]
+				},
+				"description": "Request to update a resource."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats/switzerland/2019 ERROR",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats/switzerland/2019",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"switzerland",
+						"2019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats ERROR",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://{{heroku}}/api/v1/life-stats",
+					"protocol": "https",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					]
+				},
+				"description": "Request to delete a list of resources."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "3170b5e6-9f27-4eb3-868f-0fed235028cb",
+			"key": "heroku",
+			"value": "sos2021-01.herokuapp.com"
+		}
+	]
+}

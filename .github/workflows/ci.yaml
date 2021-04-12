@@ -2,7 +2,7 @@ name: CI
 
 on: 
   push:
-    branches: [ master ]
+    branches: [ main ]
   
 jobs:
   integrationTests:
@@ -11,4 +11,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm start &
-      - run: npx newman tests/NatalityStatsAPI_postman.json
+      - run: npx newman tests/NatalityStatsAPI_postman.json && npx newman tests/LifeStatsAPI_postman.json
