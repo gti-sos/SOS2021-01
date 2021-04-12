@@ -1,0 +1,486 @@
+{
+	"id": "bcc060fc-1052-43d9-9e3c-8e3c037f4428",
+	"name": "SOS2021-01-Natality Stats API",
+	"timestamp": "2021-04-12T17:50:19.079Z",
+	"collection_id": "8293da34-ca3e-4dfe-8fed-0f3effc7793f",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 16,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "29a50746-6a27-4ef7-aadc-17ad2b34e7e4",
+			"name": "api/v1/natality-stats/ - Empty API",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/",
+			"time": 118,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Empty resource": true
+			},
+			"testPassFailCounts": {
+				"Empty resource": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				118
+			],
+			"allTests": [
+				{
+					"Empty resource": true
+				}
+			]
+		},
+		{
+			"id": "985c144a-03d1-4816-89c6-ef04cfd7e1b3",
+			"name": "api/v1/natality-stats/loadInitialData - create 2 resources",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/loadInitialData",
+			"time": 115,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Load resources": true
+			},
+			"testPassFailCounts": {
+				"Load resources": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				115
+			],
+			"allTests": [
+				{
+					"Load resources": true
+				}
+			]
+		},
+		{
+			"id": "b78e270a-d86b-4737-986a-4f533c9cd151",
+			"name": "api/v1/natality-stats/denmark/2019 - check not found resource",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/germany/2019",
+			"time": 112,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"not found resource": true
+			},
+			"testPassFailCounts": {
+				"not found resource": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				112
+			],
+			"allTests": [
+				{
+					"not found resource": true
+				}
+			]
+		},
+		{
+			"id": "c65356a8-ea7d-48c8-b154-c522384dd447",
+			"name": "api/v1/natality-stats/denmark/2019 - check denmark 2019",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/denmark/2019",
+			"time": 112,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get resource": true
+			},
+			"testPassFailCounts": {
+				"get resource": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				112
+			],
+			"allTests": [
+				{
+					"get resource": true
+				}
+			]
+		},
+		{
+			"id": "b982f999-e0f8-43b5-b6ac-1e0c487b207f",
+			"name": "api/v1/natality-stats/ - check 2 resources",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/",
+			"time": 111,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"2 resources": true,
+				"There is 2 resources": true
+			},
+			"testPassFailCounts": {
+				"2 resources": {
+					"pass": 1,
+					"fail": 0
+				},
+				"There is 2 resources": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				111
+			],
+			"allTests": [
+				{
+					"2 resources": true,
+					"There is 2 resources": true
+				}
+			]
+		},
+		{
+			"id": "58635475-7406-4909-8ffe-10d1c0c852e5",
+			"name": "/api/v1/natality-stats/denmark/2019 - check not allowed",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/denmark/2019",
+			"time": 111,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Not allowed": true
+			},
+			"testPassFailCounts": {
+				"Not allowed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				111
+			],
+			"allTests": [
+				{
+					"Not allowed": true
+				}
+			]
+		},
+		{
+			"id": "b58993b4-be5e-404f-8524-bd0a275eaa9d",
+			"name": "https://sos2021-01.herokuapp.com/api/v1/natality-stats",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats",
+			"time": 116,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				116
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "7d77b833-f13b-42eb-a1fb-eb44dd2ef0a4",
+			"name": "api/v1/natality-stats/ - check 3 resources",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/",
+			"time": 113,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"2 resources": true,
+				"There is 3 resources": true
+			},
+			"testPassFailCounts": {
+				"2 resources": {
+					"pass": 1,
+					"fail": 0
+				},
+				"There is 3 resources": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				113
+			],
+			"allTests": [
+				{
+					"2 resources": true,
+					"There is 3 resources": true
+				}
+			]
+		},
+		{
+			"id": "42ed9a87-9fd9-42af-ae0e-a4987f0e392f",
+			"name": "api/v1/natality-stats - check not allowed",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats",
+			"time": 113,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Not allowed": true
+			},
+			"testPassFailCounts": {
+				"Not allowed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				113
+			],
+			"allTests": [
+				{
+					"Not allowed": true
+				}
+			]
+		},
+		{
+			"id": "6d2b25c5-b6c1-4085-b03f-c63f010053a1",
+			"name": "/api/v1/natality-stats/finland/2019 - modify finland 2019",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/finland/2019",
+			"time": 114,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Modify resource": true
+			},
+			"testPassFailCounts": {
+				"Modify resource": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				114
+			],
+			"allTests": [
+				{
+					"Modify resource": true
+				}
+			]
+		},
+		{
+			"id": "afbf9612-7026-4090-b434-ddbeeaa1102d",
+			"name": "/api/v1/natality-stats/finland/2019 - check bad content",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/germany/2019",
+			"time": 113,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Modify resource that doesn't exist": true
+			},
+			"testPassFailCounts": {
+				"Modify resource that doesn't exist": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				113
+			],
+			"allTests": [
+				{
+					"Modify resource that doesn't exist": true
+				}
+			]
+		},
+		{
+			"id": "6f9e579c-e910-4ebd-995f-8198c3bca6d7",
+			"name": "/api/v1/natality-stats/finland/2019 - check bad content Copy",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/denmark/2019",
+			"time": 124,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Bad content": true
+			},
+			"testPassFailCounts": {
+				"Bad content": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				124
+			],
+			"allTests": [
+				{
+					"Bad content": true
+				}
+			]
+		},
+		{
+			"id": "73e43a50-b043-408c-ae08-4a871c06e96f",
+			"name": "/api/v1/natality-stats/finland/2019 - check bad content Copy 2",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/germany/2019",
+			"time": 109,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Delete resource that doesn't exist": true
+			},
+			"testPassFailCounts": {
+				"Delete resource that doesn't exist": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				109
+			],
+			"allTests": [
+				{
+					"Delete resource that doesn't exist": true
+				}
+			]
+		},
+		{
+			"id": "41b57149-abcc-4bd7-a091-64126a6dd7c8",
+			"name": "/api/v1/natality-stats/finland/2019 - delete finland 2019",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats/finland/2019",
+			"time": 109,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				109
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "acf9e5e3-4d05-4f3f-a589-e4d79f27a712",
+			"name": "/api/v1/natality-stats - delete all",
+			"url": "https://sos2021-01.herokuapp.com/api/v1/natality-stats",
+			"time": 129,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				129
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1719,
+	"collection": {
+		"requests": [
+			{
+				"id": "29a50746-6a27-4ef7-aadc-17ad2b34e7e4",
+				"method": "GET"
+			},
+			{
+				"id": "985c144a-03d1-4816-89c6-ef04cfd7e1b3",
+				"method": "GET"
+			},
+			{
+				"id": "b78e270a-d86b-4737-986a-4f533c9cd151",
+				"method": "GET"
+			},
+			{
+				"id": "c65356a8-ea7d-48c8-b154-c522384dd447",
+				"method": "GET"
+			},
+			{
+				"id": "b982f999-e0f8-43b5-b6ac-1e0c487b207f",
+				"method": "GET"
+			},
+			{
+				"id": "58635475-7406-4909-8ffe-10d1c0c852e5",
+				"method": "POST"
+			},
+			{
+				"id": "b58993b4-be5e-404f-8524-bd0a275eaa9d",
+				"method": "POST"
+			},
+			{
+				"id": "7d77b833-f13b-42eb-a1fb-eb44dd2ef0a4",
+				"method": "GET"
+			},
+			{
+				"id": "42ed9a87-9fd9-42af-ae0e-a4987f0e392f",
+				"method": "PUT"
+			},
+			{
+				"id": "6d2b25c5-b6c1-4085-b03f-c63f010053a1",
+				"method": "PUT"
+			},
+			{
+				"id": "afbf9612-7026-4090-b434-ddbeeaa1102d",
+				"method": "PUT"
+			},
+			{
+				"id": "6f9e579c-e910-4ebd-995f-8198c3bca6d7",
+				"method": "PUT"
+			},
+			{
+				"id": "73e43a50-b043-408c-ae08-4a871c06e96f",
+				"method": "DELETE"
+			},
+			{
+				"id": "41b57149-abcc-4bd7-a091-64126a6dd7c8",
+				"method": "DELETE"
+			},
+			{
+				"id": "acf9e5e3-4d05-4f3f-a589-e4d79f27a712",
+				"method": "DELETE"
+			}
+		]
+	}
+}
