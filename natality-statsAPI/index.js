@@ -35,9 +35,21 @@ module.exports.register = (app) => {
                 "fertility-rate": 1.48
             }
         ];
-        db.insert(natalityStatsDataSet);
-        console.log(`Loaded initial data: <${JSON.stringify(natalityStatsDataSet, null, 2)}>`);
-        return res.sendStatus(201);
+        db.find({ $or: [{ country: "denmark" }, { country: "switzerland" }] }, function (err, data) {
+            if (err) {
+                console.error("ERROR accesing DB in GET");
+                res.sendStatus(500);
+            } else {
+                if (data.length == 0) {
+                    db.insert(natalityStatsDataSet);
+                    console.log(`Loaded initial data: <${JSON.stringify(natalityStatsDataSet, null, 2)}>`);
+                    res.sendStatus(201);
+                } else {
+                    console.error(`initial data already exists`);
+                    res.sendStatus(409);
+                }
+            }
+        });
 
     });
 
@@ -79,18 +91,72 @@ module.exports.register = (app) => {
     app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
         var newNatalityStat = req.body;
 
-        var country = req.body.country;
-        var date = parseInt(req.body.date);
+        var newCountry = req.body.country;
+        var newDate = parseInt(req.body.date);
 
-        //Comprobamos si el recurso a crear ya existe
-        for (var stat of natalityStatsDataSet) {
-            if (stat.country === country && stat.date === date) {
 
-                console.log("Conflict detected");
-                return res.sendStatus(409);
+        db.find({ $and: [{ country: newCountry }, { date: newDate }] }, function (err, data) {
+            if (err) {
+                console.error("ERROR accesing DB in POST");
+                res.sendStatus(500);
+            } else {
+                if (data.length == 0) {
+                    //Comprobamos los parametros del recurso a insertar
+                    if (!newNatalityStat.country
+                        || !newNatalityStat.date
+                        || !newNatalityStat.born
+                        || !newNatalityStat['men-born']
+                        || !newNatalityStat['women-born']
+                        || !newNatalityStat['natality-rate']
+                        || !newNatalityStat['fertility-rate']
+                        || Object.keys(newNatalityStat).length != 7) {
+
+                        console.log("Numero de parametros incorrectos");
+                        res.sendStatus(400);
+                    } else {
+                        //Insertamos el recurso
+                        console.log(`new natality stat to be added: <${JSON.stringify(newNatalityStat, null, 2)}>`);
+                        db.insert(newNatalityStat);
+                        res.sendStatus(201);
+                    }
+                } else {
+                    //El recurso a crear ya existe
+                    console.log("Conflict detected");
+                    res.sendStatus(409);
+                }
             }
-        }
-        //Comprobamos los parametros
+        });
+    });
+
+
+    //GET /api/v1/YYYYYY/XXX/ZZZ 
+    app.get(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
+        var countrySelected = req.params.country;
+        var dateSelected = parseInt(req.params.date);
+
+        db.find({ $and: [{ country: countrySelected }, { date: dateSelected }] }, function (err, data) {
+            if (err) {
+                console.error("ERROR accesing DB in GET");
+                res.sendStatus(500);
+            } else {
+                if (data.length == 0) {
+                    console.error("No data found");
+                    res.sendStatus(404);
+                } else {
+                    console.log(`GET stat by country: <${countrySelected}> and date: <${dateSelected}>`);
+                    res.status(200).send(JSON.stringify(data, null, 2));
+                }
+            }
+        });
+    });
+
+    //PUT a un recurso  (actualizar recurso)
+    app.put(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
+        var countrySelected = req.params.country;
+        var dateSelected = parseInt(req.params.date);
+        var newNatalityStat = req.body;
+
+        //Comprobamos los parametros del recurso a insertar
         if (!newNatalityStat.country
             || !newNatalityStat.date
             || !newNatalityStat.born
@@ -98,125 +164,80 @@ module.exports.register = (app) => {
             || !newNatalityStat['women-born']
             || !newNatalityStat['natality-rate']
             || !newNatalityStat['fertility-rate']
-            || Object.keys(newNatalityStat).length != 7) {
-
-            console.log("Numero de parametros incorrectos");
-            return res.sendStatus(400);
-        } else {
-            //Añadimos
-            console.log(`new natality stat to be added: <${JSON.stringify(newNatalityStat, null, 2)}>`);
-            natalityStatsDataSet.push(newNatalityStat);
-            return res.sendStatus(201);
-        }
-    });
-
-
-    //GET /api/v1/YYYYYY/XXX/ZZZ 
-    app.get(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
-        var country = req.params.country;
-        var date = parseInt(req.params.date);
-
-        console.log(`GET stat by country: <${country}> and date: <${date}>`);
-        for (var stat of natalityStatsDataSet) {
-            if (stat.country === country && stat.date === date) {
-                return res.status(200).json(stat);
-            }
-        }
-
-        return res.sendStatus(404);
-    });
-
-    //DELETE /api/v1/YYYYYY/XXX/ZZZ 
-    app.delete(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
-        var country = req.params.country;
-        var date = parseInt(req.params.date);
-
-        for (var i = 0; i < natalityStatsDataSet.length; i++) {
-            if (natalityStatsDataSet[i]["country"] === country && natalityStatsDataSet[i]["date"] === date) {
-                natalityStatsDataSet.splice(i, 1);
-                return res.sendStatus(200);
-            }
-        }
-
-        return res.sendStatus(404);
-    });
-
-
-    //PUT a un recurso  (actualizar recurso)
-    app.put(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
-        var country = req.params.country;
-        var date = parseInt(req.params.date);
-        var newNatalityStat = req.body;
-
-        //Si esta vacio el dataset
-        if (natalityStatsDataSet.length == 0) {
-            console.log("Recurso no encontrado")
-            return res.sendStatus(404);
-        }
-        //Si no existe en el dataset
-        var encontrado = false;
-        for (var stat of natalityStatsDataSet) {
-            if (stat.country === country && stat.date === date) {
-                encontrado = true;
-            }
-        }
-        if (!encontrado) {
-            console.log("Recurso no encontrado")
-            return res.sendStatus(404);
-        }//Si los parametros son invalidos
-        else if (!newNatalityStat.country
-            || !newNatalityStat.date
-            || !newNatalityStat.born
-            || !newNatalityStat['men-born']
-            || !newNatalityStat['women-born']
-            || !newNatalityStat['natality-rate']
-            || !newNatalityStat['fertility-rate']
-            || newNatalityStat.country != country
-            || newNatalityStat.date != date
+            || newNatalityStat.country != countrySelected
+            || newNatalityStat.date != dateSelected
             || Object.keys(newNatalityStat).length != 7) {
 
             console.log("Actualizacion de campos no valida")
-            return res.sendStatus(400);
+            res.sendStatus(400);
         } else {
-            for (var i = 0; i < natalityStatsDataSet.length; i++) {
-                var stat = natalityStatsDataSet[i];
-                if (stat.country === country && stat.date === date) {
-                    natalityStatsDataSet[i] = newNatalityStat;
-                    return res.sendStatus(200);
+            db.update({ $and: [{ country: countrySelected }, { date: dateSelected }] }, {}, function (err, numReplaced) {
+                if (err) {
+                    console.error("ERROR accesing DB in GET");
+                    res.sendStatus(500);
+                } else {
+                    if (numReplaced == 0) {
+                        console.error("No data found");
+                        res.sendStatus(404);
+                    } else {
+                        console.log("Campos actualizados")
+                        res.sendStatus(200);
+                    }
                 }
-            }
+            });
         }
-
-    })
+    });
 
     //POST a un recurso (ERROR)
     app.post(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
         console.log("Post a un recurso no se puede");
         return res.sendStatus(405);
 
-    })
+    });
     //PUT a la lista de recursos (ERROR)
     app.put(BASE_API_PATH + "/natality-stats", (req, res) => {
         console.log("Put a una lista de recursos no se puede");
         return res.sendStatus(405);
 
-    })
+    });
 
-    //DELETE a la lista de recursos.
-    app.delete(BASE_API_PATH + "/natality-stats", (req, res) => {
-        db.remove({}, {multi: true}, function(err, numRemoved){
-            if(err){
-                console.error("ERROR deleting DB contacts in DELETE");
+    //DELETE /api/v1/YYYYYY/XXX/ZZZ 
+    app.delete(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
+        var countrySelected = req.params.country;
+        var dateSelected = parseInt(req.params.date);
+
+        db.remove({ $and: [{ country: countrySelected }, { date: dateSelected }] }, {}, function (err, dataDeleted) {
+            if (err) {
+                console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
-            }else{
-                if(numRemoved==0){
-                    console.error("ERROR natality-stats not found");
+            } else {
+                if (dataDeleted == 0) {
+                    console.error("No data found");
                     res.sendStatus(404);
-                }else{
+                } else {
+                    console.log(`stat with country: <${countrySelected}> and date: <${dateSelected}> deleted`);
                     res.sendStatus(200);
                 }
             }
-        }); 
-       
+        });
+    });
+
+    //DELETE a la lista de recursos.
+    app.delete(BASE_API_PATH + "/natality-stats", (req, res) => {
+        db.remove({}, { multi: true }, function (err, numRemoved) {
+            if (err) {
+                console.error("ERROR deleting DB contacts in DELETE");
+                res.sendStatus(500);
+            } else {
+                if (numRemoved == 0) {
+                    console.error("ERROR natality-stats not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                }
+            }
+        });
+
     })
 }
+//TODO: Paginacion, Busqueda, Tests

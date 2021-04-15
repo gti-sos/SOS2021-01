@@ -1,2 +1,7 @@
-{"country":"denmark","date":2019,"born":61.167,"men-born":31.519,"women-born":29.648,"natality-rate":10.5,"fertility-rate":1.7,"_id":"tuL1KSj2TGCKniSO"}
-{"country":"switzerland","date":2019,"born":86.172,"men-born":44.123,"women-born":42.049,"natality-rate":10,"fertility-rate":1.48,"_id":"lCt5VH1Yp5jOMAwx"}
+{"country":"denmark","date":2019,"born":61.167,"men-born":31.519,"women-born":29.648,"natality-rate":10.5,"fertility-rate":1.7,"_id":"xnUO4vWhYONYuVl3"}
+{"country":"switzerland","date":2019,"born":86.172,"men-born":44.123,"women-born":42.049,"natality-rate":10,"fertility-rate":1.48,"_id":"1KOS2A2TOyOhfnKu"}
+{"country":"finland","date":2019,"born":45.613,"men-born":23.186,"women-born":22.427,"natality-rate":8.3,"fertility-rate":1.35,"_id":"m72A7MXPywYXK87o"}
+{"_id":"m72A7MXPywYXK87o"}
+{"$$deleted":true,"_id":"1KOS2A2TOyOhfnKu"}
+{"$$deleted":true,"_id":"m72A7MXPywYXK87o"}
+{"$$deleted":true,"_id":"xnUO4vWhYONYuVl3"}
