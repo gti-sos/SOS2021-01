@@ -1,8 +1,17 @@
+
+var path = require('path');
+var Datastore = require("nedb");
 //________________Natality-stats_____________________
+
+
 var BASE_API_PATH = "/api/v1";
 var natalityStatsDataSet = [];
+var datafile = path.join(__dirname, 'natality-stats.db');
+
+var db = new Datastore({ filename: datafile, autoload: true });
 
 module.exports.register = (app) => {
+
     //GET /api/v1/YYYYYY/loadInitialData 
     //Crea 2 o más recursos.
     app.get(BASE_API_PATH + "/natality-stats/loadInitialData", (req, res) => {
@@ -26,6 +35,7 @@ module.exports.register = (app) => {
                 "fertility-rate": 1.48
             }
         ];
+        db.insert(natalityStatsDataSet);
         console.log(`Loaded initial data: <${JSON.stringify(natalityStatsDataSet, null, 2)}>`);
         return res.sendStatus(201);
 
@@ -34,16 +44,33 @@ module.exports.register = (app) => {
     //GET /api/v1/YYYYYY 
     //Devuelve una lista con todos los recursos (un array de objetos en JSON)
     app.get(BASE_API_PATH + "/natality-stats", (req, res) => {
-        if (natalityStatsDataSet.length != 0) {
-            console.log(`requested natality stats dataset`);
-            return res.send(JSON.stringify(natalityStatsDataSet, null, 2));
-        } else {
-            console.log("No data found");
-            return res.sendStatus(404);
-        }
 
+        db.find({}, (err, data) => {
+            if (err) {
+                console.error("ERROR accesing DB in GET");
+                res.sendStatus(500);
+            } else {
+                if (data.length == 0) {
+                    console.error("No data found");
+                    res.sendStatus(404);
+                } else {
+                    var dataToSend = data.map((d) => {
+                        return {
+                            country: d.country,
+                            date: d.date,
+                            born: d.born,
+                            'men-born': d['men-born'],
+                            'women-born': d['women-born'],
+                            'natality-rate': d['natality-rate'],
+                            'fertility-rate': d['fertility-rate']
+                        }
 
-        return res.sendStatus(200);
+                    });
+                    console.log(`requested natality stats dataset`);
+                    res.status(200).send(JSON.stringify(dataToSend, null, 2));
+                }
+            }
+        });
 
     });
 
@@ -175,12 +202,21 @@ module.exports.register = (app) => {
 
     })
 
-
     //DELETE a la lista de recursos.
     app.delete(BASE_API_PATH + "/natality-stats", (req, res) => {
-        natalityStatsDataSet.length = 0;
-        console.log('natality-stats deleted');
-        return res.sendStatus(200);
-
+        db.remove({}, {multi: true}, function(err, numRemoved){
+            if(err){
+                console.error("ERROR deleting DB contacts in DELETE");
+                res.sendStatus(500);
+            }else{
+                if(numRemoved==0){
+                    console.error("ERROR natality-stats not found");
+                    res.sendStatus(404);
+                }else{
+                    res.sendStatus(200);
+                }
+            }
+        }); 
+       
     })
 }
