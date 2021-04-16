@@ -19,23 +19,23 @@ module.exports.register = (app) => {
             {
                 "country": "denmark",
                 "date": 2019,
-                "born": 61.167,
-                "men-born": 31.519,
-                "women-born": 29.648,
+                "born": 61167,
+                "men-born": 31519,
+                "women-born": 29648,
                 "natality-rate": 10.50,
                 "fertility-rate": 1.70
             },
             {
                 "country": "switzerland",
                 "date": 2019,
-                "born": 86.172,
-                "men-born": 44.123,
-                "women-born": 42.049,
+                "born": 86172,
+                "men-born": 44123,
+                "women-born": 42049,
                 "natality-rate": 10.00,
                 "fertility-rate": 1.48
             }
         ];
-        db.find({ $or: [{ country: "denmark" }, { country: "switzerland" }] }, function (err, data) {
+        db.find({ $or: [{ country: "denmark" }, { country: "switzerland" }] },{ _id: 0 }, function (err, data) {
             if (err) {
                 console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
@@ -57,32 +57,120 @@ module.exports.register = (app) => {
     //Devuelve una lista con todos los recursos (un array de objetos en JSON)
     app.get(BASE_API_PATH + "/natality-stats", (req, res) => {
 
-        db.find({}, (err, data) => {
-            if (err) {
-                console.error("ERROR accesing DB in GET");
-                res.sendStatus(500);
-            } else {
-                if (data.length == 0) {
-                    console.error("No data found");
-                    res.sendStatus(404);
-                } else {
-                    var dataToSend = data.map((d) => {
-                        return {
-                            country: d.country,
-                            date: d.date,
-                            born: d.born,
-                            'men-born': d['men-born'],
-                            'women-born': d['women-born'],
-                            'natality-rate': d['natality-rate'],
-                            'fertility-rate': d['fertility-rate']
-                        }
+        //implementar búsquedas por todos los campos del recurso
 
-                    });
-                    console.log(`requested natality stats dataset`);
-                    res.status(200).send(JSON.stringify(dataToSend, null, 2));
-                }
+        //natality-stats?year=2019&born=gt116.128
+        ///user?name=tom&age=55 - req.query would yield {name:"tom", age: "55"}
+        var query = req.query;
+
+        var limit = parseInt(query.limit);
+        var offset = parseInt(query.offset)
+       console.log("--------------------------------")
+        var cookedQuery = [];
+
+
+        //Parseo de paremetros de la busqueda
+        for (d in query) {
+            var queryObject = {};
+            if (d == 'country') {
+                queryObject[d] = query[d];
+            } else if (d == 'date') {
+                queryObject[d] = parseInt(query[d]);
+            } else if (d == 'born') {
+                console.log("born: "+query[d]);
+                queryObject[d] = parseInt(query[d]);
+            } else if (d == 'men-born') {
+                queryObject[d] = parseInt(query[d]);
+            } else if (d == 'women-born') {
+                queryObject[d] = parseInt(query[d]);
+            } else if (d == 'natality-rate') {
+                queryObject[d] = parseFloat(query[d]);
+            } else if (d == 'fertility-rate') {
+                queryObject[d] = parseFloat(query[d]);
             }
-        });
+            if(d != 'limit' && d != 'offset'){
+                cookedQuery.push(queryObject);
+            }
+
+            
+        }
+        console.log("cookerquery: " + JSON.stringify(cookedQuery, null, 2));
+        //Comprobamos si se ha utilizado limit o offset
+        if (!isNaN(limit) || !isNaN(offset)) {
+            console.log("ENTRA IF - Limit: " + limit + "offset: " + offset);
+            //Comprobamos si ha habido una busqueda
+            if (Object.keys(query).length === 0) {
+                console.log("Empty query");
+                //Se devuelven todos los elementos
+                db.find({}, { _id: 0 },(err, data) => {
+                    if (err) {
+                        console.error("ERROR accesing DB in GET");
+                        res.sendStatus(500);
+                    } else {
+                        if (data.length == 0) {
+                            console.error("No data found");
+                            res.sendStatus(404);
+                        } else {
+                            console.log(`requested natality stats dataset`);
+                            res.status(200).send(JSON.stringify(data, null, 2));
+                        }
+                    }
+                });
+
+            } else {
+                console.log("query");
+                //Se pasan los paremetros de la busqueda
+                db.find({ $and: cookedQuery },{ _id: 0 }).skip(offset).limit(limit).exec((err, data) => {
+                    if (err) {
+                        console.error("ERROR accesing DB in GET");
+                        res.sendStatus(500);
+                    } else if (data.length == 0) {
+                        console.error("No data found");
+                        res.sendStatus(404);
+                    } else {
+                        console.log(`requested natality stats query dataset`);
+                        res.status(200).send(JSON.stringify(data, null, 2));
+                    }
+                });
+            }
+
+        } else {
+            console.log("ENTRA ELSE - Limit: " + limit + " offset: " + offset);
+            if (Object.keys(query).length === 0) {
+                console.log("Empty query");
+                //Se devuelven todos los elementos
+                db.find({}, { _id: 0 },function(err, data) {
+                    if (err) {
+                        console.error("ERROR accesing DB in GET");
+                        res.sendStatus(500);
+                    } else {
+                        if (data.length == 0) {
+                            console.error("No data found");
+                            res.sendStatus(404);
+                        } else {
+                            console.log(`requested natality stats dataset`);
+                            res.status(200).send(JSON.stringify(data, null, 2));
+                        }
+                    }
+                });
+
+            } else {
+                console.log("query");
+                //Se pasan los paremetros de la busqueda
+                db.find({ $and: cookedQuery },{ _id: 0 }, function(err, data) {
+                    if (err) {
+                        console.error("ERROR accesing DB in GET");
+                        res.sendStatus(500);
+                    } else if (data.length == 0) {
+                        console.error("No data found");
+                        res.sendStatus(404);
+                    } else {
+                        console.log(`requested natality stats query dataset`);
+                        res.status(200).send(JSON.stringify(data, null, 2));
+                    }
+                });
+            }
+        }
 
     });
 
@@ -95,7 +183,7 @@ module.exports.register = (app) => {
         var newDate = parseInt(req.body.date);
 
 
-        db.find({ $and: [{ country: newCountry }, { date: newDate }] }, function (err, data) {
+        db.find({ $and: [{ country: newCountry }, { date: newDate }] },{ _id: 0 }, function (err, data) {
             if (err) {
                 console.error("ERROR accesing DB in POST");
                 res.sendStatus(500);
@@ -134,7 +222,7 @@ module.exports.register = (app) => {
         var countrySelected = req.params.country;
         var dateSelected = parseInt(req.params.date);
 
-        db.find({ $and: [{ country: countrySelected }, { date: dateSelected }] }, function (err, data) {
+        db.find({ $and: [{ country: countrySelected }, { date: dateSelected }] },{ _id: 0 }, function (err, data) {
             if (err) {
                 console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
@@ -171,7 +259,7 @@ module.exports.register = (app) => {
             console.log("Actualizacion de campos no valida")
             res.sendStatus(400);
         } else {
-            db.update({ $and: [{ country: countrySelected }, { date: dateSelected }] }, {}, function (err, numReplaced) {
+            db.update({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { $set: newNatalityStat }, {}, function (err, numReplaced) {
                 if (err) {
                     console.error("ERROR accesing DB in GET");
                     res.sendStatus(500);
@@ -206,7 +294,7 @@ module.exports.register = (app) => {
         var countrySelected = req.params.country;
         var dateSelected = parseInt(req.params.date);
 
-        db.remove({ $and: [{ country: countrySelected }, { date: dateSelected }] }, {}, function (err, dataDeleted) {
+        db.remove({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { multi: true }, function (err, dataDeleted) {
             if (err) {
                 console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
