@@ -1,18 +1,19 @@
+//________________Natality-stats-API_____________________
 
+//required modules
 var path = require('path');
 var Datastore = require("nedb");
-//________________Natality-stats_____________________
 
-
+//required variables
 var BASE_API_PATH = "/api/v1";
-var natalityStatsDataSet = [];
 var datafile = path.join(__dirname, 'natality-stats.db');
-
 var db = new Datastore({ filename: datafile, autoload: true });
+var natalityStatsDataSet = [];
 
+//implementation
 module.exports.register = (app) => {
 
-    //GET /api/v1/YYYYYY/loadInitialData 
+    //GET /api/v1/natality-stats/loadInitialData 
     //Crea 2 o más recursos.
     app.get(BASE_API_PATH + "/natality-stats/loadInitialData", (req, res) => {
         natalityStatsDataSet = [
@@ -35,7 +36,7 @@ module.exports.register = (app) => {
                 "fertility-rate": 1.48
             }
         ];
-        db.find({ $or: [{ country: "denmark" }, { country: "switzerland" }] },{ _id: 0 }, function (err, data) {
+        db.find({ $or: [{ country: "denmark" }, { country: "switzerland" }] }, { _id: 0 }, function (err, data) {
             if (err) {
                 console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
@@ -53,19 +54,14 @@ module.exports.register = (app) => {
 
     });
 
-    //GET /api/v1/YYYYYY 
+    //GET /api/v1/natality-stats 
     //Devuelve una lista con todos los recursos (un array de objetos en JSON)
     app.get(BASE_API_PATH + "/natality-stats", (req, res) => {
-
-        //implementar búsquedas por todos los campos del recurso
-
-        //natality-stats?year=2019&born=gt116.128
-        ///user?name=tom&age=55 - req.query would yield {name:"tom", age: "55"}
         var query = req.query;
 
         var limit = parseInt(query.limit);
         var offset = parseInt(query.offset)
-       console.log("--------------------------------")
+        console.log("--------------------------------")
         var cookedQuery = [];
 
 
@@ -77,7 +73,6 @@ module.exports.register = (app) => {
             } else if (d == 'date') {
                 queryObject[d] = parseInt(query[d]);
             } else if (d == 'born') {
-                console.log("born: "+query[d]);
                 queryObject[d] = parseInt(query[d]);
             } else if (d == 'men-born') {
                 queryObject[d] = parseInt(query[d]);
@@ -88,11 +83,11 @@ module.exports.register = (app) => {
             } else if (d == 'fertility-rate') {
                 queryObject[d] = parseFloat(query[d]);
             }
-            if(d != 'limit' && d != 'offset'){
+            if (d != 'limit' && d != 'offset') {
                 cookedQuery.push(queryObject);
             }
 
-            
+
         }
         console.log("cookerquery: " + JSON.stringify(cookedQuery, null, 2));
         //Comprobamos si se ha utilizado limit o offset
@@ -102,7 +97,7 @@ module.exports.register = (app) => {
             if (Object.keys(query).length === 0) {
                 console.log("Empty query");
                 //Se devuelven todos los elementos
-                db.find({}, { _id: 0 },(err, data) => {
+                db.find({}, { _id: 0 }, (err, data) => {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
                         res.sendStatus(500);
@@ -120,7 +115,7 @@ module.exports.register = (app) => {
             } else {
                 console.log("query");
                 //Se pasan los paremetros de la busqueda
-                db.find({ $and: cookedQuery },{ _id: 0 }).skip(offset).limit(limit).exec((err, data) => {
+                db.find({ $and: cookedQuery }, { _id: 0 }).skip(offset).limit(limit).exec((err, data) => {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
                         res.sendStatus(500);
@@ -139,7 +134,7 @@ module.exports.register = (app) => {
             if (Object.keys(query).length === 0) {
                 console.log("Empty query");
                 //Se devuelven todos los elementos
-                db.find({}, { _id: 0 },function(err, data) {
+                db.find({}, { _id: 0 }, function (err, data) {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
                         res.sendStatus(500);
@@ -157,7 +152,7 @@ module.exports.register = (app) => {
             } else {
                 console.log("query");
                 //Se pasan los paremetros de la busqueda
-                db.find({ $and: cookedQuery },{ _id: 0 }, function(err, data) {
+                db.find({ $and: cookedQuery }, { _id: 0 }, function (err, data) {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
                         res.sendStatus(500);
@@ -174,7 +169,7 @@ module.exports.register = (app) => {
 
     });
 
-    //POST /api/v1/YYYYYY 
+    //POST /api/v1/natality-stats 
     //crea un nuevo recurso.
     app.post(BASE_API_PATH + "/natality-stats", (req, res) => {
         var newNatalityStat = req.body;
@@ -183,7 +178,7 @@ module.exports.register = (app) => {
         var newDate = parseInt(req.body.date);
 
 
-        db.find({ $and: [{ country: newCountry }, { date: newDate }] },{ _id: 0 }, function (err, data) {
+        db.find({ $and: [{ country: newCountry }, { date: newDate }] }, { _id: 0 }, function (err, data) {
             if (err) {
                 console.error("ERROR accesing DB in POST");
                 res.sendStatus(500);
@@ -217,12 +212,12 @@ module.exports.register = (app) => {
     });
 
 
-    //GET /api/v1/YYYYYY/XXX/ZZZ 
+    //GET /api/v1/natality-stats/country/date 
     app.get(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
         var countrySelected = req.params.country;
         var dateSelected = parseInt(req.params.date);
 
-        db.find({ $and: [{ country: countrySelected }, { date: dateSelected }] },{ _id: 0 }, function (err, data) {
+        db.find({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { _id: 0 }, function (err, data) {
             if (err) {
                 console.error("ERROR accesing DB in GET");
                 res.sendStatus(500);
@@ -289,7 +284,7 @@ module.exports.register = (app) => {
 
     });
 
-    //DELETE /api/v1/YYYYYY/XXX/ZZZ 
+    //DELETE /api/v1/natality-stats/country/date 
     app.delete(BASE_API_PATH + "/natality-stats/:country/:date", (req, res) => {
         var countrySelected = req.params.country;
         var dateSelected = parseInt(req.params.date);
@@ -328,4 +323,4 @@ module.exports.register = (app) => {
 
     })
 }
-//TODO: Paginacion, Busqueda, Tests
+//________________API-End_____________________
