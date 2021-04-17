@@ -1,4 +1,9 @@
 var BASE_LIFE_API_PATH = "/api/v1";
+var Datastore = require("nedb");
+var path = require('path');
+
+var dbFile = path.join(__dirname, 'life-stats.db');
+var db = new Datastore({filename: dbFile, autoload: true });
 
 //________________Life-stats_____________________
 var lifeStatsDS = [];
@@ -23,8 +28,10 @@ module.exports.register = (app) => {
         "safety-index": 78.5
         }];
     for (var i = 0; i < initialData.length; i++) {
-        lifeStatsDS.push(initialData[i]);
+        //lifeStatsDS.push(initialData[i]);
+        db.insert(initialData[i]);
     }
+    //db.insert(initialData);
     console.log(`Loaded initial data: <${JSON.stringify(lifeStatsDS, null, 2)}>`);
     return res.sendStatus(200);
     });
@@ -32,51 +39,53 @@ module.exports.register = (app) => {
     //GET /api/v1/YYYYYY 
     //Devuelve una lista con todos los recursos (un array de objetos en JSON)
     app.get(BASE_LIFE_API_PATH + "/life-stats", (req, res) => {
-    if (lifeStatsDS.length != 0) {
-        console.log(`requested life stats dataset`);
-        return res.send(JSON.stringify(lifeStatsDS, null, 2));  //return res.sendStatus(200);
-    } else {
-        console.log("No se encuentran los datos");
-        return res.sendStatus(404);
-    }
+        db.find({}, (err, dataInDB) => {
+            if(err){
+                console.error("ERROR accesing DB in GET: " + err);
+                res.sendStatus(500);
+            }
+            else{
+                if(dataInDB.length == 0){
+                    console.error("No data found");
+                    res.sendStatus(404);
+                }
+                else{
+                    dataInDB.forEach( (data) =>{delete data._id; });
+
+                    res.send(JSON.stringify(dataInDB, null, 2));
+                    console.log("Data sent:"+JSON.stringify(dataInDB, null, 2));
+                }
+            }
+        });
     });
 
     //POST /api/v1/YYYYYY 
     //crea un nuevo recurso.
     app.post(BASE_LIFE_API_PATH + "/life-stats", (req, res) => {
-    var newData = req.body;
-    var existe = false;
-
-    if (lifeStatsDS.length != 0) {  //Si hay datos iniciales
-        for (var data of lifeStatsDS) {
-        if (data.country === newData.country && data.date === newData.date) {
-            existe = true;  //Existe el recurso
-        }
-        }
-        if (existe) {
-        console.log("Ya existe un recurso con la misma fecha y país");
-        return res.sendStatus(409);
-
-        } else if (!newData.country || !newData.date || !newData['quality-life-index'] || !newData['purchasing-power-index'] || !newData['safety-index']) {
-        console.log("Faltan datos para crear el recurso");
-        return res.sendStatus(400);
-
-        } else {
-        lifeStatsDS.push(newData);
-        console.log(`Se ha añadido el recurso <${JSON.stringify(newData, null, 2)}>`);
-        return res.sendStatus(201);
-        }
-        //si no hay datos iniciales
-    } else if (!newData.country || !newData.date || !newData['quality-life-index'] || !newData['purchasing-power-index'] || !newData['safety-index']) {
-        console.log("Faltan datos para crear el recurso");
-        return res.sendStatus(400);
-
-    } else {
-        lifeStatsDS.push(newData);
-        console.log(`Se ha añadido el recurso <${JSON.stringify(newData, null, 2)}>`);
-        return res.sendStatus(201);
-    }
+        var newData = req.body;
+        db.find({country: newData.country, date: newData.date}, (err, dataInDB) =>{
+            if (err) {
+                console.error("ERROR accesing DB in POST: "+ err);
+                res.sendStatus(500);
+            } else {
+                if(dataInDB.length == 0){ //si no hay datos en la BD, lo añadimos 
+                    if(!newData.country || !newData.date || !newData['quality-life-index'] || !newData['purchasing-power-index'] || !newData['safety-index']) {
+                        console.log("Data is missing or incorrect.");
+                        return res.sendStatus(400);
+                    }else {                        
+                        console.log(`New resource added to the database <${JSON.stringify(newData, null, 2)}>`);
+                        db.insert(newData);
+                        return res.sendStatus(201);
+                    }
+                }else {
+                    console.log("A resource already exists with the same country and date");
+                    return res.sendStatus(409); //conflict
+                }
+            }
+        });
     });
+
+
 
     //GET /api/v1/YYYY/XXX/ZZZ
     //Devuelve un recurso concreto
