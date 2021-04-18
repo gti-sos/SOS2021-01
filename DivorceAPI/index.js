@@ -39,6 +39,14 @@ app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
       "divorce-rate": 1,
       "ratio-actual": 6,
       "ratio-percent": 16.67,
+    },
+    {
+      "country": "Spain",
+      "date": 2011,
+      "marriage-rate": 1,
+      "divorce-rate": 10,
+      "ratio-actual": 4,
+      "ratio-percent": 16.67,
     }
   ];
 
