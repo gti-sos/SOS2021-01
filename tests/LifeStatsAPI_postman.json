@@ -37,11 +37,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{heroku}}/api/v1/life-stats",
+					"raw": "http://localhost:10000/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -71,11 +72,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{heroku}}/api/v1/life-stats/loadInitialData",
+					"raw": "http://localhost:10000/api/v1/life-stats/loadInitialData",
 					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -99,9 +101,9 @@
 							"});\r",
 							"\r",
 							"\r",
-							"pm.test(\"There are 2 data\", function () {\r",
+							"pm.test(\"There are 3 data\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.length).to.eql(2);\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -124,11 +126,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{heroku}}/api/v1/life-stats",
+					"raw": "http://localhost:10000/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -162,7 +165,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"filipines\",\r\n\"date\" : 2019,\r\n\"quality-life-index\": 195.93,\r\n\"purchasing-power-index\": 129.7,\r\n\"safety-index\": 78.5\r\n}",
+					"raw": "{\r\n\"country\": \"norway\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 181.86,\r\n\"purchasing_power_index\": 103.61,\r\n\"safety_index\": 64.68\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -170,11 +173,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats",
-					"protocol": "https",
+					"raw": "http://localhost:10000/api/v1/life-stats",
+					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -182,6 +186,50 @@
 					]
 				},
 				"description": "Request to add a new resource."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats ERROR: ya existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"norway\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 181.86,\r\n\"purchasing_power_index\": 103.61,\r\n\"safety_index\": 64.68\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:10000/api/v1/life-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "10000",
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					]
+				},
+				"description": "Request to verify that the resource already exists."
 			},
 			"response": []
 		},
@@ -195,9 +243,9 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"There are 3 data\", function () {\r",
+							"pm.test(\"There are 4 data\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.length).to.eql(3);\r",
+							"    pm.expect(jsonData.length).to.eql(4);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -220,11 +268,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{heroku}}/api/v1/life-stats",
+					"raw": "http://localhost:10000/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -232,6 +281,114 @@
 					]
 				},
 				"description": "With this request we can test that the new resource has been loaded."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats/norway/2019 check 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"The data is about Norway in 2019\", () => {\r",
+							"  const responseJson = pm.response.json();\r",
+							"  pm.expect(responseJson.country).to.eql(\"norway\");\r",
+							"  pm.expect(responseJson.date).to.eql(2019);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:10000/api/v1/life-stats/norway/2019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "10000",
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"norway",
+						"2019"
+					]
+				},
+				"description": "Request to obtain a concret resource."
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/life-stats?offset=1&limit=3&date=2019",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are 3 data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:10000/api/v1/life-stats?offset=1&limit=3&date=2019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "10000",
+					"path": [
+						"api",
+						"v1",
+						"life-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "date",
+							"value": "2019"
+						}
+					]
+				},
+				"description": "Request to obtain a concret resource with queries."
 			},
 			"response": []
 		},
@@ -244,12 +401,6 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"The data is about Denmark in 2019\", () => {\r",
-							"  const responseJson = pm.response.json();\r",
-							"  pm.expect(responseJson.country).to.eql(\"denmark\");\r",
-							"  pm.expect(responseJson.date).to.eql(2019);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -257,37 +408,15 @@
 				}
 			],
 			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats/denmark/2019 ",
-					"protocol": "https",
-					"host": [
-						"{{heroku}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"life-stats",
-						"denmark",
-						"2019 "
-					]
-				},
-				"description": "Request to obtain a concret resource."
-			},
-			"response": []
-		},
-		{
-			"name": "api/v1/life-stats/denmark/2019",
-			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats/denmark/2019",
-					"protocol": "https",
+					"raw": "http://localhost:10000/api/v1/life-stats/denmark/2019",
+					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -321,11 +450,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats/denmark/2019 ",
-					"protocol": "https",
+					"raw": "http://localhost:10000/api/v1/life-stats/denmark/2019 ",
+					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -333,18 +463,32 @@
 						"denmark",
 						"2019 "
 					]
-				}
+				},
+				"description": "With this request we can test that the resource has been deleted."
 			},
 			"response": []
 		},
 		{
 			"name": "api/v1/life-stats/switzerland/2019",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"switzerland\",\r\n\"date\": 2019,\r\n\"quality-life-index\": 200.03,\r\n\"purchasing-power-index\": 39.7,\r\n\"safety-index\": 28.5\r\n}",
+					"raw": "{\r\n\"country\": \"switzerland\",\r\n\"date\": 2019,\r\n\"quality_life_index\": 200.03,\r\n\"purchasing_power_index\": 39.7,\r\n\"safety_index\": 28.5\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -352,11 +496,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats/switzerland/2019",
-					"protocol": "https",
+					"raw": "http://localhost:10000/api/v1/life-stats/switzerland/2019",
+					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -370,16 +515,76 @@
 			"response": []
 		},
 		{
+			"name": "api/v1/life-stats/switzerland/2019 ERROR: peticion mal escrita",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"switzerland\",\r\n\"date\": 2019,\r\n\"quality-life-index\": 200.03,\r\n\"purchasing-power-index\": 39.7,\r\n\"safety-index\": 28.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:10000/api/v1/life-stats/switzerland/2019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "10000",
+					"path": [
+						"api",
+						"v1",
+						"life-stats",
+						"switzerland",
+						"2019"
+					]
+				},
+				"description": "This is a bad request because the parameters are incorrect."
+			},
+			"response": []
+		},
+		{
 			"name": "api/v1/life-stats/switzerland/2019 ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats/switzerland/2019",
-					"protocol": "https",
+					"raw": "http://localhost:10000/api/v1/life-stats/switzerland/2019",
+					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -393,15 +598,29 @@
 		},
 		{
 			"name": "api/v1/life-stats ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats",
-					"protocol": "https",
+					"raw": "http://localhost:10000/api/v1/life-stats",
+					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -418,7 +637,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -428,11 +649,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://{{heroku}}/api/v1/life-stats",
-					"protocol": "https",
+					"raw": "http://localhost:10000/api/v1/life-stats",
+					"protocol": "http",
 					"host": [
-						"{{heroku}}"
+						"localhost"
 					],
+					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -446,7 +668,6 @@
 	],
 	"variable": [
 		{
-			"id": "3170b5e6-9f27-4eb3-868f-0fed235028cb",
 			"key": "heroku",
 			"value": "sos2021-01.herokuapp.com"
 		}
