@@ -249,7 +249,7 @@ module.exports.register = (app) => {
             || !newNatalityStat['fertility-rate']
             || newNatalityStat.country != countrySelected
             || newNatalityStat.date != dateSelected
-            || Object.keys(newNatalityStat).length != 7) {
+            || Object.keys(newNatalityStat).length != 6) {
 
             console.log("Actualizacion de campos no valida")
             res.sendStatus(400);
