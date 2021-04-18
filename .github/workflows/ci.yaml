@@ -13,4 +13,4 @@ jobs:
       - run: npm start &
       - run: npx newman run tests/NatalityStatsAPI_postman.json
       - run: npx newman run  tests/LifeStatsAPI_postman.json
-      - run: npx newman run tests/Divorce_stats_postman.json
+      - run: npx newman run tests/DivorceStatsAPI_postman.json
