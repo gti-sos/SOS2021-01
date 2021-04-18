@@ -92,7 +92,7 @@ app.get(BASE_API_PATH + "/divorce-stats", (req, res) => {
       query[d] = parseFloat(query[d]);
     }
 }
-
+  console.log(` la query es ${query}` );
   // Getting the offset and limit from the url
   var limit = query.limit;
 	var offset = query.offset;
@@ -102,7 +102,7 @@ app.get(BASE_API_PATH + "/divorce-stats", (req, res) => {
 
  	// With skip we make the offset and with the limit we limit
   db.find(query).skip(offset).limit(limit).exec((error, divorceStats) => {
-    if (err) {
+    if (error) {
       console.error("ERROR accesing DB in GET");
       res.sendStatus(500);
   }
