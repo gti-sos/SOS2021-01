@@ -217,14 +217,17 @@ module.exports.register = (app) => {
       || !newDivorceStat['divorce-rate']
       || !newDivorceStat['ratio-actual']
       || !newDivorceStat['ratio-percent']
-      || newDivorceStat.country != country
-      || newDivorceStat.date != date
+      || newDivorceStat.country != countrySelected
+      || newDivorceStat.date != dateSelected
       || Object.keys(newDivorceStat).length != 6) {
 
       console.log("Actualizacion de campos no valida")
       return res.sendStatus(409);
 
     } else {
+
+      console.log(newDivorceStat, dateSelected, countrySelected)
+
       db.update({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { $set: newDivorceStat }, {}, function (err, numReplaced) {
         if (err) {
           console.error("ERROR accesing DB in GET");
