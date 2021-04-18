@@ -37,12 +37,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -72,12 +73,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats/loadInitialData",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats/loadInitialData",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -126,12 +128,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -173,12 +176,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -217,12 +221,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -268,12 +273,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -320,12 +326,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats/norway/2019",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats/norway/2019",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -362,12 +369,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats?offset=1&limit=3&date=2019",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats?offset=1&limit=3&date=2019",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -411,12 +419,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats/denmark/2019",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats/denmark/2019",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -450,12 +459,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats/denmark/2019 ",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats/denmark/2019 ",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -496,12 +506,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats/switzerland/2019",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats/switzerland/2019",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -542,12 +553,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats/switzerland/2019",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats/switzerland/2019",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -579,12 +591,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats/switzerland/2019",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats/switzerland/2019",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -615,12 +628,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
@@ -649,12 +663,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:10000/api/v1/life-stats",
+					"raw": "http://sos2021-01.herokuapp.com/api/v1/life-stats",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"sos2021-01",
+						"herokuapp",
+						"com"
 					],
-					"port": "10000",
 					"path": [
 						"api",
 						"v1",
