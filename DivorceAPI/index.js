@@ -52,7 +52,7 @@ app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
 
   // DB access when loadInitialData 
 
-  db.find({ $or: [{ country: "Albania" }, { country: "Armenia" }] }, { _id: 0 }, function (err, data) {
+  db.find({ $or: [{ country: "Albania" }, { country: "Armenia" }, {country: "Spain"}] }, { _id: 0 }, function (err, data) {
     if (err) {
         console.error("ERROR accesing DB in GET");
         res.sendStatus(500);
