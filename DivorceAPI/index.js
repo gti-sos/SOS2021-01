@@ -207,8 +207,8 @@ app.delete(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
 
 //PUT a un recurso  (actualizar recurso)
 app.put(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
-  var country = req.params.country;
-  var date = parseInt(req.params.date);
+  var countrySelected = req.params.country;
+  var dateSelected = parseInt(req.params.date);
   var newDivorceStat = req.body;
 
   if (!newDivorceStat.country
