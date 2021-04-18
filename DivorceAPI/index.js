@@ -35,17 +35,17 @@ module.exports.register = (app) => {
       {
         "country": "Armenia",
         "date": 2011,
-        "marriage-rate": 6,
-        "divorce-rate": 1,
-        "ratio-actual": 6,
+        "marriage-rate": 6.0,
+        "divorce-rate": 1.0,
+        "ratio-actual": 6.0,
         "ratio-percent": 16.67
       },
       {
         "country": "Spain",
         "date": 2011,
-        "marriage-rate": 1,
-        "divorce-rate": 10,
-        "ratio-actual": 4,
+        "marriage-rate": 1.0,
+        "divorce-rate": 10.0,
+        "ratio-actual": 4.0,
         "ratio-percent": 16.67
       }
     ];
