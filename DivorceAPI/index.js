@@ -29,7 +29,7 @@ app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
       "marriage-rate": 8.1,
       "divorce-rate": 1.7,
       "ratio-actual": 4.76,
-      "ratio-percent": 20.99,
+      "ratio-percent": 20.99
 
     },
     {
@@ -38,7 +38,7 @@ app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
       "marriage-rate": 6,
       "divorce-rate": 1,
       "ratio-actual": 6,
-      "ratio-percent": 16.67,
+      "ratio-percent": 16.67
     },
     {
       "country": "Spain",
@@ -46,7 +46,7 @@ app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
       "marriage-rate": 1,
       "divorce-rate": 10,
       "ratio-actual": 4,
-      "ratio-percent": 16.67,
+      "ratio-percent": 16.67
     }
   ];
 
