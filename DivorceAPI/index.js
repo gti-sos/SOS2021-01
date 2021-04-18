@@ -1,10 +1,25 @@
 //________________Divorce-stats_____________________
-var divorceStatsDataSet = [];
-var BASE_API_PATH = "/api/v1";
 
-//GET /api/v1/YYYYYY/loadInitialData 
-//Crea 2 o más recursos.
+
+//required modules 
+var path = require('path');
+var Datastore = require("nedb");
+
+//required vars and const
+
+const BASE_API_PATH = "/api/v1";
+const datafile = path.join(__dirname, 'divorce-stats.db');
+const db = new Datastore({ filename: datafile, autoload: true });
+
+var divorceStatsDataSet = [];
+
+//implemetation
+
 module.exports.register = (app) => {
+
+  
+//GET /api/v1/divorce-stats/loadInitialData 
+//Crea 2 o más recursos
 
 app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
   divorceStatsDataSet = [
@@ -26,109 +41,161 @@ app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
       "ratio-percent": 16.67,
     }
   ];
-  console.log(`Loaded initial data: <${JSON.stringify(divorceStatsDataSet, null, 2)}>`);
-  return res.sendStatus(200);
+
+  // DB access when loadInitialData 
+
+  db.find({ $or: [{ country: "Albania" }, { country: "Armenia" }] }, { _id: 0 }, function (err, data) {
+    if (err) {
+        console.error("ERROR accesing DB in GET");
+        res.sendStatus(500);
+    } else {
+        if (data.length == 0) {
+            db.insert(divorceStatsDataSet);
+            console.log(`Loaded initial data: <${JSON.stringify(divorceStatsDataSet, null, 2)}>`);
+            res.sendStatus(201);
+        } else {
+            console.error(`initial data already exists`);
+            res.sendStatus(409);
+        }
+    }
+  });
 
 });
 
-//GET /api/v1/YYYYYY 
+//GET /api/v1/divorce-stats 
 //Devuelve una lista con todos los recursos (un array de objetos en JSON)
 app.get(BASE_API_PATH + "/divorce-stats", (req, res) => {
-  if (divorceStatsDataSet.length != 0) {
-    console.log(`requested divorce stats dataset`);
-    return res.send(JSON.stringify(divorceStatsDataSet, null, 2));
-  } else {
-    console.log("No data found");
-    return res.sendStatus(404);
+
+  console.log("New GET .../divorce-stats");
+  var query = req.query; 
+
+  // Casting 
+  for (d in query) {
+  
+     if (d == 'date') {
+        query[d] = parseInt(query[d]);
+    } else if (d == 'marriage-rate') {
+      query[d] = parseFloat(query[d]);
+    } else if (d == 'divorce-rate') {
+      query[d] = parseFloat(query[d]);
+    } else if (d == 'ratio-actual') {
+      query[d] = parseFloat(query[d]);
+    } else if (d == 'ratio-percent') {
+      query[d] = parseFloat(query[d]);
+    }
+}
+
+  // Getting the offset and limit from the url
+  var limit = query.limit;
+	var offset = query.offset;
+ // Removing extra query field of pagination
+  delete query.offset;
+  delete query.limit;
+
+ 	// With skip we make the offset and with the limit we limit
+  db.find(query).skip(offset).limit(limit).exec((error, divorceStats) => {
+    if (err) {
+      console.error("ERROR accesing DB in GET");
+      res.sendStatus(500);
   }
+    divorceStats.forEach((r) => {
+      delete r._id;
+    });
 
+    res.status(200).send(JSON.stringify(divorceStats, null, 2)); 
+    console.log("Data sent: " + JSON.stringify(divorceStats, null, 2));
+  });
 
-  return res.sendStatus(200);
+  console.log("OK.");
+
 
 });
 
-//POST /api/v1/YYYYYY 
+//POST /api/v1/divorce-stats 
 //crea un nuevo recurso.
 app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
+
   var newDivorceStat = req.body;
-  var country = req.body.country;
-  var date = parseInt(req.body.date);
-  console.log(req.body);
-  //Si hay datos iniciales
-  if (divorceStatsDataSet.length != 0) {
-    for (var stat of divorceStatsDataSet) {
-      if (stat.country === country && stat.date === date) {
+  var newCountry = req.body.country;
+  var newDate = parseInt(req.body.date);
 
-        console.log("Conflict detected");
-        return res.sendStatus(409);
-      }
-    }
-    if (newDivorceStat.country === null
-      || newDivorceStat.date === null
-      || newDivorceStat['marriage-rate'] === null
-      || newDivorceStat['divorce-rate'] === null
-      || newDivorceStat['ratio-actual'] === null
-      || newDivorceStat['ratio-percent'] === null
-      || Object.keys(newDivorceStat).length != 6) {
+  //console.log(req.body);
 
-      console.log("Numero de parametros incorrectos");
-      return res.sendStatus(400);
+  db.find({ $and: [{ country: newCountry }, { date: newDate }] }, { _id: 0 }, function (err, data) {
+    if (err) {
+        console.error("ERROR accesing DB in POST");
+        res.sendStatus(500);
     } else {
+        if (data.length == 0) {
+            //Comprobamos los parametros del recurso a insertar
+            if (!newDivorceStat.country
+                || !newDivorceStat.date
+                || !newDivorceStat['marriage-rate']
+                || !newDivorceStat['divorce-rate']
+                || !newDivorceStat['ratio-actual']
+                || !newDivorceStat['ratio-percent']
+                || Object.keys(newDivorceStat).length != 6) {
 
-      divorceStatsDataSet.push(newDivorceStat);
-      return res.sendStatus(201);
+                console.log("Numero de parametros incorrectos");
+                res.sendStatus(400);
+            } else {
+                //Insertamos el recurso
+                console.log(`new divorce stat to be added: <${JSON.stringify(newDivorceStat, null, 2)}>`);
+                db.insert(newDivorceStat);
+                res.sendStatus(201);
+            }
+        } else {
+            //El recurso a crear ya existe
+            console.log("Conflict detected");
+            res.sendStatus(409);
+        }
     }
-
-    //Si no hay datos iniciales
-  } else if (!newDivorceStat.country
-    || !newDivorceStat.date
-    || !newDivorceStat['marriage-rate']
-    || !newDivorceStat['divorce-rate']
-    || !newDivorceStat['ratio-actual']
-    || !newDivorceStat['ratio-percent']
-    || Object.keys(newDivorceStat).length != 6) {
-
-    console.log("Numero de parametros incorrectos")
-    return res.sendStatus(400);
-  } else {
-    console.log(`new divorce stat to be added: <${JSON.stringify(newDivorceStat, null, 2)}>`);
-    divorceStatsDataSet.push(newDivorceStat);
-    return res.sendStatus(201);
-
-
-  }
-
+  });
 });
 
 
-//GET /api/v1/YYYYYY/XXX/ZZZ 
+//GET /api/v1/divorce-stats/country/date 
 app.get(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
-  var country = req.params.country;
-  var date = parseInt(req.params.date);
+  var countrySelected = req.params.country;
+  var dateSelected = parseInt(req.params.date);
 
-  console.log(`GET stat by country: <${country}> and date: <${date}>`);
-  for (var stat of divorceStatsDataSet) {
-    if (stat.country === country && stat.date === date) {
-      return res.status(200).json(stat);
+  db.find({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { _id: 0 }, function (err, data) {
+    if (err) {
+        console.error("ERROR accesing DB in GET");
+        res.sendStatus(500);
+    } else {
+        if (data.length == 0) {
+            console.error("No data found");
+            res.sendStatus(404);
+        } else {
+            console.log(`GET stat by country: <${countrySelected}> and date: <${dateSelected}>`);
+            res.status(200).send(JSON.stringify(data, null, 2));
+        }
     }
-  }
-
-  return res.sendStatus(404);
+});
 });
 
-//DELETE /api/v1/YYYYYY/XXX/ZZZ 
+//DELETE /api/v1/divorce-stats/country/date 
 app.delete(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
-  var del_data = req.params;
-  for (var i = 0; i < divorceStatsDataSet.length; i++) {
-    if (divorceStatsDataSet[i].country === del_data.country && divorceStatsDataSet[i].date === parseInt(del_data.date)) {
-      divorceStatsDataSet.splice(i, 1); /*al metodo splice le pasamos el índice del objeto a partir del cual vamos a borrar objetos del array y el número de objetos a eliminar*/
-      console.log(`El recurso con país: <${del_data.country}> y fecha: <${del_data.date}> ha sido eliminado`);
-      return res.sendStatus(200);
-    }
-  }
-  return res.sendStatus(404);
-});
 
+  var countrySelected = req.params.country;
+  var dateSelected = parseInt(req.params.date);
+
+  db.remove({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { multi: true }, function (err, dataDeleted) {
+      if (err) {
+          console.error("ERROR accesing DB in GET");
+          res.sendStatus(500);
+      } else {
+          if (dataDeleted == 0) {
+              console.error("No data found");
+              res.sendStatus(404);
+          } else {
+              console.log(`stat with country: <${countrySelected}> and date: <${dateSelected}> deleted`);
+              res.sendStatus(200);
+          }
+      }
+  });
+});
 
 //PUT a un recurso  (actualizar recurso)
 app.put(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
@@ -136,12 +203,7 @@ app.put(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
   var date = parseInt(req.params.date);
   var newDivorceStat = req.body;
 
-  console.log(`Modficar ${newDivorceStat.country}  Actual ${country} `);
-  console.log(`Modficar ${newDivorceStat.date} Actual ${date} `);
-  if (divorceStatsDataSet.length == 0) {
-    console.log("Recurso no encontrado")
-    return res.sendStatus(404);
-  } else if (!newDivorceStat.country
+  if (!newDivorceStat.country
     || !newDivorceStat.date
     || !newDivorceStat['marriage-rate']
     || !newDivorceStat['divorce-rate']
@@ -153,15 +215,25 @@ app.put(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
 
     console.log("Actualizacion de campos no valida")
     return res.sendStatus(409);
+
   } else {
-    for (var i = 0; i < divorceStatsDataSet.length; i++) {
-      var stat = divorceStatsDataSet[i];
-      if (stat.country === country && stat.date === date) {
-        divorceStatsDataSet[i] = newDivorceStat;
-        return res.send('PUT success');
-      }
-    }
-  }
+            db.update({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { $set: newDivorceStat }, {}, function (err, numReplaced) {
+                if (err) {
+                    console.error("ERROR accesing DB in GET");
+                    res.sendStatus(500);
+                } else {
+                    if (numReplaced == 0) {
+                        console.error("No data found");
+                        res.sendStatus(404);
+                    } else {
+                        console.log(`stat with country: <${countrySelected}> and date: <${dateSelected}> successfuly updated`)
+                        res.sendStatus(200);
+                    }
+                }
+            });
+        }
+  
+    
 
 })
 
@@ -181,10 +253,19 @@ app.put(BASE_API_PATH + "/divorce-stats", (req, res) => {
 
 //DELETE a la lista de recursos.
 app.delete(BASE_API_PATH + "/divorce-stats", (req, res) => {
-  divorceStatsDataSet.length = 0;
-  console.log('divorce-stats deleted');
-  return res.sendStatus(200);
-
+  db.remove({}, { multi: true }, function (err, numRemoved) {
+    if (err) {
+        console.error("ERROR deleting DB stats in DELETE");
+        res.sendStatus(500);
+    } else {
+        if (numRemoved == 0) {
+            console.error("ERROR divorce-stats not deleted, database was empty");
+            res.sendStatus(404);
+        } else {
+            res.sendStatus(200);
+        }
+    }
+});
 })
 
 }
