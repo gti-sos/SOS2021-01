@@ -61,7 +61,7 @@ module.exports.register = (app) => {
 
         var limit = parseInt(query.limit);
         var offset = parseInt(query.offset)
-        console.log("--------------------------------")
+
         var cookedQuery = [];
 
 
@@ -89,14 +89,14 @@ module.exports.register = (app) => {
 
 
         }
-        console.log("cookerquery: " + JSON.stringify(cookedQuery, null, 2));
+
         //Comprobamos si se ha utilizado limit o offset
         if (!isNaN(limit) || !isNaN(offset)) {
-            console.log("ENTRA IF - Limit: " + limit + "offset: " + offset);
+
             //Comprobamos si ha habido una busqueda
             if (Object.keys(query).length === 0) {
-                console.log("Empty query");
-                //Se devuelven todos los elementos
+
+                //Si la busqueda no tiene nada se devuelven todos los elementos
                 db.find({}, { _id: 0 }, (err, data) => {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
@@ -113,8 +113,7 @@ module.exports.register = (app) => {
                 });
 
             } else {
-                console.log("query");
-                //Se pasan los paremetros de la busqueda
+                //Sino Se pasan los paremetros de la busqueda
                 db.find({ $and: cookedQuery }, { _id: 0 }).skip(offset).limit(limit).exec((err, data) => {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
@@ -130,10 +129,9 @@ module.exports.register = (app) => {
             }
 
         } else {
-            console.log("ENTRA ELSE - Limit: " + limit + " offset: " + offset);
+            //Sino se utilizan limit u offset
             if (Object.keys(query).length === 0) {
-                console.log("Empty query");
-                //Se devuelven todos los elementos
+                //Si la busqueda no tiene nada se devuelven todos los elementos
                 db.find({}, { _id: 0 }, function (err, data) {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
@@ -150,8 +148,7 @@ module.exports.register = (app) => {
                 });
 
             } else {
-                console.log("query");
-                //Se pasan los paremetros de la busqueda
+                //Sino Se pasan los paremetros de la busqueda
                 db.find({ $and: cookedQuery }, { _id: 0 }, function (err, data) {
                     if (err) {
                         console.error("ERROR accesing DB in GET");
@@ -256,7 +253,7 @@ module.exports.register = (app) => {
         } else {
             db.update({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { $set: newNatalityStat }, {}, function (err, numReplaced) {
                 if (err) {
-                    console.error("ERROR accesing DB in GET");
+                    console.error("ERROR accesing DB in PUT");
                     res.sendStatus(500);
                 } else {
                     if (numReplaced == 0) {
@@ -291,7 +288,7 @@ module.exports.register = (app) => {
 
         db.remove({ $and: [{ country: countrySelected }, { date: dateSelected }] }, { multi: true }, function (err, dataDeleted) {
             if (err) {
-                console.error("ERROR accesing DB in GET");
+                console.error("ERROR accesing DB in DELETE");
                 res.sendStatus(500);
             } else {
                 if (dataDeleted == 0) {
