@@ -7,7 +7,7 @@ var Datastore = require("nedb");
 //required variables
 var BASE_API_PATH = "/api/v1";
 var datafile = path.join(__dirname, 'natality-stats.db');
-var db = new Datastore({ filename: datafile, autoload: true });
+var db = new Datastore({ filename: datafile, autoload: true , corruptAlertThreshold: 1 });
 var natalityStatsDataSet = [];
 
 //implementation
