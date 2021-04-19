@@ -82,6 +82,8 @@ module.exports.register = (app) => {
                 queryObject[d] = parseFloat(query[d]);
             } else if (d == 'fertility-rate') {
                 queryObject[d] = parseFloat(query[d]);
+            }else{
+                queryObject[d]=null;
             }
             if (d != 'limit' && d != 'offset') {
                 cookedQuery.push(queryObject);

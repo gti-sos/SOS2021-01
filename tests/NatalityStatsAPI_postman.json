@@ -419,6 +419,71 @@
 							"response": []
 						},
 						{
+							"name": "- Busqueda por todos los campos",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{heroku}}/api/v1/natality-stats?country=spain&date=2019&born=360617&men-born=185523&women-born=175094&natality-rate=7.62&fertility-rate=1.24",
+									"host": [
+										"{{heroku}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"natality-stats"
+									],
+									"query": [
+										{
+											"key": "country",
+											"value": "spain"
+										},
+										{
+											"key": "date",
+											"value": "2019"
+										},
+										{
+											"key": "born",
+											"value": "360617"
+										},
+										{
+											"key": "men-born",
+											"value": "185523"
+										},
+										{
+											"key": "women-born",
+											"value": "175094"
+										},
+										{
+											"key": "natality-rate",
+											"value": "7.62"
+										},
+										{
+											"key": "fertility-rate",
+											"value": "1.24"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "?limit=4&offset=2 - Search limit and offset",
 							"event": [
 								{
@@ -468,7 +533,7 @@
 							"response": []
 						},
 						{
-							"name": "?offset=2 - Search offset",
+							"name": "?offset=2 - Pagination offset",
 							"event": [
 								{
 									"listen": "test",
@@ -513,7 +578,7 @@
 							"response": []
 						},
 						{
-							"name": "?limit=1 - Search offset Copy",
+							"name": "?limit=1 - Pagintaion limit",
 							"event": [
 								{
 									"listen": "test",
@@ -690,6 +755,47 @@
 										{
 											"key": "men-born",
 											"value": "-10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "?nothing=3 - Search with wrong parameter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{heroku}}/api/v1/natality-stats?nothing=3",
+									"host": [
+										"{{heroku}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"natality-stats"
+									],
+									"query": [
+										{
+											"key": "nothing",
+											"value": "3"
 										}
 									]
 								}
@@ -985,6 +1091,9 @@
 										"exec": [
 											"pm.test(\"Not allowed\", function () {\r",
 											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 											"});"
 										],
 										"type": "text/javascript"
