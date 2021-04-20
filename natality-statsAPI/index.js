@@ -125,7 +125,7 @@ module.exports.register = (app) => {
                         res.sendStatus(404);
                     } else {
                         console.log(`requested natality stats dataset`);
-                        res.status(200).send(JSON.stringify(data[0], null, 2));
+                        res.status(200).send(JSON.stringify(data, null, 2));
                     }
                 });
             }
@@ -160,7 +160,7 @@ module.exports.register = (app) => {
                         res.sendStatus(404);
                     } else {
                         console.log(`requested natality stats dataset`);
-                        res.status(200).send(JSON.stringify(data[0], null, 2));
+                        res.status(200).send(JSON.stringify(data, null, 2));
                     }
                 });
             }
