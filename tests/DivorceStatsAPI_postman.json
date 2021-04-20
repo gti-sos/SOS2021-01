@@ -579,7 +579,7 @@
 							"pm.test(\"Check divorce-rate is modified\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"\r",
-							"    pm.expect(jsonData[0][\"divorce-rate\"]).to.eql(66);\r",
+							"    pm.expect(jsonData[\"divorce-rate\"]).to.eql(66);\r",
 							"});\r",
 							"\r",
 							""
