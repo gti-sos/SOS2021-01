@@ -177,7 +177,7 @@ module.exports.register = (app) => {
           res.sendStatus(404);
         } else {
           console.log(`GET stat by country: <${countrySelected}> and date: <${dateSelected}>`);
-          res.status(200).send(JSON.stringify(data, null, 2));
+          res.status(200).send(JSON.stringify(data[0], null, 2));
         }
       }
     });
