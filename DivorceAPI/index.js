@@ -222,7 +222,7 @@ module.exports.register = (app) => {
       || Object.keys(newDivorceStat).length != 6) {
 
       console.log("Actualizacion de campos no valida")
-      return res.sendStatus(409);
+      return res.sendStatus(400);
 
     } else {
 
