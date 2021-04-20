@@ -58,13 +58,13 @@ module.exports.register = (app) => {
             query.date = parseInt(query.date);
         }
         if(query.hasOwnProperty("quality_life_index")){
-            query.quality_life_index = parseInt(query.quality_life_index);
+            query.quality_life_index = parseFloat(query.quality_life_index);
         }
         if(query.hasOwnProperty("purchasing_power_index")){
-            query.purchasing_power_index = parseInt(query.purchasing_power_index);
+            query.purchasing_power_index = parseFloat(query.purchasing_power_index);
         }
         if(query.hasOwnProperty("safety_index")){
-            query.safety_index = parseInt(query.safety_index);
+            query.safety_index = parseFloat(query.safety_index);
         }
         if (query.offset) {
             var offset = parseInt(query.offset);
@@ -74,7 +74,7 @@ module.exports.register = (app) => {
             var limit = parseInt(req.query.limit);
             delete query.limit;
         }
-
+        console.log(`new query ${JSON.stringify(query, null,2)} with offset ${offset} and limit ${limit}` );
         db.find(query).skip(offset).limit(limit).exec((err, dataInDB) => {
             if(err){
                 console.error("ERROR accesing DB in GET");
