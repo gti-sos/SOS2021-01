@@ -522,8 +522,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200, put sucess\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Status code is 400, put failed, incorrect num of params\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
 							"});\r",
 							"\r",
 							""
@@ -537,7 +537,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 66.0,\r\n\"ratio-actual\": 66.0,\r\n\"ratio-percent\": 66.0\r\n}",
+					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -570,8 +570,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 400, put sucess\", function () {\r",
-							"    pm.response.to.have.status(400);\r",
+							"pm.test(\"Status code is 200, put sucess\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							""
@@ -585,7 +585,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018\r\n}",
+					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 66.0,\r\n\"ratio-actual\": 1.0,\r\n\"ratio-percent\": 1.0\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
