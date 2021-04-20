@@ -55,8 +55,8 @@
 											"pm.test(\"Load resources\", function () {\r",
 											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											""
 										],
@@ -342,8 +342,8 @@
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.length).to.eql(6);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -378,8 +378,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"Check data selected\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
@@ -428,8 +428,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -493,8 +493,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"There is 4 resources\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
@@ -542,8 +542,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"There is 2 resources\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
@@ -587,11 +587,12 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"There is 1 resource\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
+											"    console.log(jsonData.length)\r",
 											"    pm.expect(jsonData.length).to.eql(1);\r",
 											"});"
 										],
@@ -632,8 +633,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"There is 1 resource\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
@@ -685,8 +686,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"There is 1 resource\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
@@ -730,8 +731,8 @@
 											"pm.test(\"Status code is 404\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -771,8 +772,8 @@
 											"pm.test(\"Status code is 404\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -812,8 +813,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -866,8 +867,8 @@
 											"pm.test(\"Empty resource\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -902,10 +903,9 @@
 											"pm.test(\"Load resources\", function () {\r",
 											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											""
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -939,8 +939,8 @@
 											"pm.test(\"Resources already exists\", function () {\r",
 											"    pm.response.to.have.status(409);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											""
 										],
@@ -1011,8 +1011,8 @@
 											"pm.test(\"get resource\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"Data displayed\", function () {\r",
 											"    pm.response.to.be.withBody;\r",
@@ -1056,8 +1056,8 @@
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.length).to.eql(2);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1092,8 +1092,8 @@
 											"pm.test(\"Not allowed\", function () {\r",
 											"    pm.response.to.have.status(405);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1227,8 +1227,8 @@
 											"pm.test(\"Status code is 409\", function () {\r",
 											"    pm.response.to.have.status(409);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1271,8 +1271,8 @@
 											"pm.test(\"Status code is 400\", function () {\r",
 											"    pm.response.to.have.status(400);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											""
 										],
@@ -1316,8 +1316,8 @@
 											"pm.test(\"Modify resource\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
 											"pm.test(\"Test data type of the request\", () => {\r",
 											"  const jsonData = JSON.parse(pm.request.body.raw);\r",
@@ -1376,7 +1376,7 @@
 											"pm.test(\"Check born is modified\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    \r",
-											"    pm.expect(jsonData[0].born).to.eql(100);\r",
+											"    pm.expect(jsonData.born).to.eql(100);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1412,8 +1412,8 @@
 											"pm.test(\"Not allowed\", function () {\r",
 											"    pm.response.to.have.status(405);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1456,8 +1456,8 @@
 											"pm.test(\"Modify resource that doesn't exist\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1502,8 +1502,8 @@
 											"pm.test(\"Bad content\", function () {\r",
 											"    pm.response.to.have.status(400);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1548,8 +1548,8 @@
 											"pm.test(\"Delete resource that doesn't exist\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1594,10 +1594,9 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											""
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1641,8 +1640,8 @@
 											"pm.test(\"Status code is 404\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1678,8 +1677,8 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"pm.test(\"Response time is less than 300ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});"
 										],
 										"type": "text/javascript"
