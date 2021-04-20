@@ -516,7 +516,7 @@
 			"response": []
 		},
 		{
-			"name": "put ZOmbieLand",
+			"name": "put ZOmbieLand error 400",
 			"event": [
 				{
 					"listen": "test",
@@ -538,6 +538,54 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 66.0,\r\n\"ratio-actual\": 66.0,\r\n\"ratio-percent\": 66.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v1/divorce-stats/ZombieLand/2018",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"divorce-stats",
+						"ZombieLand",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put ZOmbieLand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400, put sucess\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
