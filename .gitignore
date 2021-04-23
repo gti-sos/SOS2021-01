@@ -2,3 +2,4 @@ node_modules
 natality-statsAPI/natality-stats.db
 DivorceAPI/divorce-stats.db
 lifeAPI/life-stats.db
+public/build
