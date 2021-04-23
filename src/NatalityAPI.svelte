@@ -132,7 +132,7 @@
   </Nav>
   <h2>Natality Stats</h2>
 
-  {#if !init}
+  {#if init==false}
     {#if error === 0}
       <Alert color="success" isOpen={visible} toggle={() => (visible = false)}>
         <h4 class="alert-heading text-capitalize">
