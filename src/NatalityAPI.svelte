@@ -132,7 +132,7 @@
   </Nav>
   <h2>Natality Stats</h2>
 
-  {#if init==false}
+ 
     {#if error === 0}
       <Alert color="success" isOpen={visible} toggle={() => (visible = false)}>
         <h4 class="alert-heading text-capitalize">
@@ -158,7 +158,7 @@
         <h4 class="alert-heading text-capitalize">Error desconocido.</h4>
       </Alert>
     {/if}
-  {/if}
+  
 
   {#if natalityStats.length === 0}
     <p>No se han ecnontrado datos, por favor carga los datos iniciales.</p>
