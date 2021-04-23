@@ -8,36 +8,92 @@
     NavItem,
     NavLink,
     Button,
-    Col,
-    Container,
-    Row,
     Table,
+    Alert,
   } from "sveltestrap";
 
+  // Nav
+
+  //Load
   let open1 = false;
   const toggle1 = () => (open1 = !open1);
+  const toggle1P = () => {
+    open1 = !open1;
+    loadStats();
+  };
+  //Delete
   let open2 = false;
   const toggle2 = () => (open2 = !open2);
+  const toggle2P = () => {
+    open2 = !open2;
+    deleteStats();
+  };
+
+  //Alerts
+  let visible = true;
+
+  //API
   let natalityStats = [];
+  let error = null;
+  let init = true;
+
+  //Functions
+  async function loadStats() {
+    console.log("Loading data...");
+    const res = await fetch("api/v1/natality-stats/loadInitialData").then(
+      function (res) {
+        if (res.ok) {
+          console.log("OK");
+          getStats();
+          error = 0;
+        } else if (res.status == 409) {
+          error = 409;
+          console.log("Conflict");
+        } else {
+          error = 404;
+          console.log("Error");
+        }
+      }
+    );
+  }
 
   async function getStats() {
     console.log("Fetching data...");
-    // espera a los datos de los contactos ylo mete en la variable
+
     const res = await fetch("api/v1/natality-stats/");
 
     if (res.ok) {
       console.log("Ok");
       const json = await res.json();
-      contacts = json;
-      console.log(`We have received ${contacts.length} contacs.`);
+      natalityStats = json;
+      console.log(`We have received ${natalityStats.length} contacs.`);
     } else {
       console.log("Error");
     }
+    init = false;
   }
 
-  console.log("Before getContacts");
-  //getContacts();
-  console.log("After getContacts");
+  async function deleteStats() {
+    console.log("Deleting data...");
+
+    const res = await fetch("api/v1/natality-stats/", {
+      method: "DELETE",
+    }).then(function (res) {
+      if (res.ok) {
+        console.log("OK");
+        natalityStats = [];
+        error = 0;
+      } else if (res.status = 404) {
+        error = 404;
+        console.log("ERROR Data not found in database");
+      } else {
+        error = 1000;
+        console.log("ERROR");
+      }
+    });
+  }
+
+  getStats();
 </script>
 
 <main>
@@ -53,46 +109,97 @@
           Esta acción cargará los datos siempre y cuando no existan previamente.
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" on:click={toggle1}>Cargar</Button>
+          <Button color="primary" on:click={toggle1P}>Cargar</Button>
           <Button color="secondary" on:click={toggle1}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </NavItem>
     <NavItem>
+      {#if natalityStats.length ===0}
+      <NavLink disabled href="#" on:click={toggle2}>Borrar todos los datos</NavLink>
+      {:else}
       <NavLink href="#" on:click={toggle2}>Borrar todos los datos</NavLink>
       <Modal isOpen={open2} {toggle2}>
         <ModalHeader {toggle2}>¿Borrar todos los datos?</ModalHeader>
         <ModalBody>Esta acción no se puede deshacer.</ModalBody>
         <ModalFooter>
-          <Button color="danger" on:click={toggle2}>Borrar</Button>
+          <Button color="danger" on:click={toggle2P}>Borrar</Button>
           <Button color="secondary" on:click={toggle2}>Cancelar</Button>
         </ModalFooter>
       </Modal>
+      {/if}
     </NavItem>
   </Nav>
   <h2>Natality Stats</h2>
-  
-  <Table borderer>
-    <thead>
-      <tr>
-        <th> Name </th>
-        <th> Phone </th>
-      </tr>
-    </thead>
-    <tbody />
-  </Table>
+
+  {#if !init}
+    {#if error === 0}
+      <Alert color="success" isOpen={visible} toggle={() => (visible = false)}>
+        <h4 class="alert-heading text-capitalize">
+          Operación realizada correctamente.
+        </h4>
+      </Alert>
+    {/if}
+
+    {#if error === 409}
+      <Alert color="warning" isOpen={visible} toggle={() => (visible = false)}>
+        <h4 class="alert-heading text-capitalize">
+          Los datos ya se encuentran cargados.
+        </h4>
+      </Alert>
+    {:else if error === 404}
+      <Alert color="danger" isOpen={visible} toggle={() => (visible = false)}>
+        <h4 class="alert-heading text-capitalize">
+          No se encuentra en la base de datos.
+        </h4>
+      </Alert>
+    {:else if error ===1000}
+      <Alert color="danger" isOpen={visible} toggle={() => (visible = false)}>
+        <h4 class="alert-heading text-capitalize">Error desconocido.</h4>
+      </Alert>
+    {/if}
+  {/if}
+
+  {#if natalityStats.length === 0}
+    <p>No se han ecnontrado datos, por favor carga los datos iniciales.</p>
+  {:else}
+    <Table borderer>
+      <thead>
+        <tr>
+          <th> country </th>
+          <th>date </th>
+          <th>born </th>
+          <th>men-born </th>
+          <th>women-born </th>
+          <th>natality-rate </th>
+          <th>fertility-rate </th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each natalityStats as stat}
+          <tr>
+            <td>{stat.country}</td>
+            <td>{stat.date}</td>
+            <td>{stat.born}</td>
+            <td>{stat["men-born"]}</td>
+            <td>{stat["women-born"]}</td>
+            <td>{stat["natality-rate"]}</td>
+            <td>{stat["fertility-rate"]}</td>
+          </tr>
+        {/each}
+      </tbody><tbody />
+    </Table>
+  {/if}
 </main>
 
 <style>
   main {
     text-align: center;
     padding: 1em;
-
     margin: 0 auto;
   }
 
   h2 {
-    
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
