@@ -9,7 +9,7 @@
     NavLink,
     Button,
     Table,
-    Alert,
+    UncontrolledAlert ,
   } from "sveltestrap";
 
   // Nav
@@ -35,7 +35,6 @@
   //API
   let natalityStats = [];
   let error = null;
-  let init = true;
 
   //Functions
   async function loadStats() {
@@ -133,33 +132,31 @@
   <h2>Natality Stats</h2>
 
  
+  <!-- Alerts -->
     {#if error === 0}
-      <Alert color="success" isOpen={visible} toggle={() => (visible = false)}>
-        <h4 class="alert-heading text-capitalize">
+      <UncontrolledAlert  color="success" >
           Operación realizada correctamente.
-        </h4>
-      </Alert>
+        
+      </UncontrolledAlert>
     {/if}
 
     {#if error === 409}
-      <Alert color="warning" isOpen={visible} toggle={() => (visible = false)}>
-        <h4 class="alert-heading text-capitalize">
+      <UncontrolledAlert  color="warning" >
           Los datos ya se encuentran cargados.
-        </h4>
-      </Alert>
+        
+      </UncontrolledAlert>
     {:else if error === 404}
-      <Alert color="danger" isOpen={visible} toggle={() => (visible = false)}>
-        <h4 class="alert-heading text-capitalize">
+      <UncontrolledAlert  color="danger">
           No se encuentra en la base de datos.
-        </h4>
-      </Alert>
+        
+      </UncontrolledAlert>
     {:else if error ===1000}
-      <Alert color="danger" isOpen={visible} toggle={() => (visible = false)}>
-        <h4 class="alert-heading text-capitalize">Error desconocido.</h4>
-      </Alert>
+      <UncontrolledAlert  color="danger" >
+       Error desconocido.
+      </UncontrolledAlert>
     {/if}
   
-
+<!-- Table -->
   {#if natalityStats.length === 0}
     <p>No se han ecnontrado datos, por favor carga los datos iniciales.</p>
   {:else}
