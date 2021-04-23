@@ -12,6 +12,7 @@
     Container,
     Row,
   } from "sveltestrap";
+  import NatalityApi from "./NatalityAPI.svelte";
 </script>
 
 <main>
@@ -37,15 +38,17 @@
   </p>
 
   <Container>
-		<Col>
-  <a href="http://github.com/gti-sos/SOS2021-01"
-    ><b>Repository: </b>http://github.com/gti-sos/SOS2021-01</a
-  >
-		</Col>
-		<Col>
-	<a href="http://sos2021-01.herokuapp.com"><b>URL: </b>http://sos2021-01.herokuapp.com</a>
-		</Col>
-</Container>
+    <Col>
+      <a href="http://github.com/gti-sos/SOS2021-01"
+        ><b>Repository: </b>http://github.com/gti-sos/SOS2021-01</a
+      >
+    </Col>
+    <Col>
+      <a href="http://sos2021-01.herokuapp.com"
+        ><b>URL: </b>http://sos2021-01.herokuapp.com</a
+      >
+    </Col>
+  </Container>
 
   <h2>APIs</h2>
   <Container>
@@ -106,10 +109,12 @@
             Men and women born, natality and fertlity ratios by year and
             country.
           </CardText>
-          <a href="https://sos2021-01.herokuapp.com/api/v1/natality-stats"
+          <a href="/api/v1/natality-stats"
             ><Button primary>Backend</Button></a
           >
-          <Button class="primary">Frontend</Button>
+          <a href="/#/natality-stats"
+            ><Button class="primary">Frontend</Button></a
+          >
           <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
             ><Button info>Postman Documentation</Button></a
           >
@@ -137,9 +142,9 @@
     font-size: 4em;
     font-weight: 100;
   }
-b{
-	color:#00c1ff;
-}
+  b {
+    color: #00c1ff;
+  }
   @media (min-width: 640px) {
     main {
       max-width: none;
