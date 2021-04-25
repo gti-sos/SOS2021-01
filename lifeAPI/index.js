@@ -210,7 +210,7 @@ module.exports.register = (app) => {
     app.delete(BASE_LIFE_API_PATH + "/life-stats/", (req, res) => {
         db.remove({}, { multi: true }, function (err, dataInDB) {
             if (err) {
-                console.error("ERROR deleting DB contacts in DELETE");
+                console.error("ERROR deleting DB stats in DELETE");
                 res.sendStatus(500);
             } else {
                 if (dataInDB == 0) { //no hay datos para borrar

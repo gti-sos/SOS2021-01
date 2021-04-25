@@ -61,8 +61,8 @@ import {
         <CardBody>
           <CardSubtitle />
           <CardText />
-          <a href="https://sos2021-01.herokuapp.com/api/v1/life-stats"
-            ><Button color="primary">Backend</Button></a
+          <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats"
+          > <Button color="primary">Backend</Button></a
           >
           <Button color="primary">Frontend</Button>
           <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
@@ -84,19 +84,19 @@ import {
         <CardBody>
           <CardSubtitle />
           <CardText />
-          <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats"
-            ><Button color="primary">Backend</Button></a
-          >
-          <Button color="primary">Frontend</Button>
-          <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P"
-            ><Button color="info">Postman Documentation</Button></a
-          >
+          <a href="https://sos2021-01.herokuapp.com/api/v1/life-stats">
+            <Button color="primary">Backend</Button>
+          </a>
+          <a href="/#/life-stats">
+          <Button color="primary">Frontend</Button> 
+          </a>
+          <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
+            <Button color="info">Postman Documentation</Button>
+          </a>
         </CardBody>
-        <CardFooter
-          >developed by
-          <a href="https://github.com/Lucia2712">Lucia Castro Perez</a
-          ></CardFooter
-        >
+        <CardFooter>developed by
+          <a href="https://github.com/Lucia2712">Lucia Castro Perez</a>
+          </CardFooter>
       </Card>
     </Col>
     <Col xs="auto">

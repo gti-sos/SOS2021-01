@@ -5,11 +5,13 @@
 	import NotFound from "./NotFound.svelte";
 	import Home from "./Home.svelte";
 	import Router from 'svelte-spa-router';
-  import NatalityApi from "./NatalityAPI.svelte";
+	import NatalityApi from "./NatalityAPI.svelte";
+	import LifeAPI  from "./lifeStatsAPI/App.svelte";
 
 	const routes = {
 		"/":Home,
 		"/natality-stats": NatalityApi,
+		"/life-stats": LifeAPI, 
 		'*': NotFound};
 </script>
 
