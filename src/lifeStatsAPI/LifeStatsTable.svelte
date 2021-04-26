@@ -65,11 +65,11 @@ import {Button, Table, Toast, ToastBody, ToastHeader } from 'sveltestrap';
         <Table bordered style="text-align: center;">
             <thead>
                 <tr>
-                    <th>Country</th>
-                    <th>Date</th>
-                    <th>Quality life index</th>
-                    <th>Purchasing power index</th>
-                    <th>Safety index</th>
+                    <th>País</th>
+                    <th>Fecha</th>
+                    <th>Índice de calidad de vida</th>
+                    <th>Índice de poder adquisitivo</th>
+                    <th>Índice de seguridad</th>
                 </tr>
             </thead>
             <tbody>
