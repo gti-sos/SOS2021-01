@@ -129,7 +129,7 @@
       {/if}
     </NavItem>
   </Nav>
-  <h2>Natality Stats</h2>
+  <h2>Natalidad</h2>
 
  
   <!-- Alerts -->
@@ -163,13 +163,13 @@
     <Table borderer>
       <thead>
         <tr>
-          <th> country </th>
-          <th>date </th>
-          <th>born </th>
-          <th>men-born </th>
-          <th>women-born </th>
-          <th>natality-rate </th>
-          <th>fertility-rate </th>
+          <th> País </th>
+          <th>Año </th>
+          <th>Nacimientos </th>
+          <th>Hombres nacidos </th>
+          <th>Mujeres nacidas </th>
+          <th>Tasa de natalidad </th>
+          <th>Índice de fecundación </th>
         </tr>
       </thead>
       <tbody>
@@ -180,7 +180,7 @@
             <td>{stat.born}</td>
             <td>{stat["men-born"]}</td>
             <td>{stat["women-born"]}</td>
-            <td>{stat["natality-rate"]}</td>
+            <td>{stat["natality-rate"]}%</td>
             <td>{stat["fertility-rate"]}</td>
           </tr>
         {/each}
