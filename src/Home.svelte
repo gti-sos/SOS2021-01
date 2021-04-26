@@ -1,5 +1,5 @@
 <script>
-import {
+  import {
     Button,
     Icon,
     Card,
@@ -14,7 +14,6 @@ import {
     Row,
   } from "sveltestrap";
 </script>
-
 
 <main>
   <h1>SOS2021-01</h1>
@@ -60,11 +59,16 @@ import {
         </CardHeader>
         <CardBody>
           <CardSubtitle />
-          <CardText />
-          <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats"
-          > <Button color="primary">Backend</Button></a
+          <CardText
+            >Divorce data source. Marriage and divorce rate, ratio between
+            marriages and divorces.</CardText
           >
-          <Button color="primary">Frontend</Button>
+          <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats">
+            <Button color="primary">Backend</Button></a
+          >
+          <a href="/#/*">
+            <Button color="primary">Frontend</Button>
+          </a>
           <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
             ><Button color="info">Postman Documentation</Button></a
           >
@@ -83,20 +87,24 @@ import {
         </CardHeader>
         <CardBody>
           <CardSubtitle />
-          <CardText />
+          <CardText
+            >Quality of life index data source by country, which is linked to
+            the purchasing power index and the safety index.</CardText
+          >
           <a href="https://sos2021-01.herokuapp.com/api/v1/life-stats">
             <Button color="primary">Backend</Button>
           </a>
           <a href="/#/life-stats">
-          <Button color="primary">Frontend</Button> 
+            <Button color="primary">Frontend</Button>
           </a>
           <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
             <Button color="info">Postman Documentation</Button>
           </a>
         </CardBody>
-        <CardFooter>developed by
+        <CardFooter
+          >developed by
           <a href="https://github.com/Lucia2712">Lucia Castro Perez</a>
-          </CardFooter>
+        </CardFooter>
       </Card>
     </Col>
     <Col xs="auto">
@@ -128,8 +136,6 @@ import {
       </Card>
     </Col>
   </Container>
-
-
 </main>
 
 <style>
