@@ -1,6 +1,6 @@
 
 <script>
-	import LifeStatsTable from './DivorceAPI.svelte';
+	import DivorceAPI from './DivorceAPI.svelte';
 </script>
 
 
