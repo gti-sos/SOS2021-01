@@ -129,7 +129,7 @@
         {/if}
       </NavItem>
     </Nav>
-    <h2>Divorcios</h2>
+    <h2>API de Divorcios y Matrimonios</h2>
   
    
     <!-- Alerts -->
