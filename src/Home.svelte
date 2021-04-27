@@ -66,7 +66,7 @@
           <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats">
             <Button color="primary">Backend</Button></a
           >
-          <a href="/api/v1/divorce-stats">
+          <a href="/#/divorce-stats">
             <Button color="primary">Frontend</Button>
           </a>
           <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
