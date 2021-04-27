@@ -33,7 +33,7 @@
     let visible = true;
   
     //API
-    let natalityStats = [];
+    let divorceStats = [];
     let error = null;
   
     //Functions
@@ -80,7 +80,7 @@
       }).then(function (res) {
         if (res.ok) {
           console.log("OK");
-          natalityStats = [];
+          divorceStats = [];
           error = 0;
         } else if (res.status = 404) {
           error = 404;
@@ -114,7 +114,7 @@
         </Modal>
       </NavItem>
       <NavItem>
-        {#if natalityStats.length ===0}
+        {#if divorceStats.length ===0}
         <NavLink disabled href="#" on:click={toggle2}>Borrar todos los datos</NavLink>
         {:else}
         <NavLink href="#" on:click={toggle2}>Borrar todos los datos</NavLink>
@@ -157,7 +157,7 @@
       {/if}
     
   <!-- Table -->
-    {#if natalityStats.length === 0}
+    {#if divorceStats.length === 0}
       <p>No se han encontrado datos, por favor carga los datos iniciales.</p>
     {:else}
       <Table borderer>
