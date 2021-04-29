@@ -47,6 +47,7 @@
   //TODO: errorMSG en vez de alertas
   let error = null;
   let errorMsg = "";
+  let okMsg = "";
 
   //Functions
   async function loadStats() {
@@ -57,13 +58,12 @@
       if (res.ok) {
         console.log("OK");
         getStats();
-        error = 0;
-      } else if (res.status == 409) {
-        error = 409;
-        console.log("Conflict");
+        errorMsg = "";
+        okMsg = "Operación realizada correctamente";
       } else {
-        error = 404;
-        console.log("Error");
+        errorMsg = res.status + ": " + res.statusText;
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
       }
     });
   }
@@ -78,10 +78,15 @@
       const json = await res.json();
       natalityStats = json;
       console.log(`We have received ${natalityStats.length} contacs.`);
+      errorMsg = "";
     } else {
-      console.log("Error");
-    }
+      if(natalityStats.length!=0){
+      okMsg = "";
+       errorMsg = res.status + ": " + res.statusText;
+      console.log("ERROR! 404");
+      }
   }
+}
 
   async function deleteAllStats() {
     console.log("Deleting data...");
@@ -92,13 +97,12 @@
       if (res.ok) {
         console.log("OK");
         natalityStats = [];
-        error = 0;
-      } else if ((res.status = 404)) {
-        error = 404;
-        console.log("ERROR Data not found in database");
+        errorMsg = "";
+        okMsg = "Operación realizada correctamente";
       } else {
-        error = 1000;
-        console.log("ERROR");
+        errorMsg = res.status + ": " + res.statusText;
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
       }
     });
   }
@@ -114,14 +118,16 @@
     ).then(function (res) {
       if (res.ok) {
         console.log("OK");
+        if(natalityStats.length===1){
+          natalityStats=[];
+        }
+        errorMsg = "";
+        okMsg = "Operación realizada correctamente";
         getStats();
-        error = 0;
-      } else if ((res.status = 404)) {
-        error = 404;
-        console.log("ERROR Data not found in database");
       } else {
-        error = 1000;
-        console.log("ERROR");
+        errorMsg = res.status + ": " + res.statusText;
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
       }
     });
   }
@@ -146,13 +152,12 @@
       if (res.ok) {
         console.log("OK");
         getStats();
-        error = 0;
-      } else if ((res.status = 409)) {
-        error = 409;
-        console.log("ERROR Data already exists in database");
+        errorMsg = "";
+        okMsg = "Operación realizada correctamente";
       } else {
-        error = 1000;
-        console.log("ERROR");
+        errorMsg = res.status + ": " + res.statusText;
+        console.log("ERROR!" + errorMsg);
+        okMsg = "";
       }
     });
   }
@@ -198,82 +203,64 @@
   </Nav>
   <h2>Natalidad</h2>
 
-  <!-- Alerts -->
-  {#if error === 0}
-    <UncontrolledAlert color="success">
-      Operación realizada correctamente.
-    </UncontrolledAlert>
+  {#if errorMsg}
+    <p style="color: red">ERROR: {errorMsg}</p>
   {/if}
-
-  {#if error === 409}
-    <UncontrolledAlert color="warning">
-      Los datos ya se encuentran cargados.
-    </UncontrolledAlert>
-  {:else if error === 404}
-    <UncontrolledAlert color="danger">
-      No se encuentra en la base de datos.
-    </UncontrolledAlert>
-  {:else if error === 1000}
-    <UncontrolledAlert color="danger">Error desconocido.</UncontrolledAlert>
+  {#if okMsg}
+    <p style="color: green">{okMsg}</p>
   {/if}
-
   <!-- Table -->
-  {#if natalityStats.length === 0}
-    <p>No se han encontrado datos, por favor carga los datos iniciales.</p>
-  {:else}
-    <Table borderer>
-      <thead>
+  <Table borderer>
+    <thead>
+      <tr>
+        <th> País </th>
+        <th>Año </th>
+        <th>Nacimientos </th>
+        <th>Hombres nacidos </th>
+        <th>Mujeres nacidas </th>
+        <th>Tasa de natalidad </th>
+        <th>Índice de fecundación </th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" bind:value={newStat.country} /></td>
+        <td><input type="number" bind:value={newStat.date} /></td>
+        <td><input type="number" bind:value={newStat.born} /></td>
+        <td><input type="number" bind:value={newStat["men-born"]} /></td>
+        <td><input type="number" bind:value={newStat["women-born"]} /></td>
+        <td><input type="number" bind:value={newStat["natality-rate"]} /></td>
+        <td><input type="number" bind:value={newStat["fertility-rate"]} /></td>
+        <td
+          ><Button color="secondary" on:click={insertStat}>Insertar</Button></td
+        >
+      </tr>
+
+      {#each natalityStats as stat}
         <tr>
-          <th> País </th>
-          <th>Año </th>
-          <th>Nacimientos </th>
-          <th>Hombres nacidos </th>
-          <th>Mujeres nacidas </th>
-          <th>Tasa de natalidad </th>
-          <th>Índice de fecundación </th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text" bind:value={newStat.country} /></td>
-          <td><input type="number" bind:value={newStat.date} /></td>
-          <td><input type="number" bind:value={newStat.born} /></td>
-          <td><input type="number" bind:value={newStat["men-born"]} /></td>
-          <td><input type="number" bind:value={newStat["women-born"]} /></td>
-          <td><input type="number" bind:value={newStat["natality-rate"]} /></td>
-          <td><input type="number" bind:value={newStat["fertility-rate"]} /></td
+          <td>{stat.country}</td>
+          <td>{stat.date}</td>
+          <td>{stat.born}</td>
+          <td>{stat["men-born"]}</td>
+          <td>{stat["women-born"]}</td>
+          <td>{stat["natality-rate"]}%</td>
+          <td>{stat["fertility-rate"]}</td>
+          <td>
+            <a href="#/natality-stats/{stat.country}/{stat.date}">
+              <Button color="primary">Editar</Button>
+            </a></td
           >
           <td
-            ><Button color="secondary" on:click={insertStat}>Insertar</Button
+            ><Button
+              color="danger"
+              on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
             ></td
           >
         </tr>
-        {#each natalityStats as stat}
-          <tr>
-            <td>{stat.country}</td>
-            <td>{stat.date}</td>
-            <td>{stat.born}</td>
-            <td>{stat["men-born"]}</td>
-            <td>{stat["women-born"]}</td>
-            <td>{stat["natality-rate"]}%</td>
-            <td>{stat["fertility-rate"]}</td>
-            <td>
-              <a href="#/natality-stats/{stat.country}/{stat.date}">
-                <Button color="primary">Editar</Button>
-              </a></td
-            >
-            <td
-              ><Button
-                color="danger"
-                on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
-              ></td
-            >
-          </tr>
-        {/each}
-      </tbody><tbody />
-    </Table>
-  {/if}
+      {/each}
+    </tbody><tbody />
+  </Table>
 </main>
 
 <style>

@@ -14,7 +14,8 @@
   let updateNatalityRate = 999.9;
   let updateFertilityRate = 999.9;
   let errorMsg = "";
-
+  let okMsg = "";
+  
   async function getStat() {
     console.log("Fetching stat..." + params.country + " " + params.date);
     const res = await fetch(
@@ -33,8 +34,10 @@
       updateNatalityRate = stat["natality-rate"];
       updateFertilityRate = stat["fertility-rate"];
       console.log("Received stat.");
+      
     } else {
       errorMsg = res.status + ": " + res.statusText;
+      okMsg="";
       console.log("ERROR!" + errorMsg);
     }
   }
@@ -68,7 +71,17 @@
         }
       }
     ).then(function (res) {
-      getStat();
+      if (res.ok) {
+        console.log("OK");
+        getStat();
+        errorMsg = "";
+        okMsg = "Operación realizada correctamente";
+      } else {
+        errorMsg = res.status + ": " + res.statusText;
+        okMsg = "";
+        getStat();
+        console.log("ERROR!" + errorMsg);
+      }
     });
   }
 
@@ -110,6 +123,9 @@
   </Table>
   {#if errorMsg}
     <p style="color: red">ERROR: {errorMsg}</p>
+  {/if}
+  {#if okMsg}
+  <p style="color: green">{okMsg}</p>
   {/if}
   <a href="#/natality-stats"
     ><Button outline color="secondary">Volver</Button></a

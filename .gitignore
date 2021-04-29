@@ -1,5 +1,5 @@
 node_modules
-natality-statsAPI/natality-stats.db
-DivorceAPI/divorce-stats.db
-lifeAPI/life-stats.db
+src/back/DivorceAPI/divorce-stats.db
+src/back/lifeAPI/life-stats.db
 public/build
+src/back/natality-statsAPI/natality-stats.db
