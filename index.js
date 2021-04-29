@@ -7,9 +7,9 @@ const { Console } = require("console");
 
 
 
-var lifeAPI = require("./lifeAPI");
-var natalityStatsAPI = require("./natality-statsAPI");
-var DivorceAPI = require("./DivorceAPI");
+var lifeAPI = require("./src/back/lifeAPI");
+var natalityStatsAPI = require("./src/back/natality-statsAPI");
+var DivorceAPI = require("./src/back/DivorceAPI");
 
 //--------------------------Server-variables------------------
 var app = express();

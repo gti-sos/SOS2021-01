@@ -11,14 +11,23 @@
     CardTitle,
     Col,
     Container,
+    Nav,
+    NavItem,
+    NavLink,
     Row,
   } from "sveltestrap";
 </script>
 
 <main>
+  <Nav>
+    <NavItem>
+      <NavLink href="/">Volver</NavLink>
+    </NavItem>
+  </Nav>
+
   <h1>SOS2021-01</h1>
 
-  <h2>Team</h2>
+  <h2>Equipo</h2>
   <Container>
     <Col>
       <a href="http://github.com/19juaniyo99">Juan Buitrago Ruiz</a>
@@ -30,32 +39,23 @@
       <a href="http://github.com/AbramsM1A2">Abraham Corta Ramirez</a>
     </Col>
   </Container>
-
-  <h2>Project description</h2>
-  <p>
-    Global analysis of the years 2018-2019 and the existing relationship
-    between: the number of births, divorce rate and quality of life per citizen.
-  </p>
-
+  <p />
   <Container>
-    <Col>
-      <a href="http://github.com/gti-sos/SOS2021-01"
-        ><b>Repository: </b>http://github.com/gti-sos/SOS2021-01</a
-      >
-    </Col>
-    <Col>
-      <a href="http://sos2021-01.herokuapp.com"
-        ><b>URL: </b>http://sos2021-01.herokuapp.com</a
-      >
-    </Col>
+    <Row>
+      <Col>
+        <a href="http://github.com/gti-sos/SOS2021-01">
+          <Button color="primary">GitHub</Button></a
+        >
+      </Col>
+    </Row>
   </Container>
-
+  <p />
   <h2>APIs</h2>
   <Container>
     <Col xs="auto">
       <Card class="mb-3">
         <CardHeader>
-          <CardTitle><h5>Divorce-stats</h5></CardTitle>
+          <CardTitle><h5>divorce-stats</h5></CardTitle>
         </CardHeader>
         <CardBody>
           <CardSubtitle />
@@ -64,7 +64,7 @@
             marriages and divorces.</CardText
           >
           <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats">
-            <Button color="primary">Backend</Button></a
+            <Button color="primary">API</Button></a
           >
           <a href="/#/divorce-stats">
             <Button color="primary">Frontend</Button>
@@ -83,7 +83,7 @@
     <Col xs="auto">
       <Card class="mb-3">
         <CardHeader>
-          <CardTitle><h5>Life-stats</h5></CardTitle>
+          <CardTitle><h5>life-stats</h5></CardTitle>
         </CardHeader>
         <CardBody>
           <CardSubtitle />
@@ -92,7 +92,7 @@
             the purchasing power index and the safety index.</CardText
           >
           <a href="https://sos2021-01.herokuapp.com/api/v1/life-stats">
-            <Button color="primary">Backend</Button>
+            <Button color="primary">API</Button>
           </a>
           <a href="/#/life-stats">
             <Button color="primary">Frontend</Button>
@@ -110,7 +110,7 @@
     <Col xs="auto">
       <Card class="mb-3">
         <CardHeader>
-          <CardTitle><h5>Natality-stats</h5></CardTitle>
+          <CardTitle><h5>natality-stats</h5></CardTitle>
         </CardHeader>
         <CardBody>
           <CardSubtitle />
@@ -119,7 +119,7 @@
             country.
           </CardText>
           <a href="/api/v1/natality-stats"
-            ><Button color="primary">Backend</Button></a
+            ><Button color="primary">API</Button></a
           >
           <a href="/#/natality-stats"
             ><Button color="primary">Frontend</Button></a
@@ -150,9 +150,6 @@
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
-  }
-  b {
-    color: #00c1ff;
   }
   @media (min-width: 640px) {
     main {
