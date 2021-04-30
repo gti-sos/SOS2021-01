@@ -1,4 +1,4 @@
-<script>
+<script >
     import {
       Nav,
       Modal,
@@ -149,6 +149,7 @@
       }
       init = false;
     }
+  }
   
     async function deleteAllStats() {
       console.log("Deleting data...");
@@ -308,7 +309,8 @@
           <Button color="primary" on:click={searchStat}>Buscar</Button>
         </td>
     </tr>
-    {#each natalityStats as stat}
+  {/each}
+    {#each divorceStats as stat}
         <tr>
           <td>{stat.country}</td>
           <td>{stat.date}</td>
