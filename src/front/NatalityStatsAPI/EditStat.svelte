@@ -36,9 +36,13 @@
       console.log("Received stat.");
       
     } else {
-      errorMsg = res.status + ": " + res.statusText;
-      okMsg="";
-      console.log("ERROR!" + errorMsg);
+      if(res.status===404){
+          errorMsg = "No se encuentra el dato solicitado";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
     }
   }
 
@@ -77,7 +81,13 @@
         errorMsg = "";
         okMsg = "Operación realizada correctamente";
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if(res.status===409){
+          errorMsg = "El dato ya se encuentra cargado";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }else if(res.status ===404){
+          errorMsg = "No se han encontrado el dato solicitado";
+        }        
         okMsg = "";
         getStat();
         console.log("ERROR!" + errorMsg);

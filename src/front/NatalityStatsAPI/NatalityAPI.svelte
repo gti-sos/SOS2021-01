@@ -50,6 +50,7 @@
   //Alertas
   let errorMsg = "";
   let okMsg = "";
+  let errorStatus = 0;
 
   let fullQuery = "";
 
@@ -71,10 +72,16 @@
       if (res.ok) {
         console.log("OK");
         getStats();
+        //Alertas
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        errorStatus = 0;
+        okMsg = "Datos cargados correctamente";
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if (res.status === 409) {
+          errorMsg = "Alguno de los datos ya se encuentra cargado";
+        } else if (res.status === 500) {
+          errorMsg = "No se han podido acceder a la base de datos";
+        }
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -103,11 +110,15 @@
         console.log("OK");
         const json = await res.json();
         natalityStats = json;
+        okMsg="Búsqueda realizada correctamente"
       } else {
         natalityStats = [];
-        errorMsg = res.status + ": " + res.statusText;
+        if (res.status === 404) {
+          errorMsg = "No se encuentra el dato solicitado";
+        } else if (res.status === 500) {
+          errorMsg = "No se han podido acceder a la base de datos";
+        }
         okMsg = "";
-
         console.log("ERROR!" + errorMsg);
       }
     } else {
@@ -117,34 +128,36 @@
     }
   }
 
+  //Total de datos en la BD
   async function getNumTotal() {
     const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
     if (res.ok) {
       const json = await res.json();
-      total=json.length;
-      console.log("getTOAL: "+total);
+      total = json.length;
+      console.log("getTOAL: " + total);
       changePage(current_page, current_offset);
     } else {
       errorMsg = "No se han encontrado datos.";
     }
   }
-
+  //Calcula el rango entre ods valores
   function range(size, startAt = 0) {
     return [...Array(size).keys()].map((i) => i + startAt);
   }
 
+  //Cambio de pagina
   function changePage(page, offset) {
     console.log("------Change page------");
-    console.log("Params page: "+page+" offset: "+offset);
-    last_page=Math.ceil(total/10);
-    console.log("new last page: "+last_page);
+    console.log("Params page: " + page + " offset: " + offset);
+    last_page = Math.ceil(total / 10);
+    console.log("new last page: " + last_page);
     if (page !== current_page) {
       console.log("enter if");
       current_offset = offset;
       current_page = page;
-      console.log("page: "+page);
-      console.log("current_offset: "+current_offset);
-      console.log("current_page: "+current_page);
+      console.log("page: " + page);
+      console.log("current_offset: " + current_offset);
+      console.log("current_page: " + current_page);
       getStats();
     }
     console.log("---------Exit change page-------");
@@ -167,13 +180,17 @@
       natalityStats = json;
       console.log(`We have received ${natalityStats.length} stats.`);
       errorMsg = "";
-     
+      getNumTotal();
     } else {
       if (natalityStats.length != 0) {
-        okMsg = "";
-        errorMsg = res.status + ": " + res.statusText;
-        console.log("ERROR! 404");
+        errorMsg = "No hay datos disponibles";
+        console.log("ERROR!");
       }
+      if (res.status === 500) {
+        errorMsg = "No se han podido acceder a la base de datos";
+      }
+      okMsg = "";
+      console.log("ERROR!" + errorMsg);
     }
   }
 
@@ -189,7 +206,11 @@
         errorMsg = "";
         okMsg = "Operación realizada correctamente";
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if(res.status===404){
+          errorMsg = "No existen datos que borrar";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -215,7 +236,11 @@
         okMsg = "Operación realizada correctamente";
         getStats();
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if(res.status===404){
+          errorMsg = "No existe el dato a borrar";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -245,9 +270,13 @@
         errorMsg = "";
         okMsg = "Operación realizada correctamente";
       } else {
-        errorMsg = res.status + ": " + res.statusText;
-        console.log("ERROR!" + errorMsg);
+        if(res.status===404){
+          errorMsg = "No se encuentra el dato a borrar";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
         okMsg = "";
+        console.log("ERROR!" + errorMsg);
       }
     });
   }
@@ -316,6 +345,7 @@
         <th>Tasa de natalidad </th>
         <th>Índice de fecundación </th>
         <th>Acciones</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -375,11 +405,9 @@
             bind:value={newStat["fertility-rate"]}
           /></td
         >
-        <td
-          ><Button color="secondary" on:click={insertStat}>Insertar</Button></td
-        >
+        <td><Button color="primary" on:click={insertStat}>Insertar</Button></td>
         <td>
-          <Button color="primary" on:click={searchStat}>Buscar</Button>
+          <Button color="secondary" on:click={searchStat}>Buscar</Button>
         </td>
       </tr>
 
@@ -414,7 +442,7 @@
       <PaginationLink
         previous
         href="#/natality-stats"
-        on:click={() => changePage(current_page - 1, current_offset-10)}
+        on:click={() => changePage(current_page - 1, current_offset - 10)}
       />
     </PaginationItem>
     {#each range(last_page, 1) as page}
@@ -422,14 +450,16 @@
         <PaginationLink
           previous
           href="#/natality-stats"
-          on:click={() => changePage(page, (page-1)*10)}>{page}</PaginationLink>
+          on:click={() => changePage(page, (page - 1) * 10)}
+          >{page}</PaginationLink
+        >
       </PaginationItem>
     {/each}
     <PaginationItem class={current_page === last_page ? "disabled" : ""}>
       <PaginationLink
         next
         href="#/natality-stats"
-        on:click={() => changePage(current_page + 1,current_offset+10)}
+        on:click={() => changePage(current_page + 1, current_offset + 10)}
       />
     </PaginationItem>
   </Pagination>
