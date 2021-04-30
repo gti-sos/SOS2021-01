@@ -11,16 +11,19 @@
     Table
   } from "sveltestrap";
   import { onMount } from "svelte";
-  // Nav
 
-  //Load
+
+
+  //------------------Nav-----------------------
+
+  //Load stats
   let open1 = false;
   const toggle1 = () => (open1 = !open1);
   const toggle1P = () => {
     open1 = !open1;
     loadStats();
   };
-  //Delete
+  //Delete all stats
   let open2 = false;
   const toggle2 = () => (open2 = !open2);
   const toggle2P = () => {
@@ -28,8 +31,9 @@
     deleteAllStats();
   };
 
-  //API
+  //------------------API-------------------
   const BASE_CONTACT_API_PATH = "/api/v1";
+
   let natalityStats = [];
 
   let newStat = {
@@ -46,7 +50,26 @@
   let errorMsg = "";
   let okMsg = "";
 
+  let fullQuery="";
+
+//Pagination
+  let offset = 0;
+	let limit = 10;
+
+  let current_page=1;
+  let last_page=1;
+  let per_page=limit;
+  let from=1;
+  let to=1;
+  let total=0;
+
+  let loading = true;
+  
   //Functions
+
+  
+
+
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -65,17 +88,59 @@
     });
   }
 
+  async function searchStat() {
+    console.log(
+      "Searching stat...");
+
+    var campos = new Map(
+      Object.entries(newStat).filter((o) => {
+        return o[1] != "";
+      })
+    );
+    let querySymbol = "?";
+    for (var [clave, valor] of campos.entries()) {
+      querySymbol += clave + "=" + valor + "&";
+    }
+    fullQuery = querySymbol.slice(0, -1);
+
+    if (fullQuery != "") {
+      const res = await fetch(
+        BASE_CONTACT_API_PATH + "/natality-stats/" + fullQuery
+      );
+      if (res.ok) {
+        console.log("OK");
+        const json = await res.json();
+        natalityStats=json;
+
+      } else {
+        natalityStats=[];
+        errorMsg = res.status + ": " + res.statusText;
+        okMsg = "";
+ 
+        console.log("ERROR!" + errorMsg);
+      }
+    }else{
+      errorMsg = "";
+      okMsg = "Búsqueda realizada correctamente";
+      getStats();
+    }
+  }
+
+
+
   async function getStats() {
     console.log("Fetching data...");
 
-    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats/");
+    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats?limit="+limit+"&offset="+offset);
 
     if (res.ok) {
       console.log("Ok");
       const json = await res.json();
       natalityStats = json;
-      console.log(`We have received ${natalityStats.length} contacs.`);
+      console.log(`We have received ${natalityStats.length} stats.`);
       errorMsg = "";
+     
+     
     } else {
       if(natalityStats.length!=0){
       okMsg = "";
@@ -117,6 +182,7 @@
         console.log("OK");
         if(natalityStats.length===1){
           natalityStats=[];
+          currentPage = 1;
         }
         errorMsg = "";
         okMsg = "Operación realizada correctamente";
@@ -159,7 +225,10 @@
     });
   }
 
+
+
   onMount(getStats);
+  
 </script>
 
 <main>
@@ -197,18 +266,23 @@
         </Modal>
       {/if}
     </NavItem>
-    <NavItem>
-      <NavLink href="#/natality-stats/search">Buscar</NavLink>
-    </NavItem>
   </Nav>
   <h2>Natalidad</h2>
 
+  <p>
+
+  </p>
+
+<p>
+
+</p>
   {#if errorMsg}
     <p style="color: red">ERROR: {errorMsg}</p>
   {/if}
   {#if okMsg}
     <p style="color: green">{okMsg}</p>
   {/if}
+  
   <!-- Table -->
   <Table borderer>
     <thead>
@@ -225,16 +299,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><input type="text" bind:value={newStat.country} /></td>
-        <td><input type="number" bind:value={newStat.date} /></td>
-        <td><input type="number" bind:value={newStat.born} /></td>
-        <td><input type="number" bind:value={newStat["men-born"]} /></td>
-        <td><input type="number" bind:value={newStat["women-born"]} /></td>
-        <td><input type="number" bind:value={newStat["natality-rate"]} /></td>
-        <td><input type="number" bind:value={newStat["fertility-rate"]} /></td>
+        <td><input type="text"  placeholder="spain" bind:value={newStat.country} /></td>
+        <td><input type="number" placeholder="2019" min="1900"  bind:value={newStat.date} /></td>
+        <td><input type="number" placeholder="2000" min="1"  bind:value={newStat.born} /></td>
+        <td><input type="number" placeholder="1000" min="1"  bind:value={newStat["men-born"]} /></td>
+        <td><input type="number" placeholder="1000" min="1"  bind:value={newStat["women-born"]} /></td>
+        <td><input type="number" placeholder="10.2" min="1.0"  bind:value={newStat["natality-rate"]} /></td>
+        <td><input type="number" placeholder="2.1" min="1.0"  bind:value={newStat["fertility-rate"]} /></td>
         <td
           ><Button color="secondary" on:click={insertStat}>Insertar</Button></td
         >
+        <td>
+          <Button color="primary" on:click={searchStat}>Buscar</Button>
+        </td>
       </tr>
 
       {#each natalityStats as stat}
@@ -261,7 +338,30 @@
       {/each}
     </tbody>
   </Table>
+
+
+ <!-- Pagination -->
+<!--  <Pagination ariaLabel="Web pagination">
+  
+  <PaginationItem class="{currentPage===1 ? 'disabled' : ''}">
+    <PaginationLink previous href="#/natality-stats" on:click="{() => changePage(currentPage -1)}" />
+  </PaginationItem>
+  {#each range(last_page, 1) as page}
+  <PaginationItem class="{currentPage===page ? 'active' : ''}">
+    <PaginationLink previous href="#/natality-stats" on:click="{() => changePage(page)}" />
+  </PaginationItem>
+  {/each}
+  <PaginationItem class="{currentPage ===lastPage ? 'disabled' : ''}">
+      <PaginationLink next href="#/natality-stats" on:click="{() => changePage(currentPage+1)}" />
+  </PaginationItem>
+  
+  </Pagination> -->
+
+
+
 </main>
+
+
 
 <style>
   main {

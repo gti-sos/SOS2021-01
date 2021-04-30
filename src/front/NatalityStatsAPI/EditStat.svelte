@@ -116,11 +116,11 @@
       <tr>
         <td>{updateCountry}</td>
         <td>{updateDate}</td>
-        <td><input type="number" bind:value={updateBorn} /></td>
-        <td><input type="number" bind:value={updateMenBorn} /></td>
-        <td><input type="number" bind:value={updateWomenBorn} /></td>
-        <td><input type="number" bind:value={updateNatalityRate} /></td>
-        <td><input type="number" bind:value={updateFertilityRate} /></td>
+        <td><input type="number" placeholder="2000" min="1"   bind:value={updateBorn} /></td>
+        <td><input type="number" placeholder="1000" min="1"   bind:value={updateMenBorn} /></td>
+        <td><input type="number" placeholder="1000" min="1"   bind:value={updateWomenBorn} /></td>
+        <td><input type="number" placeholder="10.2" min="1.0" bind:value={updateNatalityRate} /></td>
+        <td><input type="number" placeholder="2.1" min="1.0"  bind:value={updateFertilityRate} /></td>
         <td>
           <Button outline color="primary" on:click={updateStat}>Actualizar</Button>
         </td>
