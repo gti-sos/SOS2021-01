@@ -8,11 +8,12 @@
     NavItem,
     NavLink,
     Button,
-    Table
+    Table,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
   } from "sveltestrap";
   import { onMount } from "svelte";
-
-
 
   //------------------Nav-----------------------
 
@@ -50,25 +51,17 @@
   let errorMsg = "";
   let okMsg = "";
 
-  let fullQuery="";
+  let fullQuery = "";
 
-//Pagination
-  let offset = 0;
-	let limit = 10;
+  //Pagination
+  let current_offset = 0;
+  let limit = 10;
 
-  let current_page=1;
-  let last_page=1;
-  let per_page=limit;
-  let from=1;
-  let to=1;
-  let total=0;
+  let current_page = 1;
+  let last_page = 1;
+  let total = 0;
 
-  let loading = true;
-  
   //Functions
-
-  
-
 
   async function loadStats() {
     console.log("Loading data...");
@@ -89,8 +82,7 @@
   }
 
   async function searchStat() {
-    console.log(
-      "Searching stat...");
+    console.log("Searching stat...");
 
     var campos = new Map(
       Object.entries(newStat).filter((o) => {
@@ -110,28 +102,64 @@
       if (res.ok) {
         console.log("OK");
         const json = await res.json();
-        natalityStats=json;
-
+        natalityStats = json;
       } else {
-        natalityStats=[];
+        natalityStats = [];
         errorMsg = res.status + ": " + res.statusText;
         okMsg = "";
- 
+
         console.log("ERROR!" + errorMsg);
       }
-    }else{
+    } else {
       errorMsg = "";
       okMsg = "Búsqueda realizada correctamente";
       getStats();
     }
   }
 
+  async function getNumTotal() {
+    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
+    if (res.ok) {
+      const json = await res.json();
+      total=json.length;
+      console.log("getTOAL: "+total);
+      changePage(current_page, current_offset);
+    } else {
+      errorMsg = "No se han encontrado datos.";
+    }
+  }
 
+  function range(size, startAt = 0) {
+    return [...Array(size).keys()].map((i) => i + startAt);
+  }
+
+  function changePage(page, offset) {
+    console.log("------Change page------");
+    console.log("Params page: "+page+" offset: "+offset);
+    last_page=Math.ceil(total/10);
+    console.log("new last page: "+last_page);
+    if (page !== current_page) {
+      console.log("enter if");
+      current_offset = offset;
+      current_page = page;
+      console.log("page: "+page);
+      console.log("current_offset: "+current_offset);
+      console.log("current_page: "+current_page);
+      getStats();
+    }
+    console.log("---------Exit change page-------");
+  }
 
   async function getStats() {
     console.log("Fetching data...");
 
-    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats?limit="+limit+"&offset="+offset);
+    const res = await fetch(
+      BASE_CONTACT_API_PATH +
+        "/natality-stats?limit=" +
+        limit +
+        "&offset=" +
+        current_offset
+    );
 
     if (res.ok) {
       console.log("Ok");
@@ -140,15 +168,14 @@
       console.log(`We have received ${natalityStats.length} stats.`);
       errorMsg = "";
      
-     
     } else {
-      if(natalityStats.length!=0){
-      okMsg = "";
-       errorMsg = res.status + ": " + res.statusText;
-      console.log("ERROR! 404");
+      if (natalityStats.length != 0) {
+        okMsg = "";
+        errorMsg = res.status + ": " + res.statusText;
+        console.log("ERROR! 404");
       }
+    }
   }
-}
 
   async function deleteAllStats() {
     console.log("Deleting data...");
@@ -180,8 +207,8 @@
     ).then(function (res) {
       if (res.ok) {
         console.log("OK");
-        if(natalityStats.length===1){
-          natalityStats=[];
+        if (natalityStats.length === 1) {
+          natalityStats = [];
           currentPage = 1;
         }
         errorMsg = "";
@@ -225,10 +252,8 @@
     });
   }
 
-
-
   onMount(getStats);
-  
+  getNumTotal();
 </script>
 
 <main>
@@ -269,20 +294,16 @@
   </Nav>
   <h2>Natalidad</h2>
 
-  <p>
+  <p />
 
-  </p>
-
-<p>
-
-</p>
+  <p />
   {#if errorMsg}
     <p style="color: red">ERROR: {errorMsg}</p>
   {/if}
   {#if okMsg}
     <p style="color: green">{okMsg}</p>
   {/if}
-  
+
   <!-- Table -->
   <Table borderer>
     <thead>
@@ -299,13 +320,61 @@
     </thead>
     <tbody>
       <tr>
-        <td><input type="text"  placeholder="spain" bind:value={newStat.country} /></td>
-        <td><input type="number" placeholder="2019" min="1900"  bind:value={newStat.date} /></td>
-        <td><input type="number" placeholder="2000" min="1"  bind:value={newStat.born} /></td>
-        <td><input type="number" placeholder="1000" min="1"  bind:value={newStat["men-born"]} /></td>
-        <td><input type="number" placeholder="1000" min="1"  bind:value={newStat["women-born"]} /></td>
-        <td><input type="number" placeholder="10.2" min="1.0"  bind:value={newStat["natality-rate"]} /></td>
-        <td><input type="number" placeholder="2.1" min="1.0"  bind:value={newStat["fertility-rate"]} /></td>
+        <td
+          ><input
+            type="text"
+            placeholder="spain"
+            bind:value={newStat.country}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="2019"
+            min="1900"
+            bind:value={newStat.date}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="2000"
+            min="1"
+            bind:value={newStat.born}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="1000"
+            min="1"
+            bind:value={newStat["men-born"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="1000"
+            min="1"
+            bind:value={newStat["women-born"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="10.2"
+            min="1.0"
+            bind:value={newStat["natality-rate"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="2.1"
+            min="1.0"
+            bind:value={newStat["fertility-rate"]}
+          /></td
+        >
         <td
           ><Button color="secondary" on:click={insertStat}>Insertar</Button></td
         >
@@ -339,29 +408,32 @@
     </tbody>
   </Table>
 
-
- <!-- Pagination -->
-<!--  <Pagination ariaLabel="Web pagination">
-  
-  <PaginationItem class="{currentPage===1 ? 'disabled' : ''}">
-    <PaginationLink previous href="#/natality-stats" on:click="{() => changePage(currentPage -1)}" />
-  </PaginationItem>
-  {#each range(last_page, 1) as page}
-  <PaginationItem class="{currentPage===page ? 'active' : ''}">
-    <PaginationLink previous href="#/natality-stats" on:click="{() => changePage(page)}" />
-  </PaginationItem>
-  {/each}
-  <PaginationItem class="{currentPage ===lastPage ? 'disabled' : ''}">
-      <PaginationLink next href="#/natality-stats" on:click="{() => changePage(currentPage+1)}" />
-  </PaginationItem>
-  
-  </Pagination> -->
-
-
-
+  <!-- Pagination -->
+  <Pagination ariaLabel="Web pagination">
+    <PaginationItem class={current_page === 1 ? "disabled" : ""}>
+      <PaginationLink
+        previous
+        href="#/natality-stats"
+        on:click={() => changePage(current_page - 1, current_offset-10)}
+      />
+    </PaginationItem>
+    {#each range(last_page, 1) as page}
+      <PaginationItem class={current_page === page ? "active" : ""}>
+        <PaginationLink
+          previous
+          href="#/natality-stats"
+          on:click={() => changePage(page, (page-1)*10)}>{page}</PaginationLink>
+      </PaginationItem>
+    {/each}
+    <PaginationItem class={current_page === last_page ? "disabled" : ""}>
+      <PaginationLink
+        next
+        href="#/natality-stats"
+        on:click={() => changePage(current_page + 1,current_offset+10)}
+      />
+    </PaginationItem>
+  </Pagination>
 </main>
-
-
 
 <style>
   main {
