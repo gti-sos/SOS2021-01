@@ -8,8 +8,7 @@
     NavItem,
     NavLink,
     Button,
-    Table,
-    UncontrolledAlert,
+    Table
   } from "sveltestrap";
   import { onMount } from "svelte";
   // Nav
@@ -29,12 +28,10 @@
     deleteAllStats();
   };
 
-  //Alerts
-  let visible = true;
-
   //API
   const BASE_CONTACT_API_PATH = "/api/v1";
   let natalityStats = [];
+
   let newStat = {
     country: "",
     date: "",
@@ -44,8 +41,8 @@
     "natality-rate": "",
     "fertility-rate": "",
   };
-  //TODO: errorMSG en vez de alertas
-  let error = null;
+
+  //Alertas
   let errorMsg = "";
   let okMsg = "";
 
@@ -200,6 +197,9 @@
         </Modal>
       {/if}
     </NavItem>
+    <NavItem>
+      <NavLink href="#/natality-stats/search">Buscar</NavLink>
+    </NavItem>
   </Nav>
   <h2>Natalidad</h2>
 
@@ -259,7 +259,7 @@
           >
         </tr>
       {/each}
-    </tbody><tbody />
+    </tbody>
   </Table>
 </main>
 

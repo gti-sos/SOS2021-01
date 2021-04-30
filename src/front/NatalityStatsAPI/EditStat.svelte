@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
 
-  import { Table, Button } from "sveltestrap";
+  import { Table, Button, Nav, NavItem, NavLink } from "sveltestrap";
 
   const BASE_CONTACT_API_PATH = "/api/v1";
   export let params = {};
@@ -89,10 +89,16 @@
 </script>
 
 <main>
-  <h3>
+  <Nav>
+    <NavItem>
+      <NavLink href="#/natality-stats">Volver</NavLink>
+    </NavItem>
+  </Nav>
+
+  <h2>
     Editar campo <strong>{params.country}</strong>
     <strong>{params.date}</strong>
-  </h3>
+  </h2>
   <Table bordered>
     <thead>
       <tr>
@@ -127,9 +133,7 @@
   {#if okMsg}
   <p style="color: green">{okMsg}</p>
   {/if}
-  <a href="#/natality-stats"
-    ><Button outline color="secondary">Volver</Button></a
-  >
+
 </main>
 
 <style>

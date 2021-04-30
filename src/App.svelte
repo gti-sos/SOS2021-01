@@ -7,6 +7,7 @@
 	import Info from "./Pages/Info.svelte";
 	import NatalityAPI from "./front/NatalityStatsAPI/NatalityAPI.svelte";
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
+	import SearchNatalityStats from "./front/NatalityStatsAPI/SearchStat.svelte";
 	import LifeAPI  from "./front/lifeStatsAPI/App.svelte";
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
 
@@ -16,6 +17,7 @@
 		"/divorce-stats": DivorceAPI,
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date":EditNatalityAPI,
+		"/natality-stats/search": SearchNatalityStats,
 		"/life-stats": LifeAPI, 
 		'*': NotFound};
 </script>

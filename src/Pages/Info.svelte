@@ -60,21 +60,21 @@
         <CardBody>
           <CardSubtitle />
           <CardText
-            >Divorce data source. Marriage and divorce rate, ratio between
-            marriages and divorces.</CardText
+            >Fuente de datos sobre el divorcio. Tasa de matrimonios y divorcios, relación entre
+            matrimonios y divorcios.</CardText
           >
           <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats">
-            <Button color="primary">API</Button></a
+            <Button color="primary">API v1</Button></a
           >
           <a href="/#/divorce-stats">
-            <Button color="primary">Frontend</Button>
+            <Button color="primary">Interfaz</Button>
           </a>
           <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
-            ><Button color="info">Postman Documentation</Button></a
+            ><Button color="info">Documentación v1</Button></a
           >
         </CardBody>
         <CardFooter
-          >developed by
+          >desarrollado por
           <a href="https://github.com/19juaniyo99">Juan Buitrago Ruiz</a
           ></CardFooter
         >
@@ -88,21 +88,21 @@
         <CardBody>
           <CardSubtitle />
           <CardText
-            >Quality of life index data source by country, which is linked to
-            the purchasing power index and the safety index.</CardText
+            >Fuente de datos del índice de calidad de vida por país, que está vinculado a
+            el índice de poder adquisitivo y el índice de seguridad.</CardText
           >
           <a href="https://sos2021-01.herokuapp.com/api/v1/life-stats">
-            <Button color="primary">API</Button>
+            <Button color="primary">API v1</Button>
           </a>
           <a href="/#/life-stats">
-            <Button color="primary">Frontend</Button>
+            <Button color="primary">Interfaz</Button>
           </a>
           <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
-            <Button color="info">Postman Documentation</Button>
+            <Button color="info">Documentación v1</Button>
           </a>
         </CardBody>
         <CardFooter
-          >developed by
+          >desarrollado por
           <a href="https://github.com/Lucia2712">Lucia Castro Perez</a>
         </CardFooter>
       </Card>
@@ -115,21 +115,21 @@
         <CardBody>
           <CardSubtitle />
           <CardText>
-            Men and women born, natality and fertlity ratios by year and
-            country.
+            Ratios de natalidad y fertlidad de hombres y mujeres nacidos por año y
+            país.
           </CardText>
           <a href="/api/v1/natality-stats"
-            ><Button color="primary">API</Button></a
+            ><Button color="primary">API v1</Button></a
           >
           <a href="/#/natality-stats"
-            ><Button color="primary">Frontend</Button></a
+            ><Button color="primary">Interfaz</Button></a
           >
           <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
-            ><Button color="info">Postman Documentation</Button></a
+            ><Button color="info">Documentación v1</Button></a
           >
         </CardBody>
         <CardFooter
-          >developed by
+          >desarrollado por
           <a href="https://github.com/AbramsM1A2">Abraham Corta Ramírez</a
           ></CardFooter
         >
