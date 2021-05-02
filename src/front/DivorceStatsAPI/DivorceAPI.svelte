@@ -244,8 +244,8 @@
   async function insertStat() {
     console.log("Inserting stat: " + JSON.stringify(newStat));
 
+ 
     newStat.date = parseInt(newStat.date);
-    newStat.born = parseInt(newStat.born);
     newStat["marriage-rate"] = parseInt(newStat["marriage-rate"]);
     newStat["divorce-rate"] = parseInt(newStat["divorce-rate"]);
     newStat["ratio-actual"] = parseFloat(newStat["ratio-actual"]);
@@ -334,7 +334,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each divorceStats as stat}
+      
         <tr>
           <td
             ><input
@@ -391,7 +391,7 @@
             <Button color="primary" on:click={searchStat}>Buscar</Button>
           </td>
         </tr>
-      {/each}
+      
       {#each divorceStats as stat}
         <tr>
           <td>{stat.country}</td>
