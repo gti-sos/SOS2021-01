@@ -270,7 +270,7 @@
       }
     });
   }
-  onMOunt(getStats);
+  onMount(getStats);
   getNumStats();
 </script>
 
