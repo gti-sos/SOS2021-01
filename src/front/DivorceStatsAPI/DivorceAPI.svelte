@@ -339,7 +339,7 @@
           <td
             ><input
               type="text"
-              placeholder="spain"
+              placeholder="China"
               bind:value={newStat.country}
             /></td
           >
@@ -354,7 +354,7 @@
           <td
             ><input
               type="number"
-              placeholder="10.2"
+              placeholder="0.0"
               min="1"
               bind:value={newStat["marriage-rate"]}
             /></td
@@ -362,7 +362,7 @@
           <td
             ><input
               type="number"
-              placeholder="10.2"
+              placeholder="0.0"
               min="1"
               bind:value={newStat["divorce-rate"]}
             /></td
@@ -370,7 +370,7 @@
           <td
             ><input
               type="number"
-              placeholder="10.2"
+              placeholder="0.0"
               min="1"
               bind:value={newStat["ratio-actual"]}
             /></td
@@ -378,7 +378,7 @@
           <td
             ><input
               type="number"
-              placeholder="10.2"
+              placeholder="0.0"
               min="1.0"
               bind:value={newStat["ratio-percent"]}
             /></td
