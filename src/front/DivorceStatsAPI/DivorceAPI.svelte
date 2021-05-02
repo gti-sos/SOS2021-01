@@ -246,8 +246,8 @@
 
  
     newStat.date = parseInt(newStat.date);
-    newStat["marriage-rate"] = parseInt(newStat["marriage-rate"]);
-    newStat["divorce-rate"] = parseInt(newStat["divorce-rate"]);
+    newStat["marriage-rate"] = parsefloat(newStat["marriage-rate"]);
+    newStat["divorce-rate"] = parseFloat(newStat["divorce-rate"]);
     newStat["ratio-actual"] = parseFloat(newStat["ratio-actual"]);
     newStat["ratio-percent"] = parseFloat(newStat["ratio-percent"]);
 

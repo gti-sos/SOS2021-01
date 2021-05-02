@@ -64,9 +64,9 @@
           body: JSON.stringify({
             "country": params.country,
             "date": parseInt(params.date),
-            "marriage-rate": parseInt(updateMarriageRate),
-            "divorce-rate": parseInt(updateDivorceRate),
-            "ratio-actual": parseInt(updateRatioActual),
+            "marriage-rate": parseFloat(updateMarriageRate),
+            "divorce-rate": parseFloat(updateDivorceRate),
+            "ratio-actual": parseFloat(updateRatioActual),
             "ratio-percent": parseFloat(updateRatioPercent),
             
           }),
