@@ -76,9 +76,13 @@
         console.log("OK");
         getStats();
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if(res.status===404){
+          errorMsg = "No existen datos que borrar";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -107,16 +111,21 @@
         console.log("OK");
         const json = await res.json();
         divorceStats = json;
+        okMsg = "Búsqueda realizada con éxito";
       } else {
         divorceStats = [];
-        errorMsg = res.status + ": " + res.statusText;
+        if (res.status === 404) {
+          errorMsg = "No se encuentra el dato solicitado";
+        } else if (res.status === 500) {
+          errorMsg = "No se han podido acceder a la base de datos";
+        }
         okMsg = "";
 
         console.log("ERROR!" + errorMsg);
       }
     } else {
       errorMsg = "";
-      okMsg = "Búsqueda realizada correctamente";
+      okMsg = "Búsqueda realizada con éxito";
       getStats();
     }
   }
@@ -193,7 +202,7 @@
         console.log("OK");
         divorceStats = [];
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
       } else {
         errorMsg = res.status + ": " + res.statusText;
         okMsg = "";
@@ -218,11 +227,11 @@
           currentPage = 1;
         }
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
         getStats();
       } else {
         if(res.status===404){
-          errorMsg = "No existe el dato a borrar";
+          errorMsg = `No existe el dato ${country} con fecha ${date} para borrar`;
         }else if(res.status ===500){
           errorMsg = "No se han podido acceder a la base de datos";
         }        
@@ -253,7 +262,7 @@
         console.log("OK");
         getStats();
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
       } else {
         errorMsg = res.status + ": " + res.statusText;
         console.log("ERROR!" + errorMsg);
