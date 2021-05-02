@@ -13,7 +13,7 @@
     let divorceStats = [];
     let  newDivorceStat = {
         country: "",
-        year: "",
+        year: 0,
         "marriage-rate": 0.0,
         "divorce-rate": 0.0,
         "ratio-actual": 0.0,
