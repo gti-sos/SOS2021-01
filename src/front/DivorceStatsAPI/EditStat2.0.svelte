@@ -11,7 +11,7 @@
     const BASE_API_URL = "/api/v1/divorce-stats";
 
     let divorceStats = [];
-    let newDivorceStat = {
+    let  newDivorceStat = {
         country: "",
         year: "",
         "marriage-rate": 0.0,
@@ -383,9 +383,7 @@
                             placeholder="0.0"
                             step="0.01"
                             min="0"
-                            bind:value={newDivorceStat[
-                                "divorce-rate"
-                            ]}
+                            bind:value={newDivorceStat["divorce-rate"]}
                         />
                     </td>
                     <td>
@@ -394,9 +392,7 @@
                             placeholder="0.0"
                             step="0.01"
                             min="0"
-                            bind:value={newDivorceStat[
-                                "ratio-actual"
-                            ]}
+                            bind:value={newDivorceStat["ratio-actual"]}
                         />
                     </td>
                     <td>
