@@ -9,7 +9,9 @@
     NavLink,
     Button,
     Table,
-    UncontrolledAlert,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
   } from "sveltestrap";
   import { onMount } from "svelte";
 
@@ -54,17 +56,15 @@
   };
 
   //Pagination
-  let offset = 0;
+  let current_offset = 0;
   let limit = 10;
 
   let current_page = 1;
   let last_page = 1;
-  let per_page = limit;
-  let from = 1;
-  let to = 1;
+
   let total = 0;
 
-  let loading = true;
+
 
   //Functions
   async function loadStats() {
@@ -160,7 +160,7 @@
       errorMsg = "No se han encontrado datos.";
     }
   }
-  //Calcula el rango entre ods valores
+  //Calcula el rango entre dos valores
   function range(size, startAt = 0) {
     return [...Array(size).keys()].map((i) => i + startAt);
   }
