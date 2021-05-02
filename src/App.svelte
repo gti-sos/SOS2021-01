@@ -15,7 +15,7 @@
 		"/":Home,
 		"/info":Info,
 		"/divorce-stats": EditDivorceAPI,
-		//"/divorce-stats/:country/:date":EditDivorceAPI, 
+		"/divorce-stats/:country/:date":EditDivorceAPI, 
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date":EditNatalityAPI,
 		"/life-stats": LifeAPI, 
