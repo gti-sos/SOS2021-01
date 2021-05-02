@@ -14,7 +14,7 @@
 	const routes = {
 		"/":Home,
 		"/info":Info,
-		"/divorce-stats": EditDivorceAPI,
+		"/divorce-stats": DivorceAPI,
 		"/divorce-stats/:country/:date":EditDivorceAPI, 
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date":EditNatalityAPI,
