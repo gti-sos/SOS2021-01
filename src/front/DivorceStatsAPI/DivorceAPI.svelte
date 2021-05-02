@@ -138,7 +138,7 @@
         "/divorce-stats?limit=" +
         limit +
         "&offset=" +
-        offset
+        current_offset
     );
 
     if (res.ok) {
