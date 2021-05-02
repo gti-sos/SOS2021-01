@@ -138,6 +138,7 @@
       divorceStats = json;
       console.log(`We have received ${divorceStats.length} stats.`);
       errorMsg = "";
+      //getNumStats()
     } else {
       if (natalityStats.length != 0) {
         okMsg = "";
@@ -146,6 +147,40 @@
       }
       init = false;
     }
+  }
+  //contador de stats de BD
+  async function getNumStats() {
+    const res = await fetch(BASE_CONTACT_API_PATH + "/divorce-stats");
+    if (res.ok) {
+      const json = await res.json();
+      total = json.length;
+      console.log("Number of stats : " + total);
+      changePage(current_page, current_offset);
+    } else {
+      errorMsg = "No se han encontrado datos.";
+    }
+  }
+  //Calcula el rango entre ods valores
+  function range(size, startAt = 0) {
+    return [...Array(size).keys()].map((i) => i + startAt);
+  }
+
+  //Cambio de pagina
+  function changePage(page, offset) {
+    console.log("------Change page------");
+    console.log("Params page: " + page + " offset: " + offset);
+    last_page = Math.ceil(total / 10);
+    console.log("new last page: " + last_page);
+    if (page !== current_page) {
+      console.log("enter if");
+      current_offset = offset;
+      current_page = page;
+      console.log("page: " + page);
+      console.log("current_offset: " + current_offset);
+      console.log("current_page: " + current_page);
+      getStats();
+    }
+    console.log("---------Exit change page-------");
   }
 
   async function deleteAllStats() {
@@ -186,7 +221,11 @@
         okMsg = "Operación realizada correctamente";
         getStats();
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if(res.status===404){
+          errorMsg = "No existe el dato a borrar";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -223,6 +262,7 @@
     });
   }
   onMOunt(getStats);
+  getNumStats();
 </script>
 
 <main>
@@ -305,7 +345,7 @@
           <td
             ><input
               type="number"
-              placeholder="2000"
+              placeholder="10.2"
               min="1"
               bind:value={newStat["marriage-rate"]}
             /></td
@@ -313,7 +353,7 @@
           <td
             ><input
               type="number"
-              placeholder="1000"
+              placeholder="10.2"
               min="1"
               bind:value={newStat["divorce-rate"]}
             /></td
@@ -321,7 +361,7 @@
           <td
             ><input
               type="number"
-              placeholder="1000"
+              placeholder="10.2"
               min="1"
               bind:value={newStat["ratio-actual"]}
             /></td
@@ -367,6 +407,34 @@
       {/each}
     </tbody>
   </Table>
+
+  <Pagination ariaLabel="Web pagination">
+    <PaginationItem class={current_page === 1 ? "disabled" : ""}>
+      <PaginationLink
+        previous
+        href="#/divorce-stats"
+        on:click={() => changePage(current_page - 1, current_offset - 10)}
+      />
+    </PaginationItem>
+    {#each range(last_page, 1) as page}
+      <PaginationItem class={current_page === page ? "active" : ""}>
+        <PaginationLink
+          previous
+          href="#/divorce-stats"
+          on:click={() => changePage(page, (page - 1) * 10)}
+          >{page}</PaginationLink
+        >
+      </PaginationItem>
+    {/each}
+    <PaginationItem class={current_page === last_page ? "disabled" : ""}>
+      <PaginationLink
+        next
+        href="#/divorce-stats"
+        on:click={() => changePage(current_page + 1, current_offset + 10)}
+      />
+    </PaginationItem>
+  </Pagination>
+
 </main>
 
 <style>
