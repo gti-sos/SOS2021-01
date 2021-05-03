@@ -304,6 +304,8 @@
           errorMsg = `${newStat.country} ${newStat.date} ya se encuentra cargado`;
         } else if (res.status === 500) {
           errorMsg = "No se ha podido acceder a la base de datos";
+        }else{
+          errorMsg = "Todos los campos deben estar rellenados correctamene";
         }
         okMsg = "";
         console.log("ERROR!" + errorMsg);
