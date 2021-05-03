@@ -27,16 +27,16 @@
 
   <h1>SOS2021-01</h1>
 
-  <h2>Equipo</h2>
+  <h2>Equipo (y fuente de datos)</h2>
   <Container>
     <Col>
-      <a href="http://github.com/19juaniyo99">Juan Buitrago Ruiz</a>
+      <a href="http://github.com/19juaniyo99">Juan Buitrago Ruiz</a> (divorce-stats)
     </Col>
     <Col>
-      <a href="http://github.com/Lucia2712">Lucia Castro Perez</a>
+      <a href="http://github.com/Lucia2712">Lucia Castro Perez</a> (life-stats)
     </Col>
     <Col>
-      <a href="http://github.com/AbramsM1A2">Abraham Corta Ramirez</a>
+      <a href="http://github.com/AbramsM1A2">Abraham Corta Ramirez</a> (natality-stats)
     </Col>
   </Container>
   <p />
