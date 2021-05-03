@@ -1,61 +1,145 @@
 <script lang="ts">
-    import { } from 'node:os';
-import {Button, Table, Toast, ToastBody, ToastHeader } from 'sveltestrap';
+    import { onMount } from 'svelte';
+    import { pop } from "svelte-spa-router";
+    import {Button, Table } from 'sveltestrap';
 
-    const BASE_API_URL = "/api/v1/life-stats"; //tiene que llamar a la API para tratar los datos
+    const BASE_LIFE_API_URL = "/api/v1/life-stats"; //tiene que llamar a la API para tratar los datos
 	
     let cargados = false;
     let lifeStats = [];
+    let errorMsg = "";
+    let correctMsg = "";
 
-    async function loadStats(){
+    
+  let newData = {
+    country: "",
+    date: "",
+    "quality_life_index": "",
+    "purchasing_power_index": "",
+    "safety_index": "",
+    };
+
+    onMount(getLifeStats);
+
+    async function loadLifeStats(){
         console.log("Loading data...");
-        const carga =  await fetch(BASE_API_URL + "/loadInitialData");
+        const res =  await fetch(BASE_LIFE_API_URL + "/loadInitialData");
         cargados = true;
-        if (carga.ok){
+        if (res.ok){
             console.log("Ok.");
-            const res = await fetch(BASE_API_URL);
-            if(res.ok){
-                console.log("Ok. Obtaining data...")
-                const json = await res.json();
-                lifeStats = json;
-                console.log('Received ${lifeStats.length} life stats.');
-            }else{
-                console.log("Error, there is no data.")
-            }
+            getLifeStats();
+            errorMsg = "";            
+            correctMsg = "Los datos se han cargado correctamente.";
         }else{
             console.log("Error loading data.");
         }
     }
+
+    async function getLifeStats() {
+        console.log("Fetching life stats...");
+        const res = await fetch(BASE_LIFE_API_URL);
+
+        if (res.ok) {
+            cargados =  true;
+            console.log("Ok. Obtaining data...");
+            const json = await res.json();
+            lifeStats = json;            
+            console.log(`Received ${lifeStats.length} life stats.`);
+        }else if (res.status == 500) {
+            errorMsg = "No se ha podido acceder la base de datos."
+            console.log(errorMsg);
+        }else if (res.status == 404) { 
+            errorMsg = "No se encuentran datos. Tiene que cargarlos."
+            console.log("Error. " +  errorMsg)
+        } else { //este realmente no va a ser otro caso que el status = 500 
+            errorMsg = res.status + ": " + res.statusText;
+            console.log(errorMsg);
+        }
+        
+    }
+
+    async function insertLifeStat() {
+        console.log("Inserting data" + JSON.stringify(newData) + "...");
+		if ( !newData.country || !newData.date || !newData['quality_life_index'] || !newData['purchasing_power_index'] || !newData['safety_index']) {
+			alert("Todos los campos son obligatorios.");
+		} else {
+            const res = await fetch(BASE_LIFE_API_URL, {
+				method: "POST",
+				body: JSON.stringify(newData),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}).then(function (res) {
+                if (res.ok){
+					console.log("OK");
+                    getLifeStats();
+                    errorMsg="";
+                    correctMsg="Se ha insertado correctamente.";
+				}  else if (res.status == 409) {
+                    errorMsg= "Ya existe un recurso con el mismo país y año."
+                    console.log("ERROR. " + errorMsg);
+				}else { //status == 500
+                    errorMsg= "No se ha podido acceder la base de datos."
+                    console.log("Error inserting data in DB");
+				}
+            });
+        }
+    }
    
 
-    async function deleteStats() {
+    async function deleteLifeStats() {
 		console.log("Deleting life stats...");
         cargados=false;
-		const res = await fetch(BASE_API_URL, {
+		const res = await fetch(BASE_LIFE_API_URL, {
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
-				console.log("Ok.");
+                console.log("Ok. " + correctMsg);
                 lifeStats = [];
+                errorMsg="";
+                correctMsg = "Se han eliminado todo los datos correctamente.";
 			} else if (res.status==404){ //no data found
-                console.log("No data found");
-			} else  { 
-				console.log("Error deleting DB stats");
+                errorMsg ="No hay datos para borrar."                
+                console.log("ERROR. " + errorMsg);
+			} else  { //status == 500
+                errorMsg = "No se ha podido acceder a la base de datos."
+				console.log("ERROR. " + errorMsg);
 			}
 			
 		});
 	}
+
+    async function deleteLifeStat(country, date) { //borra un recurso concreto
+        console.log(`Deleting the resource with ${country} and date ${date}`);
+        const res = await fetch(BASE_LIFE_API_URL + "/" + country + "/" +date, { method: "DELETE",}
+        ).then( function (res) {
+            if (res.ok){
+                correctMsg =`El dato con país: ${country} y año: ${date} se ha eliminado correctamente.`;
+                errorMsg = "";                
+				console.log("Ok. " + correctMsg);
+                getLifeStats();  /*para que el usuario no tenga que recargar la página */
+			} else if (res.status==404){ //no data found
+                errorMsg= `No se encuentra el dato con país:  ${country} y año: ${date}.`;
+                console.log("ERROR. " +  errorMsg);
+			} else  { //status == 500
+                errorMsg = "No se ha podido acceder a la base de datos.";
+				console.log("ERROR. " +  errorMsg);
+			}		
+        });
+    }  
+
+    
 </script>
   
 
 <main>
     <div>
         {#if cargados}  
-        <Button style="background-color: crimson;" disabled> Cargar datos</Button>
+        <Button style="background-color: crimson;" disabled> Cargar datos iniciales </Button>
         {:else}
-        <Button style="background-color: crimson;" on:click={loadStats}> Cargar datos</Button>
+        <Button style="background-color: crimson;" on:click={loadLifeStats}> Cargar datos iniciales</Button>
         {/if}
-        <Button style="background-color: darkgray" on:click={deleteStats}> Eliminar datos</Button>
+        <Button style="background-color: darkgray" on:click={deleteLifeStats}> Eliminar datos</Button>
         
     </div>
     
@@ -70,9 +154,18 @@ import {Button, Table, Toast, ToastBody, ToastHeader } from 'sveltestrap';
                     <th>Índice de calidad de vida</th>
                     <th>Índice de poder adquisitivo</th>
                     <th>Índice de seguridad</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
+                <tr>
+					<td><input placeholder="Ej. Spain" bind:value = "{newData.country}" /></td>
+					<td><input  type="number" placeholder="Ej. 2021" bind:value = "{newData.date}" /></td>
+                    <td><input type="number" placeholder="0.00"  min="0" bind:value = "{newData['quality_life_index']}" /></td>
+					<td><input  type="number" placeholder="0.00" min="0" bind:value = "{newData['purchasing_power_index']}" /></td>
+					<td><input type="number" placeholder="0.00" min="0" bind:value = "{newData['safety_index']}" /></td>
+					<td><Button outline color= "primary" on:click={insertLifeStat}> Insertar</Button></td> 
+				</tr>
                 {#each lifeStats as stat}
                 <tr>
                     <td>{stat.country}</td>
@@ -80,30 +173,36 @@ import {Button, Table, Toast, ToastBody, ToastHeader } from 'sveltestrap';
                     <td>{stat["quality_life_index"]}</td>
                     <td>{stat["purchasing_power_index"]}</td>
                     <td>{stat["safety_index"]}</td>
-                </tr>
+                    <td> <a href="#/life-stats/{stat.country}/{stat.date}">
+                        <Button style="background-color: yellowgreen;"> Editar </Button>
+                          </a>
+                         <Button outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(stat.country, stat.date)}>
+                         Borrar </Button> 
+                         </td> 
+                </tr> 
                 {/each}
             </tbody>
         </Table>
-        <a href="/">Volver</a>
+         <Button style="background-color:darkgray " on:click="{pop}"> Volver </Button>
     {:else}
     <br/>
     <p style="text-align: center; background-color: antiquewhite;"> Para ver los datos pulse el botón.</p>
-    <a href="/">Volver</a>
+        
+    <Button style="background-color:darkgray" on:click="{pop}"> Volver </Button>
     {/if}
 
+    {#if errorMsg}
+            <p style="color: red; text-align:center; font-size: 20px;">ERROR: {errorMsg}</p>
+    {/if}
+
+    {#if correctMsg}
+         <p style="color: green; text-align:center; font-size: 20px;">{correctMsg}</p>
+    {/if} 
+   
 </main>
 
 
+
 <style>
-    a {
-        font-size: 18px;
-        background-color:rgb(103, 131, 72);
-        color: white;
-        border-radius: 6px;
-        border: 1px solid grey;
-        padding:4px;
-    }
-    a:hover {
-        color:white;
-    }
+   
 </style>
