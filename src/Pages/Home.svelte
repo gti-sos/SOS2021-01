@@ -95,8 +95,8 @@
         <CardBody>
           <CardSubtitle />
           <CardText
-            >Fuente de datos del índice de calidad de vida por país, que está vinculado a
-            el índice de poder adquisitivo y el índice de seguridad.</CardText
+            >Fuente de datos del índice de calidad de vida por país, que está vinculado al 
+            índice de poder adquisitivo y el índice de seguridad.</CardText
           >
           <a href="https://sos2021-01.herokuapp.com/api/v1/life-stats">
             <Button color="primary">API v1</Button>
