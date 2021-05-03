@@ -9,11 +9,13 @@
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
 	import LifeAPI  from "./front/lifeStatsAPI/App.svelte";
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
+	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
 
 	const routes = {
 		"/":Home,
 		"/info":Info,
 		"/divorce-stats": DivorceAPI,
+		"/divorce-stats/:country/:date":EditDivorceAPI, 
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date":EditNatalityAPI,
 		"/life-stats": LifeAPI, 

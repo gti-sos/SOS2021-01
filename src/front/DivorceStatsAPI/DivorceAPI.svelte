@@ -9,7 +9,9 @@
     NavLink,
     Button,
     Table,
-    UncontrolledAlert,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
   } from "sveltestrap";
   import { onMount } from "svelte";
 
@@ -54,17 +56,15 @@
   };
 
   //Pagination
-  let offset = 0;
+  let current_offset = 0;
   let limit = 10;
 
   let current_page = 1;
   let last_page = 1;
-  let per_page = limit;
-  let from = 1;
-  let to = 1;
+
   let total = 0;
 
-  let loading = true;
+
 
   //Functions
   async function loadStats() {
@@ -76,9 +76,13 @@
         console.log("OK");
         getStats();
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if(res.status===404){
+          errorMsg = "No existen datos que borrar";
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -107,16 +111,21 @@
         console.log("OK");
         const json = await res.json();
         divorceStats = json;
+        okMsg = "Búsqueda realizada con éxito";
       } else {
         divorceStats = [];
-        errorMsg = res.status + ": " + res.statusText;
+        if (res.status === 404) {
+          errorMsg = "No se encuentra el dato solicitado";
+        } else if (res.status === 500) {
+          errorMsg = "No se han podido acceder a la base de datos";
+        }
         okMsg = "";
 
         console.log("ERROR!" + errorMsg);
       }
     } else {
       errorMsg = "";
-      okMsg = "Búsqueda realizada correctamente";
+      okMsg = "Búsqueda realizada con éxito";
       getStats();
     }
   }
@@ -129,7 +138,7 @@
         "/divorce-stats?limit=" +
         limit +
         "&offset=" +
-        offset
+        current_offset
     );
 
     if (res.ok) {
@@ -138,6 +147,7 @@
       divorceStats = json;
       console.log(`We have received ${divorceStats.length} stats.`);
       errorMsg = "";
+      //getNumStats()
     } else {
       if (natalityStats.length != 0) {
         okMsg = "";
@@ -146,6 +156,40 @@
       }
       init = false;
     }
+  }
+  //contador de stats de BD
+  async function getNumStats() {
+    const res = await fetch(BASE_CONTACT_API_PATH + "/divorce-stats");
+    if (res.ok) {
+      const json = await res.json();
+      total = json.length;
+      console.log("Number of stats : " + total);
+      changePage(current_page, current_offset);
+    } else {
+      errorMsg = "No se han encontrado datos.";
+    }
+  }
+  //Calcula el rango entre dos valores
+  function range(size, startAt = 0) {
+    return [...Array(size).keys()].map((i) => i + startAt);
+  }
+
+  //Cambio de pagina
+  function changePage(page, offset) {
+    console.log("------Change page------");
+    console.log("Params page: " + page + " offset: " + offset);
+    last_page = Math.ceil(total / 10);
+    console.log("new last page: " + last_page);
+    if (page !== current_page) {
+      console.log("enter if");
+      current_offset = offset;
+      current_page = page;
+      console.log("page: " + page);
+      console.log("current_offset: " + current_offset);
+      console.log("current_page: " + current_page);
+      getStats();
+    }
+    console.log("---------Exit change page-------");
   }
 
   async function deleteAllStats() {
@@ -158,7 +202,7 @@
         console.log("OK");
         divorceStats = [];
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
       } else {
         errorMsg = res.status + ": " + res.statusText;
         okMsg = "";
@@ -183,10 +227,14 @@
           currentPage = 1;
         }
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
         getStats();
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        if(res.status===404){
+          errorMsg = `No existe el dato ${country} con fecha ${date} para borrar`;
+        }else if(res.status ===500){
+          errorMsg = "No se han podido acceder a la base de datos";
+        }        
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -196,10 +244,10 @@
   async function insertStat() {
     console.log("Inserting stat: " + JSON.stringify(newStat));
 
+ 
     newStat.date = parseInt(newStat.date);
-    newStat.born = parseInt(newStat.born);
-    newStat["marriage-rate"] = parseInt(newStat["marriage-rate"]);
-    newStat["divorce-rate"] = parseInt(newStat["divorce-rate"]);
+    newStat["marriage-rate"] = parseFloat(newStat["marriage-rate"]);
+    newStat["divorce-rate"] = parseFloat(newStat["divorce-rate"]);
     newStat["ratio-actual"] = parseFloat(newStat["ratio-actual"]);
     newStat["ratio-percent"] = parseFloat(newStat["ratio-percent"]);
 
@@ -214,7 +262,7 @@
         console.log("OK");
         getStats();
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = "Operación realizada con éxito";
       } else {
         errorMsg = res.status + ": " + res.statusText;
         console.log("ERROR!" + errorMsg);
@@ -222,7 +270,8 @@
       }
     });
   }
-  onMOunt(getStats);
+  onMount(getStats);
+  getNumStats();
 </script>
 
 <main>
@@ -285,12 +334,12 @@
       </tr>
     </thead>
     <tbody>
-      {#each divorceStats as stat}
+      
         <tr>
           <td
             ><input
               type="text"
-              placeholder="spain"
+              placeholder="China"
               bind:value={newStat.country}
             /></td
           >
@@ -305,7 +354,7 @@
           <td
             ><input
               type="number"
-              placeholder="2000"
+              placeholder="0.0"
               min="1"
               bind:value={newStat["marriage-rate"]}
             /></td
@@ -313,7 +362,7 @@
           <td
             ><input
               type="number"
-              placeholder="1000"
+              placeholder="0.0"
               min="1"
               bind:value={newStat["divorce-rate"]}
             /></td
@@ -321,7 +370,7 @@
           <td
             ><input
               type="number"
-              placeholder="1000"
+              placeholder="0.0"
               min="1"
               bind:value={newStat["ratio-actual"]}
             /></td
@@ -329,7 +378,7 @@
           <td
             ><input
               type="number"
-              placeholder="10.2"
+              placeholder="0.0"
               min="1.0"
               bind:value={newStat["ratio-percent"]}
             /></td
@@ -342,7 +391,7 @@
             <Button color="primary" on:click={searchStat}>Buscar</Button>
           </td>
         </tr>
-      {/each}
+      
       {#each divorceStats as stat}
         <tr>
           <td>{stat.country}</td>
@@ -367,6 +416,34 @@
       {/each}
     </tbody>
   </Table>
+
+  <Pagination ariaLabel="Web pagination">
+    <PaginationItem class={current_page === 1 ? "disabled" : ""}>
+      <PaginationLink
+        previous
+        href="#/divorce-stats"
+        on:click={() => changePage(current_page - 1, current_offset - 10)}
+      />
+    </PaginationItem>
+    {#each range(last_page, 1) as page}
+      <PaginationItem class={current_page === page ? "active" : ""}>
+        <PaginationLink
+          previous
+          href="#/divorce-stats"
+          on:click={() => changePage(page, (page - 1) * 10)}
+          >{page}</PaginationLink
+        >
+      </PaginationItem>
+    {/each}
+    <PaginationItem class={current_page === last_page ? "disabled" : ""}>
+      <PaginationLink
+        next
+        href="#/divorce-stats"
+        on:click={() => changePage(current_page + 1, current_offset + 10)}
+      />
+    </PaginationItem>
+  </Pagination>
+
 </main>
 
 <style>
