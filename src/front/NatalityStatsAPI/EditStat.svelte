@@ -79,11 +79,9 @@
         console.log("OK");
         getStat();
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = `${params.country} ${params.date} ha sido actualizado correctamente`;
       } else {
-        if(res.status===409){
-          errorMsg = "El dato ya se encuentra cargado";
-        }else if(res.status ===500){
+         if(res.status ===500){
           errorMsg = "No se han podido acceder a la base de datos";
         }else if(res.status ===404){
           errorMsg = "No se han encontrado el dato solicitado";

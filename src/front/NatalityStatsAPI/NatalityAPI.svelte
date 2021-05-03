@@ -296,7 +296,7 @@
       if (res.ok) {
         console.log("OK");
         restore();
-        //getStats();
+        getStats();
         errorMsg = "";
         okMsg = `${newStat.country} ${newStat.date} ha sido insertado correctamente`;
       } else {
@@ -353,6 +353,8 @@
         natalityStats = [];
         errorMsg = "";
         okMsg = "Todos los elementos han sido borrados";
+        restore();
+        //getStats();
       } else {
         if (res.status === 404) {
           errorMsg = "No existen datos que borrar";
