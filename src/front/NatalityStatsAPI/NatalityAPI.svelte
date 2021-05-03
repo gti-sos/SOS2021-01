@@ -72,9 +72,10 @@
   let last_page = 1;
   let total = 0;
 
-
+  let isASearch = false;
   // Functiones de ayuda
   function resetInputs(flag) {
+    console.log("Reseting inputs: " + flag);
     let resetStat = {
       country: "",
       date: "",
@@ -86,22 +87,24 @@
     };
     if (flag == 1) {
       queryStat = resetStat;
+      current_page = 1;
+      current_offset = 0;
     } else {
       newStat = resetStat;
     }
   }
 
-    //Calcula el rango entre ods valores
-    function range(size, startAt = 0) {
+  //Calcula el rango entre ods valores
+  function range(size, startAt = 0) {
     return [...Array(size).keys()].map((i) => i + startAt);
   }
 
-
-
   //Cambio de pagina
-  function changePage(page, offset) {
+  function changePage(page, offset, search) {
     console.log("------Change page------");
-    console.log("Params page: " + page + " offset: " + offset);
+    console.log(
+      "Params page: " + page + " offset: " + offset + " search: " + search
+    );
     last_page = Math.ceil(total / 10);
     console.log("new last page: " + last_page);
     if (page !== current_page) {
@@ -111,26 +114,58 @@
       console.log("page: " + page);
       console.log("current_offset: " + current_offset);
       console.log("current_page: " + current_page);
-      getStats();
+      if (search == false) {
+        console.log(" search: false?" + search);
+        getStats();
+      } else {
+        console.log(" search: true?" + search);
+        searchStat();
+      }
     }
     console.log("---------Exit change page-------");
   }
 
-  
-    //Total de datos en la BD
-    async function getNumTotal() {
+  //Total de datos en la BD
+  async function getNumTotal() {
+    console.log("Total entities of getStat");
     const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
     if (res.ok) {
       const json = await res.json();
       total = json.length;
-      console.log("getTOAL: " + total);
-      changePage(current_page, current_offset);
+      console.log("getTotal: " + total);
+      changePage(current_page, current_offset, isASearch);
     } else {
       errorMsg = "No se ha encontrado datos.";
     }
   }
 
-//Funciones API
+  //Total de datos de una query en la BD
+  async function getNumTotalQuery() {
+    console.log("Total entities of query");
+    const res = await fetch(
+      BASE_CONTACT_API_PATH + "/natality-stats" + fullQuery
+    );
+    if (res.ok) {
+      const json = await res.json();
+      total = json.length;
+      console.log("getTotal: " + total);
+      changePage(current_page, current_offset, isASearch);
+    } else {
+      errorMsg = "No se ha encontrado datos.";
+    }
+  }
+
+  function restore() {
+    if (isASearch == true) {
+      resetInputs(1);
+      isASearch = false;
+    }
+    current_offset=0;
+    current_page=1;
+    getNumTotal();
+  }
+
+  //Funciones API
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -172,6 +207,7 @@
       natalityStats = json;
       console.log(`We have received ${natalityStats.length} stats.`);
       errorMsg = "";
+
       getNumTotal();
     } else {
       if (natalityStats.length != 0) {
@@ -190,6 +226,11 @@
     console.log("Searching stat...");
     var msg = "";
 
+    if(isASearch==false){
+      current_offset=0;
+      current_page=1;
+    }
+
     var campos = new Map(
       Object.entries(queryStat).filter((o) => {
         return o[1] != "";
@@ -204,13 +245,21 @@
 
     if (fullQuery != "") {
       const res = await fetch(
-        BASE_CONTACT_API_PATH + "/natality-stats/" + fullQuery
+        BASE_CONTACT_API_PATH +
+          "/natality-stats/" +
+          fullQuery +
+          "&limit=" +
+          limit +
+          "&offset=" +
+          current_offset
       );
       if (res.ok) {
         console.log("OK");
         const json = await res.json();
         resultQuery = json;
         okMsg = "Resulado de la busqueda con " + msg;
+        isASearch = true;
+        getNumTotalQuery();
       } else {
         resultQuery = [];
         if (res.status === 404) {
@@ -225,7 +274,6 @@
       errorMsg = "Se necesita un campo a buscar";
       okMsg = "";
     }
-    resetInputs(1);
   }
 
   async function insertStat() {
@@ -247,7 +295,8 @@
     }).then(function (res) {
       if (res.ok) {
         console.log("OK");
-        getStats();
+        restore();
+        //getStats();
         errorMsg = "";
         okMsg = `${newStat.country} ${newStat.date} ha sido insertado correctamente`;
       } else {
@@ -293,7 +342,6 @@
     });
   }
 
-    
   async function deleteAllStats() {
     console.log("Deleting data...");
 
@@ -317,7 +365,7 @@
     });
   }
 
-//functions executed
+  //functions executed
   onMount(getStats);
   getNumTotal();
 </script>
@@ -443,29 +491,9 @@
           /></td
         >
         <td><Button color="primary" on:click={searchStat}>Buscar</Button></td>
+        <td><Button color="secondary" on:click={restore}>Restaurar</Button></td
+        >
       </tr>
-      {#each resultQuery as stat}
-        <tr>
-          <td>{stat.country}</td>
-          <td>{stat.date}</td>
-          <td>{stat.born}</td>
-          <td>{stat["men-born"]}</td>
-          <td>{stat["women-born"]}</td>
-          <td>{stat["natality-rate"]}%</td>
-          <td>{stat["fertility-rate"]}</td>
-          <td>
-            <a href="#/natality-stats/{stat.country}/{stat.date}">
-              <Button color="primary">Editar</Button>
-            </a></td
-          >
-          <td
-            ><Button
-              color="danger"
-              on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
-            ></td
-          >
-        </tr>
-      {/each}
     </tbody>
   </Table>
 
@@ -543,31 +571,55 @@
           /></td
         >
         <td><Button color="primary" on:click={insertStat}>Insertar</Button></td>
-
       </tr>
 
-      {#each natalityStats as stat}
-        <tr>
-          <td>{stat.country}</td>
-          <td>{stat.date}</td>
-          <td>{stat.born}</td>
-          <td>{stat["men-born"]}</td>
-          <td>{stat["women-born"]}</td>
-          <td>{stat["natality-rate"]}%</td>
-          <td>{stat["fertility-rate"]}</td>
-          <td>
-            <a href="#/natality-stats/{stat.country}/{stat.date}">
-              <Button color="primary">Editar</Button>
-            </a></td
-          >
-          <td
-            ><Button
-              color="danger"
-              on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
-            ></td
-          >
-        </tr>
-      {/each}
+      {#if isASearch==true}
+        {#each resultQuery as stat}
+          <tr>
+            <td>{stat.country}</td>
+            <td>{stat.date}</td>
+            <td>{stat.born}</td>
+            <td>{stat["men-born"]}</td>
+            <td>{stat["women-born"]}</td>
+            <td>{stat["natality-rate"]}%</td>
+            <td>{stat["fertility-rate"]}</td>
+            <td>
+              <a href="#/natality-stats/{stat.country}/{stat.date}">
+                <Button color="primary">Editar</Button>
+              </a></td
+            >
+            <td
+              ><Button
+                color="danger"
+                on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+              ></td
+            >
+          </tr>
+        {/each}
+      {:else}
+        {#each natalityStats as stat}
+          <tr>
+            <td>{stat.country}</td>
+            <td>{stat.date}</td>
+            <td>{stat.born}</td>
+            <td>{stat["men-born"]}</td>
+            <td>{stat["women-born"]}</td>
+            <td>{stat["natality-rate"]}%</td>
+            <td>{stat["fertility-rate"]}</td>
+            <td>
+              <a href="#/natality-stats/{stat.country}/{stat.date}">
+                <Button color="primary">Editar</Button>
+              </a></td
+            >
+            <td
+              ><Button
+                color="danger"
+                on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+              ></td
+            >
+          </tr>
+        {/each}
+      {/if}
     </tbody>
   </Table>
 
@@ -577,7 +629,8 @@
       <PaginationLink
         previous
         href="#/natality-stats"
-        on:click={() => changePage(current_page - 1, current_offset - 10)}
+        on:click={() =>
+          changePage(current_page - 1, current_offset - 10, isASearch)}
       />
     </PaginationItem>
     {#each range(last_page, 1) as page}
@@ -585,7 +638,7 @@
         <PaginationLink
           previous
           href="#/natality-stats"
-          on:click={() => changePage(page, (page - 1) * 10)}
+          on:click={() => changePage(page, (page - 1) * 10, isASearch)}
           >{page}</PaginationLink
         >
       </PaginationItem>
@@ -594,7 +647,8 @@
       <PaginationLink
         next
         href="#/natality-stats"
-        on:click={() => changePage(current_page + 1, current_offset + 10)}
+        on:click={() =>
+          changePage(current_page + 1, current_offset + 10, isASearch)}
       />
     </PaginationItem>
   </Pagination>
