@@ -52,7 +52,7 @@
   <p />
 
   <a href="/#/info">
-    <Button color="primary">Info</Button>
+    <Button color="info">Info</Button>
   </a>
 
   <p />

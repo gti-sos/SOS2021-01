@@ -36,8 +36,19 @@
   const BASE_CONTACT_API_PATH = "/api/v1";
 
   let natalityStats = [];
+  let resultQuery = [];
 
   let newStat = {
+    country: "",
+    date: "",
+    born: "",
+    "men-born": "",
+    "women-born": "",
+    "natality-rate": "",
+    "fertility-rate": "",
+  };
+
+  let queryStat = {
     country: "",
     date: "",
     born: "",
@@ -50,7 +61,6 @@
   //Alertas
   let errorMsg = "";
   let okMsg = "";
-  let errorStatus = 0;
 
   let fullQuery = "";
 
@@ -62,88 +72,31 @@
   let last_page = 1;
   let total = 0;
 
-  //Functions
 
-  async function loadStats() {
-    console.log("Loading data...");
-    const res = await fetch(
-      BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
-    ).then(function (res) {
-      if (res.ok) {
-        console.log("OK");
-        getStats();
-        //Alertas
-        errorMsg = "";
-        errorStatus = 0;
-        okMsg = "Datos cargados correctamente";
-      } else {
-        if (res.status === 409) {
-          errorMsg = "Alguno de los datos ya se encuentra cargado";
-        } else if (res.status === 500) {
-          errorMsg = "No se han podido acceder a la base de datos";
-        }
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
-      }
-    });
-  }
-
-  async function searchStat() {
-    console.log("Searching stat...");
-
-    var campos = new Map(
-      Object.entries(newStat).filter((o) => {
-        return o[1] != "";
-      })
-    );
-    let querySymbol = "?";
-    for (var [clave, valor] of campos.entries()) {
-      querySymbol += clave + "=" + valor + "&";
-    }
-    fullQuery = querySymbol.slice(0, -1);
-
-    if (fullQuery != "") {
-      const res = await fetch(
-        BASE_CONTACT_API_PATH + "/natality-stats/" + fullQuery
-      );
-      if (res.ok) {
-        console.log("OK");
-        const json = await res.json();
-        natalityStats = json;
-        okMsg="Búsqueda realizada correctamente"
-      } else {
-        natalityStats = [];
-        if (res.status === 404) {
-          errorMsg = "No se encuentra el dato solicitado";
-        } else if (res.status === 500) {
-          errorMsg = "No se han podido acceder a la base de datos";
-        }
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
-      }
+  // Functiones de ayuda
+  function resetInputs(flag) {
+    let resetStat = {
+      country: "",
+      date: "",
+      born: "",
+      "men-born": "",
+      "women-born": "",
+      "natality-rate": "",
+      "fertility-rate": "",
+    };
+    if (flag == 1) {
+      queryStat = resetStat;
     } else {
-      errorMsg = "";
-      okMsg = "Búsqueda realizada correctamente";
-      getStats();
+      newStat = resetStat;
     }
   }
 
-  //Total de datos en la BD
-  async function getNumTotal() {
-    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
-    if (res.ok) {
-      const json = await res.json();
-      total = json.length;
-      console.log("getTOAL: " + total);
-      changePage(current_page, current_offset);
-    } else {
-      errorMsg = "No se han encontrado datos.";
-    }
-  }
-  //Calcula el rango entre ods valores
-  function range(size, startAt = 0) {
+    //Calcula el rango entre ods valores
+    function range(size, startAt = 0) {
     return [...Array(size).keys()].map((i) => i + startAt);
   }
+
+
 
   //Cambio de pagina
   function changePage(page, offset) {
@@ -161,6 +114,45 @@
       getStats();
     }
     console.log("---------Exit change page-------");
+  }
+
+  
+    //Total de datos en la BD
+    async function getNumTotal() {
+    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
+    if (res.ok) {
+      const json = await res.json();
+      total = json.length;
+      console.log("getTOAL: " + total);
+      changePage(current_page, current_offset);
+    } else {
+      errorMsg = "No se ha encontrado datos.";
+    }
+  }
+
+//Funciones API
+  async function loadStats() {
+    console.log("Loading data...");
+    const res = await fetch(
+      BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
+    ).then(function (res) {
+      if (res.ok) {
+        console.log("OK");
+        getStats();
+        //Alertas
+        errorMsg = "";
+        errorStatus = 0;
+        okMsg = "Datos cargados correctamente";
+      } else {
+        if (res.status === 409) {
+          errorMsg = "Alguno de los datos ya se encuentra cargado";
+        } else if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
+        }
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
+      }
+    });
   }
 
   async function getStats() {
@@ -187,64 +179,53 @@
         console.log("ERROR!");
       }
       if (res.status === 500) {
-        errorMsg = "No se han podido acceder a la base de datos";
+        errorMsg = "No se ha podido acceder a la base de datos";
       }
       okMsg = "";
       console.log("ERROR!" + errorMsg);
     }
   }
 
-  async function deleteAllStats() {
-    console.log("Deleting data...");
+  async function searchStat() {
+    console.log("Searching stat...");
+    var msg = "";
 
-    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats/", {
-      method: "DELETE",
-    }).then(function (res) {
+    var campos = new Map(
+      Object.entries(queryStat).filter((o) => {
+        return o[1] != "";
+      })
+    );
+    let querySymbol = "?";
+    for (var [clave, valor] of campos.entries()) {
+      msg += clave + "=" + valor + " ";
+      querySymbol += clave + "=" + valor + "&";
+    }
+    fullQuery = querySymbol.slice(0, -1);
+
+    if (fullQuery != "") {
+      const res = await fetch(
+        BASE_CONTACT_API_PATH + "/natality-stats/" + fullQuery
+      );
       if (res.ok) {
         console.log("OK");
-        natalityStats = [];
-        errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        const json = await res.json();
+        resultQuery = json;
+        okMsg = "Resulado de la busqueda con " + msg;
       } else {
-        if(res.status===404){
-          errorMsg = "No existen datos que borrar";
-        }else if(res.status ===500){
-          errorMsg = "No se han podido acceder a la base de datos";
-        }        
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
-      }
-    });
-  }
-
-  async function deleteStat(country, date) {
-    console.log(`Deleting data with name ${country} and date ${date}`);
-
-    const res = await fetch(
-      BASE_CONTACT_API_PATH + "/natality-stats/" + country + "/" + date,
-      {
-        method: "DELETE",
-      }
-    ).then(function (res) {
-      if (res.ok) {
-        console.log("OK");
-        if (natalityStats.length === 1) {
-          natalityStats = [];
-          currentPage = 1;
+        resultQuery = [];
+        if (res.status === 404) {
+          errorMsg = "No existe un dato con " + msg;
+        } else if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
         }
-        errorMsg = "";
-        okMsg = "Operación realizada correctamente";
-        getStats();
-      } else {
-        if(res.status===404){
-          errorMsg = "No existe el dato a borrar";
-        }else if(res.status ===500){
-          errorMsg = "No se han podido acceder a la base de datos";
-        }        
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
-    });
+    } else {
+      errorMsg = "Se necesita un campo a buscar";
+      okMsg = "";
+    }
+    resetInputs(1);
   }
 
   async function insertStat() {
@@ -268,19 +249,75 @@
         console.log("OK");
         getStats();
         errorMsg = "";
-        okMsg = "Operación realizada correctamente";
+        okMsg = `${newStat.country} ${newStat.date} ha sido insertado correctamente`;
       } else {
-        if(res.status===404){
-          errorMsg = "No se encuentra el dato a borrar";
-        }else if(res.status ===500){
-          errorMsg = "No se han podido acceder a la base de datos";
-        }        
+        if (res.status === 409) {
+          errorMsg = `${newStat.country} ${newStat.date} ya se encuentra cargado`;
+        } else if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
+        }
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
+      }
+    });
+    resetInputs(2);
+  }
+
+  async function deleteStat(country, date) {
+    console.log(`Deleting data with name ${country} and date ${date}`);
+
+    const res = await fetch(
+      BASE_CONTACT_API_PATH + "/natality-stats/" + country + "/" + date,
+      {
+        method: "DELETE",
+      }
+    ).then(function (res) {
+      if (res.ok) {
+        console.log("OK");
+        if (natalityStats.length === 1) {
+          natalityStats = [];
+          currentPage = 1;
+        }
+        errorMsg = "";
+        okMsg = `La entrada ${country} ${date} ha sido borrada`;
+        getStats();
+      } else {
+        if (res.status === 404) {
+          errorMsg = `No se puede eliminar, la entrada ${country} ${date} no existe`;
+        } else if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
+        }
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
     });
   }
 
+    
+  async function deleteAllStats() {
+    console.log("Deleting data...");
+
+    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats/", {
+      method: "DELETE",
+    }).then(function (res) {
+      if (res.ok) {
+        console.log("OK");
+        natalityStats = [];
+        errorMsg = "";
+        okMsg = "Todos los elementos han sido borrados";
+      } else {
+        if (res.status === 404) {
+          errorMsg = "No existen datos que borrar";
+        } else if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
+        }
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
+      }
+    });
+  }
+
+//functions executed
   onMount(getStats);
   getNumTotal();
 </script>
@@ -333,6 +370,106 @@
     <p style="color: green">{okMsg}</p>
   {/if}
 
+  <h3>Buscar</h3>
+  <Table borderer>
+    <thead>
+      <tr>
+        <th> País </th>
+        <th>Año </th>
+        <th>Nacimientos </th>
+        <th>Hombres nacidos </th>
+        <th>Mujeres nacidas </th>
+        <th>Tasa de natalidad </th>
+        <th>Índice de fecundación </th>
+        <th>Acciones</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          ><input
+            type="text"
+            placeholder="spain"
+            bind:value={queryStat.country}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="2019"
+            min="1900"
+            bind:value={queryStat.date}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="2000"
+            min="1"
+            bind:value={queryStat.born}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="1000"
+            min="1"
+            bind:value={queryStat["men-born"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="1000"
+            min="1"
+            bind:value={queryStat["women-born"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="10.2"
+            min="1.0"
+            bind:value={queryStat["natality-rate"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="2.1"
+            min="1.0"
+            bind:value={queryStat["fertility-rate"]}
+          /></td
+        >
+        <td><Button color="primary" on:click={searchStat}>Buscar</Button></td>
+      </tr>
+      {#each resultQuery as stat}
+        <tr>
+          <td>{stat.country}</td>
+          <td>{stat.date}</td>
+          <td>{stat.born}</td>
+          <td>{stat["men-born"]}</td>
+          <td>{stat["women-born"]}</td>
+          <td>{stat["natality-rate"]}%</td>
+          <td>{stat["fertility-rate"]}</td>
+          <td>
+            <a href="#/natality-stats/{stat.country}/{stat.date}">
+              <Button color="primary">Editar</Button>
+            </a></td
+          >
+          <td
+            ><Button
+              color="danger"
+              on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+            ></td
+          >
+        </tr>
+      {/each}
+    </tbody>
+  </Table>
+
+  <h3>Listado de datos</h3>
   <!-- Table -->
   <Table borderer>
     <thead>
@@ -406,9 +543,7 @@
           /></td
         >
         <td><Button color="primary" on:click={insertStat}>Insertar</Button></td>
-        <td>
-          <Button color="secondary" on:click={searchStat}>Buscar</Button>
-        </td>
+
       </tr>
 
       {#each natalityStats as stat}
