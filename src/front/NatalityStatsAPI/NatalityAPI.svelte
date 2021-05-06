@@ -61,6 +61,7 @@
   //Alertas
   let errorMsg = "";
   let okMsg = "";
+  let warningMsg = "";
 
   let fullQuery = "";
 
@@ -135,7 +136,7 @@
       console.log("getTotal: " + total);
       changePage(current_page, current_offset, isASearch);
     } else {
-      errorMsg = "No se ha encontrado datos.";
+      warningMsg = "No hay datos disponibles";
     }
   }
 
@@ -151,7 +152,7 @@
       console.log("getTotal: " + total);
       changePage(current_page, current_offset, isASearch);
     } else {
-      errorMsg = "No se ha encontrado datos.";
+      warningMsg = "No hay datos disponibles";
     }
   }
 
@@ -160,8 +161,8 @@
       resetInputs(1);
       isASearch = false;
     }
-    current_offset=0;
-    current_page=1;
+    current_offset = 0;
+    current_page = 1;
     getNumTotal();
   }
 
@@ -176,7 +177,6 @@
         getStats();
         //Alertas
         errorMsg = "";
-        errorStatus = 0;
         okMsg = "Datos cargados correctamente";
       } else {
         if (res.status === 409) {
@@ -207,11 +207,11 @@
       natalityStats = json;
       console.log(`We have received ${natalityStats.length} stats.`);
       errorMsg = "";
-
+      warningMsg = "";
       getNumTotal();
     } else {
-      if (natalityStats.length != 0) {
-        errorMsg = "No hay datos disponibles";
+      if (natalityStats.length == 0) {
+        warningMsg = "No hay datos disponibles";
         console.log("ERROR!");
       }
       if (res.status === 500) {
@@ -226,9 +226,9 @@
     console.log("Searching stat...");
     var msg = "";
 
-    if(isASearch==false){
-      current_offset=0;
-      current_page=1;
+    if (isASearch == false) {
+      current_offset = 0;
+      current_page = 1;
     }
 
     var campos = new Map(
@@ -298,13 +298,13 @@
         restore();
         getStats();
         errorMsg = "";
-        okMsg = `${newStat.country} ${newStat.date} ha sido insertado correctamente`;
+        okMsg = `La entrada ${newStat.country} ${newStat.date} ha sido insertado correctamente`;
       } else {
         if (res.status === 409) {
           errorMsg = `${newStat.country} ${newStat.date} ya se encuentra cargado`;
         } else if (res.status === 500) {
           errorMsg = "No se ha podido acceder a la base de datos";
-        }else{
+        } else {
           errorMsg = "Todos los campos deben estar rellenados correctamene";
         }
         okMsg = "";
@@ -327,10 +327,11 @@
         console.log("OK");
         if (natalityStats.length === 1) {
           natalityStats = [];
-          currentPage = 1;
+          current_page = current_page - 1;
+          current_offset = current_offset - 10;
         }
         errorMsg = "";
-        okMsg = `La entrada ${country} ${date} ha sido borrada`;
+        okMsg = `La entrada ${country} ${date} ha sido borrada correctamente`;
         getStats();
       } else {
         if (res.status === 404) {
@@ -421,6 +422,9 @@
   {#if okMsg}
     <p style="color: green">{okMsg}</p>
   {/if}
+  {#if warningMsg}
+    <p style="color: yellow">{warningMsg}</p>
+  {/if}
 
   <h3>Buscar</h3>
   <Table borderer>
@@ -495,8 +499,7 @@
           /></td
         >
         <td><Button color="primary" on:click={searchStat}>Buscar</Button></td>
-        <td><Button color="secondary" on:click={restore}>Restaurar</Button></td
-        >
+        <td><Button color="secondary" on:click={restore}>Restaurar</Button></td>
       </tr>
     </tbody>
   </Table>
@@ -577,7 +580,7 @@
         <td><Button color="primary" on:click={insertStat}>Insertar</Button></td>
       </tr>
 
-      {#if isASearch==true}
+      {#if isASearch == true}
         {#each resultQuery as stat}
           <tr>
             <td>{stat.country}</td>

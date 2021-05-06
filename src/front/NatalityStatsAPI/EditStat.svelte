@@ -37,7 +37,7 @@
       
     } else {
       if(res.status===404){
-          errorMsg = "No se encuentra el dato solicitado";
+          errorMsg = `No existe dato con pais: ${params.country} y fecha: ${params.date}`;
         }else if(res.status ===500){
           errorMsg = "No se han podido acceder a la base de datos";
         }        
@@ -85,6 +85,8 @@
           errorMsg = "No se han podido acceder a la base de datos";
         }else if(res.status ===404){
           errorMsg = "No se han encontrado el dato solicitado";
+        }else if(res.status === 400){
+          errorMsg = "Todos los parámetros deben estar rellenados correctamente"
         }        
         okMsg = "";
         getStat();
@@ -107,6 +109,20 @@
     Editar campo <strong>{params.country}</strong>
     <strong>{params.date}</strong>
   </h2>
+  <p>
+
+  </p>
+
+  {#if errorMsg}
+  <p style="color: red">ERROR: {errorMsg}</p>
+{/if}
+{#if okMsg}
+<p style="color: green">{okMsg}</p>
+{/if}
+
+<p>
+  
+</p>
   <Table bordered>
     <thead>
       <tr>
@@ -135,12 +151,7 @@
       </tr>
     </tbody>
   </Table>
-  {#if errorMsg}
-    <p style="color: red">ERROR: {errorMsg}</p>
-  {/if}
-  {#if okMsg}
-  <p style="color: green">{okMsg}</p>
-  {/if}
+
 
 </main>
 
