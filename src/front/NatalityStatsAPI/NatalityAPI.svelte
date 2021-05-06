@@ -166,6 +166,25 @@
     getNumTotal();
   }
 
+  function getClaveSpanish(clave) {
+    switch (clave) {
+      case "country":
+        return "País";
+      case "date":
+        return "Año";
+      case "born":
+        return "Nacimientos";
+      case "men-born":
+        return "Hombres nacidos";
+      case "women-born":
+        return "Mujeres nacidas";
+      case "natality-rate":
+        return "Tasa de natalidad";
+      case "fertility-rate":
+        return "Índice de fecundación";
+    }
+  }
+
   //Funciones API
   async function loadStats() {
     console.log("Loading data...");
@@ -238,7 +257,7 @@
     );
     let querySymbol = "?";
     for (var [clave, valor] of campos.entries()) {
-      msg += clave + "=" + valor + " ";
+      msg += getClaveSpanish(clave) + "=" + valor + " ";
       querySymbol += clave + "=" + valor + "&";
     }
     fullQuery = querySymbol.slice(0, -1);
@@ -413,252 +432,275 @@
   </Nav>
   <h2>Natalidad</h2>
 
-  <p />
+  <div>
+    {#if errorMsg}
+      <p class="msgRed" style="color: #9d1c24">ERROR: {errorMsg}</p>
+    {/if}
+    {#if okMsg}
+      <p class="msgGreen" style="color: #155724">{okMsg}</p>
+    {/if}
+    {#if warningMsg}
+      <p class="msgYellow" style="color: #a56604">{warningMsg}</p>
+    {/if}
+  </div>
 
-  <p />
-  {#if errorMsg}
-    <p style="color: red">ERROR: {errorMsg}</p>
-  {/if}
-  {#if okMsg}
-    <p style="color: green">{okMsg}</p>
-  {/if}
-  {#if warningMsg}
-    <p style="color: yellow">{warningMsg}</p>
-  {/if}
-
-  <h3>Buscar</h3>
-  <Table borderer>
-    <thead>
-      <tr>
-        <th> País </th>
-        <th>Año </th>
-        <th>Nacimientos </th>
-        <th>Hombres nacidos </th>
-        <th>Mujeres nacidas </th>
-        <th>Tasa de natalidad </th>
-        <th>Índice de fecundación </th>
-        <th>Acciones</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td
-          ><input
-            type="text"
-            placeholder="spain"
-            bind:value={queryStat.country}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="2019"
-            min="1900"
-            bind:value={queryStat.date}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="2000"
-            min="1"
-            bind:value={queryStat.born}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="1000"
-            min="1"
-            bind:value={queryStat["men-born"]}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="1000"
-            min="1"
-            bind:value={queryStat["women-born"]}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="10.2"
-            min="1.0"
-            bind:value={queryStat["natality-rate"]}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="2.1"
-            min="1.0"
-            bind:value={queryStat["fertility-rate"]}
-          /></td
-        >
-        <td><Button color="primary" on:click={searchStat}>Buscar</Button></td>
-        <td><Button color="secondary" on:click={restore}>Restaurar</Button></td>
-      </tr>
-    </tbody>
-  </Table>
-
-  <h3>Listado de datos</h3>
-  <!-- Table -->
-  <Table borderer>
-    <thead>
-      <tr>
-        <th> País </th>
-        <th>Año </th>
-        <th>Nacimientos </th>
-        <th>Hombres nacidos </th>
-        <th>Mujeres nacidas </th>
-        <th>Tasa de natalidad </th>
-        <th>Índice de fecundación </th>
-        <th>Acciones</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td
-          ><input
-            type="text"
-            placeholder="spain"
-            bind:value={newStat.country}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="2019"
-            min="1900"
-            bind:value={newStat.date}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="2000"
-            min="1"
-            bind:value={newStat.born}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="1000"
-            min="1"
-            bind:value={newStat["men-born"]}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="1000"
-            min="1"
-            bind:value={newStat["women-born"]}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="10.2"
-            min="1.0"
-            bind:value={newStat["natality-rate"]}
-          /></td
-        >
-        <td
-          ><input
-            type="number"
-            placeholder="2.1"
-            min="1.0"
-            bind:value={newStat["fertility-rate"]}
-          /></td
-        >
-        <td><Button color="primary" on:click={insertStat}>Insertar</Button></td>
-      </tr>
-
-      {#if isASearch == true}
-        {#each resultQuery as stat}
-          <tr>
-            <td>{stat.country}</td>
-            <td>{stat.date}</td>
-            <td>{stat.born}</td>
-            <td>{stat["men-born"]}</td>
-            <td>{stat["women-born"]}</td>
-            <td>{stat["natality-rate"]}%</td>
-            <td>{stat["fertility-rate"]}</td>
-            <td>
-              <a href="#/natality-stats/{stat.country}/{stat.date}">
-                <Button color="primary">Editar</Button>
-              </a></td
-            >
+  <div>
+    <h3>Buscar</h3>
+    <Table bordered>
+      <thead>
+        <tr>
+          <th> País </th>
+          <th>Año </th>
+          <th>Nacimientos </th>
+          <th>Hombres nacidos </th>
+          <th>Mujeres nacidas </th>
+          <th>Tasa de natalidad </th>
+          <th>Índice de fecundación </th>
+          <th colspan="2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            ><input
+              type="text"
+              placeholder="spain"
+              bind:value={queryStat.country}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2019"
+              min="1900"
+              bind:value={queryStat.date}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2000"
+              min="1"
+              bind:value={queryStat.born}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={queryStat["men-born"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={queryStat["women-born"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="10.2"
+              min="1.0"
+              bind:value={queryStat["natality-rate"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2.1"
+              min="1.0"
+              bind:value={queryStat["fertility-rate"]}
+            /></td
+          >
+          {#if isASearch}
             <td
-              ><Button
-                color="danger"
-                on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+              ><Button disabled color="primary" on:click={searchStat}
+                >Buscar</Button
               ></td
             >
-          </tr>
-        {/each}
-      {:else}
-        {#each natalityStats as stat}
-          <tr>
-            <td>{stat.country}</td>
-            <td>{stat.date}</td>
-            <td>{stat.born}</td>
-            <td>{stat["men-born"]}</td>
-            <td>{stat["women-born"]}</td>
-            <td>{stat["natality-rate"]}%</td>
-            <td>{stat["fertility-rate"]}</td>
-            <td>
-              <a href="#/natality-stats/{stat.country}/{stat.date}">
-                <Button color="primary">Editar</Button>
-              </a></td
-            >
             <td
-              ><Button
-                color="danger"
-                on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+              ><Button color="secondary" on:click={restore}>Restaurar</Button
               ></td
             >
-          </tr>
-        {/each}
-      {/if}
-    </tbody>
-  </Table>
+          {:else}
+            <td
+              ><Button color="primary" on:click={searchStat}>Buscar</Button></td
+            >
+            <td
+              ><Button disabled color="secondary" on:click={restore}
+                >Restaurar</Button
+              ></td
+            >
+          {/if}
+        </tr>
+      </tbody>
+    </Table>
+  </div>
 
-  <!-- Pagination -->
-  <Pagination ariaLabel="Web pagination">
-    <PaginationItem class={current_page === 1 ? "disabled" : ""}>
-      <PaginationLink
-        previous
-        href="#/natality-stats"
-        on:click={() =>
-          changePage(current_page - 1, current_offset - 10, isASearch)}
-      />
-    </PaginationItem>
-    {#each range(last_page, 1) as page}
-      <PaginationItem class={current_page === page ? "active" : ""}>
+  <div>
+    <h3>Listado de datos</h3>
+    <!-- Table -->
+    <Table bordered>
+      <thead>
+        <tr>
+          <th> País </th>
+          <th>Año </th>
+          <th>Nacimientos </th>
+          <th>Hombres nacidos </th>
+          <th>Mujeres nacidas </th>
+          <th>Tasa de natalidad </th>
+          <th>Índice de fecundación </th>
+          <th colspan="2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            ><input
+              type="text"
+              placeholder="spain"
+              bind:value={newStat.country}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2019"
+              min="1900"
+              bind:value={newStat.date}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2000"
+              min="1"
+              bind:value={newStat.born}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={newStat["men-born"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={newStat["women-born"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="10.2"
+              min="1.0"
+              bind:value={newStat["natality-rate"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2.1"
+              min="1.0"
+              bind:value={newStat["fertility-rate"]}
+            /></td
+          >
+          <td colspan="2"
+            ><Button color="primary" on:click={insertStat}>Insertar</Button></td
+          >
+        </tr>
+
+        {#if isASearch == true}
+          {#each resultQuery as stat}
+            <tr>
+              <td>{stat.country}</td>
+              <td>{stat.date}</td>
+              <td>{stat.born}</td>
+              <td>{stat["men-born"]}</td>
+              <td>{stat["women-born"]}</td>
+              <td>{stat["natality-rate"]}%</td>
+              <td>{stat["fertility-rate"]}</td>
+              <td>
+                <a href="#/natality-stats/{stat.country}/{stat.date}">
+                  <Button color="primary">Editar</Button>
+                </a></td
+              >
+              <td
+                ><Button
+                  color="danger"
+                  on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+                ></td
+              >
+            </tr>
+          {/each}
+        {:else}
+          {#each natalityStats as stat}
+            <tr>
+              <td>{stat.country}</td>
+              <td>{stat.date}</td>
+              <td>{stat.born}</td>
+              <td>{stat["men-born"]}</td>
+              <td>{stat["women-born"]}</td>
+              <td>{stat["natality-rate"]}%</td>
+              <td>{stat["fertility-rate"]}</td>
+              <td>
+                <a href="#/natality-stats/{stat.country}/{stat.date}">
+                  <Button color="primary">Editar</Button>
+                </a></td
+              >
+              <td
+                ><Button
+                  color="danger"
+                  on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+                ></td
+              >
+            </tr>
+          {/each}
+        {/if}
+      </tbody>
+    </Table>
+  </div>
+
+  <div>
+    <!-- Pagination -->
+    <Pagination ariaLabel="Web pagination">
+      <PaginationItem class={current_page === 1 ? "disabled" : ""}>
         <PaginationLink
           previous
           href="#/natality-stats"
-          on:click={() => changePage(page, (page - 1) * 10, isASearch)}
-          >{page}</PaginationLink
-        >
+          on:click={() =>
+            changePage(current_page - 1, current_offset - 10, isASearch)}
+        />
       </PaginationItem>
-    {/each}
-    <PaginationItem class={current_page === last_page ? "disabled" : ""}>
-      <PaginationLink
-        next
-        href="#/natality-stats"
-        on:click={() =>
-          changePage(current_page + 1, current_offset + 10, isASearch)}
-      />
-    </PaginationItem>
-  </Pagination>
+      {#each range(last_page, 1) as page}
+        <PaginationItem class={current_page === page ? "active" : ""}>
+          <PaginationLink
+            previous
+            href="#/natality-stats"
+            on:click={() => changePage(page, (page - 1) * 10, isASearch)}
+            >{page}</PaginationLink
+          >
+        </PaginationItem>
+      {/each}
+      <PaginationItem class={current_page === last_page ? "disabled" : ""}>
+        <PaginationLink
+          next
+          href="#/natality-stats"
+          on:click={() =>
+            changePage(current_page + 1, current_offset + 10, isASearch)}
+        />
+      </PaginationItem>
+    </Pagination>
+  </div>
 </main>
 
 <style>
@@ -667,7 +709,27 @@
     padding: 1em;
     margin: 0 auto;
   }
+  p {
+    display: inline;
+  }
+  .msgYellow {
+    padding: 8px;
 
+    background-color: #fff3cd;
+  }
+  .msgRed {
+    padding: 8px;
+
+    background-color: #f8d7da;
+  }
+  .msgGreen {
+    padding: 8px;
+
+    background-color: #d4edda;
+  }
+  div{
+    margin-bottom: 15px;
+  }
   h2 {
     text-transform: uppercase;
     font-size: 4em;

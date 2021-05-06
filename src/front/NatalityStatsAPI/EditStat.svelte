@@ -15,11 +15,15 @@
   let updateFertilityRate = 999.9;
   let errorMsg = "";
   let okMsg = "";
-  
+
   async function getStat() {
     console.log("Fetching stat..." + params.country + " " + params.date);
     const res = await fetch(
-      BASE_CONTACT_API_PATH +"/natality-stats/" + params.country +"/" + params.date
+      BASE_CONTACT_API_PATH +
+        "/natality-stats/" +
+        params.country +
+        "/" +
+        params.date
     );
 
     if (res.ok) {
@@ -34,15 +38,14 @@
       updateNatalityRate = stat["natality-rate"];
       updateFertilityRate = stat["fertility-rate"];
       console.log("Received stat.");
-      
     } else {
-      if(res.status===404){
-          errorMsg = `No existe dato con pais: ${params.country} y fecha: ${params.date}`;
-        }else if(res.status ===500){
-          errorMsg = "No se han podido acceder a la base de datos";
-        }        
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
+      if (res.status === 404) {
+        errorMsg = `No existe dato con pais: ${params.country} y fecha: ${params.date}`;
+      } else if (res.status === 500) {
+        errorMsg = "No se han podido acceder a la base de datos";
+      }
+      okMsg = "";
+      console.log("ERROR!" + errorMsg);
     }
   }
 
@@ -62,9 +65,9 @@
       {
         method: "PUT",
         body: JSON.stringify({
-          "country": params.country,
-          "date": parseInt(params.date),
-          "born": parseInt(updateBorn),
+          country: params.country,
+          date: parseInt(params.date),
+          born: parseInt(updateBorn),
           "men-born": parseInt(updateMenBorn),
           "women-born": parseInt(updateWomenBorn),
           "natality-rate": parseFloat(updateNatalityRate),
@@ -72,7 +75,7 @@
         }),
         headers: {
           "Content-Type": "application/json",
-        }
+        },
       }
     ).then(function (res) {
       if (res.ok) {
@@ -81,13 +84,14 @@
         errorMsg = "";
         okMsg = `${params.country} ${params.date} ha sido actualizado correctamente`;
       } else {
-         if(res.status ===500){
+        if (res.status === 500) {
           errorMsg = "No se han podido acceder a la base de datos";
-        }else if(res.status ===404){
+        } else if (res.status === 404) {
           errorMsg = "No se han encontrado el dato solicitado";
-        }else if(res.status === 400){
-          errorMsg = "Todos los parámetros deben estar rellenados correctamente"
-        }        
+        } else if (res.status === 400) {
+          errorMsg =
+            "Todos los parámetros deben estar rellenados correctamente";
+        }
         okMsg = "";
         getStat();
         console.log("ERROR!" + errorMsg);
@@ -105,60 +109,111 @@
     </NavItem>
   </Nav>
 
-  <h2>
-    Editar campo <strong>{params.country}</strong>
-    <strong>{params.date}</strong>
-  </h2>
-  <p>
+  <div>
+    <h2>
+      Editar campo <strong>{params.country}</strong>
+      <strong>{params.date}</strong>
+    </h2>
+  </div>
 
-  </p>
+  <div>
+    {#if errorMsg}
+      <p class="msgRed" style="color: #9d1c24">ERROR: {errorMsg}</p>
+    {/if}
+    {#if okMsg}
+      <p class="msgGreen" style="color: #155724">{okMsg}</p>
+    {/if}
+  </div>
 
-  {#if errorMsg}
-  <p style="color: red">ERROR: {errorMsg}</p>
-{/if}
-{#if okMsg}
-<p style="color: green">{okMsg}</p>
-{/if}
-
-<p>
-  
-</p>
-  <Table bordered>
-    <thead>
-      <tr>
-        <th> País </th>
-        <th>Año </th>
-        <th>Nacimientos </th>
-        <th>Hombres nacidos </th>
-        <th>Mujeres nacidas </th>
-        <th>Tasa de natalidad </th>
-        <th>Índice de fecundación </th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{updateCountry}</td>
-        <td>{updateDate}</td>
-        <td><input type="number" placeholder="2000" min="1"   bind:value={updateBorn} /></td>
-        <td><input type="number" placeholder="1000" min="1"   bind:value={updateMenBorn} /></td>
-        <td><input type="number" placeholder="1000" min="1"   bind:value={updateWomenBorn} /></td>
-        <td><input type="number" placeholder="10.2" min="1.0" bind:value={updateNatalityRate} /></td>
-        <td><input type="number" placeholder="2.1" min="1.0"  bind:value={updateFertilityRate} /></td>
-        <td>
-          <Button outline color="primary" on:click={updateStat}>Actualizar</Button>
-        </td>
-      </tr>
-    </tbody>
-  </Table>
-
-
+  <div>
+    <Table bordered>
+      <thead>
+        <tr>
+          <th> País </th>
+          <th>Año </th>
+          <th>Nacimientos </th>
+          <th>Hombres nacidos </th>
+          <th>Mujeres nacidas </th>
+          <th>Tasa de natalidad </th>
+          <th>Índice de fecundación </th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{updateCountry}</td>
+          <td>{updateDate}</td>
+          <td
+            ><input
+              type="number"
+              placeholder="2000"
+              min="1"
+              bind:value={updateBorn}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={updateMenBorn}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={updateWomenBorn}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="10.2"
+              min="1.0"
+              bind:value={updateNatalityRate}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2.1"
+              min="1.0"
+              bind:value={updateFertilityRate}
+            /></td
+          >
+          <td>
+            <Button outline color="primary" on:click={updateStat}
+              >Actualizar</Button
+            >
+          </td>
+        </tr>
+      </tbody>
+    </Table>
+  </div>
 </main>
 
 <style>
-  main{
+  main {
     text-align: center;
     padding: 1em;
     margin: 0 auto;
+  }
+  div{
+    margin-bottom: 15px;
+  }
+  p {
+    display: inline;
+  }
+  .msgRed {
+    padding: 8px;
+
+    background-color: #f8d7da;
+  }
+  .msgGreen {
+    padding: 8px;
+
+    background-color: #d4edda;
   }
 </style>
