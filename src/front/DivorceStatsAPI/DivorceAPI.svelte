@@ -136,7 +136,6 @@
     } else {
       errorMsg = "Se necesita un campo a buscar";
       okMsg = "";
-      getStats();
     }
   }
   function getClaveSpanish(clave) {
@@ -289,7 +288,9 @@
         errorMsg = "";
         okMsg = "Operación realizada con éxito";
       } else {
-        errorMsg = res.status + ": " + res.statusText;
+        errorMsg = res.status + ": " + res.statusText +
+         "el recurso con pais =" + newStat.country + " y año =" +
+         newStat.date + "ya existe" ;
         console.log("ERROR!" + errorMsg);
         okMsg = "";
       }
