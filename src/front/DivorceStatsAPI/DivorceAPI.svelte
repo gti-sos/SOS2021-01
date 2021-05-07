@@ -119,6 +119,7 @@
         divorceStats = json;
         
         okMsg = " Resultado de la busqueda con " + msg;
+        errorMsg = "";
         if(divorceStats.size === 0){
           okMsg = "No se ha encontrado" + okMsg;
         }
