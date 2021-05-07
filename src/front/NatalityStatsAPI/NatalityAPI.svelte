@@ -93,6 +93,7 @@
     } else {
       newStat = resetStat;
     }
+    errorMsg="";
   }
 
   //Calcula el rango entre ods valores

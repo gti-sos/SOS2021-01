@@ -1,6 +1,5 @@
 <script>
   import { Button, Nav, NavItem, NavLink } from "sveltestrap";
-  import { onMount } from "svelte";
 
   const BASE_CONTACT_API_PATH = "/api/v1";
 
