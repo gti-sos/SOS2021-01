@@ -91,6 +91,7 @@
 
   async function searchStat() {
     console.log("Searching stat...");
+    var msg = "";
 
     var campos = new Map(
       Object.entries(newStat).filter((o) => {
@@ -99,23 +100,28 @@
     );
     let querySymbol = "?";
     for (var [clave, valor] of campos.entries()) {
+      msg += getClaveSpanish(clave) + "=" + valor + " ";
       querySymbol += clave + "=" + valor + "&";
     }
     fullQuery = querySymbol.slice(0, -1);
 
     if (fullQuery != "") {
       const res = await fetch(
-        BASE_CONTACT_API_PATH + "/divorce-stats/" + fullQuery
+        BASE_CONTACT_API_PATH + "/divorce-stats/" + fullQuery +
+          "&limit=" +
+          limit +
+          "&offset=" +
+          current_offset
       );
       if (res.ok) {
         console.log("OK");
         const json = await res.json();
         divorceStats = json;
-        okMsg = "Búsqueda realizada con éxito";
+        okMsg = "Búsqueda realizada con éxito /n Resulado de la busqueda con " + msg;
       } else {
         divorceStats = [];
         if (res.status === 404) {
-          errorMsg = "No se encuentra el dato solicitado";
+          errorMsg = "No se encuentra el dato solicitado" + msg;
         } else if (res.status === 500) {
           errorMsg = "No se han podido acceder a la base de datos";
         }
@@ -124,12 +130,27 @@
         console.log("ERROR!" + errorMsg);
       }
     } else {
-      errorMsg = "";
-      okMsg = "Búsqueda realizada con éxito";
+      errorMsg = "Se necesita un campo a buscar";
+      okMsg = "";
       getStats();
     }
   }
-
+  function getClaveSpanish(clave) {
+    switch (clave) {
+      case "country":
+        return "País";
+      case "date":
+        return "Año";
+      case "marriage-rate":
+        return "Porcentaje de matrimonios	";
+      case "divorce-rate":
+        return "Porcentaje de divorcios";
+      case "ratio-actual":
+        return "Ratio actual	";
+      case "ratio-percent":
+        return "Ratio porcentual	";
+    }
+  }
   async function getStats() {
     console.log("Fetching data...");
 
