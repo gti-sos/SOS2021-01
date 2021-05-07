@@ -122,7 +122,8 @@
         okMsg = " Resultado de la busqueda con " + msg;
         errorMsg = "";
         if(cuerpo === 0){
-          okMsg = "No se ha encontrado" + okMsg;
+          okMsg1 = "No se ha encontrado" + okMsg;
+          okMsg = okMsg1;
         }
       } else {
         divorceStats = [];
