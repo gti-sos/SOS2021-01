@@ -11,6 +11,7 @@
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte"
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
 	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
+import CommonChart from './Pages/CommonChart.svelte';
 
 	const routes = {
 		"/":Home,
@@ -21,6 +22,7 @@
 		"/natality-stats/:country/:date":EditNatalityAPI,
 		"/life-stats": LifeAPI, 		
 		"/life-stats/:country/:date": LifeStatEdit,
+		"/common-chart":CommonChart,
 		'*': NotFound};
 </script>
 

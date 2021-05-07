@@ -17,7 +17,7 @@
 
 <main>
   <h1>SOS2021-01</h1>
-
+<div>
   <h2>Equipo</h2>
   <Container>
     <Col>
@@ -30,7 +30,8 @@
       <a href="http://github.com/AbramsM1A2">Abraham Corta Ramirez</a>
     </Col>
   </Container>
-  <p />
+</div>
+  <div>
   <h2>Descripción del proyecto</h2>
   <p>
     Análisis global de los años 2018-2019 y la relación existente
@@ -49,14 +50,20 @@
       >
     </Col>
   </Container>
-  <p />
-
+</div>
+<div>
   <a href="/#/info">
     <Button color="info">Info</Button>
   </a>
-
-  <p />
-
+</div>
+<div>
+  <h2>Análiticas</h2>
+  <a href="/#/common-chart">
+    <Button color="primary">Todas las APIs</Button>
+  </a>
+</div>
+  
+<div>
   <h2>APIs</h2>
   <Container>
     <Col xs="auto">
@@ -143,6 +150,7 @@
       </Card>
     </Col>
   </Container>
+</div>
 </main>
 
 <style>
@@ -157,6 +165,9 @@
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
+  }
+  div{
+    margin-bottom: 15px;
   }
   b {
     color: #00c1ff;
