@@ -280,6 +280,7 @@ import { element_is } from "svelte/internal";
       ||newStat["ratio-actual"] == null || newStat["ratio-actual"] == "" || newStat["ratio-actual"] == "NaN"
       ||newStat["ratio-percent"] == null || newStat["ratio-percent"] == "" || newStat["ratio-percent"] == "NaN"){
       errorMsg = "Los datos a insertar son incorrectos, compruebe los campos";
+      okMsg="";
       console.log("ERROR!" + errorMsg);
     };
     
