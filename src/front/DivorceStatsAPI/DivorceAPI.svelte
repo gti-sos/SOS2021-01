@@ -288,9 +288,13 @@
         errorMsg = "";
         okMsg = "Operación realizada con éxito";
       } else {
+        if(res.status == 409){
         errorMsg = res.status + ": " + res.statusText +
-         "el recurso con pais =" + newStat.country + " y año =" +
-         newStat.date + "ya existe" ;
+         ". El recurso con pais = " + newStat.country + " y año = " +
+         newStat.date + " ya existe" ;
+        } else{
+          errorMsg = res.status + ": " + res.statusText
+        }
         console.log("ERROR!" + errorMsg);
         okMsg = "";
       }
