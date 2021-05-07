@@ -14,7 +14,7 @@
     PaginationLink,
   } from "sveltestrap";
   import { onMount } from "svelte";
-import { element_is } from "svelte/internal";
+
 
   // Nav
 
@@ -65,7 +65,8 @@ import { element_is } from "svelte/internal";
 
   let total = 0;
 
-
+  onMount(getStats);
+  getNumStats();
 
   //Functions
   async function loadStats() {
@@ -315,9 +316,6 @@ import { element_is } from "svelte/internal";
         okMsg = "";
       }
     });
-  
-  onMount(getStats);
-  getNumStats();
   }
 }
 </script>
