@@ -14,6 +14,7 @@
     PaginationLink,
   } from "sveltestrap";
   import { onMount } from "svelte";
+import { element_is } from "svelte/internal";
 
   // Nav
 
@@ -271,7 +272,13 @@
   async function insertStat() {
     console.log("Inserting stat: " + JSON.stringify(newStat));
 
- 
+  newStat.forEach(element => {
+    if(element == null || element =="NaN" || element ==""){
+      errorMsg = "Los datos a insertar son incorrectos, compruebe los campos"
+    };
+    
+  });
+  if(errorMsg = ""){
     newStat.date = parseInt(newStat.date);
     newStat["marriage-rate"] = parseFloat(newStat["marriage-rate"]);
     newStat["divorce-rate"] = parseFloat(newStat["divorce-rate"]);
@@ -305,6 +312,7 @@
   }
   onMount(getStats);
   getNumStats();
+}
 </script>
 
 <main>
