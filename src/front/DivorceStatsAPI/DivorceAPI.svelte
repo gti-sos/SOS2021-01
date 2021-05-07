@@ -117,10 +117,11 @@
         console.log("OK");
         const json = await res.json();
         divorceStats = json;
+        cuerpo = json.length;
         
         okMsg = " Resultado de la busqueda con " + msg;
         errorMsg = "";
-        if(divorceStats.size === 0){
+        if(cuerpo === 0){
           okMsg = "No se ha encontrado" + okMsg;
         }
       } else {
