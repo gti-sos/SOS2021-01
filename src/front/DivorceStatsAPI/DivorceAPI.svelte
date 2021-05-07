@@ -117,7 +117,7 @@
         console.log("OK");
         const json = await res.json();
         divorceStats = json;
-        cuerpo = json.length;
+        var cuerpo = json.length;
         
         okMsg = " Resultado de la busqueda con " + msg;
         errorMsg = "";
