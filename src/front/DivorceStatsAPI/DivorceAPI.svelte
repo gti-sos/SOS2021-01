@@ -272,12 +272,16 @@ import { element_is } from "svelte/internal";
   async function insertStat() {
     console.log("Inserting stat: " + JSON.stringify(newStat));
 
-  newStat.forEach(element => {
-    if(element == null || element =="NaN" || element ==""){
-      errorMsg = "Los datos a insertar son incorrectos, compruebe los campos"
+  
+    if( newStat.country == null || newStat.country == "" || newStat.country == "NaN"
+      ||newStat.date == null || newStat.date == "" || newStat.date == "NaN"
+      ||newStat["marriage-rate"] == null || newStat["marriage-rate"] == "" || newStat["marriage-rate"] == "NaN"
+      ||newStat["divorce-rate"] == null || newStat["divorce-rate"] == "" || newStat["divorce-rate"] == "NaN"
+      ||newStat["ratio-actual"] == null || newStat["ratio-actual"] == "" || newStat["ratio-actual"] == "NaN"
+      ||newStat["ratio-percent"] == null || newStat["ratio-percent"] == "" || newStat["ratio-percent"] == "NaN"){
+      errorMsg = "Los datos a insertar son incorrectos, compruebe los campos";
     };
     
-  });
   if(errorMsg = ""){
     newStat.date = parseInt(newStat.date);
     newStat["marriage-rate"] = parseFloat(newStat["marriage-rate"]);
@@ -309,9 +313,10 @@ import { element_is } from "svelte/internal";
         okMsg = "";
       }
     });
-  }
+  
   onMount(getStats);
   getNumStats();
+  }
 }
 </script>
 
