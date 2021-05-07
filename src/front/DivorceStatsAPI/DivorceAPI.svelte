@@ -38,7 +38,7 @@
   let visible = true;
   let errorMsg = "";
   let okMsg = "";
-
+  let okMsg1 ="";
   let fullQuery = "";
 
   const BASE_CONTACT_API_PATH = "/api/v1";
