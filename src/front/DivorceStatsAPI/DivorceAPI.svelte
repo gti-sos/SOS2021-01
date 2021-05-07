@@ -105,7 +105,7 @@
     }
     fullQuery = querySymbol.slice(0, -1);
 
-    if (fullQuery != "") {
+    if (fullQuery != "" && campos.get(country) != "NaN" && campos.get(date) != "NaN" ) {
       const res = await fetch(
         BASE_CONTACT_API_PATH + "/divorce-stats/" + fullQuery +
           "&limit=" +
