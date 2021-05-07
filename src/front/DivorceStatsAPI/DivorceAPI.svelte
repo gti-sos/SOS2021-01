@@ -15,7 +15,6 @@
   } from "sveltestrap";
   import { onMount } from "svelte";
 
-
   // Nav
 
   //Load stats
@@ -39,8 +38,9 @@
   let visible = true;
   let errorMsg = "";
   let okMsg = "";
-  let okMsg1 ="";
+  let okMsg1 = "";
   let fullQuery = "";
+  var flag = false;
 
   const BASE_CONTACT_API_PATH = "/api/v1";
 
@@ -80,11 +80,11 @@
         errorMsg = "";
         okMsg = "Operación realizada con éxito";
       } else {
-        if(res.status===404){
+        if (res.status === 404) {
           errorMsg = "No existen datos que borrar";
-        }else if(res.status ===500){
+        } else if (res.status === 500) {
           errorMsg = "No se han podido acceder a la base de datos";
-        }        
+        }
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -102,28 +102,31 @@
     );
     let querySymbol = "?";
     for (var [clave, valor] of campos.entries()) {
+      if( valor != null){
       msg += getClaveSpanish(clave) + "=" + valor + " ";
       querySymbol += clave + "=" + valor + "&";
     }
+  }
     fullQuery = querySymbol.slice(0, -1);
 
     if (fullQuery != "") {
       const res = await fetch(
-        BASE_CONTACT_API_PATH + "/divorce-stats/" + fullQuery +
+        BASE_CONTACT_API_PATH +
+          "/divorce-stats/" +
+          fullQuery +
           "&limit=" +
           limit +
           "&offset=" +
           current_offset
       );
       if (res.ok) {
-        console.log("OK");
+        console.log("OK, busqueda realizada correctamente");
         const json = await res.json();
         divorceStats = json;
         var cuerpo = json.length;
-        
         okMsg = " Resultado de la busqueda con " + msg;
         errorMsg = "";
-        if(cuerpo === 0){
+        if (cuerpo === 0) {
           okMsg1 = "No se ha encontrado" + okMsg;
           okMsg = okMsg1;
         }
@@ -141,6 +144,8 @@
     } else {
       errorMsg = "Se necesita un campo a buscar";
       okMsg = "";
+      flag = true;
+      getStats();
     }
   }
   function getClaveSpanish(clave) {
@@ -175,7 +180,11 @@
       const json = await res.json();
       divorceStats = json;
       console.log(`We have received ${divorceStats.length} stats.`);
-      errorMsg = "";
+      if (flag == false) {
+        console.log("es una busqueda");
+        errorMsg = "";
+      }
+      flag = false;
       //getNumStats()
     } else {
       if (natalityStats.length != 0) {
@@ -259,11 +268,11 @@
         okMsg = "Operación realizada con éxito";
         getStats();
       } else {
-        if(res.status===404){
+        if (res.status === 404) {
           errorMsg = `No existe el dato ${country} con fecha ${date} para borrar`;
-        }else if(res.status ===500){
+        } else if (res.status === 500) {
           errorMsg = "No se han podido acceder a la base de datos";
-        }        
+        }
         okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
@@ -273,51 +282,68 @@
   async function insertStat() {
     console.log("Inserting stat: " + JSON.stringify(newStat));
 
-  
-    if( newStat.country == null || newStat.country == "" || newStat.country == "NaN"
-      ||newStat.date == null || newStat.date == "" || newStat.date == "NaN"
-      ||newStat["marriage-rate"] == null || newStat["marriage-rate"] == "" || newStat["marriage-rate"] == "NaN"
-      ||newStat["divorce-rate"] == null || newStat["divorce-rate"] == "" || newStat["divorce-rate"] == "NaN"
-      ||newStat["ratio-actual"] == null || newStat["ratio-actual"] == "" || newStat["ratio-actual"] == "NaN"
-      ||newStat["ratio-percent"] == null || newStat["ratio-percent"] == "" || newStat["ratio-percent"] == "NaN"){
+    if (
+      newStat.country == null ||
+      newStat.country == "" ||
+      newStat.country == "NaN" ||
+      newStat.date == null ||
+      newStat.date == "" ||
+      newStat.date == "NaN" ||
+      newStat["marriage-rate"] == null ||
+      newStat["marriage-rate"] == "" ||
+      newStat["marriage-rate"] == "NaN" ||
+      newStat["divorce-rate"] == null ||
+      newStat["divorce-rate"] == "" ||
+      newStat["divorce-rate"] == "NaN" ||
+      newStat["ratio-actual"] == null ||
+      newStat["ratio-actual"] == "" ||
+      newStat["ratio-actual"] == "NaN" ||
+      newStat["ratio-percent"] == null ||
+      newStat["ratio-percent"] == "" ||
+      newStat["ratio-percent"] == "NaN"
+    ) {
       errorMsg = "Los datos a insertar son incorrectos, compruebe los campos";
-      okMsg="";
+      okMsg = "";
       console.log("ERROR!" + errorMsg);
-    };
-    
-  if(errorMsg = ""){
-    newStat.date = parseInt(newStat.date);
-    newStat["marriage-rate"] = parseFloat(newStat["marriage-rate"]);
-    newStat["divorce-rate"] = parseFloat(newStat["divorce-rate"]);
-    newStat["ratio-actual"] = parseFloat(newStat["ratio-actual"]);
-    newStat["ratio-percent"] = parseFloat(newStat["ratio-percent"]);
+    } else {
+      newStat.date = parseInt(newStat.date);
+      newStat["marriage-rate"] = parseFloat(newStat["marriage-rate"]);
+      newStat["divorce-rate"] = parseFloat(newStat["divorce-rate"]);
+      newStat["ratio-actual"] = parseFloat(newStat["ratio-actual"]);
+      newStat["ratio-percent"] = parseFloat(newStat["ratio-percent"]);
 
-    const res = await fetch(BASE_CONTACT_API_PATH + "/divorce-stats/", {
-      method: "POST",
-      body: JSON.stringify(newStat),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(function (res) {
-      if (res.ok) {
-        console.log("OK");
-        getStats();
-        errorMsg = "";
-        okMsg = "Operación realizada con éxito";
-      } else {
-        if(res.status == 409){
-        errorMsg = res.status + ": " + res.statusText +
-         ". El recurso con pais = " + newStat.country + " y año = " +
-         newStat.date + " ya existe" ;
-        } else{
-          errorMsg = res.status + ": " + res.statusText
+      const res = await fetch(BASE_CONTACT_API_PATH + "/divorce-stats/", {
+        method: "POST",
+        body: JSON.stringify(newStat),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(function (res) {
+        if (res.ok) {
+          console.log("OK");
+          getStats();
+          errorMsg = "";
+          okMsg = "Operación realizada con éxito";
+        } else {
+          if (res.status == 409) {
+            errorMsg =
+              res.status +
+              ": " +
+              res.statusText +
+              ". El recurso con pais = " +
+              newStat.country +
+              " y año = " +
+              newStat.date +
+              " ya existe";
+          } else {
+            errorMsg = res.status + ": " + res.statusText;
+          }
+          console.log("ERROR!" + errorMsg);
+          okMsg = "";
         }
-        console.log("ERROR!" + errorMsg);
-        okMsg = "";
-      }
-    });
+      });
+    }
   }
-}
 </script>
 
 <main>
@@ -380,64 +406,62 @@
       </tr>
     </thead>
     <tbody>
-      
-        <tr>
-          <td
-            ><input
-              type="text"
-              placeholder="China"
-              bind:value={newStat.country}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="2019"
-              min="1900"
-              bind:value={newStat.date}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="0.0"
-              min="1"
-              bind:value={newStat["marriage-rate"]}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="0.0"
-              min="1"
-              bind:value={newStat["divorce-rate"]}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="0.0"
-              min="1"
-              bind:value={newStat["ratio-actual"]}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="0.0"
-              min="1.0"
-              bind:value={newStat["ratio-percent"]}
-            /></td
-          >
-          <td
-            ><Button color="secondary" on:click={insertStat}>Insertar</Button
-            ></td
-          >
-          <td>
-            <Button color="primary" on:click={searchStat}>Buscar</Button>
-          </td>
-        </tr>
-      
+      <tr>
+        <td
+          ><input
+            type="text"
+            placeholder="China"
+            bind:value={newStat.country}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="2019"
+            min="1900"
+            bind:value={newStat.date}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="0.0"
+            min="1"
+            bind:value={newStat["marriage-rate"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="0.0"
+            min="1"
+            bind:value={newStat["divorce-rate"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="0.0"
+            min="1"
+            bind:value={newStat["ratio-actual"]}
+          /></td
+        >
+        <td
+          ><input
+            type="number"
+            placeholder="0.0"
+            min="1.0"
+            bind:value={newStat["ratio-percent"]}
+          /></td
+        >
+        <td
+          ><Button color="secondary" on:click={insertStat}>Insertar</Button></td
+        >
+        <td>
+          <Button color="primary" on:click={searchStat}>Buscar</Button>
+        </td>
+      </tr>
+
       {#each divorceStats as stat}
         <tr>
           <td>{stat.country}</td>
@@ -489,7 +513,6 @@
       />
     </PaginationItem>
   </Pagination>
-
 </main>
 
 <style>
