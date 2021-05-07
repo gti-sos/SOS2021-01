@@ -117,7 +117,11 @@
         console.log("OK");
         const json = await res.json();
         divorceStats = json;
-        okMsg = "Búsqueda realizada con éxito /n Resulado de la busqueda con " + msg;
+        
+        okMsg = " Resultado de la busqueda con " + msg;
+        if(divorceStats.size === 0){
+          okMsg = "No se ha encontrado" + okMsg;
+        }
       } else {
         divorceStats = [];
         if (res.status === 404) {
