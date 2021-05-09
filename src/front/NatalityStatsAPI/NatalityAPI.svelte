@@ -279,6 +279,7 @@
         resultQuery = json;
         okMsg = "Resulado de la busqueda con " + msg;
         isASearch = true;
+        errorMsg="";
         getNumTotalQuery();
       } else {
         resultQuery = [];
