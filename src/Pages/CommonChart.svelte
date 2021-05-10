@@ -7,6 +7,7 @@
   let natalityData = [];
   let natalityChartData = [];
   let dates = [];
+  let msg = "";
 
   function distinctRecords(MYJSON, prop) {
     return MYJSON.filter((obj, pos, arr) => {
@@ -18,9 +19,10 @@
     console.log("Fetching data...");
 
     const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
-    natalityData = await res.json();
-
+    
     if (res.ok) {
+      natalityData = await res.json();
+      console.log("RES OK");
       //Quitamos fechas repetidas y las ordenamos
       var distinctDates = distinctRecords(natalityData, "date");
       distinctDates.sort(function (a, b) {
@@ -41,6 +43,10 @@
         console.log("YAxis: " + yAxis);
         natalityChartData.push(yAxis);
       });
+      msg="";
+    }else{
+      console.log("ERROR MSG");
+      msg = "Por favor primero cargue los datos en al menos una de las APIs";
     }
     
     console.log("Natality Chart DaTa: " + natalityChartData);
@@ -122,7 +128,16 @@
       <NavLink href="/">Volver</NavLink>
     </NavItem>
   </Nav>
-
+  
+  <div>
+    <h2>
+      Análiticas
+    </h2>
+  </div>
+  
+{#if msg}
+<p>{msg}</p>
+{:else}
   <figure class="highcharts-figure">
     <div id="container" />
     <p class="highcharts-description">
@@ -130,9 +145,15 @@
       natalidad, divorcios y estilo de vida.
     </p>
   </figure>
+  {/if}
 </main>
 
 <style>
+   main {
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto;
+  }
   .highcharts-figure,
   .highcharts-data-table table {
     min-width: 360px;

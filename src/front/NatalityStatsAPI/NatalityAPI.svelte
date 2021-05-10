@@ -402,42 +402,13 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Volver</NavLink>
-    </NavItem>
-    <NavItem>
-      <NavLink href="#" on:click={toggle1}>Cargar datos inciales</NavLink>
-      <Modal isOpen={open1} {toggle1}>
-        <ModalHeader {toggle1}>¿Cargar los datos iniciales?</ModalHeader>
-        <ModalBody>
-          Esta acción cargará los datos siempre y cuando no existan previamente.
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" on:click={toggle1P}>Cargar</Button>
-          <Button color="secondary" on:click={toggle1}>Cancelar</Button>
-        </ModalFooter>
-      </Modal>
-    </NavItem>
-    <NavItem>
-      {#if natalityStats.length === 0}
-        <NavLink disabled href="#" on:click={toggle2}
-          >Borrar todos los datos</NavLink
-        >
-      {:else}
-        <NavLink href="#" on:click={toggle2}>Borrar todos los datos</NavLink>
-        <Modal isOpen={open2} {toggle2}>
-          <ModalHeader {toggle2}>¿Borrar todos los datos?</ModalHeader>
-          <ModalBody>Esta acción no se puede deshacer.</ModalBody>
-          <ModalFooter>
-            <Button color="danger" on:click={toggle2P}>Borrar</Button>
-            <Button color="secondary" on:click={toggle2}>Cancelar</Button>
-          </ModalFooter>
-        </Modal>
-      {/if}
-    </NavItem>
+      <NavLink href="/">Página Principal</NavLink>
+    </NavItem>  
     <NavItem>
       <NavLink href="/#/natality-stats/natalityCharts">Análiticas</NavLink>
     </NavItem>
   </Nav>
+
   <h2>Natalidad</h2>
 
   <div>
@@ -451,7 +422,33 @@
       <p class="msgYellow" style="color: #a56604">{warningMsg}</p>
     {/if}
   </div>
-
+<div>
+  <Button color="primary" on:click={toggle1}>Cargar datos inciales</Button>
+    <Modal isOpen={open1} {toggle1}>
+      <ModalHeader {toggle1}>¿Cargar los datos iniciales?</ModalHeader>
+      <ModalBody>
+        Esta acción cargará los datos siempre y cuando no existan previamente.
+      </ModalBody>
+      <ModalFooter>
+        <Button color="primary" on:click={toggle1P}>Cargar</Button>
+        <Button color="secondary" on:click={toggle1}>Cancelar</Button>
+      </ModalFooter>
+    </Modal>
+  
+    {#if natalityStats.length === 0}
+    <Button disabled color="danger" on:click={toggle2}>Borrar todos los datos</Button>
+    {:else}
+    <Button color="danger" on:click={toggle2}>Borrar todos los datos</Button>
+      <Modal isOpen={open2} {toggle2}>
+        <ModalHeader {toggle2}>¿Borrar todos los datos?</ModalHeader>
+        <ModalBody>Esta acción no se puede deshacer.</ModalBody>
+        <ModalFooter>
+          <Button color="danger" on:click={toggle2P}>Borrar</Button>
+          <Button color="secondary" on:click={toggle2}>Cancelar</Button>
+        </ModalFooter>
+      </Modal>
+    {/if}
+</div>
   <div>
     <h3>Buscar</h3>
     <Table bordered>
@@ -737,7 +734,7 @@
     background-color: #d4edda;
   }
   div{
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
   h2 {
     text-transform: uppercase;
