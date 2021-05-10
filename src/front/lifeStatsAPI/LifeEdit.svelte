@@ -5,7 +5,7 @@
     import {Button, Table } from 'sveltestrap';
     
     
-    const BASE_LIFE_API_URL = "/api/v1/life-stats";
+    const BASE_LIFE_API_URL = "/api/v2/life-stats";
 
     export let params = {};
     let lifeStat={};

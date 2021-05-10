@@ -1,23 +1,41 @@
 <script lang="ts">
+
     import { onMount } from 'svelte';
     import { pop } from "svelte-spa-router";
-    import {Button, Table } from 'sveltestrap';
+    import {Button, Table } from 'sveltestrap';    
 
-    const BASE_LIFE_API_URL = "/api/v1/life-stats"; //tiene que llamar a la API para tratar los datos
+    const BASE_LIFE_API_URL = "/api/v2/life-stats"; //tiene que llamar a la API para tratar los datos
 	
     let cargados = false;
     let lifeStats = [];
     let errorMsg = "";
     let correctMsg = "";
 
-    
-  let newData = {
+    /*pagination*/
+    let limit = 10; /*limit es el número de elementos por página*/
+	let offset = 0; /*offset indica desde qué elemento se va a empezar a mostrar*/
+    let numTotal=0;
+	let maxpag = numTotal>=limit; 
+
+  
+    /*para insertar un nuevo dato*/
+    let newData = {
     country: "",
     date: "",
     "quality_life_index": "",
     "purchasing_power_index": "",
     "safety_index": "",
     };
+
+    /*búsqueda*/
+    let currentCountry = "";
+	let currentDate = "";
+    let search = false;
+    let searchData = [];
+    
+    //let countries = [];
+
+
 
     onMount(getLifeStats);
 
@@ -37,19 +55,21 @@
 
     async function getLifeStats() {
         console.log("Fetching life stats...");
-        const res = await fetch(BASE_LIFE_API_URL);
+        const res = await fetch(BASE_LIFE_API_URL + "?limit=" + limit + "&offset=" + offset);
 
         if (res.ok) {
             cargados =  true;
             console.log("Ok. Obtaining data...");
             const json = await res.json();
             lifeStats = json;            
-            console.log(`Received ${lifeStats.length} life stats.`);
+            numTotal= lifeStats.length;
+            console.log(`Received ${numTotal} life stats.`);
+            
         }else if (res.status == 500) {
             errorMsg = "No se ha podido acceder la base de datos."
             console.log(errorMsg);
         }else if (res.status == 404) { 
-            errorMsg = "No se encuentran datos. Tiene que cargarlos."
+            errorMsg = "No se encuentran datos."
             console.log("Error. " +  errorMsg)
         } else { //este realmente no va a ser otro caso que el status = 500 
             errorMsg = res.status + ": " + res.statusText;
@@ -116,7 +136,7 @@
             if (res.ok){
                 correctMsg =`El dato con país: ${country} y año: ${date} se ha eliminado correctamente.`;
                 errorMsg = "";                
-				console.log("Ok. " + correctMsg);
+				console.log("Ok. " + correctMsg);        
                 getLifeStats();  /*para que el usuario no tenga que recargar la página */
 			} else if (res.status==404){ //no data found
                 errorMsg= `No se encuentra el dato con país:  ${country} y año: ${date}.`;
@@ -127,6 +147,58 @@
 			}		
         });
     }  
+    
+    async function searchStat(country, date){ //como la búsqueda es por país y año, no necesitamos paginación porque solo se mostrará un recurso
+        offset = 0;
+        const res = await fetch(BASE_LIFE_API_URL + "/" + country  + "/" + date);
+        
+        if (res.ok) {
+            cargados =  true;
+            search = true;
+            correctMsg="";
+            console.log("Ok. Searching data...");
+            const json = await res.json();
+            searchData = json;            
+            console.log(`Received the data searched.`);
+            
+        }else if (res.status == 500) {
+            errorMsg = "No se ha podido acceder la base de datos."
+            console.log(errorMsg);
+        }else if (res.status == 404) { 
+            correctMsg = "";
+            errorMsg = "No se encuentra el dato."
+            console.log("Error. " +  errorMsg)
+        } else {
+            errorMsg = res.status + ": " + res.statusText;
+            console.log(errorMsg);
+        }
+
+    }
+
+    async function reset(){
+        search=false;
+    };
+
+    async function pagBefore(){
+        correctMsg="";
+        errorMsg="";
+		if (offset >= 10){
+            offset = offset - limit;
+        } 
+		getLifeStats();
+	
+	}
+
+    async function pagNext(){
+        correctMsg="";
+        errorMsg="";
+		if(offset<=numTotal){
+            offset = offset + limit;
+        }
+		getLifeStats();
+	
+    }
+
 
     
 </script>
@@ -135,17 +207,35 @@
 <main>
     <div>
         {#if cargados}  
-        <Button style="background-color: crimson;" disabled> Cargar datos iniciales </Button>
+        <Button outline color="primary" disabled> Cargar datos iniciales </Button>
         {:else}
-        <Button style="background-color: crimson;" on:click={loadLifeStats}> Cargar datos iniciales</Button>
+        <Button outline color="primary" on:click={loadLifeStats}> Cargar datos iniciales</Button>
         {/if}
-        <Button style="background-color: darkgray" on:click={deleteLifeStats}> Eliminar datos</Button>
+        <Button outline color= "danger" on:click={deleteLifeStats}> Eliminar datos</Button>
         
     </div>
     
-  
+    <h4>Búsqueda por país y año</h4>
+        <Table bordered style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>País</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>    
+            <tbody>
+                <tr>
+					<td><input placeholder="Ej. Spain" bind:value = "{currentCountry}" /></td>
+					<td><input  type="number" placeholder="Ej. 2021" bind:value = "{currentDate}" /></td>
+                    <td><Button outline color= "info" on:click={()=>searchStat(currentCountry, currentDate)}> Buscar</Button>
+                        <Button  style="background-color: darkgrey" on:click={()=>reset()}> Restaurar</Button></td> 
+                </tr>
+            </tbody>
+
+        </Table> 
     {#if lifeStats.length != 0}
-        <br/>
+        <br/>       
         <Table bordered style="text-align: center;">
             <thead>
                 <tr>
@@ -166,43 +256,89 @@
 					<td><input type="number" placeholder="0.00" min="0" bind:value = "{newData['safety_index']}" /></td>
 					<td><Button outline color= "primary" on:click={insertLifeStat}> Insertar</Button></td> 
 				</tr>
-                {#each lifeStats as stat}
-                <tr>
-                    <td>{stat.country}</td>
-                    <td>{stat.date}</td>
-                    <td>{stat["quality_life_index"]}</td>
-                    <td>{stat["purchasing_power_index"]}</td>
-                    <td>{stat["safety_index"]}</td>
-                    <td> <a href="#/life-stats/{stat.country}/{stat.date}">
-                        <Button style="background-color: yellowgreen;"> Editar </Button>
-                          </a>
-                         <Button outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(stat.country, stat.date)}>
-                         Borrar </Button> 
-                         </td> 
-                </tr> 
-                {/each}
+                {#if search} <!-- Si se realiza una búsqueda solo aparecerá en la tabla ese recurso -->
+                    <tr>
+                        <td>{searchData.country}</td> 
+                        <td>{searchData.date}</td>
+                        <td>{searchData["quality_life_index"]}</td>
+                        <td>{searchData["purchasing_power_index"]}</td>
+                        <td>{searchData["safety_index"]}</td>
+                        <td> <a href="#/life-stats/{searchData.country}/{searchData.date}">
+                            <Button style="background-color: yellowgreen;"> Editar </Button>
+                            </a>
+                            <Button outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(searchData.country, searchData.date)}>
+                            Borrar </Button> 
+                            </td> 
+                    </tr>                 
+                {:else}
+                    {#each lifeStats as stat}
+                    <tr>
+                        <td>{stat.country}</td>
+                        <td>{stat.date}</td>
+                        <td>{stat["quality_life_index"]}</td>
+                        <td>{stat["purchasing_power_index"]}</td>
+                        <td>{stat["safety_index"]}</td>
+                        <td> <a href="#/life-stats/{stat.country}/{stat.date}">
+                            <Button style="background-color: yellowgreen;"> Editar </Button>
+                            </a>
+                            <Button outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(stat.country, stat.date)}>
+                            Borrar </Button> 
+                            </td> 
+                    </tr> 
+                    {/each}
+                {/if}
             </tbody>
         </Table>
-         <Button style="background-color:darkgray " on:click="{pop}"> Volver </Button>
+        
+        <Button color="info" on:click={pagBefore}>ANTERIOR</Button>        
+        Número de datos en esta página: {numTotal}
+        {#if !maxpag}
+        <Button color="info" on:click={pagNext}>SIGUIENTE</Button> 
+        {/if}
+
+        <br/> <br/><Button style="background-color:darkgray " on:click="{pop}"> Volver </Button>
+
     {:else}
     <br/>
-    <p style="text-align: center; background-color: antiquewhite;"> Para ver los datos pulse el botón.</p>
+    <p class="inicio"> Para ver los datos cárguelos.</p>
         
     <Button style="background-color:darkgray" on:click="{pop}"> Volver </Button>
     {/if}
 
     {#if errorMsg}
-            <p style="color: red; text-align:center; font-size: 20px;">ERROR: {errorMsg}</p>
+        <p class="error">ERROR: {errorMsg}</p>
     {/if}
-
     {#if correctMsg}
-         <p style="color: green; text-align:center; font-size: 20px;">{correctMsg}</p>
+         <p class="correcto">{correctMsg}</p>
     {/if} 
-   
+    
+
 </main>
 
 
 
 <style>
-   
+    h4{
+        margin-bottom:20px;
+        text-align: center;
+    }
+    p.inicio {
+        text-align: center; 
+        background-color: antiquewhite;
+    }
+    p.error {
+        color: red; 
+        text-align:center;
+        font-size: 20px;
+        margin-bottom:20px;
+    }
+    p.correcto {
+        color: green;
+        text-align:center; 
+        font-size: 20px;
+        padding-bottom: 20px;
+    }
+    main {
+        padding-bottom:50px;
+    }
 </style>

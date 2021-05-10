@@ -33,7 +33,8 @@ module.exports.register = (app) => {
         "quality_life_index": 187.79,
         "purchasing_power_index": 91.8,
         "safety_index": 76.72
-        }
+        }                                         
+                
     ];
     /*for (var i = 0; i < initialData.length; i++) {
         //lifeStatsDS.push(initialData[i]);
@@ -66,11 +67,11 @@ module.exports.register = (app) => {
         if(query.hasOwnProperty("safety_index")){
             query.safety_index = parseFloat(query.safety_index);
         }
-        if (query.offset) {
+        if (query.offset) { /*offset indica desde qué elemento se va a empezar a mostrar*/
             var offset = parseInt(query.offset);
             delete req.query.offset;
         }
-        if (query.limit) {
+        if (query.limit) { /*limit es el número de elementos por página*/
             var limit = parseInt(req.query.limit);
             delete query.limit;
         }
