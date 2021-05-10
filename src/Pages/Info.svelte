@@ -94,10 +94,16 @@
           <a href="https://sos2021-01.herokuapp.com/api/v1/life-stats">
             <Button color="primary">API v1</Button>
           </a>
+          <a href="https://sos2021-01.herokuapp.com/api/v2/life-stats">
+            <Button color="primary">API v2</Button>
+          </a>
           <a href="/#/life-stats">
             <Button color="primary">Interfaz</Button>
           </a>
           <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
+            <Button color="info">Documentación v1</Button>
+          </a>
+          <a href="https://documenter.getpostman.com/view/14961437/TzRSgnqQ">
             <Button color="info">Documentación v1</Button>
           </a>
         </CardBody>
