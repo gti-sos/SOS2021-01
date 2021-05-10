@@ -121,110 +121,6 @@
 							"response": []
 						},
 						{
-							"name": "- add spain",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Load resources\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});\r",
-											"pm.test(\"Test data type of the request\", () => {\r",
-											"  const jsonData = JSON.parse(pm.request.body.raw);\r",
-											"  \r",
-											"  pm.expect(jsonData.country).to.be.a(\"string\");\r",
-											"  pm.expect(jsonData.date).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData.born).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"men-born\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"women-born\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"natality-rate\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"fertility-rate\"]).to.be.a(\"number\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"spain\",\r\n    \"date\": 2019,\r\n    \"born\": 360617,\r\n    \"men-born\": 185523,\r\n    \"women-born\": 175094,\r\n    \"natality-rate\": 7.62,\r\n    \"fertility-rate\": 1.24\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats",
-									"host": [
-										"{{heroku}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"natality-stats"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "- add italy",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Load resources\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});\r",
-											"pm.test(\"Test data type of the request\", () => {\r",
-											"  const jsonData = JSON.parse(pm.request.body.raw);\r",
-											"  \r",
-											"  pm.expect(jsonData.country).to.be.a(\"string\");\r",
-											"  pm.expect(jsonData.date).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData.born).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"men-born\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"women-born\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"natality-rate\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"fertility-rate\"]).to.be.a(\"number\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"italy\",\r\n    \"date\": 2019,\r\n    \"born\": 420.084,\r\n    \"men-born\": 215.387,\r\n    \"women-born\": 204.697,\r\n    \"natality-rate\": 7.0,\r\n    \"fertility-rate\": 1.26\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats",
-									"host": [
-										"{{heroku}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"natality-stats"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "- add uk",
 							"event": [
 								{
@@ -277,58 +173,6 @@
 							"response": []
 						},
 						{
-							"name": "- add belgium",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Load resources\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});\r",
-											"pm.test(\"Test data type of the request\", () => {\r",
-											"  const jsonData = JSON.parse(pm.request.body.raw);\r",
-											"  \r",
-											"  pm.expect(jsonData.country).to.be.a(\"string\");\r",
-											"  pm.expect(jsonData.date).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData.born).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"men-born\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"women-born\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"natality-rate\"]).to.be.a(\"number\");\r",
-											"  pm.expect(jsonData[\"fertility-rate\"]).to.be.a(\"number\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"belgium\",\r\n    \"date\": 2019,\r\n    \"born\": 116128,\r\n    \"men-born\": 59127,\r\n    \"women-born\": 57001,\r\n    \"natality-rate\": 10.10,\r\n    \"fertility-rate\": 1.58\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats",
-									"host": [
-										"{{heroku}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"natality-stats"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "- check 6 resources",
 							"event": [
 								{
@@ -338,9 +182,9 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"There is 6 resources\", function () {\r",
+											"pm.test(\"There is 50 resources\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.length).to.eql(6);\r",
+											"    pm.expect(jsonData.length).to.eql(50);\r",
 											"});\r",
 											"pm.test(\"Response time is less than 300ms\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
@@ -545,9 +389,9 @@
 											"pm.test(\"Response time is less than 300ms\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
 											"});\r",
-											"pm.test(\"There is 2 resources\", function () {\r",
+											"pm.test(\"There is 46 resources\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.length).to.eql(2);\r",
+											"    pm.expect(jsonData.length).to.eql(46);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -967,7 +811,7 @@
 							"response": []
 						},
 						{
-							"name": "/germany/2019 - check not found resource",
+							"name": "/cuba/2019 - check not found resource",
 							"event": [
 								{
 									"listen": "test",
@@ -986,7 +830,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/germany/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/cuba/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -994,7 +838,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"germany",
+										"cuba",
 										"2019"
 									]
 								}
@@ -1049,12 +893,12 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"2 resources\", function () {\r",
+											"pm.test(\"49 resources\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"There is 2 resources\", function () {\r",
+											"pm.test(\"There is 49 resources\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.length).to.eql(2);\r",
+											"    pm.expect(jsonData.length).to.eql(49);\r",
 											"});\r",
 											"pm.test(\"Response time is less than 300ms\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
@@ -1129,7 +973,7 @@
 							"response": []
 						},
 						{
-							"name": "- add finland",
+							"name": "- add prusia",
 							"event": [
 								{
 									"listen": "test",
@@ -1159,7 +1003,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"finland\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 23186,\r\n    \"women-born\": 22427,\r\n    \"natality-rate\": 8.30,\r\n    \"fertility-rate\": 1.35\r\n}",
+									"raw": "{\r\n    \"country\": \"prusia\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 2316,\r\n    \"women-born\": 2247,\r\n    \"natality-rate\": 5.30,\r\n    \"fertility-rate\": 1.25\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1181,18 +1025,18 @@
 							"response": []
 						},
 						{
-							"name": "- check 3 resources",
+							"name": "- check 50 resources",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"3 resources\", function () {\r",
+											"pm.test(\"50 resources\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"There is 3 resources\", function () {\r",
+											"pm.test(\"There is 50 resources\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.length).to.eql(3);\r",
+											"    pm.expect(jsonData.length).to.eql(50);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1218,7 +1062,7 @@
 							"response": []
 						},
 						{
-							"name": "- add finland again",
+							"name": "- add prusia again",
 							"event": [
 								{
 									"listen": "test",
@@ -1240,7 +1084,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"finland\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 23186,\r\n    \"women-born\": 22427,\r\n    \"natality-rate\": 8.30,\r\n    \"fertility-rate\": 1.35\r\n}",
+									"raw": "{\r\n    \"country\": \"prusia\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 2316,\r\n    \"women-born\": 2247,\r\n    \"natality-rate\": 5.30,\r\n    \"fertility-rate\": 1.25\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1262,7 +1106,7 @@
 							"response": []
 						},
 						{
-							"name": "- add germany with bad parameters",
+							"name": "- add cuba with bad parameters",
 							"event": [
 								{
 									"listen": "test",
@@ -1285,7 +1129,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"germany\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 23186,\r\n    \"women-born\": 22427,\r\n    \"natality-rate\": 8.30\r\n}",
+									"raw": "{\r\n    \"country\": \"cuba\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 23186,\r\n    \"women-born\": 22427,\r\n    \"natality-rate\": 8.30\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1340,7 +1184,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"finland\",\r\n    \"date\": 2019,\r\n    \"born\": 100,\r\n    \"men-born\": 4358,\r\n    \"women-born\": 41372,\r\n    \"natality-rate\": 9.60,\r\n    \"fertility-rate\": 1.46\r\n}",
+									"raw": "{\r\n    \"country\": \"prusia\",\r\n    \"date\": 2019,\r\n    \"born\": 100,\r\n    \"men-born\": 4358,\r\n    \"women-born\": 41372,\r\n    \"natality-rate\": 9.60,\r\n    \"fertility-rate\": 1.46\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1348,7 +1192,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/finland/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/prusia/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -1356,7 +1200,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"finland",
+										"prusia",
 										"2019"
 									]
 								}
@@ -1364,7 +1208,7 @@
 							"response": []
 						},
 						{
-							"name": "- check finland is modified",
+							"name": "- check prusia is modified",
 							"event": [
 								{
 									"listen": "test",
@@ -1387,7 +1231,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/finland/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/prusia/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -1395,7 +1239,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"finland",
+										"prusia",
 										"2019"
 									]
 								}
@@ -1447,7 +1291,7 @@
 							"response": []
 						},
 						{
-							"name": "germany/2019 - check resource not found",
+							"name": "laponia/2019 - check resource not found",
 							"event": [
 								{
 									"listen": "test",
@@ -1469,7 +1313,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"germany\",\r\n    \"date\": 2019,\r\n    \"born\": 84952,\r\n    \"men-born\": 4358,\r\n    \"women-born\": 41372,\r\n    \"natality-rate\": 9.60,\r\n    \"fertility-rate\": 1.46\r\n}",
+									"raw": "{\r\n    \"country\": \"laponia\",\r\n    \"date\": 2019,\r\n    \"born\": 84952,\r\n    \"men-born\": 4358,\r\n    \"women-born\": 41372,\r\n    \"natality-rate\": 9.60,\r\n    \"fertility-rate\": 1.46\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1477,7 +1321,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/germany/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/laponia/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -1485,7 +1329,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"germany",
+										"laponia",
 										"2019"
 									]
 								}
@@ -1493,7 +1337,7 @@
 							"response": []
 						},
 						{
-							"name": "finland/2019 - check bad content",
+							"name": "prusia/2019 - check bad content",
 							"event": [
 								{
 									"listen": "test",
@@ -1515,7 +1359,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"country\": \"finland\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 23186,\r\n    \"women-born\": 22427,\r\n    \"natality-rate\": 8.30\r\n}",
+									"raw": "{\r\n    \"country\": \"prusia\",\r\n    \"date\": 2019,\r\n    \"born\": 45613,\r\n    \"men-born\": 23186,\r\n    \"women-born\": 22427,\r\n    \"natality-rate\": 8.30\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1523,7 +1367,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/finland/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/prusia/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -1531,7 +1375,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"finland",
+										"prusia",
 										"2019"
 									]
 								}
@@ -1539,7 +1383,7 @@
 							"response": []
 						},
 						{
-							"name": "germany/2019 - exprected delete error",
+							"name": "madagascar/2019 - exprected delete error",
 							"event": [
 								{
 									"listen": "test",
@@ -1569,7 +1413,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/germany/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/madagascar/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -1577,7 +1421,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"germany",
+										"madagascar",
 										"2019"
 									]
 								}
@@ -1585,7 +1429,7 @@
 							"response": []
 						},
 						{
-							"name": "finland/2019 - delete finland 2019",
+							"name": "prusia/2019 - delete prusia 2019",
 							"event": [
 								{
 									"listen": "test",
@@ -1615,7 +1459,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/finland/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/prusia/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -1623,7 +1467,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"finland",
+										"prusia",
 										"2019"
 									]
 								}
@@ -1631,7 +1475,7 @@
 							"response": []
 						},
 						{
-							"name": "- check finalnd no exists",
+							"name": "- check prusia no exists",
 							"event": [
 								{
 									"listen": "test",
@@ -1652,7 +1496,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{heroku}}/api/v2/natality-stats/finland/2019",
+									"raw": "{{heroku}}/api/v2/natality-stats/prusia/2019",
 									"host": [
 										"{{heroku}}"
 									],
@@ -1660,7 +1504,7 @@
 										"api",
 										"v2",
 										"natality-stats",
-										"finland",
+										"prusia",
 										"2019"
 									]
 								}
