@@ -46,7 +46,7 @@
 							"response": []
 						},
 						{
-							"name": "loadInitialData - create 2 resources",
+							"name": "loadInitialData - create 49 resources",
 							"event": [
 								{
 									"listen": "test",

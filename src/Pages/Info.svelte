@@ -63,20 +63,14 @@
             >Fuente de datos sobre el divorcio. Tasa de matrimonios y divorcios, relación entre
             matrimonios y divorcios.</CardText
           >
-          <a href="/api/v1/natality-stats"
-            ><Button disabled color="primary">API v1</Button></a
+          <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats">
+            <Button color="primary">API v1</Button></a
           >
-          <a href="/api/v2/natality-stats"
-          ><Button color="primary">API v2</Button></a
-        >
-          <a href="/#/natality-stats"
-            ><Button color="primary">Interfaz</Button></a
-          >
-          <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
-            ><Button disabled color="info">Documentación v1</Button></a
-          >
-          <a href="https://documenter.getpostman.com/view/14932491/TzRSg7GK"
-            ><Button color="info">Documentación v2</Button></a
+          <a href="/#/divorce-stats">
+            <Button color="primary">Interfaz</Button>
+          </a>
+          <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
+            ><Button color="info">Documentación v1</Button></a
           >
         </CardBody>
         <CardFooter
@@ -125,13 +119,19 @@
             país.
           </CardText>
           <a href="/api/v1/natality-stats"
-            ><Button color="primary">API v1</Button></a
+            ><Button disabled color="primary">API v1</Button></a
           >
+          <a href="/api/v2/natality-stats"
+          ><Button color="primary">API v2</Button></a
+        >
           <a href="/#/natality-stats"
             ><Button color="primary">Interfaz</Button></a
           >
           <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
-            ><Button color="info">Documentación v1</Button></a
+            ><Button disabled color="info">Documentación v1</Button></a
+          >
+          <a href="https://documenter.getpostman.com/view/14932491/TzRSg7GK"
+            ><Button color="info">Documentación v2</Button></a
           >
         </CardBody>
         <CardFooter
