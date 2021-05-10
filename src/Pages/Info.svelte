@@ -104,7 +104,7 @@
             <Button color="info">Documentación v1</Button>
           </a>
           <a href="https://documenter.getpostman.com/view/14961437/TzRSgnqQ">
-            <Button color="info">Documentación v1</Button>
+            <Button color="info">Documentación v2</Button>
           </a>
         </CardBody>
         <CardFooter
