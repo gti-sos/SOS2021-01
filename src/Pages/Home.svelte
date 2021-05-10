@@ -61,6 +61,9 @@
   <a href="/#/common-chart">
     <Button color="primary">Todas las APIs</Button>
   </a>
+  <a href="/#/natality-stats/natalityCharts">
+    <Button color="secondary">Natality-stats</Button>
+  </a>
 </div>
   
 <div>
@@ -133,13 +136,19 @@
             país.
           </CardText>
           <a href="/api/v1/natality-stats"
-            ><Button color="primary">API v1</Button></a
+            ><Button disabled color="primary">API v1</Button></a
           >
+          <a href="/api/v2/natality-stats"
+          ><Button color="primary">API v2</Button></a
+        >
           <a href="/#/natality-stats"
             ><Button color="primary">Interfaz</Button></a
           >
           <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
-            ><Button color="info">Documentación v1</Button></a
+            ><Button disabled color="info">Documentación v1</Button></a
+          >
+          <a href="https://documenter.getpostman.com/view/14932491/TzRSg7GK"
+            ><Button color="info">Documentación v2</Button></a
           >
         </CardBody>
         <CardFooter

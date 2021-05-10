@@ -33,7 +33,7 @@
   };
 
   //------------------API-------------------
-  const BASE_CONTACT_API_PATH = "/api/v1";
+  const BASE_CONTACT_API_PATH = "/api/v2";
 
   let natalityStats = [];
   let resultQuery = [];
@@ -47,7 +47,15 @@
     "natality-rate": "",
     "fertility-rate": "",
   };
-
+  const resetStat = {
+      country: "",
+      date: "",
+      born: "",
+      "men-born": "",
+      "women-born": "",
+      "natality-rate": "",
+      "fertility-rate": "",
+    };
   let queryStat = {
     country: "",
     date: "",
@@ -77,15 +85,6 @@
   // Functiones de ayuda
   function resetInputs(flag) {
     console.log("Reseting inputs: " + flag);
-    let resetStat = {
-      country: "",
-      date: "",
-      born: "",
-      "men-born": "",
-      "women-born": "",
-      "natality-rate": "",
-      "fertility-rate": "",
-    };
     if (flag == 1) {
       queryStat = resetStat;
       current_page = 1;
@@ -285,10 +284,12 @@
         resultQuery = [];
         if (res.status === 404) {
           errorMsg = "No existe un dato con " + msg;
+          
         } else if (res.status === 500) {
           errorMsg = "No se ha podido acceder a la base de datos";
         }
         okMsg = "";
+        queryStat = resetStat;
         console.log("ERROR!" + errorMsg);
       }
     } else {
@@ -375,9 +376,11 @@
       if (res.ok) {
         console.log("OK");
         natalityStats = [];
+        total=0;
+        changePage(1,0,false);
         errorMsg = "";
         okMsg = "Todos los elementos han sido borrados";
-        restore();
+       
         //getStats();
       } else {
         if (res.status === 404) {
@@ -430,6 +433,9 @@
           </ModalFooter>
         </Modal>
       {/if}
+    </NavItem>
+    <NavItem>
+      <NavLink href="/#/natality-stats/natalityCharts">Análiticas</NavLink>
     </NavItem>
   </Nav>
   <h2>Natalidad</h2>
@@ -673,6 +679,7 @@
   </div>
 
   <div>
+    <p>Se muestran {natalityStats.length} de un total de {total} entradas.</p>
     <!-- Pagination -->
     <Pagination ariaLabel="Web pagination">
       <PaginationItem class={current_page === 1 ? "disabled" : ""}>

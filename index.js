@@ -8,7 +8,8 @@ const { Console } = require("console");
 
 
 var lifeAPI = require("./src/back/lifeAPI");
-var natalityStatsAPI = require("./src/back/natality-statsAPI");
+var natalityStatsAPIv1 = require("./src/back/natality-statsAPI/v1");
+var natalityStatsAPIv2 = require("./src/back/natality-statsAPI/v2");
 var DivorceAPI = require("./src/back/DivorceAPI");
 
 //--------------------------Server-variables------------------
@@ -25,7 +26,8 @@ app.use(express.json());
 
 //--------------------------Server-APIs----------------------
 lifeAPI.register(app);
-natalityStatsAPI.register(app);
+natalityStatsAPIv1.register(app);
+natalityStatsAPIv2.register(app);
 DivorceAPI.register(app);
 
 //-------------------------------Recurso /cool - F02-----------------------
