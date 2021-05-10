@@ -249,7 +249,7 @@
 
       isASearch = false;
 
-      errorMsg = "";
+      //errorMsg = "";
       warningMsg = "";
 
       getNumTotal();
@@ -292,8 +292,8 @@
     console.log(inputData);
     //Building query
     for (var [inputName, inputValue] of inputData.entries()) {
-      console.log(inputValue + " WATA");
-      if (inputValue != NaN || inputValue != null) {
+      
+      if (inputValue !== null) {
         msg += getInputNameSpanish(inputName) + "=" + inputValue + " ";
         querySymbol += inputName + "=" + inputValue + "&";
       }
@@ -364,7 +364,11 @@
         okMsg = `La entrada ${insertStatInput.country} ${insertStatInput.date} ha sido insertado correctamente`;
 
         resetInputs("insert");
-        getStats();
+        if (isASearch) {
+          searchStat();
+        } else {
+          getStats();
+        }
       } else {
         if (res.status === 409) {
           errorMsg = `${insertStatInput.country} ${insertStatInput.date} ya se encuentra cargado`;
