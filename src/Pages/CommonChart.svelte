@@ -2,6 +2,7 @@
   import { Button, Nav, NavItem, NavLink } from "sveltestrap";
 
   const BASE_CONTACT_API_PATH = "/api/v1";
+  const BASE_CONTACT_API_PATH_v2 = "/api/v2";
 
   let natalityData = [];
   let natalityChartData = [];
@@ -16,7 +17,7 @@
   async function loadChart() {
     console.log("Fetching data...");
 
-    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
+    const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
     natalityData = await res.json();
 
     if (res.ok) {
