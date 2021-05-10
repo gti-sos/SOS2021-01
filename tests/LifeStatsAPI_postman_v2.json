@@ -168,7 +168,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"norway\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 181.86,\r\n\"purchasing_power_index\": 103.61,\r\n\"safety_index\": 64.68\r\n}",
+					"raw": "{\r\n\"country\": \"austria\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 191.05,\r\n\"purchasing_power_index\": 96.7,\r\n\"safety_index\": 78.63\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -213,7 +213,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"norway\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 181.86,\r\n\"purchasing_power_index\": 103.61,\r\n\"safety_index\": 64.68\r\n}",
+					"raw": "{\r\n\"country\": \"austria\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 191.05,\r\n\"purchasing_power_index\": 96.7,\r\n\"safety_index\": 78.63\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
