@@ -14,6 +14,7 @@
     PaginationLink,
   } from "sveltestrap";
   import { onMount } from "svelte";
+  import { querystring } from "svelte-spa-router";
 
   //------------------Nav-----------------------
 
@@ -35,10 +36,11 @@
   //------------------API-------------------
   const BASE_CONTACT_API_PATH = "/api/v2";
 
+  //GetStats local db
   let natalityStats = [];
-  let resultQuery = [];
 
-  let newStat = {
+  //Local inputs
+  var insertStatInput = {
     country: "",
     date: "",
     born: "",
@@ -47,16 +49,7 @@
     "natality-rate": "",
     "fertility-rate": "",
   };
-  const resetStat = {
-      country: "",
-      date: "",
-      born: "",
-      "men-born": "",
-      "women-born": "",
-      "natality-rate": "",
-      "fertility-rate": "",
-    };
-  let queryStat = {
+  var queryStatInput = {
     country: "",
     date: "",
     born: "",
@@ -66,14 +59,15 @@
     "fertility-rate": "",
   };
 
-  //Alertas
+  //flags
+  let isASearch = false;
+
+  //Alertas GUI
   let errorMsg = "";
   let okMsg = "";
   let warningMsg = "";
 
-  let fullQuery = "";
-
-  //Pagination
+  //Pagination GUI
   let current_offset = 0;
   let limit = 10;
 
@@ -81,26 +75,25 @@
   let last_page = 1;
   let total = 0;
 
-  let isASearch = false;
-  // Functiones de ayuda
-  function resetInputs(flag) {
-    console.log("Reseting inputs: " + flag);
-    if (flag == 1) {
-      queryStat = resetStat;
-      current_page = 1;
-      current_offset = 0;
-    } else {
-      newStat = resetStat;
-    }
-    errorMsg="";
-  }
+  //------------------------------------------- Funciones de ayuda -------------------------------------------
 
-  //Calcula el rango entre ods valores
+  //-------Paginacion-------
+
+  /**
+   * Calcula la posicion de la pagina actual
+   * @param size
+   * @param startAt
+   */
   function range(size, startAt = 0) {
     return [...Array(size).keys()].map((i) => i + startAt);
   }
 
-  //Cambio de pagina
+  /**
+   * Control del cambio de pagina
+   * @param page
+   * @param offset
+   * @param search
+   */
   function changePage(page, offset, search) {
     console.log("------Change page------");
     console.log(
@@ -126,48 +119,69 @@
     console.log("---------Exit change page-------");
   }
 
-  //Total de datos en la BD
-  async function getNumTotal() {
-    console.log("Total entities of getStat");
-    const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
-    if (res.ok) {
-      const json = await res.json();
-      total = json.length;
-      console.log("getTotal: " + total);
-      changePage(current_page, current_offset, isASearch);
-    } else {
-      warningMsg = "No hay datos disponibles";
-    }
-  }
-
-  //Total de datos de una query en la BD
-  async function getNumTotalQuery() {
-    console.log("Total entities of query");
+  /**
+   * Total de elementos de una consulta
+   */
+  async function getNumTotal(fullQuery = "") {
+    console.log("Fetching total entries");
     const res = await fetch(
       BASE_CONTACT_API_PATH + "/natality-stats" + fullQuery
     );
     if (res.ok) {
       const json = await res.json();
       total = json.length;
-      console.log("getTotal: " + total);
+
       changePage(current_page, current_offset, isASearch);
+      console.log("getTotal: " + total);
     } else {
-      warningMsg = "No hay datos disponibles";
+      total = 0;
+      changePage(1, 0, false);
+      console.log("ERROR!");
     }
   }
 
-  function restore() {
-    if (isASearch == true) {
-      resetInputs(1);
-      isASearch = false;
+  //-------Inputs-------
+
+  /**
+   * Reiniciar los inputs
+   * @param flag
+   */
+  function resetInputs(flag) {
+    console.log("Reseting inputs of: " + flag);
+    switch (flag) {
+      case "search":
+        console.log("reseting search");
+        queryStatInput = {
+          country: "",
+          date: "",
+          born: "",
+          "men-born": "",
+          "women-born": "",
+          "natality-rate": "",
+          "fertility-rate": "",
+        };
+        current_page = 1;
+        current_offset = 0;
+        getStats();
+        break;
+      case "insert":
+        console.log("reseting insert");
+        insertStatInput = {
+          country: "",
+          date: "",
+          born: "",
+          "men-born": "",
+          "women-born": "",
+          "natality-rate": "",
+          "fertility-rate": "",
+        };
+        break;
     }
-    current_offset = 0;
-    current_page = 1;
-    getNumTotal();
   }
 
-  function getClaveSpanish(clave) {
-    switch (clave) {
+  //-------GUI dinamica-------
+  function getInputNameSpanish(inputName) {
+    switch (inputName) {
       case "country":
         return "País";
       case "date":
@@ -185,18 +199,22 @@
     }
   }
 
-  //Funciones API
+  //------------------------------------------- Funciones API -------------------------------------------
+
+  /**
+   * LoadInitialData
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        console.log("OK");
         getStats();
-        //Alertas
+
         errorMsg = "";
         okMsg = "Datos cargados correctamente";
+        console.log("OK");
       } else {
         if (res.status === 409) {
           errorMsg = "Alguno de los datos ya se encuentra cargado";
@@ -209,6 +227,9 @@
     });
   }
 
+  /**
+   * Get Stats
+   */
   async function getStats() {
     console.log("Fetching data...");
 
@@ -221,17 +242,22 @@
     );
 
     if (res.ok) {
-      console.log("Ok");
       const json = await res.json();
       natalityStats = json;
+
       console.log(`We have received ${natalityStats.length} stats.`);
+
+      isASearch = false;
+
       errorMsg = "";
       warningMsg = "";
+
       getNumTotal();
+
+      console.log("Ok");
     } else {
       if (natalityStats.length == 0) {
         warningMsg = "No hay datos disponibles";
-        console.log("ERROR!");
       }
       if (res.status === 500) {
         errorMsg = "No se ha podido acceder a la base de datos";
@@ -241,27 +267,39 @@
     }
   }
 
+  /**
+   * Busqueda de elementos
+   */
   async function searchStat() {
     console.log("Searching stat...");
-    var msg = "";
 
+    var msg = "";
+    let fullQuery = "";
+    let querySymbol = "?";
+
+    //????
     if (isASearch == false) {
       current_offset = 0;
       current_page = 1;
     }
 
-    var campos = new Map(
-      Object.entries(queryStat).filter((o) => {
+    //Input data
+    var inputData = new Map(
+      Object.entries(queryStatInput).filter((o) => {
         return o[1] != "";
       })
     );
-    let querySymbol = "?";
-    for (var [clave, valor] of campos.entries()) {
-      msg += getClaveSpanish(clave) + "=" + valor + " ";
-      querySymbol += clave + "=" + valor + "&";
+    console.log(inputData);
+    //Building query
+    for (var [inputName, inputValue] of inputData.entries()) {
+      console.log(inputValue + " WATA");
+      if (inputValue != NaN || inputValue != null) {
+        msg += getInputNameSpanish(inputName) + "=" + inputValue + " ";
+        querySymbol += inputName + "=" + inputValue + "&";
+      }
     }
     fullQuery = querySymbol.slice(0, -1);
-
+    console.log("with query: " + fullQuery);
     if (fullQuery != "") {
       const res = await fetch(
         BASE_CONTACT_API_PATH +
@@ -275,65 +313,72 @@
       if (res.ok) {
         console.log("OK");
         const json = await res.json();
-        resultQuery = json;
+        natalityStats = json;
+
         okMsg = "Resulado de la busqueda con " + msg;
         isASearch = true;
-        errorMsg="";
-        getNumTotalQuery();
+        errorMsg = "";
+
+        getNumTotal(fullQuery);
       } else {
-        resultQuery = [];
+        natalityStats = [];
         if (res.status === 404) {
           errorMsg = "No existe un dato con " + msg;
-          
         } else if (res.status === 500) {
           errorMsg = "No se ha podido acceder a la base de datos";
         }
         okMsg = "";
-        queryStat = resetStat;
+        resetInputs("search");
         console.log("ERROR!" + errorMsg);
       }
     } else {
-      errorMsg = "Se necesita un campo a buscar";
-      okMsg = "";
+      getStats();
     }
   }
 
   async function insertStat() {
-    console.log("Inserting stat: " + JSON.stringify(newStat));
+    console.log("Inserting stat: " + JSON.stringify(insertStatInput));
 
-    newStat.date = parseInt(newStat.date);
-    newStat.born = parseInt(newStat.born);
-    newStat["men-born"] = parseInt(newStat["men-born"]);
-    newStat["women-born"] = parseInt(newStat["women-born"]);
-    newStat["natality-rate"] = parseFloat(newStat["natality-rate"]);
-    newStat["fertility-rate"] = parseFloat(newStat["fertility-rate"]);
+    insertStatInput.date = parseInt(insertStatInput.date);
+    insertStatInput.born = parseInt(insertStatInput.born);
+    insertStatInput["men-born"] = parseInt(insertStatInput["men-born"]);
+    insertStatInput["women-born"] = parseInt(insertStatInput["women-born"]);
+    insertStatInput["natality-rate"] = parseFloat(
+      insertStatInput["natality-rate"]
+    );
+    insertStatInput["fertility-rate"] = parseFloat(
+      insertStatInput["fertility-rate"]
+    );
 
     const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats/", {
       method: "POST",
-      body: JSON.stringify(newStat),
+      body: JSON.stringify(insertStatInput),
       headers: {
         "Content-Type": "application/json",
       },
     }).then(function (res) {
       if (res.ok) {
         console.log("OK");
-        restore();
-        getStats();
+
         errorMsg = "";
-        okMsg = `La entrada ${newStat.country} ${newStat.date} ha sido insertado correctamente`;
+        okMsg = `La entrada ${insertStatInput.country} ${insertStatInput.date} ha sido insertado correctamente`;
+
+        resetInputs("insert");
+        getStats();
       } else {
         if (res.status === 409) {
-          errorMsg = `${newStat.country} ${newStat.date} ya se encuentra cargado`;
+          errorMsg = `${insertStatInput.country} ${insertStatInput.date} ya se encuentra cargado`;
         } else if (res.status === 500) {
           errorMsg = "No se ha podido acceder a la base de datos";
         } else {
           errorMsg = "Todos los campos deben estar rellenados correctamene";
         }
         okMsg = "";
+
+        resetInputs("insert");
         console.log("ERROR!" + errorMsg);
       }
     });
-    resetInputs(2);
   }
 
   async function deleteStat(country, date) {
@@ -347,14 +392,21 @@
     ).then(function (res) {
       if (res.ok) {
         console.log("OK");
+
+        //Un elemento en la pagina
         if (natalityStats.length === 1) {
           natalityStats = [];
           current_page = current_page - 1;
           current_offset = current_offset - 10;
         }
+        if (isASearch) {
+          searchStat();
+        } else {
+          getStats();
+        }
+
         errorMsg = "";
         okMsg = `La entrada ${country} ${date} ha sido borrada correctamente`;
-        getStats();
       } else {
         if (res.status === 404) {
           errorMsg = `No se puede eliminar, la entrada ${country} ${date} no existe`;
@@ -362,6 +414,7 @@
           errorMsg = "No se ha podido acceder a la base de datos";
         }
         okMsg = "";
+
         console.log("ERROR!" + errorMsg);
       }
     });
@@ -375,20 +428,21 @@
     }).then(function (res) {
       if (res.ok) {
         console.log("OK");
+
         natalityStats = [];
-        total=0;
-        changePage(1,0,false);
+
         errorMsg = "";
         okMsg = "Todos los elementos han sido borrados";
-       
-        //getStats();
+        getNumTotal();
       } else {
         if (res.status === 404) {
           errorMsg = "No existen datos que borrar";
         } else if (res.status === 500) {
           errorMsg = "No se ha podido acceder a la base de datos";
         }
+
         okMsg = "";
+
         console.log("ERROR!" + errorMsg);
       }
     });
@@ -403,7 +457,7 @@
   <Nav>
     <NavItem>
       <NavLink href="/">Página Principal</NavLink>
-    </NavItem>  
+    </NavItem>
     <NavItem>
       <NavLink href="/#/natality-stats/natalityCharts">Análiticas</NavLink>
     </NavItem>
@@ -422,8 +476,8 @@
       <p class="msgYellow" style="color: #a56604">{warningMsg}</p>
     {/if}
   </div>
-<div>
-  <Button color="primary" on:click={toggle1}>Cargar datos inciales</Button>
+  <div>
+    <Button color="primary" on:click={toggle1}>Cargar datos inciales</Button>
     <Modal isOpen={open1} {toggle1}>
       <ModalHeader {toggle1}>¿Cargar los datos iniciales?</ModalHeader>
       <ModalBody>
@@ -434,11 +488,13 @@
         <Button color="secondary" on:click={toggle1}>Cancelar</Button>
       </ModalFooter>
     </Modal>
-  
+
     {#if natalityStats.length === 0}
-    <Button disabled color="danger" on:click={toggle2}>Borrar todos los datos</Button>
+      <Button disabled color="danger" on:click={toggle2}
+        >Borrar todos los datos</Button
+      >
     {:else}
-    <Button color="danger" on:click={toggle2}>Borrar todos los datos</Button>
+      <Button color="danger" on:click={toggle2}>Borrar todos los datos</Button>
       <Modal isOpen={open2} {toggle2}>
         <ModalHeader {toggle2}>¿Borrar todos los datos?</ModalHeader>
         <ModalBody>Esta acción no se puede deshacer.</ModalBody>
@@ -448,107 +504,10 @@
         </ModalFooter>
       </Modal>
     {/if}
-</div>
-  <div>
-    <h3>Buscar</h3>
-    <Table bordered>
-      <thead>
-        <tr>
-          <th> País </th>
-          <th>Año </th>
-          <th>Nacimientos </th>
-          <th>Hombres nacidos </th>
-          <th>Mujeres nacidas </th>
-          <th>Tasa de natalidad </th>
-          <th>Índice de fecundación </th>
-          <th colspan="2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td
-            ><input
-              type="text"
-              placeholder="spain"
-              bind:value={queryStat.country}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="2019"
-              min="1900"
-              bind:value={queryStat.date}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="2000"
-              min="1"
-              bind:value={queryStat.born}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="1000"
-              min="1"
-              bind:value={queryStat["men-born"]}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="1000"
-              min="1"
-              bind:value={queryStat["women-born"]}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="10.2"
-              min="1.0"
-              bind:value={queryStat["natality-rate"]}
-            /></td
-          >
-          <td
-            ><input
-              type="number"
-              placeholder="2.1"
-              min="1.0"
-              bind:value={queryStat["fertility-rate"]}
-            /></td
-          >
-          {#if isASearch}
-            <td
-              ><Button disabled color="primary" on:click={searchStat}
-                >Buscar</Button
-              ></td
-            >
-            <td
-              ><Button color="secondary" on:click={restore}>Restaurar</Button
-              ></td
-            >
-          {:else}
-            <td
-              ><Button color="primary" on:click={searchStat}>Buscar</Button></td
-            >
-            <td
-              ><Button disabled color="secondary" on:click={restore}
-                >Restaurar</Button
-              ></td
-            >
-          {/if}
-        </tr>
-      </tbody>
-    </Table>
   </div>
 
   <div>
     <h3>Listado de datos</h3>
-    <!-- Table -->
     <Table bordered>
       <thead>
         <tr>
@@ -568,7 +527,7 @@
             ><input
               type="text"
               placeholder="spain"
-              bind:value={newStat.country}
+              bind:value={queryStatInput.country}
             /></td
           >
           <td
@@ -576,7 +535,7 @@
               type="number"
               placeholder="2019"
               min="1900"
-              bind:value={newStat.date}
+              bind:value={queryStatInput.date}
             /></td
           >
           <td
@@ -584,7 +543,7 @@
               type="number"
               placeholder="2000"
               min="1"
-              bind:value={newStat.born}
+              bind:value={queryStatInput.born}
             /></td
           >
           <td
@@ -592,7 +551,7 @@
               type="number"
               placeholder="1000"
               min="1"
-              bind:value={newStat["men-born"]}
+              bind:value={queryStatInput["men-born"]}
             /></td
           >
           <td
@@ -600,7 +559,7 @@
               type="number"
               placeholder="1000"
               min="1"
-              bind:value={newStat["women-born"]}
+              bind:value={queryStatInput["women-born"]}
             /></td
           >
           <td
@@ -608,7 +567,7 @@
               type="number"
               placeholder="10.2"
               min="1.0"
-              bind:value={newStat["natality-rate"]}
+              bind:value={queryStatInput["natality-rate"]}
             /></td
           >
           <td
@@ -616,7 +575,71 @@
               type="number"
               placeholder="2.1"
               min="1.0"
-              bind:value={newStat["fertility-rate"]}
+              bind:value={queryStatInput["fertility-rate"]}
+            /></td
+          >
+
+          <td colspan="2"
+            ><Button color="primary" on:click={searchStat}>Buscar</Button></td
+          >
+        </tr>
+        <tr>
+          <td colspan="9" />
+        </tr>
+        <tr>
+          <td
+            ><input
+              type="text"
+              placeholder="spain"
+              bind:value={insertStatInput.country}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2019"
+              min="1900"
+              bind:value={insertStatInput.date}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2000"
+              min="1"
+              bind:value={insertStatInput.born}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={insertStatInput["men-born"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="1000"
+              min="1"
+              bind:value={insertStatInput["women-born"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="10.2"
+              min="1.0"
+              bind:value={insertStatInput["natality-rate"]}
+            /></td
+          >
+          <td
+            ><input
+              type="number"
+              placeholder="2.1"
+              min="1.0"
+              bind:value={insertStatInput["fertility-rate"]}
             /></td
           >
           <td colspan="2"
@@ -624,59 +647,39 @@
           >
         </tr>
 
-        {#if isASearch == true}
-          {#each resultQuery as stat}
-            <tr>
-              <td>{stat.country}</td>
-              <td>{stat.date}</td>
-              <td>{stat.born}</td>
-              <td>{stat["men-born"]}</td>
-              <td>{stat["women-born"]}</td>
-              <td>{stat["natality-rate"]}%</td>
-              <td>{stat["fertility-rate"]}</td>
-              <td>
-                <a href="#/natality-stats/{stat.country}/{stat.date}">
-                  <Button color="primary">Editar</Button>
-                </a></td
-              >
-              <td
-                ><Button
-                  color="danger"
-                  on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
-                ></td
-              >
-            </tr>
-          {/each}
-        {:else}
-          {#each natalityStats as stat}
-            <tr>
-              <td>{stat.country}</td>
-              <td>{stat.date}</td>
-              <td>{stat.born}</td>
-              <td>{stat["men-born"]}</td>
-              <td>{stat["women-born"]}</td>
-              <td>{stat["natality-rate"]}%</td>
-              <td>{stat["fertility-rate"]}</td>
-              <td>
-                <a href="#/natality-stats/{stat.country}/{stat.date}">
-                  <Button color="primary">Editar</Button>
-                </a></td
-              >
-              <td
-                ><Button
-                  color="danger"
-                  on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
-                ></td
-              >
-            </tr>
-          {/each}
-        {/if}
+        <tr>
+          <td colspan="9" />
+        </tr>
+
+        {#each natalityStats as stat}
+          <tr>
+            <td>{stat.country}</td>
+            <td>{stat.date}</td>
+            <td>{stat.born}</td>
+            <td>{stat["men-born"]}</td>
+            <td>{stat["women-born"]}</td>
+            <td>{stat["natality-rate"]}%</td>
+            <td>{stat["fertility-rate"]}</td>
+            <td>
+              <a href="#/natality-stats/{stat.country}/{stat.date}">
+                <Button color="primary">Editar</Button>
+              </a></td
+            >
+            <td
+              ><Button
+                color="danger"
+                on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
+              ></td
+            >
+          </tr>
+        {/each}
       </tbody>
     </Table>
   </div>
 
   <div>
     <p>Se muestran {natalityStats.length} de un total de {total} entradas.</p>
+
     <!-- Pagination -->
     <Pagination ariaLabel="Web pagination">
       <PaginationItem class={current_page === 1 ? "disabled" : ""}>
@@ -733,7 +736,7 @@
 
     background-color: #d4edda;
   }
-  div{
+  div {
     margin-bottom: 20px;
   }
   h2 {
