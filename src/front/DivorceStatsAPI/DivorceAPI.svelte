@@ -262,11 +262,12 @@
         console.log("OK");
         if (divorceStats.length === 1) {
           divorceStats = [];
-          currentPage = 1;
+          current_page = 1;
         }
         errorMsg = "";
-        okMsg = "Operación realizada con éxito";
         getStats();
+        okMsg = "Operación realizada con éxito";
+        
       } else {
         if (res.status === 404) {
           errorMsg = `No existe el dato ${country} con fecha ${date} para borrar`;
