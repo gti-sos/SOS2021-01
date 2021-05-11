@@ -67,6 +67,8 @@
                 errorMsg = "El dato que intenta editar no existe.";
             }else if(res.status==500){
                 errorMsg = "Error accediendo a la base de datos.";
+            }else if(res.status==400){
+                alert("Todos los campos son obligatorios.");
             }
         });
     
