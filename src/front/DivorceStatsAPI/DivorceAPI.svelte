@@ -185,7 +185,7 @@
         errorMsg = "";
       }
       flag = false;
-      //getNumStats()
+      getNumStats()
     } else {
       if (natalityStats.length != 0) {
         okMsg = "";
@@ -265,8 +265,9 @@
           current_page = 1;
         }
         errorMsg = "";
-        getStats();
+        
         okMsg = "Operación realizada con éxito";
+        getStats();
         
       } else {
         if (res.status === 404) {
@@ -344,6 +345,7 @@
         }
       });
     }
+    getStats();
   }
 </script>
 
