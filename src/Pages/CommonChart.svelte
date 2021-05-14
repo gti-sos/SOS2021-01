@@ -69,7 +69,7 @@
         var yAxis = divorceData
           .filter((d) => d.date === e.date)
           .map((dr) => dr["divorce-rate"])
-          .reduce((acc, nr) => nr + acc);
+          .reduce((acc, dr) => dr + acc);
         console.log("YAxis: " + yAxis);
         divorceChartData.push(yAxis);
       });
