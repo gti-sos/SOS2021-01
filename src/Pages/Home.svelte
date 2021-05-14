@@ -61,9 +61,13 @@
   <a href="/#/common-chart">
     <Button color="primary">Todas las APIs</Button>
   </a>
+  <a href="/#/divorce-stats/divorceCharts">
+    <Button color="secondary">Divorce-stats</Button>
+  </a>
   <a href="/#/natality-stats/natalityCharts">
     <Button color="secondary">Natality-stats</Button>
   </a>
+
 </div>
   
 <div>
