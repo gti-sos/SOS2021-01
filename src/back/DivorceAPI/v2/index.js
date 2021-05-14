@@ -4,51 +4,25 @@
 //required modules 
 var path = require('path');
 var Datastore = require("nedb");
-
+var initialData = require(path.join(__dirname, 'initialData.js'));
 //required vars and const
 
-const BASE_API_PATH = "/api/v1";
+const BASE_API_PATH = "/api/v2";
 const datafile = path.join(__dirname, 'divorce-stats.db');
 const db = new Datastore({ filename: datafile, autoload: true });
 
-var divorceStatsDataSet = [];
+
 
 //implemetation
 
 module.exports.register = (app) => {
 
 
-  //GET /api/v1/divorce-stats/loadInitialData 
+  //GET /api/v2/divorce-stats/loadInitialData 
   //Crea 2 o más recursos
 
   app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
-    divorceStatsDataSet = [
-      {
-        "country": "Albania",
-        "date": 2018,
-        "marriage-rate": 8.1,
-        "divorce-rate": 1.7,
-        "ratio-actual": 4.76,
-        "ratio-percent": 20.99
 
-      },
-      {
-        "country": "Armenia",
-        "date": 2011,
-        "marriage-rate": 6.0,
-        "divorce-rate": 1.0,
-        "ratio-actual": 6.0,
-        "ratio-percent": 16.67
-      },
-      {
-        "country": "Spain",
-        "date": 2011,
-        "marriage-rate": 1.0,
-        "divorce-rate": 10.0,
-        "ratio-actual": 4.0,
-        "ratio-percent": 16.67
-      }
-    ];
 
     // DB access when loadInitialData 
 
@@ -58,8 +32,8 @@ module.exports.register = (app) => {
         res.sendStatus(500);
       } else {
         if (data.length == 0) {
-          db.insert(divorceStatsDataSet);
-          console.log(`Loaded initial data: <${JSON.stringify(divorceStatsDataSet, null, 2)}>`);
+          db.insert(initialData);
+          console.log(`Loaded initial data: <${JSON.stringify(initialData, null, 2)}>`);
           res.sendStatus(201);
         } else {
           console.error(`initial data already exists`);
@@ -70,7 +44,7 @@ module.exports.register = (app) => {
 
   });
 
-  //GET /api/v1/divorce-stats 
+  //GET /api/v2/divorce-stats 
   //Devuelve una lista con todos los recursos (un array de objetos en JSON)
   app.get(BASE_API_PATH + "/divorce-stats", (req, res) => {
 
@@ -119,7 +93,7 @@ module.exports.register = (app) => {
 
   });
 
-  //POST /api/v1/divorce-stats 
+  //POST /api/v2/divorce-stats 
   //crea un nuevo recurso.
   app.post(BASE_API_PATH + "/divorce-stats", (req, res) => {
 
@@ -162,7 +136,7 @@ module.exports.register = (app) => {
   });
 
 
-  //GET /api/v1/divorce-stats/country/date 
+  //GET /api/v2/divorce-stats/country/date 
   app.get(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
     var countrySelected = req.params.country;
     var dateSelected = parseInt(req.params.date);
@@ -183,7 +157,7 @@ module.exports.register = (app) => {
     });
   });
 
-  //DELETE /api/v1/divorce-stats/country/date 
+  //DELETE /api/v2/divorce-stats/country/date 
   app.delete(BASE_API_PATH + "/divorce-stats/:country/:date", (req, res) => {
 
     var countrySelected = req.params.country;
