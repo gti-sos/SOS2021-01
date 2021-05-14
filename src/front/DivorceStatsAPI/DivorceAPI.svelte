@@ -42,7 +42,7 @@
   let fullQuery = "";
   var flag = false;
 
-  const BASE_CONTACT_API_PATH = "/api/v1";
+  const BASE_CONTACT_API_PATH = "/api/v2";
 
   let divorceStats = [];
   let error = null;

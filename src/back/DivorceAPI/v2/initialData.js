@@ -1,4 +1,4 @@
-[
+module.exports = [
     {
         "country": "Albania",
         "date": 2018,
