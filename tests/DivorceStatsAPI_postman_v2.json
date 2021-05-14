@@ -1,0 +1,818 @@
+{
+	"info": {
+		"_postman_id": "cfae8427-449e-4e96-a08c-1dac46c2499a",
+		"name": "sos2021-01-divorce-stats v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "divorce info request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/info/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"info",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1st request (empty)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "load initial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/loadInitialData",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Albania request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/Albania/2018",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"Albania",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put Spain",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Spain\",\r\n\"date\": 2011,\r\n\"marriage-rate\": 1.0,\r\n\"divorce-rate\": 99.0,\r\n\"ratio-actual\": 4.0,\r\n\"ratio-percent\": 16.67\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/Spain/2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"Spain",
+						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post Germany error 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400, invalid num of params\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Germany\",\r\n\"date\": 2011,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 1.0,\r\n\"ratio-actual\": 1.0,\r\n\"ratio-percent\": 1.0,\r\n\"the-mistake\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post Germany",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Germany\",\r\n\"date\": 2011,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 1.0,\r\n\"ratio-actual\": 1.0,\r\n\"ratio-percent\": 1.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "conflict post Germany",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Germany\",\r\n\"date\": 2011,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 1.0,\r\n\"ratio-actual\": 1.0,\r\n\"ratio-percent\": 1.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search by date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats?date=2011",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2011"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search by date and divorce-rate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"2 result found\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats?date=2011&divorce-rate=1",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2011"
+						},
+						{
+							"key": "divorce-rate",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats?limit=2&offset=2",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recurso inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404, the file does not exist\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/Albania/2017",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"Albania",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post stat ZombieLand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 1.0,\r\n\"ratio-actual\": 1.0,\r\n\"ratio-percent\": 1.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put ZOmbieLand error 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400, put failed, incorrect num of params\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/ZombieLand/2018",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"ZombieLand",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put ZOmbieLand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200, put sucess\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018,\r\n\"marriage-rate\": 10.0,\r\n\"divorce-rate\": 66.0,\r\n\"ratio-actual\": 1.0,\r\n\"ratio-percent\": 1.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/ZombieLand/2018",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"ZombieLand",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Zombieland get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"pm.test(\"Check divorce-rate is modified\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData[\"divorce-rate\"]).to.eql(66);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/ZombieLand/2018",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"ZombieLand",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put lista de recursos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405, method not allowed\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"ZombieLand\",\r\n\"date\": 2018,\r\n\"marriage-rate\": 10,\r\n\"divorce-rate\": 66,\r\n\"ratio-actual\": 66,\r\n\"ratio-percent\": 66\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "48 stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"The number of stats is currently 48 \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(48);  \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete ZombieLand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats/ZombieLand/2018",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats",
+						"ZombieLand",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete everything",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-01.herokuapp.com/api/v2/divorce-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-01",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"divorce-stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
