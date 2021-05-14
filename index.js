@@ -11,7 +11,8 @@ var lifeAPIv1 = require("./src/back/lifeAPI/v1");
 var lifeAPIv2 = require("./src/back/lifeAPI/v2");
 var natalityStatsAPIv1 = require("./src/back/natality-statsAPI/v1");
 var natalityStatsAPIv2 = require("./src/back/natality-statsAPI/v2");
-var DivorceAPI = require("./src/back/DivorceAPI");
+var DivorceAPIv1 = require("./src/back/DivorceAPI/v1");
+var DivorceAPIv2 = require("./src/back/DivorceAPI/v2");
 
 //--------------------------Server-variables------------------
 var app = express();
@@ -30,8 +31,8 @@ lifeAPIv1.register(app);
 lifeAPIv2.register(app);
 natalityStatsAPIv1.register(app);
 natalityStatsAPIv2.register(app);
-DivorceAPI.register(app);
-
+DivorceAPIv1.register(app);
+DivorceAPIv2.register(app);
 //-------------------------------Recurso /cool - F02-----------------------
 app.get("/cool", (request, response) => {
   response.send(cool());
