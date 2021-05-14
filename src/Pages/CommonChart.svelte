@@ -6,6 +6,9 @@
 
   let natalityData = [];
   let natalityChartData = [];
+  let divorceData = [];
+  let divorceChartData = [];
+
   let dates = [];
   let msg = "";
 
@@ -19,8 +22,10 @@
     console.log("Fetching data...");
 
     const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
+    const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stas");
     
-    if (res.ok) {
+    if (res.ok || res1.ok) {
+      if(res.ok){
       natalityData = await res.json();
       console.log("RES OK");
       //Quitamos fechas repetidas y las ordenamos
@@ -44,6 +49,33 @@
         natalityChartData.push(yAxis);
       });
       msg="";
+    }
+    if(res1.ok){
+      divorceData = await res1.json();
+      console.log("RES OK");
+      //Quitamos fechas repetidas y las ordenamos
+      var distinctDates1 = distinctRecords(divorceData, "date");
+      distinctDates.sort(function (a, b) {
+        return a.date - b.date;
+      });
+      distinctDates1.forEach((element) => {
+        dates.push(element.date);
+        console.log("dates: " + element.date);
+      });
+      console.log("Distintc dates: " + dates);
+
+      //Sumamos los valores para las fechas iguales
+      distinctDates.forEach((e) => {
+        var yAxis = divorceData
+          .filter((d) => d.date === e.date)
+          .map((dr) => dr["divorce-rate"])
+          .reduce((acc, nr) => nr + acc);
+        console.log("YAxis: " + yAxis);
+        divorceChartData.push(yAxis);
+      });
+      msg="";
+
+    }
     }else{
       console.log("ERROR MSG");
       msg = "Por favor primero cargue los datos en al menos una de las APIs";
@@ -91,6 +123,11 @@
           name: "Ratio de natalidad (%)",
           data: natalityChartData,
         },
+        {
+          name: "Ratio de divorcios (%)",
+          data: divorceChartData,
+        },
+
       ],
       responsive: {
         rules: [
@@ -109,6 +146,8 @@
         ],
       },
     });
+
+    
   }
 </script>
 
