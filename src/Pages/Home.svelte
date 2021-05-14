@@ -92,7 +92,7 @@
           <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
             ><Button color="info">Documentación v1</Button></a
           >
-          <a href="https://documenter."
+          <a href="https://documenter.getpostman.com/view/14948045/TzRVfRq7"
             ><Button color="info">Documentación v2</Button></a
           >
         </CardBody>
