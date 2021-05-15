@@ -27,7 +27,7 @@ module.exports = [
     
         {
           "country": "Albania",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 8.1,
           "divorce-rate": 1.7,
           "ratio-actual": 4.76,
@@ -35,7 +35,7 @@ module.exports = [
         },
         {
           "country": "Algeria",
-          "year": 2013,
+          "date": 2013,
           "marriage-rate": 10.1,
           "divorce-rate": 1.6,
           "ratio-actual": 6.31,
@@ -43,7 +43,7 @@ module.exports = [
         },
         {
           "country": "Armenia",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 6,
           "divorce-rate": 1,
           "ratio-actual": 6,
@@ -51,7 +51,7 @@ module.exports = [
         },
         {
           "country": "Australia (more info)",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 4.6,
           "divorce-rate": 2,
           "ratio-actual": 2.3,
@@ -59,7 +59,7 @@ module.exports = [
         },
         {
           "country": "Austria",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.3,
           "divorce-rate": 1.8,
           "ratio-actual": 2.94,
@@ -67,7 +67,7 @@ module.exports = [
         },
         {
           "country": "Azerbaijan",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 9.7,
           "divorce-rate": 1.5,
           "ratio-actual": 6.47,
@@ -75,7 +75,7 @@ module.exports = [
         },
         {
           "country": "Bahamas",
-          "year": 2007,
+          "date": 2007,
           "marriage-rate": 6.1,
           "divorce-rate": 1,
           "ratio-actual": 6.1,
@@ -83,7 +83,7 @@ module.exports = [
         },
         {
           "country": "Belarus",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 9.2,
           "divorce-rate": 4.1,
           "ratio-actual": 2.24,
@@ -91,7 +91,7 @@ module.exports = [
         },
         {
           "country": "Belgium (more info)",
-          "year": 2016,
+          "date": 2016,
           "marriage-rate": 3.9,
           "divorce-rate": 2.1,
           "ratio-actual": 1.86,
@@ -99,7 +99,7 @@ module.exports = [
         },
         {
           "country": "Bermuda",
-          "year": 2009,
+          "date": 2009,
           "marriage-rate": 10.6,
           "divorce-rate": 2.7,
           "ratio-actual": 3.93,
@@ -107,7 +107,7 @@ module.exports = [
         },
         {
           "country": "Bosnia and Herzegovina",
-          "year": 2012,
+          "date": 2012,
           "marriage-rate": 4.8,
           "divorce-rate": 0.6,
           "ratio-actual": 8,
@@ -115,7 +115,7 @@ module.exports = [
         },
         {
           "country": "Brazil",
-          "year": 2009,
+          "date": 2009,
           "marriage-rate": 6.6,
           "divorce-rate": 1.4,
           "ratio-actual": 4.71,
@@ -123,7 +123,7 @@ module.exports = [
         },
         {
           "country": "Bulgaria",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 4.1,
           "divorce-rate": 1.5,
           "ratio-actual": 2.73,
@@ -131,7 +131,7 @@ module.exports = [
         },
         {
           "country": "Canada (more info)",
-          "year": 2008,
+          "date": 2008,
           "marriage-rate": 4.4,
           "divorce-rate": 2.1,
           "ratio-actual": 2.1,
@@ -139,7 +139,7 @@ module.exports = [
         },
         {
           "country": "Chile",
-          "year": 2009,
+          "date": 2009,
           "marriage-rate": 3.3,
           "divorce-rate": 0.7,
           "ratio-actual": 4.71,
@@ -147,7 +147,7 @@ module.exports = [
         },
         {
           "country": "China",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 7.2,
           "divorce-rate": 3.2,
           "ratio-actual": 2.25,
@@ -155,7 +155,7 @@ module.exports = [
         },
         {
           "country": "Colombia",
-          "year": 2007,
+          "date": 2007,
           "marriage-rate": 2.3,
           "divorce-rate": 0.7,
           "ratio-actual": 3.29,
@@ -163,7 +163,7 @@ module.exports = [
         },
         {
           "country": "Costa Rica",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 5.3,
           "divorce-rate": 2.5,
           "ratio-actual": 2.12,
@@ -171,7 +171,7 @@ module.exports = [
         },
         {
           "country": "Croatia",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 4.9,
           "divorce-rate": 1.5,
           "ratio-actual": 3.27,
@@ -179,7 +179,7 @@ module.exports = [
         },
         {
           "country": "Cuba",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 5.2,
           "divorce-rate": 2.9,
           "ratio-actual": 1.79,
@@ -187,7 +187,7 @@ module.exports = [
         },
         {
           "country": "Cyprus",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 6.8,
           "divorce-rate": 2.2,
           "ratio-actual": 3.09,
@@ -195,7 +195,7 @@ module.exports = [
         },
         {
           "country": "Czech Republic",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.1,
           "divorce-rate": 2.3,
           "ratio-actual": 2.22,
@@ -203,7 +203,7 @@ module.exports = [
         },
         {
           "country": "Denmark",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.6,
           "divorce-rate": 2.6,
           "ratio-actual": 2.15,
@@ -211,7 +211,7 @@ module.exports = [
         },
         {
           "country": "Dominican Republic",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 4.4,
           "divorce-rate": 1.8,
           "ratio-actual": 2.44,
@@ -219,7 +219,7 @@ module.exports = [
         },
         {
           "country": "Ecuador",
-          "year": 2006,
+          "date": 2006,
           "marriage-rate": 5.6,
           "divorce-rate": 1.1,
           "ratio-actual": 5.09,
@@ -227,7 +227,7 @@ module.exports = [
         },
         {
           "country": "Egypt",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 11,
           "divorce-rate": 1.9,
           "ratio-actual": 5.79,
@@ -235,7 +235,7 @@ module.exports = [
         },
         {
           "country": "El Salvador",
-          "year": 2006,
+          "date": 2006,
           "marriage-rate": 3.5,
           "divorce-rate": 0.8,
           "ratio-actual": 4.38,
@@ -243,7 +243,7 @@ module.exports = [
         },
         {
           "country": "Estonia",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5,
           "divorce-rate": 2.4,
           "ratio-actual": 2.08,
@@ -251,7 +251,7 @@ module.exports = [
         },
         {
           "country": "EU",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 4.4,
           "divorce-rate": 2,
           "ratio-actual": 2.2,
@@ -259,7 +259,7 @@ module.exports = [
         },
         {
           "country": "Finland",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 4.3,
           "divorce-rate": 2.4,
           "ratio-actual": 1.79,
@@ -267,7 +267,7 @@ module.exports = [
         },
         {
           "country": "France",
-          "year": 2016,
+          "date": 2016,
           "marriage-rate": 3.7,
           "divorce-rate": 1.9,
           "ratio-actual": 1.95,
@@ -275,7 +275,7 @@ module.exports = [
         },
         {
           "country": "Georgia",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 6.9,
           "divorce-rate": 1.3,
           "ratio-actual": 5.31,
@@ -283,7 +283,7 @@ module.exports = [
         },
         {
           "country": "Germany",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 4.9,
           "divorce-rate": 1.9,
           "ratio-actual": 2.58,
@@ -291,7 +291,7 @@ module.exports = [
         },
         {
           "country": "Gibraltar",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 6.7,
           "divorce-rate": 3.2,
           "ratio-actual": 2.09,
@@ -299,7 +299,7 @@ module.exports = [
         },
         {
           "country": "Grenada",
-          "year": 2001,
+          "date": 2001,
           "marriage-rate": 5,
           "divorce-rate": 1.1,
           "ratio-actual": 4.55,
@@ -307,7 +307,7 @@ module.exports = [
         },
         {
           "country": "Greece",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 4.7,
           "divorce-rate": 1.8,
           "ratio-actual": 2.61,
@@ -315,7 +315,7 @@ module.exports = [
         },
         {
           "country": "Guatemala",
-          "year": 2008,
+          "date": 2008,
           "marriage-rate": 3.8,
           "divorce-rate": 1.2,
           "ratio-actual": 3.17,
@@ -323,7 +323,7 @@ module.exports = [
         },
         {
           "country": "Hungary",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.2,
           "divorce-rate": 1.7,
           "ratio-actual": 3.06,
@@ -331,7 +331,7 @@ module.exports = [
         },
         {
           "country": "Iceland",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 4.9,
           "divorce-rate": 1.8,
           "ratio-actual": 2.72,
@@ -339,7 +339,7 @@ module.exports = [
         },
         {
           "country": "Iran",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 11.2,
           "divorce-rate": 1.6,
           "ratio-actual": 7,
@@ -347,7 +347,7 @@ module.exports = [
         },
         {
           "country": "Ireland",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 4.6,
           "divorce-rate": 0.7,
           "ratio-actual": 6.57,
@@ -355,7 +355,7 @@ module.exports = [
         },
         {
           "country": "Israel",
-          "year": 2009,
+          "date": 2009,
           "marriage-rate": 6.5,
           "divorce-rate": 1.8,
           "ratio-actual": 3.61,
@@ -363,7 +363,7 @@ module.exports = [
         },
         {
           "country": "Italy",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 3.2,
           "divorce-rate": 1.5,
           "ratio-actual": 2.13,
@@ -371,7 +371,7 @@ module.exports = [
         },
         {
           "country": "Jamaica",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 7.5,
           "divorce-rate": 1.5,
           "ratio-actual": 5,
@@ -379,7 +379,7 @@ module.exports = [
         },
         {
           "country": "Japan (more info)",
-          "year": 2019,
+          "date": 2019,
           "marriage-rate": 4.8,
           "divorce-rate": 1.7,
           "ratio-actual": 2.82,
@@ -387,7 +387,7 @@ module.exports = [
         },
         {
           "country": "Jordan",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 10.2,
           "divorce-rate": 2.6,
           "ratio-actual": 3.92,
@@ -395,7 +395,7 @@ module.exports = [
         },
         {
           "country": "Kazakhstan",
-          "year": 2008,
+          "date": 2008,
           "marriage-rate": 8.6,
           "divorce-rate": 2.3,
           "ratio-actual": 3.74,
@@ -403,7 +403,7 @@ module.exports = [
         },
         {
           "country": "Kuwait",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 5.2,
           "divorce-rate": 2.2,
           "ratio-actual": 2.36,
@@ -411,7 +411,7 @@ module.exports = [
         },
         {
           "country": "Kyrgyzstan",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 9.7,
           "divorce-rate": 1.6,
           "ratio-actual": 6.06,
@@ -419,7 +419,7 @@ module.exports = [
         },
         {
           "country": "Latvia",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 6.8,
           "divorce-rate": 3.1,
           "ratio-actual": 2.19,
@@ -427,7 +427,7 @@ module.exports = [
         },
         {
           "country": "Lebanon",
-          "year": 2007,
+          "date": 2007,
           "marriage-rate": 9.5,
           "divorce-rate": 1.6,
           "ratio-actual": 5.94,
@@ -435,7 +435,7 @@ module.exports = [
         },
         {
           "country": "Libya",
-          "year": 2008,
+          "date": 2008,
           "marriage-rate": 10.8,
           "divorce-rate": 2.5,
           "ratio-actual": 4.32,
@@ -443,7 +443,7 @@ module.exports = [
         },
         {
           "country": "Liechtenstein",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 5,
           "divorce-rate": 2.4,
           "ratio-actual": 2.08,
@@ -451,7 +451,7 @@ module.exports = [
         },
         {
           "country": "Lithuania",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 7,
           "divorce-rate": 3.1,
           "ratio-actual": 2.26,
@@ -459,7 +459,7 @@ module.exports = [
         },
         {
           "country": "Luxembourg",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 3.1,
           "divorce-rate": 2,
           "ratio-actual": 1.55,
@@ -467,7 +467,7 @@ module.exports = [
         },
         {
           "country": "Malta (more info)",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.8,
           "divorce-rate": 0.7,
           "ratio-actual": 8.29,
@@ -475,7 +475,7 @@ module.exports = [
         },
         {
           "country": "Mauritius",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 8.2,
           "divorce-rate": 1.4,
           "ratio-actual": 5.86,
@@ -483,7 +483,7 @@ module.exports = [
         },
         {
           "country": "Mexico",
-          "year": 2009,
+          "date": 2009,
           "marriage-rate": 5.2,
           "divorce-rate": 0.9,
           "ratio-actual": 5.78,
@@ -491,7 +491,7 @@ module.exports = [
         },
         {
           "country": "Moldova",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 7.3,
           "divorce-rate": 3.1,
           "ratio-actual": 2.35,
@@ -499,7 +499,7 @@ module.exports = [
         },
         {
           "country": "Mongolia",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 3.4,
           "divorce-rate": 1.1,
           "ratio-actual": 3.09,
@@ -507,7 +507,7 @@ module.exports = [
         },
         {
           "country": "Montenegro",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.3,
           "divorce-rate": 1.4,
           "ratio-actual": 3.79,
@@ -515,7 +515,7 @@ module.exports = [
         },
         {
           "country": "Netherlands",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 3.7,
           "divorce-rate": 1.8,
           "ratio-actual": 2.06,
@@ -523,7 +523,7 @@ module.exports = [
         },
         {
           "country": "New Zealand (more info)",
-          "year": 2008,
+          "date": 2008,
           "marriage-rate": 4.8,
           "divorce-rate": 2,
           "ratio-actual": 2.4,
@@ -531,7 +531,7 @@ module.exports = [
         },
         {
           "country": "Nicaragua",
-          "year": 2005,
+          "date": 2005,
           "marriage-rate": 4.5,
           "divorce-rate": 0.8,
           "ratio-actual": 5.63,
@@ -539,7 +539,7 @@ module.exports = [
         },
         {
           "country": "North Macedonia",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 6.5,
           "divorce-rate": 0.8,
           "ratio-actual": 8.13,
@@ -547,7 +547,7 @@ module.exports = [
         },
         {
           "country": "Norway (more info)",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 4.3,
           "divorce-rate": 1.9,
           "ratio-actual": 2.26,
@@ -555,7 +555,7 @@ module.exports = [
         },
         {
           "country": "Panama",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 3.7,
           "divorce-rate": 1,
           "ratio-actual": 3.7,
@@ -563,7 +563,7 @@ module.exports = [
         },
         {
           "country": "Poland (more info)",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.1,
           "divorce-rate": 1.7,
           "ratio-actual": 3,
@@ -571,7 +571,7 @@ module.exports = [
         },
         {
           "country": "Portugal",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 3.4,
           "divorce-rate": 2,
           "ratio-actual": 1.7,
@@ -579,7 +579,7 @@ module.exports = [
         },
         {
           "country": "Qatar",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 3.3,
           "divorce-rate": 1.1,
           "ratio-actual": 3,
@@ -587,7 +587,7 @@ module.exports = [
         },
         {
           "country": "Romania",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 7.4,
           "divorce-rate": 1.6,
           "ratio-actual": 4.63,
@@ -595,7 +595,7 @@ module.exports = [
         },
         {
           "country": "Russia",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 9.2,
           "divorce-rate": 4.8,
           "ratio-actual": 1.92,
@@ -603,7 +603,7 @@ module.exports = [
         },
         {
           "country": "Saint Lucia",
-          "year": 2004,
+          "date": 2004,
           "marriage-rate": 2.8,
           "divorce-rate": 0.7,
           "ratio-actual": 4,
@@ -611,7 +611,7 @@ module.exports = [
         },
         {
           "country": "Saint Vincent and the Grenadines",
-          "year": 2007,
+          "date": 2007,
           "marriage-rate": 5.8,
           "divorce-rate": 0.8,
           "ratio-actual": 7.25,
@@ -619,7 +619,7 @@ module.exports = [
         },
         {
           "country": "San Marino",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 6.1,
           "divorce-rate": 2.5,
           "ratio-actual": 2.44,
@@ -627,7 +627,7 @@ module.exports = [
         },
         {
           "country": "Saudi Arabia",
-          "year": 2005,
+          "date": 2005,
           "marriage-rate": 5.2,
           "divorce-rate": 1.1,
           "ratio-actual": 4.73,
@@ -635,7 +635,7 @@ module.exports = [
         },
         {
           "country": "Serbia",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.2,
           "divorce-rate": 1.4,
           "ratio-actual": 3.71,
@@ -643,7 +643,7 @@ module.exports = [
         },
         {
           "country": "Seychelles",
-          "year": 2011,
+          "date": 2011,
           "marriage-rate": 17.4,
           "divorce-rate": 1.9,
           "ratio-actual": 9.16,
@@ -651,7 +651,7 @@ module.exports = [
         },
         {
           "country": "Singapore",
-          "year": 2015,
+          "date": 2015,
           "marriage-rate": 6.8,
           "divorce-rate": 1.9,
           "ratio-actual": 3.58,
@@ -659,7 +659,7 @@ module.exports = [
         },
         {
           "country": "Slovakia",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.7,
           "divorce-rate": 1.8,
           "ratio-actual": 3.17,
@@ -667,7 +667,7 @@ module.exports = [
         },
         {
           "country": "Slovenia",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 3.5,
           "divorce-rate": 1.1,
           "ratio-actual": 3.18,
@@ -675,7 +675,7 @@ module.exports = [
         },
         {
           "country": "South Africa (more info)",
-          "year": 2009,
+          "date": 2009,
           "marriage-rate": 3.5,
           "divorce-rate": 0.6,
           "ratio-actual": 5.83,
@@ -683,7 +683,7 @@ module.exports = [
         },
         {
           "country": "South Korea (more info)",
-          "year": 2019,
+          "date": 2019,
           "marriage-rate": 4.7,
           "divorce-rate": 2.2,
           "ratio-actual": 2.14,
@@ -691,7 +691,7 @@ module.exports = [
         },
         {
           "country": "Spain",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 3.5,
           "divorce-rate": 2,
           "ratio-actual": 1.75,
@@ -699,7 +699,7 @@ module.exports = [
         },
         {
           "country": "Sri Lanka",
-          "year": null,
+          "date": null,
           "marriage-rate": 0,
           "divorce-rate": 0.15,
           "ratio-actual": 0,
@@ -707,7 +707,7 @@ module.exports = [
         },
         {
           "country": "Suriname",
-          "year": 2007,
+          "date": 2007,
           "marriage-rate": 4.2,
           "divorce-rate": 1.3,
           "ratio-actual": 3.23,
@@ -715,7 +715,7 @@ module.exports = [
         },
         {
           "country": "Sweden",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5,
           "divorce-rate": 2.5,
           "ratio-actual": 2,
@@ -723,7 +723,7 @@ module.exports = [
         },
         {
           "country": "Switzerland",
-          "year": 2016,
+          "date": 2016,
           "marriage-rate": 4.8,
           "divorce-rate": 2,
           "ratio-actual": 2.4,
@@ -731,7 +731,7 @@ module.exports = [
         },
         {
           "country": "Syria",
-          "year": 2006,
+          "date": 2006,
           "marriage-rate": 10.6,
           "divorce-rate": 1.3,
           "ratio-actual": 8.15,
@@ -739,7 +739,7 @@ module.exports = [
         },
         {
           "country": "Taiwan",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 5.7,
           "divorce-rate": 2.3,
           "ratio-actual": 2.48,
@@ -747,7 +747,7 @@ module.exports = [
         },
         {
           "country": "Tajikistan",
-          "year": 2009,
+          "date": 2009,
           "marriage-rate": 13.5,
           "divorce-rate": 1.4,
           "ratio-actual": 9.64,
@@ -755,7 +755,7 @@ module.exports = [
         },
         {
           "country": "Thailand",
-          "year": 2005,
+          "date": 2005,
           "marriage-rate": 5.5,
           "divorce-rate": 1.4,
           "ratio-actual": 3.93,
@@ -763,7 +763,7 @@ module.exports = [
         },
         {
           "country": "Tonga",
-          "year": 2003,
+          "date": 2003,
           "marriage-rate": 7.1,
           "divorce-rate": 1.2,
           "ratio-actual": 5.92,
@@ -771,7 +771,7 @@ module.exports = [
         },
         {
           "country": "Trinidad and Tobago",
-          "year": 2005,
+          "date": 2005,
           "marriage-rate": 6.3,
           "divorce-rate": 2.2,
           "ratio-actual": 2.86,
@@ -779,7 +779,7 @@ module.exports = [
         },
         {
           "country": "Tunisia",
-          "year": 2016,
+          "date": 2016,
           "marriage-rate": "",
           "divorce-rate": "",
           "ratio-actual": "",
@@ -787,7 +787,7 @@ module.exports = [
         },
         {
           "country": "Turkey",
-          "year": 2018,
+          "date": 2018,
           "marriage-rate": 6.8,
           "divorce-rate": 1.7,
           "ratio-actual": 4,
@@ -795,7 +795,7 @@ module.exports = [
         },
         {
           "country": "Ukraine",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 6.7,
           "divorce-rate": 2.8,
           "ratio-actual": 2.39,
@@ -803,7 +803,7 @@ module.exports = [
         },
         {
           "country": "United Arab Emirates",
-          "year": 2005,
+          "date": 2005,
           "marriage-rate": 2.8,
           "divorce-rate": 0.7,
           "ratio-actual": 4,
@@ -811,7 +811,7 @@ module.exports = [
         },
         {
           "country": "United Kingdom (more info)",
-          "year": 2015,
+          "date": 2015,
           "marriage-rate": 4.4,
           "divorce-rate": 1.8,
           "ratio-actual": 2.44,
@@ -819,7 +819,7 @@ module.exports = [
         },
         {
           "country": "United States (more info)",
-          "year": 2017,
+          "date": 2017,
           "marriage-rate": 6.5,
           "divorce-rate": 2.9,
           "ratio-actual": 2.24,
@@ -827,7 +827,7 @@ module.exports = [
         },
         {
           "country": "Uruguay",
-          "year": 2010,
+          "date": 2010,
           "marriage-rate": 3.2,
           "divorce-rate": "?",
           "ratio-actual": "",
@@ -835,7 +835,7 @@ module.exports = [
         },
         {
           "country": "Uzbekistan",
-          "year": 2006,
+          "date": 2006,
           "marriage-rate": 7.8,
           "divorce-rate": 1.1,
           "ratio-actual": 7.09,
@@ -843,7 +843,7 @@ module.exports = [
         },
         {
           "country": "Venezuela",
-          "year": 2006,
+          "date": 2006,
           "marriage-rate": 3.3,
           "divorce-rate": 1.2,
           "ratio-actual": 2.75,
@@ -851,7 +851,7 @@ module.exports = [
         },
         {
           "country": "Vietnam",
-          "year": 2015,
+          "date": 2015,
           "marriage-rate": 5.7,
           "divorce-rate": 0.4,
           "ratio-actual": 14.25,
