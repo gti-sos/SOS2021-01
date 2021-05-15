@@ -12,6 +12,7 @@
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte"
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
 	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
+	import DivorceCharts from "./front/DivorceStatsAPI/DivorceChart.svelte"
 import CommonChart from './Pages/CommonChart.svelte';
 
 	const routes = {
@@ -19,6 +20,7 @@ import CommonChart from './Pages/CommonChart.svelte';
 		"/info":Info,
 		"/divorce-stats": DivorceAPI,
 		"/divorce-stats/:country/:date":EditDivorceAPI, 
+		"/divorce-stats/divorceCharts": DivorceCharts,
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date":EditNatalityAPI,
 		"/natality-stats/natalityCharts":NatalityCharts,
