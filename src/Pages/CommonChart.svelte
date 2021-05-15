@@ -41,9 +41,10 @@
         console.log("Distintc dates: " + dates);
 
         //Sumamos los valores para las fechas iguales
-        distinctDates1.forEach((e) => {
+       
+        dates.forEach((e) => {
           var yAxis = divorceData
-            .filter((d) => d.date === e.date)
+            .filter((d) => d.date === e)
             .map((dr) => dr["divorce-rate"])
             .reduce((acc, dr) => dr + acc);
           console.log("YAxis: " + yAxis);
@@ -71,17 +72,17 @@
         //Sumamos los valores para las fechas iguales
         
         
-        natalityChartData.push("");
+        //natalityChartData.push("");
         
-        distinctDates.forEach((e) => {
+        dates.forEach((e) => {
           var yAxis = natalityData
-            .filter((d) => d.date === e.date)
+            .filter((d) => d.date === e)
             .map((nr) => nr["natality-rate"])
-            .reduce((acc, nr) => nr + acc);
+            .reduce((acc, nr) => nr + acc,0);
           console.log("YAxis: " + yAxis);
           natalityChartData.push(Math.round(yAxis));
+          
         });
-
         msg = "";
       }
     } else {
