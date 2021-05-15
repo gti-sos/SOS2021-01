@@ -9,7 +9,7 @@
   let divorceData = [];
   let divorceChartData = [];
 
-  let dates = [];
+  var dates = [];
   let msg = "";
 
   function distinctRecords(MYJSON, prop) {
@@ -22,65 +22,74 @@
     console.log("Fetching data...");
 
     const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
-    const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stas");
-    
+    const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats");
+
     if (res.ok || res1.ok) {
-      if(res.ok){
-      natalityData = await res.json();
-      console.log("RES OK");
-      //Quitamos fechas repetidas y las ordenamos
-      var distinctDates = distinctRecords(natalityData, "date");
-      distinctDates.sort(function (a, b) {
-        return a.date - b.date;
-      });
-      distinctDates.forEach((element) => {
-        dates.push(element.date);
-        console.log("dates: " + element.date);
-      });
-      console.log("Distintc dates: " + dates);
+      console.log("procesing Divorce data....");
+      if (res1.ok) {
+        divorceData = await res1.json();
+        console.log("RES OK");
+        //Quitamos fechas repetidas y las ordenamos
+        var distinctDates1 = distinctRecords(divorceData, "date");
+        distinctDates1.sort(function (a, b) {
+          return a.date - b.date;
+        });
+        distinctDates1.forEach((element) => {
+          dates.push(element.date);
+          console.log("dates: " + element.date);
+        });
+        console.log("Distintc dates: " + dates);
 
-      //Sumamos los valores para las fechas iguales
-      distinctDates.forEach((e) => {
-        var yAxis = natalityData
-          .filter((d) => d.date === e.date)
-          .map((nr) => nr["natality-rate"])
-          .reduce((acc, nr) => nr + acc);
-        console.log("YAxis: " + yAxis);
-        natalityChartData.push(yAxis);
-      });
-      msg="";
-    }
-    if(res1.ok){
-      divorceData = await res1.json();
-      console.log("RES OK");
-      //Quitamos fechas repetidas y las ordenamos
-      var distinctDates1 = distinctRecords(divorceData, "date");
-      distinctDates.sort(function (a, b) {
-        return a.date - b.date;
-      });
-      distinctDates1.forEach((element) => {
-        dates.push(element.date);
-        console.log("dates: " + element.date);
-      });
-      console.log("Distintc dates: " + dates);
+        //Sumamos los valores para las fechas iguales
+        distinctDates1.forEach((e) => {
+          var yAxis = divorceData
+            .filter((d) => d.date === e.date)
+            .map((dr) => dr["divorce-rate"])
+            .reduce((acc, dr) => dr + acc);
+          console.log("YAxis: " + yAxis);
+          divorceChartData.push(Math.round(yAxis));
+        });
+        msg = "";
+      }
+      console.log("procesing Natality data....");
+      if (res.ok) {
+        natalityData = await res.json();
+        console.log("RES OK");
+        //Quitamos fechas repetidas y las ordenamos
+        var distinctDates = distinctRecords(natalityData, "date");
+        distinctDates.sort(function (a, b) {
+          return a.date - b.date;
+        });
+        distinctDates.forEach((element) => {
+          if (!dates.includes(element.date)) {
+            dates.push(element.date);
+            console.log("dates: " + element.date);
+          }
+        });
+        console.log("Distintc dates: " + dates);
 
-      //Sumamos los valores para las fechas iguales
-      distinctDates.forEach((e) => {
-        var yAxis = divorceData
-          .filter((d) => d.date === e.date)
-          .map((dr) => dr["divorce-rate"])
-          .reduce((acc, dr) => dr + acc);
-        console.log("YAxis: " + yAxis);
-        divorceChartData.push(yAxis);
-      });
-      msg="";
+        //Sumamos los valores para las fechas iguales
+        
+        
+        natalityChartData.push("");
+        
+        distinctDates.forEach((e) => {
+          var yAxis = natalityData
+            .filter((d) => d.date === e.date)
+            .map((nr) => nr["natality-rate"])
+            .reduce((acc, nr) => nr + acc);
+          console.log("YAxis: " + yAxis);
+          natalityChartData.push(Math.round(yAxis));
+        });
 
-    }
-    }else{
+        msg = "";
+      }
+    } else {
       console.log("ERROR MSG");
       msg = "Por favor primero cargue los datos en al menos una de las APIs";
     }
-    
+
+    console.log("Divorce Chart DaTa: " + divorceChartData);
     console.log("Natality Chart DaTa: " + natalityChartData);
 
     Highcharts.chart("container", {
@@ -127,7 +136,6 @@
           name: "Ratio de divorcios (%)",
           data: divorceChartData,
         },
-
       ],
       responsive: {
         rules: [
@@ -146,8 +154,6 @@
         ],
       },
     });
-
-    
   }
 </script>
 
@@ -167,28 +173,26 @@
       <NavLink href="/">Volver</NavLink>
     </NavItem>
   </Nav>
-  
+
   <div>
-    <h2>
-      Análiticas
-    </h2>
+    <h2>Análiticas</h2>
   </div>
-  
-{#if msg}
-<p>{msg}</p>
-{:else}
-  <figure class="highcharts-figure">
-    <div id="container" />
-    <p class="highcharts-description">
-      Gráfico de líneas básico que muestra las tendencias del índice de
-      natalidad, divorcios y estilo de vida.
-    </p>
-  </figure>
+
+  {#if msg}
+    <p>{msg}</p>
+  {:else}
+    <figure class="highcharts-figure">
+      <div id="container" />
+      <p class="highcharts-description">
+        Gráfico de líneas básico que muestra las tendencias del índice de
+        natalidad, divorcios y estilo de vida.
+      </p>
+    </figure>
   {/if}
 </main>
 
 <style>
-   main {
+  main {
     text-align: center;
     padding: 1em;
     margin: 0 auto;
