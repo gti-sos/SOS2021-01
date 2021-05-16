@@ -67,6 +67,9 @@
   <a href="/#/natality-stats/natalityCharts">
     <Button color="secondary">Natality-stats</Button>
   </a>
+  <a href="/#/life-stats/lifeCharts">
+    <Button color="secondary">Life-stats</Button>
+  </a>
 
 </div>
   

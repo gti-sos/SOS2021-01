@@ -1,104 +1,22 @@
+//________________Life-stats_____________________
+
+
 var BASE_LIFE_API_PATH = "/api/v2";
 var Datastore = require("nedb");
 var path = require('path');
 
+var initialData = require(path.join(__dirname, 'initialData.js'));
+
 var dbFile = path.join(__dirname, 'life-stats.db');
 var db = new Datastore({filename: dbFile, autoload: true });
-
-//________________Life-stats_____________________
-var lifeStatsDS = [];
 
 module.exports.register = (app) => {
     //GET /api/v1/YYYYYY/loadInitialData 
     //Crea 2 o más recursos.
     app.get(BASE_LIFE_API_PATH + "/life-stats/loadInitialData", (req, res) => {
-    var initialData = [
-        {
-        "country": "denmark",
-        "date": 2019,
-        "quality_life_index": 198.57,
-        "purchasing_power_index": 114.39,
-        "safety_index": 75.75
-        },
-        {
-        "country": "switzerland",
-        "date": 2019,
-        "quality_life_index": 195.93,
-        "purchasing_power_index": 129.7,
-        "safety_index": 78.5
-        },
-        {
-        "country": "iceland",
-        "date": 2019,
-        "quality_life_index": 187.79,
-        "purchasing_power_index": 91.8,
-        "safety_index": 76.72
-        },
-        {
-        "country": "finland",
-        "date": 2019,
-        "quality_life_index": 194.01,
-        "purchasing_power_index": 112.3,
-        "safety_index": 77.2
-        },
-        {
-        "country": "spain",
-        "date": 2019,
-        "quality_life_index": 174.16,
-        "purchasing_power_index": 83.8,
-        "safety_index": 67.54
-        },
-        {
-        "country": "norway",
-        "date": 2019,
-        "quality_life_index": 181.86,
-        "purchasing_power_index": 103.61,
-        "safety_index": 64.68
-        },	
-        {
-        "country": "japan",
-        "date": 2019,
-        "quality_life_index": 180.5,
-        "purchasing_power_index": 103.12,
-        "safety_index": 86.27
-        },	
-        {
-        "country": "japan",
-        "date": 2018,
-        "quality_life_index": 176.04,
-        "purchasing_power_index": 107.35,
-        "safety_index": 86.9
-        },	
-        {
-        "country": "france",
-        "date": 2018,
-        "quality_life_index": 166.22,
-        "purchasing_power_index": 101.21,
-        "safety_index": 54.71
-        },	
-        {
-        "country": "ireland",
-        "date": 2018,
-        "quality_life_index": 163.53,
-        "purchasing_power_index": 96.1,
-        "safety_index": 56.18
-        },
-        {
-        "country": "croatia",
-        "date": 2018,
-        "quality_life_index": 162.36,
-        "purchasing_power_index": 59.77,
-        "safety_index": 73
-        }		                                     
-                
-    ];
-    /*for (var i = 0; i < initialData.length; i++) {
-        //lifeStatsDS.push(initialData[i]);
-        db.insert(initialData[i]);
-    }*/
-    db.insert(initialData);
-    console.log(`Loaded initial data: <${JSON.stringify(lifeStatsDS, null, 2)}>`);
-    return res.sendStatus(200);
+        db.insert(initialData);
+        console.log(`Loaded initial data: <${JSON.stringify(initialData, null, 2)}>`);
+        return res.sendStatus(200);
     });
 
     //GET /api/v1/YYYYYY 
