@@ -27,7 +27,7 @@
     const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats");
     const res2 = await fetch(BASE_CONTACT_API_PATH_v2 + "/life-stats");
 
-    if (res.ok || res1.ok || res2.ok) {
+    if (res.ok && res1.ok && res2.ok) {
       console.log("procesing Divorce data....");
       if (res1.ok) {
         divorceData = await res1.json();
@@ -119,7 +119,7 @@
       }
     } else {
       console.log("ERROR MSG");
-      msg = "Por favor primero cargue los datos en al menos una de las APIs";
+      msg = "Por favor primero cargue los datos en todas las APIs";
     }
 
     console.log("Divorce Chart DaTa: " + divorceChartData);
