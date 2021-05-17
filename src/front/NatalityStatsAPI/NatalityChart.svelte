@@ -16,30 +16,29 @@ let natalityChartNatalityRateData = [];
 let natalityChartFertilityRateData = [];
 
 
-  let errorMsg = "";
-  let okMsg = "";
-
-  function distinctRecords(MYJSON, prop) {
-    return MYJSON.filter((obj, pos, arr) => {
-      return arr.map((mapObj) => mapObj[prop]).indexOf(obj[prop]) === pos;
-    });
-  }
+  var msg = "";
 
   async function loadChart() {
     console.log("Fetching data...");
 
     const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
-    natalityData = await res.json();
+    
 
     if (res.ok) {
+      console.log("OK");
+      natalityData = await res.json();
       natalityData.forEach(stat => {
       natalityChartCountryDateData.push(stat.country+"-"+stat.date);
       natalityChartBornData.push(stat.born);
       natalityChartMenBornData.push(stat["men-born"]);
       natalityChartWomenBornData.push(stat["women-born"]);
       natalityChartNatalityRateData.push(stat["natality-rate"]);
-      natalityChartFertilityRateData.push(stat["fertility-rate"]);   
+      natalityChartFertilityRateData.push(stat["fertility-rate"]); 
+      msg="";
       });
+    }else{
+      console.log("Error");
+      msg = "Por favor primero cargue los datos de la API";
     }
     
     console.log("Natality Chart DaTa: " + natalityChartData);
@@ -146,23 +145,16 @@ let natalityChartFertilityRateData = [];
     </h2>
   </div>
 
-  <div>
-    {#if errorMsg}
-      <p class="msgRed" style="color: #9d1c24">ERROR: {errorMsg}</p>
-    {/if}
-    {#if okMsg}
-      <p class="msgGreen" style="color: #155724">{okMsg}</p>
-    {/if}
-  </div>
-
-  <div>
+  {#if msg}
+    <p>{msg}</p>
+  {:else}
     <figure class="highcharts-figure">
       <div id="container" />
       <p class="highcharts-description">
         Gráfico de líneas básico que muestra los diferentes valores para los campos de natality-stats.
       </p>
     </figure>
-  </div>
+  {/if}
 </main>
 
 <style>
