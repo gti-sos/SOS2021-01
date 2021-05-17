@@ -350,9 +350,9 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"2 result found\", function () {\r",
+							"pm.test(\"3 result found\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.length).to.eql(2);\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -703,7 +703,7 @@
 			"response": []
 		},
 		{
-			"name": "48 stats",
+			"name": "109 stats",
 			"event": [
 				{
 					"listen": "test",
@@ -712,9 +712,9 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"The number of stats is currently 48 \", function () {\r",
+							"pm.test(\"The number of stats is currently 109 \", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.length).to.eql(48);  \r",
+							"    pm.expect(jsonData.length).to.eql(109);  \r",
 							"});"
 						],
 						"type": "text/javascript"

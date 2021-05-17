@@ -1,5 +1,6 @@
 module.exports = [
-    {
+    
+        {
         "country": "Albania",
         "date": 2018,
         "marriage-rate": 8.1,
@@ -23,348 +24,837 @@ module.exports = [
         "ratio-actual": 4.0,
         "ratio-percent": 16.67
     },
-    {
-        "country": "spain",
-        "date": 2019,
-        "marriage-rate": 2.3,
-        "divorce-rate": 3.4,
-        "ratio-actual": 1.5,
-        "ratio-percent": 23.45
-    },
-    {
-        "country": "germany",
-        "date": 2019,
-        "marriage-rate": 1.3,
-        "divorce-rate": 0.6,
-        "ratio-actual": 1.4,
-        "ratio-percent": 19.40
-    },
-    {
-        "country": "united kingdom",
-        "date": 2019,
-        "marriage-rate": 2.60,
-        "divorce-rate": 1.80,
-        "ratio-actual": 1.6,
-        "ratio-percent": 10.7
-    },
-    {
-        "country": "france",
-        "date": 2019,
-        "marriage-rate": 6.4,
-        "divorce-rate": 2.3,
-        "ratio-actual": 1.6,
-        "ratio-percent": 11.2
-    },
-    {
-        "country": "italy",
-        "date": 2019,
-        "marriage-rate": 1.3,
-        "divorce-rate": 0.6,
-        "ratio-actual": 1.45,
-        "ratio-percent": 7.05
-    },
-    {
-        "country": "portugal",
-        "date": 2019,
-        "marriage-rate": 2.5,
-        "divorce-rate": 1.8,
-        "ratio-actual": 1.33,
-        "ratio-percent": 14.4
-    },
-    {
-        "country": "andorra",
-        "date": 2019,
-        "marriage-rate": 5.39,
-        "divorce-rate": 2.93,
-        "ratio-actual": 2.50,
-        "ratio-percent": 16.33
-    },
-    {
-        "country": "albania",
-        "date": 2019,
-        "marriage-rate": 2.61,
-        "divorce-rate": 1.93,
-        "ratio-actual": 1.8,
-        "ratio-percent": 10
-    },
-    {
-        "country": "armenia",
-        "date": 2019,
-        "marriage-rate": 3.1,
-        "divorce-rate": 1.2,
-        "ratio-actual": 1.2,
-        "ratio-percent": 12.2
-    },
-    {
-        "country": "austria",
-        "date": 2019,
-        "marriage-rate": 8.2,
-        "divorce-rate": 4.8,
-        "ratio-actual": 1.22,
-        "ratio-percent": 9.6
-    },
-    {
-        "country": "azerbaijan",
-        "date": 2019,
-        "marriage-rate": 1.79,
-        "divorce-rate": 1.24,
-        "ratio-actual": 0.888,
-        "ratio-percent": 14.1
-    },
-    {
-        "country": "bosnia and herzegovina",
-        "date": 2018,
-        "marriage-rate": 2.67,
-        "divorce-rate": 1.679,
-        "ratio-actual": 1.5757,
-        "ratio-percent": 8.4
-    },
-    {
-        "country": "belgium",
-        "date": 2019,
-        "marriage-rate": 1.16128,
-        "divorce-rate": 1.27,
-        "ratio-actual": 1.01,
-        "ratio-percent": 10.1
-    },
-    {
-        "country": "bulgaria",
-        "date": 2019,
-        "marriage-rate": 6.38,
-        "divorce-rate": 3.15,
-        "ratio-actual": 3.023,
-        "ratio-percent": 8.8
-    },
-    {
-        "country": "belarus",
-        "date": 2019,
-        "marriage-rate": 2.223,
-        "divorce-rate": 1.4824,
-        "ratio-actual": 1.452,
-        "ratio-percent": 9.3
-    },
-    {
-        "country": "canada",
-        "date": 2018,
-        "marriage-rate": 3.729,
-        "divorce-rate": 1.991,
-        "ratio-actual": 1.348,
-        "ratio-percent": 10.1
-    },
-    {
-        "country": "switzerland",
-        "date": 2019,
-        "marriage-rate": 2.86172,
-        "divorce-rate": 1.44123,
-        "ratio-actual": 1.42049,
-        "ratio-percent": 10
-    },
-    {
-        "country": "colombia",
-        "date": 2018,
-        "marriage-rate": 6.742,
-        "divorce-rate": 3.33299,
-        "ratio-actual": 1.16443,
-        "ratio-percent": 14.88
-    },
-    {
-        "country": "cyprus",
-        "date": 2019,
-        "marriage-rate": 1.9548,
-        "divorce-rate": 1.485,
-        "ratio-actual": 1.4698,
-        "ratio-percent": 10.8
-    },
-    {
-        "country": "czech republic",
-        "date": 2019,
-        "marriage-rate": 1.2231,
-        "divorce-rate": 0.57585,
-        "ratio-actual": 1.54646,
-        "ratio-percent": 10.5
-    },
-    {
-        "country": "denmark",
-        "date": 2019,
-        "marriage-rate": 1.1167,
-        "divorce-rate": 1.1,
-        "ratio-actual": 1.648,
-        "ratio-percent": 10.5
-    },
-    {
-        "country": "estonia",
-        "date": 2019,
-        "marriage-rate": 1.4099,
-        "divorce-rate": 0.7212,
-        "ratio-actual": 1.6887,
-        "ratio-percent": 10.6
-    },
-    {
-        "country": "finland",
-        "date": 2019,
-        "marriage-rate": 1.45613,
-        "divorce-rate": 0.9236,
-        "ratio-actual": 1.22427,
-        "ratio-percent": 8.3
-    },
-    {
-        "country": "georgia",
-        "date": 2019,
-        "marriage-rate": 2.48296,
-        "divorce-rate": 1.26538,
-        "ratio-actual": 6.46,
-        "ratio-percent": 13
-    },
-    {
-        "country": "greece",
-        "date": 2019,
-        "marriage-rate": 4.83763,
-        "divorce-rate": 4.2945,
-        "ratio-actual": 4.0818,
-        "ratio-percent": 7.8
-    },
-    {
-        "country": "croatia",
-        "date": 2019,
-        "marriage-rate": 3.6135,
-        "divorce-rate": 1.8478,
-        "ratio-actual": 1.7657,
-        "ratio-percent": 8.9
-    },
-    {
-        "country": "hungary",
-        "date": 2019,
-        "marriage-rate": 9.31,
-        "divorce-rate": 4.7984,
-        "ratio-actual": 4.5116,
-        "ratio-percent": 9.5
-    },
-    {
-        "country": "ireland",
-        "date": 2019,
-        "marriage-rate": 5.9796,
-        "divorce-rate": 3.027,
-        "ratio-actual": 2.9019,
-        "ratio-percent": 12
-    },
-    {
-        "country": "iceland",
-        "date": 2019,
-        "marriage-rate": 4.452,
-        "divorce-rate": 2.267,
-        "ratio-actual": 2.185,
-        "ratio-percent": 12.3
-    },
-    {
-        "country": "liechtenstein",
-        "date": 2019,
-        "marriage-rate": 3.56,
-        "divorce-rate": 1.82,
-        "ratio-actual": 1.74,
-        "ratio-percent": 9.2
-    },
-    {
-        "country": "lithuania",
-        "date": 2019,
-        "marriage-rate": 2.7393,
-        "divorce-rate": 1.4086,
-        "ratio-actual": 13.307,
-        "ratio-percent": 9.8
-    },
-    {
-        "country": "luxembourg",
-        "date": 2019,
-        "marriage-rate": 6.23,
-        "divorce-rate": 3.107,
-        "ratio-actual": 1.3123,
-        "ratio-percent": 10
-    },
-    {
-        "country": "latvia",
-        "date": 2019,
-        "marriage-rate": 1.8786,
-        "divorce-rate": 0.9629,
-        "ratio-actual": 9.157,
-        "ratio-percent": 9.8
-    },
-    {
-        "country": "monaco",
-        "date": 2018,
-        "marriage-rate": 6.27,
-        "divorce-rate": 4.62,
-        "ratio-actual": 1.432,
-        "ratio-percent": 5.9
-    },
-    {
-        "country": "moldova",
-        "date": 2018,
-        "marriage-rate": 3.3831,
-        "divorce-rate": 1.9304,
-        "ratio-actual": 1.809,
-        "ratio-percent": 10.1
-    },
-    {
-        "country": "montenegro",
-        "date": 2019,
-        "marriage-rate": 7.223,
-        "divorce-rate": 3.777,
-        "ratio-actual": 3.446,
-        "ratio-percent": 11.6
-    },
-    {
-        "country": "north macedonia",
-        "date": 2019,
-        "marriage-rate": 1.9845,
-        "divorce-rate": 1.0276,
-        "ratio-actual": 2.9569,
-        "ratio-percent": 9.6
-    },
-    {
-        "country": "malta",
-        "date": 2019,
-        "marriage-rate": 4.35,
-        "divorce-rate": 2.26,
-        "ratio-actual": 2.09,
-        "ratio-percent": 8.6
-    },
-    {
-        "country": "mexico",
-        "date": 2018,
-        "marriage-rate": 2.586287,
-        "divorce-rate": 2.300026,
-        "ratio-actual": 12.85962,
-        "ratio-percent": 17.6
-    },
-    {
-        "country": "netherlands",
-        "date": 2019,
-        "marriage-rate": 1.6968,
-        "divorce-rate": 0.86893,
-        "ratio-actual": 8.2787,
-        "ratio-percent": 9.8
-    },
-    {
-        "country": "norway",
-        "date": 2019,
-        "marriage-rate": 5.4495,
-        "divorce-rate": 2.8042,
-        "ratio-actual": 2.6453,
-        "ratio-percent": 10.2
-    },
-    {
-        "country": "poland",
-        "date": 2019,
-        "marriage-rate": 3.74954,
-        "divorce-rate": 1.92685,
-        "ratio-actual": 1.82269,
-        "ratio-percent": 9.9
-    },
-    {
-        "country": "san marino",
-        "date": 2019,
-        "marriage-rate": 8.232,
-        "divorce-rate": 0.121,
-        "ratio-actual": 0.107,
-        "ratio-percent": 0.7
-    }
-]
+    
+        {
+          "country": "Albania",
+          "date": 2018,
+          "marriage-rate": 8.1,
+          "divorce-rate": 1.7,
+          "ratio-actual": 4.76,
+          "ratio-percent": 20.99
+        },
+        {
+          "country": "Algeria",
+          "date": 2013,
+          "marriage-rate": 10.1,
+          "divorce-rate": 1.6,
+          "ratio-actual": 6.31,
+          "ratio-percent": 15.84
+        },
+        {
+          "country": "Armenia",
+          "date": 2011,
+          "marriage-rate": 6,
+          "divorce-rate": 1,
+          "ratio-actual": 6,
+          "ratio-percent": 16.67
+        },
+        {
+          "country": "Australia (more info)",
+          "date": 2017,
+          "marriage-rate": 4.6,
+          "divorce-rate": 2,
+          "ratio-actual": 2.3,
+          "ratio-percent": 43.48
+        },
+        {
+          "country": "Austria",
+          "date": 2018,
+          "marriage-rate": 5.3,
+          "divorce-rate": 1.8,
+          "ratio-actual": 2.94,
+          "ratio-percent": 33.96
+        },
+        {
+          "country": "Azerbaijan",
+          "date": 2011,
+          "marriage-rate": 9.7,
+          "divorce-rate": 1.5,
+          "ratio-actual": 6.47,
+          "ratio-percent": 15.46
+        },
+        {
+          "country": "Bahamas",
+          "date": 2007,
+          "marriage-rate": 6.1,
+          "divorce-rate": 1,
+          "ratio-actual": 6.1,
+          "ratio-percent": 16.39
+        },
+        {
+          "country": "Belarus",
+          "date": 2011,
+          "marriage-rate": 9.2,
+          "divorce-rate": 4.1,
+          "ratio-actual": 2.24,
+          "ratio-percent": 44.57
+        },
+        {
+          "country": "Belgium (more info)",
+          "date": 2016,
+          "marriage-rate": 3.9,
+          "divorce-rate": 2.1,
+          "ratio-actual": 1.86,
+          "ratio-percent": 53.85
+        },
+        {
+          "country": "Bermuda",
+          "date": 2009,
+          "marriage-rate": 10.6,
+          "divorce-rate": 2.7,
+          "ratio-actual": 3.93,
+          "ratio-percent": 25.47
+        },
+        {
+          "country": "Bosnia and Herzegovina",
+          "date": 2012,
+          "marriage-rate": 4.8,
+          "divorce-rate": 0.6,
+          "ratio-actual": 8,
+          "ratio-percent": 12.5
+        },
+        {
+          "country": "Brazil",
+          "date": 2009,
+          "marriage-rate": 6.6,
+          "divorce-rate": 1.4,
+          "ratio-actual": 4.71,
+          "ratio-percent": 21.21
+        },
+        {
+          "country": "Bulgaria",
+          "date": 2018,
+          "marriage-rate": 4.1,
+          "divorce-rate": 1.5,
+          "ratio-actual": 2.73,
+          "ratio-percent": 36.59
+        },
+        {
+          "country": "Canada (more info)",
+          "date": 2008,
+          "marriage-rate": 4.4,
+          "divorce-rate": 2.1,
+          "ratio-actual": 2.1,
+          "ratio-percent": 47.73
+        },
+        {
+          "country": "Chile",
+          "date": 2009,
+          "marriage-rate": 3.3,
+          "divorce-rate": 0.7,
+          "ratio-actual": 4.71,
+          "ratio-percent": 21.21
+        },
+        {
+          "country": "China",
+          "date": 2018,
+          "marriage-rate": 7.2,
+          "divorce-rate": 3.2,
+          "ratio-actual": 2.25,
+          "ratio-percent": 44.44
+        },
+        {
+          "country": "Colombia",
+          "date": 2007,
+          "marriage-rate": 2.3,
+          "divorce-rate": 0.7,
+          "ratio-actual": 3.29,
+          "ratio-percent": 30.43
+        },
+        {
+          "country": "Costa Rica",
+          "date": 2010,
+          "marriage-rate": 5.3,
+          "divorce-rate": 2.5,
+          "ratio-actual": 2.12,
+          "ratio-percent": 47.17
+        },
+        {
+          "country": "Croatia",
+          "date": 2018,
+          "marriage-rate": 4.9,
+          "divorce-rate": 1.5,
+          "ratio-actual": 3.27,
+          "ratio-percent": 30.61
+        },
+        {
+          "country": "Cuba",
+          "date": 2010,
+          "marriage-rate": 5.2,
+          "divorce-rate": 2.9,
+          "ratio-actual": 1.79,
+          "ratio-percent": 55.77
+        },
+        {
+          "country": "Cyprus",
+          "date": 2017,
+          "marriage-rate": 6.8,
+          "divorce-rate": 2.2,
+          "ratio-actual": 3.09,
+          "ratio-percent": 32.35
+        },
+        {
+          "country": "Czech Republic",
+          "date": 2018,
+          "marriage-rate": 5.1,
+          "divorce-rate": 2.3,
+          "ratio-actual": 2.22,
+          "ratio-percent": 45.1
+        },
+        {
+          "country": "Denmark",
+          "date": 2018,
+          "marriage-rate": 5.6,
+          "divorce-rate": 2.6,
+          "ratio-actual": 2.15,
+          "ratio-percent": 46.43
+        },
+        {
+          "country": "Dominican Republic",
+          "date": 2010,
+          "marriage-rate": 4.4,
+          "divorce-rate": 1.8,
+          "ratio-actual": 2.44,
+          "ratio-percent": 40.91
+        },
+        {
+          "country": "Ecuador",
+          "date": 2006,
+          "marriage-rate": 5.6,
+          "divorce-rate": 1.1,
+          "ratio-actual": 5.09,
+          "ratio-percent": 19.64
+        },
+        {
+          "country": "Egypt",
+          "date": 2010,
+          "marriage-rate": 11,
+          "divorce-rate": 1.9,
+          "ratio-actual": 5.79,
+          "ratio-percent": 17.27
+        },
+        {
+          "country": "El Salvador",
+          "date": 2006,
+          "marriage-rate": 3.5,
+          "divorce-rate": 0.8,
+          "ratio-actual": 4.38,
+          "ratio-percent": 22.86
+        },
+        {
+          "country": "Estonia",
+          "date": 2018,
+          "marriage-rate": 5,
+          "divorce-rate": 2.4,
+          "ratio-actual": 2.08,
+          "ratio-percent": 48
+        },
+        {
+          "country": "EU",
+          "date": 2017,
+          "marriage-rate": 4.4,
+          "divorce-rate": 2,
+          "ratio-actual": 2.2,
+          "ratio-percent": 45.45
+        },
+        {
+          "country": "Finland",
+          "date": 2018,
+          "marriage-rate": 4.3,
+          "divorce-rate": 2.4,
+          "ratio-actual": 1.79,
+          "ratio-percent": 55.81
+        },
+        {
+          "country": "France",
+          "date": 2016,
+          "marriage-rate": 3.7,
+          "divorce-rate": 1.9,
+          "ratio-actual": 1.95,
+          "ratio-percent": 51.35
+        },
+        {
+          "country": "Georgia",
+          "date": 2011,
+          "marriage-rate": 6.9,
+          "divorce-rate": 1.3,
+          "ratio-actual": 5.31,
+          "ratio-percent": 18.84
+        },
+        {
+          "country": "Germany",
+          "date": 2017,
+          "marriage-rate": 4.9,
+          "divorce-rate": 1.9,
+          "ratio-actual": 2.58,
+          "ratio-percent": 38.78
+        },
+        {
+          "country": "Gibraltar",
+          "date": 2010,
+          "marriage-rate": 6.7,
+          "divorce-rate": 3.2,
+          "ratio-actual": 2.09,
+          "ratio-percent": 47.76
+        },
+        {
+          "country": "Grenada",
+          "date": 2001,
+          "marriage-rate": 5,
+          "divorce-rate": 1.1,
+          "ratio-actual": 4.55,
+          "ratio-percent": 22
+        },
+        {
+          "country": "Greece",
+          "date": 2017,
+          "marriage-rate": 4.7,
+          "divorce-rate": 1.8,
+          "ratio-actual": 2.61,
+          "ratio-percent": 38.3
+        },
+        {
+          "country": "Guatemala",
+          "date": 2008,
+          "marriage-rate": 3.8,
+          "divorce-rate": 1.2,
+          "ratio-actual": 3.17,
+          "ratio-percent": 31.58
+        },
+        {
+          "country": "Hungary",
+          "date": 2018,
+          "marriage-rate": 5.2,
+          "divorce-rate": 1.7,
+          "ratio-actual": 3.06,
+          "ratio-percent": 32.69
+        },
+        {
+          "country": "Iceland",
+          "date": 2010,
+          "marriage-rate": 4.9,
+          "divorce-rate": 1.8,
+          "ratio-actual": 2.72,
+          "ratio-percent": 36.73
+        },
+        {
+          "country": "Iran",
+          "date": 2017,
+          "marriage-rate": 11.2,
+          "divorce-rate": 1.6,
+          "ratio-actual": 7,
+          "ratio-percent": 14.29
+        },
+        {
+          "country": "Ireland",
+          "date": 2017,
+          "marriage-rate": 4.6,
+          "divorce-rate": 0.7,
+          "ratio-actual": 6.57,
+          "ratio-percent": 15.22
+        },
+        {
+          "country": "Israel",
+          "date": 2009,
+          "marriage-rate": 6.5,
+          "divorce-rate": 1.8,
+          "ratio-actual": 3.61,
+          "ratio-percent": 27.69
+        },
+        {
+          "country": "Italy",
+          "date": 2018,
+          "marriage-rate": 3.2,
+          "divorce-rate": 1.5,
+          "ratio-actual": 2.13,
+          "ratio-percent": 46.88
+        },
+        {
+          "country": "Jamaica",
+          "date": 2011,
+          "marriage-rate": 7.5,
+          "divorce-rate": 1.5,
+          "ratio-actual": 5,
+          "ratio-percent": 20
+        },
+        {
+          "country": "Japan (more info)",
+          "date": 2019,
+          "marriage-rate": 4.8,
+          "divorce-rate": 1.7,
+          "ratio-actual": 2.82,
+          "ratio-percent": 35.42
+        },
+        {
+          "country": "Jordan",
+          "date": 2010,
+          "marriage-rate": 10.2,
+          "divorce-rate": 2.6,
+          "ratio-actual": 3.92,
+          "ratio-percent": 25.49
+        },
+        {
+          "country": "Kazakhstan",
+          "date": 2008,
+          "marriage-rate": 8.6,
+          "divorce-rate": 2.3,
+          "ratio-actual": 3.74,
+          "ratio-percent": 26.74
+        },
+        {
+          "country": "Kuwait",
+          "date": 2010,
+          "marriage-rate": 5.2,
+          "divorce-rate": 2.2,
+          "ratio-actual": 2.36,
+          "ratio-percent": 42.31
+        },
+        {
+          "country": "Kyrgyzstan",
+          "date": 2010,
+          "marriage-rate": 9.7,
+          "divorce-rate": 1.6,
+          "ratio-actual": 6.06,
+          "ratio-percent": 16.49
+        },
+        {
+          "country": "Latvia",
+          "date": 2018,
+          "marriage-rate": 6.8,
+          "divorce-rate": 3.1,
+          "ratio-actual": 2.19,
+          "ratio-percent": 45.59
+        },
+        {
+          "country": "Lebanon",
+          "date": 2007,
+          "marriage-rate": 9.5,
+          "divorce-rate": 1.6,
+          "ratio-actual": 5.94,
+          "ratio-percent": 16.84
+        },
+        {
+          "country": "Libya",
+          "date": 2008,
+          "marriage-rate": 10.8,
+          "divorce-rate": 2.5,
+          "ratio-actual": 4.32,
+          "ratio-percent": 23.15
+        },
+        {
+          "country": "Liechtenstein",
+          "date": 2010,
+          "marriage-rate": 5,
+          "divorce-rate": 2.4,
+          "ratio-actual": 2.08,
+          "ratio-percent": 48
+        },
+        {
+          "country": "Lithuania",
+          "date": 2018,
+          "marriage-rate": 7,
+          "divorce-rate": 3.1,
+          "ratio-actual": 2.26,
+          "ratio-percent": 44.29
+        },
+        {
+          "country": "Luxembourg",
+          "date": 2018,
+          "marriage-rate": 3.1,
+          "divorce-rate": 2,
+          "ratio-actual": 1.55,
+          "ratio-percent": 64.52
+        },
+        {
+          "country": "Malta (more info)",
+          "date": 2018,
+          "marriage-rate": 5.8,
+          "divorce-rate": 0.7,
+          "ratio-actual": 8.29,
+          "ratio-percent": 12.07
+        },
+        {
+          "country": "Mauritius",
+          "date": 2010,
+          "marriage-rate": 8.2,
+          "divorce-rate": 1.4,
+          "ratio-actual": 5.86,
+          "ratio-percent": 17.07
+        },
+        {
+          "country": "Mexico",
+          "date": 2009,
+          "marriage-rate": 5.2,
+          "divorce-rate": 0.9,
+          "ratio-actual": 5.78,
+          "ratio-percent": 17.31
+        },
+        {
+          "country": "Moldova",
+          "date": 2011,
+          "marriage-rate": 7.3,
+          "divorce-rate": 3.1,
+          "ratio-actual": 2.35,
+          "ratio-percent": 42.47
+        },
+        {
+          "country": "Mongolia",
+          "date": 2010,
+          "marriage-rate": 3.4,
+          "divorce-rate": 1.1,
+          "ratio-actual": 3.09,
+          "ratio-percent": 32.35
+        },
+        {
+          "country": "Montenegro",
+          "date": 2018,
+          "marriage-rate": 5.3,
+          "divorce-rate": 1.4,
+          "ratio-actual": 3.79,
+          "ratio-percent": 26.42
+        },
+        {
+          "country": "Netherlands",
+          "date": 2018,
+          "marriage-rate": 3.7,
+          "divorce-rate": 1.8,
+          "ratio-actual": 2.06,
+          "ratio-percent": 48.65
+        },
+        {
+          "country": "New Zealand (more info)",
+          "date": 2008,
+          "marriage-rate": 4.8,
+          "divorce-rate": 2,
+          "ratio-actual": 2.4,
+          "ratio-percent": 41.67
+        },
+        {
+          "country": "Nicaragua",
+          "date": 2005,
+          "marriage-rate": 4.5,
+          "divorce-rate": 0.8,
+          "ratio-actual": 5.63,
+          "ratio-percent": 17.78
+        },
+        {
+          "country": "North Macedonia",
+          "date": 2018,
+          "marriage-rate": 6.5,
+          "divorce-rate": 0.8,
+          "ratio-actual": 8.13,
+          "ratio-percent": 12.31
+        },
+        {
+          "country": "Norway (more info)",
+          "date": 2018,
+          "marriage-rate": 4.3,
+          "divorce-rate": 1.9,
+          "ratio-actual": 2.26,
+          "ratio-percent": 44.19
+        },
+        {
+          "country": "Panama",
+          "date": 2010,
+          "marriage-rate": 3.7,
+          "divorce-rate": 1,
+          "ratio-actual": 3.7,
+          "ratio-percent": 27.03
+        },
+        {
+          "country": "Poland (more info)",
+          "date": 2018,
+          "marriage-rate": 5.1,
+          "divorce-rate": 1.7,
+          "ratio-actual": 3,
+          "ratio-percent": 33.33
+        },
+        {
+          "country": "Portugal",
+          "date": 2018,
+          "marriage-rate": 3.4,
+          "divorce-rate": 2,
+          "ratio-actual": 1.7,
+          "ratio-percent": 58.82
+        },
+        {
+          "country": "Qatar",
+          "date": 2011,
+          "marriage-rate": 3.3,
+          "divorce-rate": 1.1,
+          "ratio-actual": 3,
+          "ratio-percent": 33.33
+        },
+        {
+          "country": "Romania",
+          "date": 2018,
+          "marriage-rate": 7.4,
+          "divorce-rate": 1.6,
+          "ratio-actual": 4.63,
+          "ratio-percent": 21.62
+        },
+        {
+          "country": "Russia",
+          "date": 2011,
+          "marriage-rate": 9.2,
+          "divorce-rate": 4.8,
+          "ratio-actual": 1.92,
+          "ratio-percent": 52.17
+        },
+        {
+          "country": "Saint Lucia",
+          "date": 2004,
+          "marriage-rate": 2.8,
+          "divorce-rate": 0.7,
+          "ratio-actual": 4,
+          "ratio-percent": 25
+        },
+        {
+          "country": "Saint Vincent and the Grenadines",
+          "date": 2007,
+          "marriage-rate": 5.8,
+          "divorce-rate": 0.8,
+          "ratio-actual": 7.25,
+          "ratio-percent": 13.79
+        },
+        {
+          "country": "San Marino",
+          "date": 2011,
+          "marriage-rate": 6.1,
+          "divorce-rate": 2.5,
+          "ratio-actual": 2.44,
+          "ratio-percent": 40.98
+        },
+        {
+          "country": "Saudi Arabia",
+          "date": 2005,
+          "marriage-rate": 5.2,
+          "divorce-rate": 1.1,
+          "ratio-actual": 4.73,
+          "ratio-percent": 21.15
+        },
+        {
+          "country": "Serbia",
+          "date": 2018,
+          "marriage-rate": 5.2,
+          "divorce-rate": 1.4,
+          "ratio-actual": 3.71,
+          "ratio-percent": 26.92
+        },
+        {
+          "country": "Seychelles",
+          "date": 2011,
+          "marriage-rate": 17.4,
+          "divorce-rate": 1.9,
+          "ratio-actual": 9.16,
+          "ratio-percent": 10.92
+        },
+        {
+          "country": "Singapore",
+          "date": 2015,
+          "marriage-rate": 6.8,
+          "divorce-rate": 1.9,
+          "ratio-actual": 3.58,
+          "ratio-percent": 27.94
+        },
+        {
+          "country": "Slovakia",
+          "date": 2018,
+          "marriage-rate": 5.7,
+          "divorce-rate": 1.8,
+          "ratio-actual": 3.17,
+          "ratio-percent": 31.58
+        },
+        {
+          "country": "Slovenia",
+          "date": 2018,
+          "marriage-rate": 3.5,
+          "divorce-rate": 1.1,
+          "ratio-actual": 3.18,
+          "ratio-percent": 31.43
+        },
+        {
+          "country": "South Africa (more info)",
+          "date": 2009,
+          "marriage-rate": 3.5,
+          "divorce-rate": 0.6,
+          "ratio-actual": 5.83,
+          "ratio-percent": 17.14
+        },
+        {
+          "country": "South Korea (more info)",
+          "date": 2019,
+          "marriage-rate": 4.7,
+          "divorce-rate": 2.2,
+          "ratio-actual": 2.14,
+          "ratio-percent": 46.81
+        },
+        {
+          "country": "Spain",
+          "date": 2018,
+          "marriage-rate": 3.5,
+          "divorce-rate": 2,
+          "ratio-actual": 1.75,
+          "ratio-percent": 57.14
+        },
+        {
+          "country": "Sri Lanka",
+          "date": null,
+          "marriage-rate": 0,
+          "divorce-rate": 0.15,
+          "ratio-actual": 0,
+          "ratio-percent": 0
+        },
+        {
+          "country": "Suriname",
+          "date": 2007,
+          "marriage-rate": 4.2,
+          "divorce-rate": 1.3,
+          "ratio-actual": 3.23,
+          "ratio-percent": 30.95
+        },
+        {
+          "country": "Sweden",
+          "date": 2018,
+          "marriage-rate": 5,
+          "divorce-rate": 2.5,
+          "ratio-actual": 2,
+          "ratio-percent": 50
+        },
+        {
+          "country": "Switzerland",
+          "date": 2016,
+          "marriage-rate": 4.8,
+          "divorce-rate": 2,
+          "ratio-actual": 2.4,
+          "ratio-percent": 41.67
+        },
+        {
+          "country": "Syria",
+          "date": 2006,
+          "marriage-rate": 10.6,
+          "divorce-rate": 1.3,
+          "ratio-actual": 8.15,
+          "ratio-percent": 12.26
+        },
+        {
+          "country": "Taiwan",
+          "date": 2018,
+          "marriage-rate": 5.7,
+          "divorce-rate": 2.3,
+          "ratio-actual": 2.48,
+          "ratio-percent": 40.35
+        },
+        {
+          "country": "Tajikistan",
+          "date": 2009,
+          "marriage-rate": 13.5,
+          "divorce-rate": 1.4,
+          "ratio-actual": 9.64,
+          "ratio-percent": 10.37
+        },
+        {
+          "country": "Thailand",
+          "date": 2005,
+          "marriage-rate": 5.5,
+          "divorce-rate": 1.4,
+          "ratio-actual": 3.93,
+          "ratio-percent": 25.45
+        },
+        {
+          "country": "Tonga",
+          "date": 2003,
+          "marriage-rate": 7.1,
+          "divorce-rate": 1.2,
+          "ratio-actual": 5.92,
+          "ratio-percent": 16.9
+        },
+        {
+          "country": "Trinidad and Tobago",
+          "date": 2005,
+          "marriage-rate": 6.3,
+          "divorce-rate": 2.2,
+          "ratio-actual": 2.86,
+          "ratio-percent": 34.92
+        },
+        {
+          "country": "Tunisia",
+          "date": 2016,
+          "marriage-rate": "",
+          "divorce-rate": "",
+          "ratio-actual": "",
+          "ratio-percent": ""
+        },
+        {
+          "country": "Turkey",
+          "date": 2018,
+          "marriage-rate": 6.8,
+          "divorce-rate": 1.7,
+          "ratio-actual": 4,
+          "ratio-percent": 25
+        },
+        {
+          "country": "Ukraine",
+          "date": 2010,
+          "marriage-rate": 6.7,
+          "divorce-rate": 2.8,
+          "ratio-actual": 2.39,
+          "ratio-percent": 41.79
+        },
+        {
+          "country": "United Arab Emirates",
+          "date": 2005,
+          "marriage-rate": 2.8,
+          "divorce-rate": 0.7,
+          "ratio-actual": 4,
+          "ratio-percent": 25
+        },
+        {
+          "country": "United Kingdom (more info)",
+          "date": 2015,
+          "marriage-rate": 4.4,
+          "divorce-rate": 1.8,
+          "ratio-actual": 2.44,
+          "ratio-percent": 40.91
+        },
+        {
+          "country": "United States (more info)",
+          "date": 2017,
+          "marriage-rate": 6.5,
+          "divorce-rate": 2.9,
+          "ratio-actual": 2.24,
+          "ratio-percent": 44.62
+        },
+        {
+          "country": "Uruguay",
+          "date": 2010,
+          "marriage-rate": 3.2,
+          "divorce-rate": "?",
+          "ratio-actual": "",
+          "ratio-percent": ""
+        },
+        {
+          "country": "Uzbekistan",
+          "date": 2006,
+          "marriage-rate": 7.8,
+          "divorce-rate": 1.1,
+          "ratio-actual": 7.09,
+          "ratio-percent": 14.1
+        },
+        {
+          "country": "Venezuela",
+          "date": 2006,
+          "marriage-rate": 3.3,
+          "divorce-rate": 1.2,
+          "ratio-actual": 2.75,
+          "ratio-percent": 36.36
+        },
+        {
+          "country": "Vietnam",
+          "date": 2015,
+          "marriage-rate": 5.7,
+          "divorce-rate": 0.4,
+          "ratio-actual": 14.25,
+          "ratio-percent": 7.02
+        }
+    ]

@@ -8,6 +8,8 @@
   let natalityChartData = [];
   let divorceData = [];
   let divorceChartData = [];
+  let lifeData=[];
+  let lifeChartData = [];
 
   var dates = [];
   let msg = "";
@@ -23,8 +25,9 @@
 
     const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
     const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats");
+    const res2 = await fetch(BASE_CONTACT_API_PATH_v2 + "/life-stats");
 
-    if (res.ok || res1.ok) {
+    if (res.ok || res1.ok || res2.ok) {
       console.log("procesing Divorce data....");
       if (res1.ok) {
         divorceData = await res1.json();
@@ -38,7 +41,7 @@
           dates.push(element.date);
           console.log("dates: " + element.date);
         });
-        console.log("Distintc dates: " + dates);
+        console.log("Distinct dates: " + dates);
 
         //Sumamos los valores para las fechas iguales
        
@@ -67,7 +70,7 @@
             console.log("dates: " + element.date);
           }
         });
-        console.log("Distintc dates: " + dates);
+        console.log("Distinct dates: " + dates);
 
         //Sumamos los valores para las fechas iguales
         
@@ -85,6 +88,35 @@
         });
         msg = "";
       }
+
+      if(res2.ok){
+        lifeData = await res2.json();
+        console.log("RES2 OK");
+        //Quitamos fechas repetidas y las ordenamos
+        var distinctDates = distinctRecords(lifeData, "date");
+        distinctDates.sort(function (a, b) {
+          return a.date - b.date;
+        });
+        distinctDates.forEach((element) => {
+          if (!dates.includes(element.date)) {
+            dates.push(element.date);
+            console.log("dates: " + element.date);
+          }
+        });
+        console.log("Distinct dates: " + dates);
+
+        //Sumamos los valores para las fechas iguales         
+        dates.forEach((e) => {
+          var yAxis = lifeData
+            .filter((d) => d.date === e)
+            .map((qli) => qli["quality_life_index"])
+            .reduce((acc, qli) => qli + acc,0);
+          console.log("YAxis: " + yAxis);
+          lifeChartData.push(Math.round(yAxis));
+          
+        });
+        msg = "";
+      }
     } else {
       console.log("ERROR MSG");
       msg = "Por favor primero cargue los datos en al menos una de las APIs";
@@ -92,6 +124,7 @@
 
     console.log("Divorce Chart DaTa: " + divorceChartData);
     console.log("Natality Chart DaTa: " + natalityChartData);
+    console.log("Life Chart Data: " + lifeChartData);
 
     Highcharts.chart("container", {
       title: {
@@ -137,6 +170,10 @@
           name: "Ratio de divorcios (%)",
           data: divorceChartData,
         },
+        {
+          name: "Índice de calidad de vida",
+          data: lifeChartData,
+        }
       ],
       responsive: {
         rules: [

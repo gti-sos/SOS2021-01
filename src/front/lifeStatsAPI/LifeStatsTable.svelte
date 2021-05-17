@@ -14,8 +14,8 @@
     /*pagination*/
     let limit = 10; /*limit es el número de elementos por página*/
 	let offset = 0; /*offset indica desde qué elemento se va a empezar a mostrar*/
-    let numTotal=0;
-	let maxpag = numTotal>=limit; 
+    let numDataPag=0;
+    let maxpag = false; /*será true si hay menos datos que el límite permitido*/
 
   
     /*para insertar un nuevo dato*/
@@ -62,16 +62,25 @@
             console.log("Ok. Obtaining data...");
             const json = await res.json();
             lifeStats = json;            
-            numTotal= lifeStats.length;
-            console.log(`Received ${numTotal} life stats.`);
+            numDataPag= lifeStats.length; //numero de datos por pagina
+            if(numDataPag < limit){
+                maxpag=true;
+            }else{
+                maxpag=false;
+            }
+            console.log(`Received ${numDataPag} life stats.`);
             
         }else if (res.status == 500) {
+            correctMsg=""
             errorMsg = "No se ha podido acceder la base de datos."
             console.log(errorMsg);
         }else if (res.status == 404) { 
+            correctMsg="";
             errorMsg = "No se encuentran datos."
+            pagBefore();
             console.log("Error. " +  errorMsg)
-        } else { //este realmente no va a ser otro caso que el status = 500 
+        } else { 
+            correctMsg="" 
             errorMsg = res.status + ": " + res.statusText;
             console.log(errorMsg);
         }
@@ -96,9 +105,11 @@
                     errorMsg="";
                     correctMsg="Se ha insertado correctamente.";
 				}  else if (res.status == 409) {
+                    correctMsg=""
                     errorMsg= "Ya existe un recurso con el mismo país y año."
                     console.log("ERROR. " + errorMsg);
 				}else { //status == 500
+                    correctMsg=""
                     errorMsg= "No se ha podido acceder la base de datos."
                     console.log("Error inserting data in DB");
 				}
@@ -119,9 +130,11 @@
                 errorMsg="";
                 correctMsg = "Se han eliminado todo los datos correctamente.";
 			} else if (res.status==404){ //no data found
+                correctMsg=""
                 errorMsg ="No hay datos para borrar."                
                 console.log("ERROR. " + errorMsg);
 			} else  { //status == 500
+                correctMsg=""
                 errorMsg = "No se ha podido acceder a la base de datos."
 				console.log("ERROR. " + errorMsg);
 			}
@@ -139,9 +152,11 @@
 				console.log("Ok. " + correctMsg);        
                 getLifeStats();  /*para que el usuario no tenga que recargar la página */
 			} else if (res.status==404){ //no data found
+                correctMsg=""
                 errorMsg= `No se encuentra el dato con país:  ${country} y año: ${date}.`;
                 console.log("ERROR. " +  errorMsg);
 			} else  { //status == 500
+                correctMsg=""
                 errorMsg = "No se ha podido acceder a la base de datos.";
 				console.log("ERROR. " +  errorMsg);
 			}		
@@ -162,6 +177,7 @@
             console.log(`Received the data searched.`);
             
         }else if (res.status == 500) {
+            correctMsg=""
             errorMsg = "No se ha podido acceder la base de datos."
             console.log(errorMsg);
         }else if (res.status == 404) { 
@@ -169,6 +185,7 @@
             errorMsg = "No se encuentra el dato."
             console.log("Error. " +  errorMsg)
         } else {
+            correctMsg=""
             errorMsg = res.status + ": " + res.statusText;
             console.log(errorMsg);
         }
@@ -179,25 +196,23 @@
         search=false;
     };
 
-    async function pagBefore(){
+    async function pagBefore(){ /*offset indica desde qué elemento se va a empezar a mostrar*/
         correctMsg="";
         errorMsg="";
 		if (offset >= 10){
             offset = offset - limit;
         } 
-		getLifeStats();
-	
+		getLifeStats();	
 	}
 
     async function pagNext(){
         correctMsg="";
         errorMsg="";
-		if(offset<=numTotal){
-            offset = offset + limit;
-        }
+        offset = offset + limit;
 		getLifeStats();
 	
-    }
+    }    
+
 
 
     
@@ -290,10 +305,16 @@
             </tbody>
         </Table>
         
-        <Button color="info" on:click={pagBefore}>ANTERIOR</Button>        
-        Número de datos en esta página: {numTotal}
-        {#if !maxpag}
-        <Button color="info" on:click={pagNext}>SIGUIENTE</Button> 
+        
+        {#if maxpag} <!--si hemos llegado al maximo de paginas, no saldrá el botón siguiente-->
+            <Button color="info" on:click={pagBefore}>ANTERIOR</Button>        
+                Número de datos en esta página: {numDataPag}
+            
+        {:else}
+            <Button color="info" on:click={pagBefore}>ANTERIOR</Button>        
+            Número de datos en esta página: {numDataPag}       
+            <Button color="info" on:click={pagNext}>SIGUIENTE</Button>      
+            
         {/if}
 
         <br/> <br/><Button style="background-color:darkgray " on:click="{pop}"> Volver </Button>
