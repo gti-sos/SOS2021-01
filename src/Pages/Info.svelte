@@ -131,7 +131,7 @@
             país.
           </CardText>
           <a href="/api/v1/natality-stats"
-            ><Button disabled color="primary">API v1</Button></a
+            ><Button color="primary">API v1</Button></a
           >
           <a href="/api/v2/natality-stats"
           ><Button color="primary">API v2</Button></a
@@ -140,7 +140,7 @@
             ><Button color="primary">Interfaz</Button></a
           >
           <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
-            ><Button disabled color="info">Documentación v1</Button></a
+            ><Button color="info">Documentación v1</Button></a
           >
           <a href="https://documenter.getpostman.com/view/14932491/TzRSg7GK"
             ><Button color="info">Documentación v2</Button></a

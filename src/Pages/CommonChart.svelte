@@ -185,8 +185,8 @@
     <figure class="highcharts-figure">
       <div id="container" />
       <p class="highcharts-description">
-        Gráfico de líneas básico que muestra las tendencias del índice de
-        natalidad, divorcios y estilo de vida.
+        Gráfico de líneas básico que muestra las tendencias anuales para todos los países, para el índice de
+        estilo de vida y los ratios de natalidad y divorcios.
       </p>
     </figure>
   {/if}
