@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "api/v1/life-stats",
+			"name": "api/v2/life-stats",
 			"event": [
 				{
 					"listen": "test",
@@ -55,7 +55,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats/loadInitialData",
+			"name": "api/v2/life-stats/loadInitialData",
 			"event": [
 				{
 					"listen": "test",
@@ -92,7 +92,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats check 1",
+			"name": "api/v2/life-stats check 1",
 			"event": [
 				{
 					"listen": "test",
@@ -146,7 +146,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats",
+			"name": "api/v2/life-stats",
 			"event": [
 				{
 					"listen": "test",
@@ -168,7 +168,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"austria\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 191.05,\r\n\"purchasing_power_index\": 96.7,\r\n\"safety_index\": 78.63\r\n}",
+					"raw": "{\r\n\"country\": \"austria\",\r\n\"date\" : 2017,\r\n\"quality_life_index\": 190.37,\t\t\t\r\n\"purchasing_power_index\": 95.66,\r\n\"safety_index\": 80.75\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -194,7 +194,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats ERROR: ya existe",
+			"name": "api/v2/life-stats ERROR: ya existe",
 			"event": [
 				{
 					"listen": "test",
@@ -213,7 +213,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"country\": \"austria\",\r\n\"date\" : 2019,\r\n\"quality_life_index\": 191.05,\r\n\"purchasing_power_index\": 96.7,\r\n\"safety_index\": 78.63\r\n}",
+					"raw": "{\r\n\"country\": \"austria\",\r\n\"date\" : 2017,\r\n\"quality_life_index\": 190.37,\t\t\t\r\n\"purchasing_power_index\": 95.66,\r\n\"safety_index\": 80.75\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -239,7 +239,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats check 2",
+			"name": "api/v2/life-stats check 2",
 			"event": [
 				{
 					"listen": "test",
@@ -291,7 +291,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats/norway/2019 check 3",
+			"name": "api/v2/life-stats/norway/2019 check 3",
 			"event": [
 				{
 					"listen": "test",
@@ -346,7 +346,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats?offset=1&limit=3&date=2019",
+			"name": "api/v2/life-stats?offset=1&limit=3&date=2019",
 			"event": [
 				{
 					"listen": "test",
@@ -393,7 +393,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats/denmark/2019",
+			"name": "api/v2/life-stats/denmark/2019",
 			"event": [
 				{
 					"listen": "test",
@@ -431,7 +431,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats/denmark/2019 check 1",
+			"name": "api/v2/life-stats/denmark/2019 check 1",
 			"event": [
 				{
 					"listen": "test",
@@ -471,7 +471,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats/switzerland/2019",
+			"name": "api/v2/life-stats/switzerland/2019",
 			"event": [
 				{
 					"listen": "test",
@@ -518,7 +518,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats/switzerland/2019 ERROR: peticion mal escrita",
+			"name": "api/v2/life-stats/switzerland/2019 ERROR: peticion mal escrita",
 			"event": [
 				{
 					"listen": "test",
@@ -565,7 +565,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats/switzerland/2019 ERROR",
+			"name": "api/v2/life-stats/switzerland/2019 ERROR",
 			"event": [
 				{
 					"listen": "test",
@@ -602,7 +602,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats ERROR",
+			"name": "api/v2/life-stats ERROR",
 			"event": [
 				{
 					"listen": "test",
@@ -637,7 +637,7 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/life-stats",
+			"name": "api/v2/life-stats",
 			"event": [
 				{
 					"listen": "test",
