@@ -5,9 +5,11 @@
 	import NotFound from "./Pages/NotFound.svelte";
 	import Home from "./Pages/Home.svelte";
 	import Info from "./Pages/Info.svelte";
+	import Integrations from "./Pages/Integrations.svelte"
 	import NatalityAPI from "./front/NatalityStatsAPI/NatalityAPI.svelte";
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
 	import NatalityCharts from "./front/NatalityStatsAPI/NatalityChart.svelte";
+	import NATrestcountries from "./front/NatalityStatsAPI/integrations/Rescountries.svelte"
 	import LifeAPI  from "./front/lifeStatsAPI/App.svelte";
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte"
 	import LifeCharts from "./front/lifeStatsAPI/LifeChart.svelte"
@@ -19,16 +21,18 @@ import CommonChart from './Pages/CommonChart.svelte';
 	const routes = {
 		"/":Home,
 		"/info":Info,
+		"/integrations": Integrations,
 		"/divorce-stats": DivorceAPI,
 		"/divorce-stats/:country/:date":EditDivorceAPI, 
 		"/divorce-stats/divorceCharts": DivorceCharts,
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date":EditNatalityAPI,
 		"/natality-stats/natalityCharts":NatalityCharts,
+		"/integrations/restcountries":NATrestcountries,
 		"/life-stats": LifeAPI, 		
 		"/life-stats/:country/:date": LifeStatEdit,
 		"/life-stats/lifeCharts": LifeCharts,
-		"/common-chart":CommonChart,
+		"/analytics":CommonChart,
 		'*': NotFound};
 </script>
 

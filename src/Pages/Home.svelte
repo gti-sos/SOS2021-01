@@ -55,11 +55,14 @@
   <a href="/#/info">
     <Button color="info">Info</Button>
   </a>
+  <a href="/#/integrations">
+    <Button color="primary">Integraciones</Button>
+  </a>
 </div>
 <div>
   <h2>Análiticas</h2>
-  <a href="/#/common-chart">
-    <Button color="primary">Todas las APIs</Button>
+  <a href="/#/analytics">
+    <Button color="primary">Analiticas</Button>
   </a>
   <a href="/#/divorce-stats/divorceCharts">
     <Button color="secondary">Divorce-stats</Button>

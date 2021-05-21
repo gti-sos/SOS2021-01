@@ -3,6 +3,7 @@ var express = require("express");
 var cool = require("cool-ascii-faces");
 var path = require("path");
 var bodyParser = require('body-parser');
+var request = require("request");
 const { Console } = require("console");
 
 
@@ -33,6 +34,19 @@ natalityStatsAPIv1.register(app);
 natalityStatsAPIv2.register(app);
 DivorceAPIv1.register(app);
 DivorceAPIv2.register(app);
+
+//--------------------------Integraciones----------------------
+//Grupo: 10 sanity-stats
+var pathSanitystats='/sanity-stats';
+var apiServerHostSanitystats = 'https://sanity-integration.herokuapp.com';
+ 
+app.use(pathSanitystats, function(req, res) {
+  var url = apiServerHostSanitystats + req.url;
+  console.log('piped: ' + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+
 //-------------------------------Recurso /cool - F02-----------------------
 app.get("/cool", (request, response) => {
   response.send(cool());
