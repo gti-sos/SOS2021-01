@@ -17,10 +17,28 @@ let natalityChartFertilityRateData = [];
 
 
   var msg = "";
+  async function loadStats() {
+    console.log("Loading data...");
+    const res = await fetch(
+      BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
+    ).then(function (res) {
+      if (res.ok) {
+        getStats();
+        errorMsg = "";
+        console.log("OK");
+      } else {
+        if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
+        }
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
+      }
+    });
+  }
 
   async function loadChart() {
     console.log("Fetching data...");
-
+    await loadStats();
     const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
     
 

@@ -9,8 +9,9 @@
 	import NatalityAPI from "./front/NatalityStatsAPI/NatalityAPI.svelte";
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
 	import NatalityCharts from "./front/NatalityStatsAPI/NatalityChart.svelte";
-	import NATrestcountries from "./front/NatalityStatsAPI/integrations/Rescountries.svelte"
-	import NATvatRates from "./front/NatalityStatsAPI/integrations/vatRates.svelte"
+	import NATrestcountries from "./front/NatalityStatsAPI/integrations/Rescountries.svelte";
+	import NATvatRates from "./front/NatalityStatsAPI/integrations/vatRates.svelte";
+	import NATsanityStats from "./front/NatalityStatsAPI/integrations/SanityStats.svelte";
 	import LifeAPI  from "./front/lifeStatsAPI/App.svelte";
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte"
 	import LifeCharts from "./front/lifeStatsAPI/LifeChart.svelte"
@@ -31,6 +32,7 @@ import CommonChart from './Pages/CommonChart.svelte';
 		"/natality-stats/natalityCharts":NatalityCharts,
 		"/integrations/restcountries":NATrestcountries,
 		"/integrations/vatRates":NATvatRates,
+		"/integrations/sanityStats":NATsanityStats,
 		"/life-stats": LifeAPI, 		
 		"/life-stats/:country/:date": LifeStatEdit,
 		"/life-stats/lifeCharts": LifeCharts,

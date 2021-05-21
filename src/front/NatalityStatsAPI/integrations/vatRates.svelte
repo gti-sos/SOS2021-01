@@ -6,6 +6,7 @@
   var errorMsg = "";
   var okMsg = "";
 
+  
   async function getStats() {
     console.log("Fetching data...");
 

@@ -29,7 +29,8 @@
     <h2>natality-stats integrations</h2>
     
         <a href="/#/integrations/restcountries">restcountries</a>  
-        <a href="/#/integrations/vatRates">vatRates</a>  
+        <a href="/#/integrations/vatRates">vatRates</a>
+        <a href="/#/integrations/sanityStats">sanityStats</a>    
   </div>
 <div>
   <h2>life-stats integrations</h2>
