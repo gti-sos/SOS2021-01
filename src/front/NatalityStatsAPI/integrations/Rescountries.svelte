@@ -7,7 +7,7 @@
   //Uso de API externa restcountries.eu 
 var countries = [];
 var errorMsg = "";
-
+var okMsg ="";
 async function getStats() {
     console.log("Fetching data...");
 
