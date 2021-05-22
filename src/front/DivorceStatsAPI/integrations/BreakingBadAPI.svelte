@@ -43,10 +43,9 @@
                     episodeCharacters += episodeData[characters][character];
                 }
 
-                // only characters with more than 5 appearances
-                if (episodeCharacters > 5) {
+                
                     treeData.push(episodeData);
-                }
+            
             }
 
             return treeData;
