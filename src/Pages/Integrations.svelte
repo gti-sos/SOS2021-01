@@ -38,6 +38,10 @@
 
 <div>
   <h2>divorce-stats integrations</h2>
+
+  <a href="/#/integrations/breakingbad">Breaking Bad character´s API</a>  
+  <a href="/#/integrations/vatRates">vatRates</a>
+  <a href="/#/integrations/sanityStats">sanityStats</a>    
 </div>
 </main>
 
