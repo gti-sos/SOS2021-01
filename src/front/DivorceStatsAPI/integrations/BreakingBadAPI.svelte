@@ -1,5 +1,9 @@
 <script>
     import { Nav, NavItem, NavLink } from "sveltestrap";
+    import * as am4core from "@amcharts/amcharts4/core";
+    import * as am4charts from "@amcharts/amcharts4/charts";
+    import am4themes_dark from "@amcharts/amcharts4/themes/dark";
+    import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
     //API de los personajes de Breaking BAd por episodios
     var episodes = [];
@@ -43,9 +47,7 @@
                     episodeCharacters += episodeData[characters][character];
                 }
 
-                
-                    treeData.push(episodeData);
-            
+                treeData.push(episodeData);
             }
 
             return treeData;
@@ -86,8 +88,6 @@
             }
             return fill;
         });
-
-    
 
         // level1 series template
         var level1SeriesTemplate = chart.seriesTemplates.create("1");
@@ -137,7 +137,8 @@
         </div>
     {/if}
 </main>
-<div id="chartdiv"></div>
+<div id="chartdiv" />
+
 <style>
     body {
         background-color: #30303d;
