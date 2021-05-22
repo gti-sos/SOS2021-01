@@ -25,6 +25,7 @@
     }
 
     am4core.ready(function () {
+        getStats();
         // Themes begin
         am4core.useTheme(am4themes_dark);
         am4core.useTheme(am4themes_animated);
