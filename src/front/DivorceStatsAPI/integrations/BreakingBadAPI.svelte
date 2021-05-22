@@ -137,7 +137,7 @@
         </div>
     {/if}
 </main>
-
+<div id="chartdiv"></div>
 <style>
     body {
         background-color: #30303d;
