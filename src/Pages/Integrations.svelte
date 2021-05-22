@@ -40,8 +40,8 @@
   <h2>divorce-stats integrations</h2>
 
   <a href="/#/integrations/breakingbad">Breaking Bad character´s API</a>  
-  <a href="/#/integrations/vatRates">vatRates</a>
-  <a href="/#/integrations/sanityStats">sanityStats</a>    
+  <a href="/#/integrations/vatRates">Rick and Morty character API</a>
+
 </div>
 </main>
 
