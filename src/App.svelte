@@ -20,7 +20,7 @@
 	import CommonChart from "./Pages/CommonChart.svelte";
 	//import BreakingBadAPI from "./front/DivorceStatsAPI/integrations/BreakingBadAPI.svelte";
 	//import RickandMortyCharactersAPI from "./front/DivorceStatsAPI/integrations/RickandMortyCharactersAPI.svelte";
-
+	import RickandmortyEcharts from "./front/DivorceStatsAPI/integrations/RickandmortyEcharts.svelte";
 	const routes = {
 		"/": Home,
 		"/info": Info,
@@ -36,6 +36,7 @@
 		"/integrations/sanityStats": NATsanityStats,
 		//"/integrations/breakingbad": BreakingBadAPI,
 		//"/integrations/rickandmortyAPI" : RickandMortyCharactersAPI,
+		"/integrations/rickandmortyEcharts" : RickandmortyEcharts,
 		"/life-stats": LifeAPI,
 		"/life-stats/:country/:date": LifeStatEdit,
 		"/life-stats/lifeCharts": LifeCharts,
