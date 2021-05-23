@@ -12,7 +12,9 @@
 
     if (res.ok) {
       const json = await res.json();
-      characters = json;
+      characters = json.results;
+      console.log(Object.keys(json));
+      console.log(Object.keys(characters));
 
       console.log(`We have received ${characters.length} characters.`);
 
@@ -26,18 +28,28 @@
 
   async function onLoad() {
     await getStats();
+    var array = [];
+   
+    characters.forEach(c =>{
+      //console.log(Object.keys(c));
+      
+      console.log(`imprimiendo c ${c}`);
 
-    /*let points = characters.map((d) => {
-      return { x: d.name, y: d.episode.length };
-    });*/
-    let points = [
+      var point ={x: "name", y: null}
+      point.x = c.name
+      point.y = c.episode.length
+
+      array.push(point) 
+    }  )
+
+    /* let points = [
       { x: "A", y: 10 },
       { x: "B", y: 5 },
     ];
-
+ */
     const chart = new JSC.Chart("chartDiv", {
       // Pass points to the series
-      series: [{ points: points }],
+      series: [{ points: array }],
     });
   }
 </script>
