@@ -6,8 +6,9 @@
   //Uso API grupo 10
   const BASE_CONTACT_API_PATH = "/api/v2";
 
-  var sanityStats = [];
+  var platformsStats = [];
   var natalityData = [];
+  var data = [];
   var errorMsg = "";
   var okMsg = "";
 
@@ -49,16 +50,16 @@
     }
   }
 
-  async function getSanityStats() {
+  async function getPlatformsStats() {
     console.log("Fetching data...");
 
-    const res = await fetch("/sanity-stats");
+    const res = await fetch("/api/v1/platforms?platform=Nintendo 3DS");
 
     if (res.ok) {
       const json = await res.json();
-      sanityStats = json;
+      platformsStats = json;
 
-      console.log(`We have received ${sanityStats.length} sanity-stats.`);
+      console.log(`We have received ${platformsStats.length} platforms-stats.`);
 
       console.log("Ok");
     } else {
@@ -68,87 +69,91 @@
     }
   }
 
+  function jsonToMap(j, k, v){
+    var res = new Map()
+    j.forEach((element) => {
+      var key = element[k];
+      var value = element[v];
+      console.log("key: "+key)
+      console.log("value: "+value)
+      if(res.has(key)){
+        var newValue = res.get(key)+value;
+        res.set(key,newValue);
+      }else{
+        res.set(key, value);
+      }
+    });
+    return res;
+  }
 
   async function loadChart() {
     await getStats();
-    await getSanityStats();
+    await getPlatformsStats();
 
-    var xAxis = [];
-    var yAxis = [];
-    var yAxis1 = [];
+    /////////////////////////////////////////
 
+    var data = [];
+    var data1 = [];
+    var template = {
+      x: 0,
+      y: 0
+    };
     //-------------------Sanity-stats
-    console.log("Calculating sanity-stats...");
-    var index = 0;
-    sanityStats.forEach(element => {
-      var e = element.country+"-"+element.year;
-      if (!xAxis.includes(e)){
-        xAxis.push(e);
-        yAxis.push(Math.round(element.health_expenditure_in_percentage));
-        index++;
-        console.log("X: "+xAxis);
-        console.log("Y: "+yAxis);
-      }
-    });
+    console.log("Calculating platforms-stats...");
+    var result = jsonToMap(platformsStats, "year","sold-unit");
+    
+    console.log(result);
+    for (let [key, value] of result) {
+      data.push({
+        x: parseInt(key),
+        y: parseInt(value)
+      });
+    }
+    
+    
+
+
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     console.log("Calculating natality-stats...");
-    natalityData.forEach(element => {
-      var e = element.country+"-"+element.date;
-      if (!xAxis.includes(e)){
-        if(element["natality-rate"]!=undefined){
-          console.log("natalite-rite "+element["natality-rate"]);
-          xAxis.push(e);
-        yAxis.push(Math.round(element["natality-rate"]));
-        console.log("X: "+xAxis);
-        console.log("Y: "+yAxis);
-        }
-        
-      }
-    });
-
-    var yAxis1 = [];
-    for (let i = 0; i < index; i++) {
-      yAxis1.push(0);    
-    }
-    var copy = yAxis.slice(index,yAxis.lengt);
-  for (let i = 0; i < copy.length; i++) {
-    yAxis1.push(copy[i]);
+    var result1 = jsonToMap(natalityData, "date","born");
     
-  }
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log("X: "+xAxis.length);
-    console.log("Y: "+yAxis.length);
-    console.log("X-Sanity: "+xAxis.slice(0,index));
-    console.log("X-Natality: "+xAxis.slice(index,yAxis.length));
-    console.log("Y-Sanity: "+yAxis.slice(0,index));
-    console.log("Y-Natality: "+yAxis.slice(index,yAxis.length));
-    console.log("index: "+index);
-
-
+    console.log(result1);
+    for (let [key, value] of result1) {
+      data1.push({
+        x: parseInt(key),
+        y: parseInt(value)
+      });
+    }
+   
 
     var ctx = document.getElementById("myChart").getContext("2d");
 
     var myChart = new Chart(ctx, {
-      
-      data: {
-        
+      type: "scatter",
+      data:{
+        label: 'Scatter Dataset',
         datasets: [
-          {
-            type: 'line',
-            label: "Gasto en sanidad (%)",
-            data: yAxis.slice(0,index),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)'
-          
+        {
+          label: "Consolas Nintendo 3DS por año",
+          data: data,
+          backgroundColor: "rgba(255, 0,0, 1)",
+        }, {
+          label: "Nacidos por año",
+          data: data1,
+          backgroundColor: "rgba(0,0,255, 1)",
+        }],
+      },
+      
+      options: {
+        scales: {
+          x: {
+            type: "linear",
+            position: "bottom",
+            ticks: {
+            stepSize: 1
+            }
           },
-          {
-            type: 'bar',
-            label: "Ratio de natalidad (%)",
-            data: yAxis1,
-            borderColor: 'rgb(54, 162, 235)'
-          },
-        ],
-        labels: xAxis
+        },
       },
     });
   }
@@ -171,7 +176,7 @@
   </Nav>
 
   <div>
-    <h2>Integración API SOS sanity-stats</h2>
+    <h2>Integración API SOS platform-stats</h2>
   </div>
 
   {#if errorMsg}

@@ -46,7 +46,7 @@ app.use(pathSanitystats, function(req, res) {
   req.pipe(request(url)).pipe(res);
 });
 
-//Vat Rates external API
+//CoinCap external API
 var pathCoins='/v2/assets';
 var apiServerHostCoins = "https://api.coincap.io";
  
@@ -56,6 +56,15 @@ app.use(pathCoins, function(req, res) {
   req.pipe(request(url)).pipe(res);
 });
 
+//Grupo: 28 platforms
+var pathCoins='/api/v1/platforms';
+var apiServerHostCoins = "https://sos2021-28.herokuapp.com";
+ 
+app.use(pathCoins, function(req, res) {
+  var url = apiServerHostCoins + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
 
 
 

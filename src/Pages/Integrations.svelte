@@ -43,7 +43,10 @@
         ><Button color="primary">coinCap</Button></a
       >
       <a href="/#/integrations/sanityStats">
-        <Button color="primary">anityStats</Button></a
+        <Button color="primary">sanityStats</Button></a
+      >
+      <a href="/#/integrations/platformsStats">
+        <Button color="primary">platformsStats</Button></a
       >
     </CardBody>
   </Card>
