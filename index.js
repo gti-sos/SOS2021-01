@@ -2,6 +2,7 @@
 var express = require("express");
 var cool = require("cool-ascii-faces");
 var path = require("path");
+var cors = require("cors");
 var bodyParser = require('body-parser');
 var request = require("request");
 const { Console } = require("console");
@@ -26,6 +27,7 @@ var port = process.env.PORT || 10000;
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cors());
 
 //--------------------------Server-APIs----------------------
 lifeAPIv1.register(app);
