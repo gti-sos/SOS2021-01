@@ -80,7 +80,9 @@
       <a href="/#/integrations/rickandmortyAPI"
         ><Button color="primary">Rick and Morty character API</Button></a
       >
-    
+      <a href="/#/integrations/divorceandairdeathsintegration"
+      ><Button color="primary">Divorce and Air Pollution´s Deaths Integration</Button></a
+    >
     </CardBody>
   </Card>
 </div>

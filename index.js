@@ -38,6 +38,8 @@ DivorceAPIv1.register(app);
 DivorceAPIv2.register(app);
 
 //--------------------------Integraciones----------------------
+
+//--------------------------------------------Proxys de Abraham------------------------------------------------------
 //Grupo: 10 sanity-stats
 var pathSanitystats='/sanity-stats';
 var apiServerHostSanitystats = 'https://sanity-integration.herokuapp.com';
@@ -55,6 +57,70 @@ var apiServerHostCoins = "https://sos2021-28.herokuapp.com";
  
 app.use(pathCoins, function(req, res) {
   var url = apiServerHostCoins + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+
+
+//----------------------------------------------Proxys de Juan---------------------------------------------------- 
+
+//Grupo 02: Oil production, Nuts production and Wine production
+var apiServerHostG02 = "https://sos2021-02.herokuapp.com";
+var pathOil = "/api/v2/oil-production-stats";
+var pathNuts ="/api/v2/nuts-production-stats";
+var pathWine = "/api/v2/wine-production-stats";
+
+app.use(pathOil, function(req, res) {
+  var url = apiServerHostG02 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+app.use(pathNuts, function(req, res) {
+  var url = apiServerHostG02 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+app.use(pathWine, function(req, res) {
+  var url = apiServerHostG02 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+//Grupo 10: Obesity stats and food consumption 
+
+var apiServerHostG10 = "https://sos2021-10.herokuapp.com";
+var pathObesity = "/api/v2/obesity-stats";
+var pathFoodConsumption ="/api/v2/foodconsumption-stats";
+
+app.use(pathObesity, function(req, res) {
+  var url = apiServerHostG10 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+app.use(pathFoodConsumption, function(req, res) {
+  var url = apiServerHostG10 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+//Grupo 03: Air´s pollution deaths
+
+var apiServerHostG03 = "https://sos2021-03.herokuapp.com";
+var pathAirPollution = "/api/v1/air-pollution";
+
+app.use(pathAirPollution, function(req, res) {
+  var url = apiServerHostG03 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+//Grupo 07: Unemployment
+var apiServerHostG07 = "https://sos2021-07.herokuapp.com";
+var pathUnemployment = "/api/v1/unemployment";
+
+app.use(pathUnemployment, function(req, res) {
+  var url = apiServerHostG07 + req.baseUrl + req.url;
   console.log('piped: ' + req.baseUrl + req.url);
   req.pipe(request(url)).pipe(res);
 });
