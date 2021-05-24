@@ -11,7 +11,7 @@
   async function getStats() {
     console.log("Fetching data...");
 
-    const res = await fetch("/v2/assets");
+    const res = await fetch("https://api.coincap.io/v2/assets");
 
     if (res.ok) {
       const json = await res.json();
