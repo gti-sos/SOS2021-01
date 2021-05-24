@@ -11,6 +11,7 @@
 	import NATrestcountries from "./front/NatalityStatsAPI/integrations/Rescountries.svelte";
 	import NATcoinCap from "./front/NatalityStatsAPI/integrations/coinCap.svelte";
 	import NATsanityStats from "./front/NatalityStatsAPI/integrations/SanityStats.svelte";
+	import NATplatformsStats from "./front/NatalityStatsAPI/integrations/PlatformStats.svelte";
 	import LifeAPI from "./front/lifeStatsAPI/App.svelte";
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte";
 	import LifeCharts from "./front/lifeStatsAPI/LifeChart.svelte";
@@ -36,7 +37,12 @@
 		"/integrations/restcountries": NATrestcountries,
 		"/integrations/coinCap": NATcoinCap,
 		"/integrations/sanityStats": NATsanityStats,
+<<<<<<< HEAD
 		"/integrations/breakingbad": BreakingBadAPI,
+=======
+		"/integrations/platformsStats": NATplatformsStats,
+		//"/integrations/breakingbad": BreakingBadAPI,
+>>>>>>> 9603f3d5eeb25f72eb12f74ecc0a85d08857ffcb
 		//"/integrations/rickandmortyAPI" : RickandMortyCharactersAPI,
 		//"/integrations/rickandmortyEcharts" : RickandmortyEcharts,
 		"/integrations/rickandmortyAPI" : RickandMortyCharactersAPI,
