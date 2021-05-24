@@ -18,7 +18,7 @@
 	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
 	import DivorceCharts from "./front/DivorceStatsAPI/DivorceChart.svelte";
 	import CommonChart from "./Pages/CommonChart.svelte";
-	//import BreakingBadAPI from "./front/DivorceStatsAPI/integrations/BreakingBadAPI.svelte";
+	import BreakingBadAPI from "./front/DivorceStatsAPI/integrations/BreakingBadAPI.svelte";
 	//import RickandMortyCharactersAPI from "./front/DivorceStatsAPI/integrations/RickandMortyCharactersAPI.svelte";
 	//import RickandmortyEcharts from "./front/DivorceStatsAPI/integrations/RickandmortyEcharts.svelte";
 	import RickandMortyCharactersAPI from "./front/DivorceStatsAPI/integrations/RickandMortyCharactersAPI.svelte";
@@ -36,7 +36,7 @@
 		"/integrations/restcountries": NATrestcountries,
 		"/integrations/coinCap": NATcoinCap,
 		"/integrations/sanityStats": NATsanityStats,
-		//"/integrations/breakingbad": BreakingBadAPI,
+		"/integrations/breakingbad": BreakingBadAPI,
 		//"/integrations/rickandmortyAPI" : RickandMortyCharactersAPI,
 		//"/integrations/rickandmortyEcharts" : RickandmortyEcharts,
 		"/integrations/rickandmortyAPI" : RickandMortyCharactersAPI,

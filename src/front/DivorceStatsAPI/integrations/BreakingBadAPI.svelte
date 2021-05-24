@@ -1,11 +1,8 @@
 <script>
-    import { Nav, NavItem, NavLink } from "sveltestrap";
-    import * as am4core from "@amcharts/amcharts4/core";
-    import * as am4charts from "@amcharts/amcharts4/charts";
-    import am4themes_dark from "@amcharts/amcharts4/themes/dark";
-    import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+    import { CardText, Nav, NavItem, NavLink } from "sveltestrap";
+import CommonChart from "../../../Pages/CommonChart.svelte";
 
-    //API de los personajes de Breaking BAd por episodios
+    //Uso de API externa rick and morty
     var episodes = [];
     var errorMsg = "";
     var okMsg = "";
@@ -18,101 +15,148 @@
             const json = await res.json();
             episodes = json;
 
+            //console.log(Object.keys(json));
+            //console.log(Object.keys(episodes));
+
             console.log(`We have received ${episodes.length} episodes.`);
 
             console.log("Ok");
         } else {
-            errorMsg = "Error al obtener los datos de los episodios";
+            errorMsg = "Error al obtener los  datos de los personajes";
             okMsg = "";
             console.log("ERROR!" + errorMsg);
         }
     }
 
-    am4core.ready(function () {
-        getStats();
-        // Themes begin
-        am4core.useTheme(am4themes_dark);
-        am4core.useTheme(am4themes_animated);
-        // Themes end
+    async function onLoad() {
+        await getStats();
+        var array = [];
 
-        function processData(episodes) {
-            var treeData = [];
+        var totalCharactersS1=0;
+        var totalCharactersS2=0;
+        var totalCharactersS3=0;
+        var totalCharactersS4=0;
+        var totalCharactersS5=0;
 
-            var irrelevantCharacters = { name: "Other", children: [] };
+        var numEpisodes = [0,0,0,0,0]
 
-            for (var episode in episodes) {
-                var episodeData = { name: episode_id, children: [] };
-                var episodeCharacters = 0;
-                for (var character in episodeData[characters]) {
-                    episodeCharacters += episodeData[characters][character];
-                }
+        var point = { x: "name", y: "number of episodes" , z: null}; // y=number of characters per season 
 
-                treeData.push(episodeData);
-            }
 
-            return treeData;
-        }
+        episodes.forEach((c) => {
+            //console.log(Object.values(c));
 
-        // create chart
-        var chart = am4core.create("chartdiv", am4charts.TreeMap);
-        chart.padding(0, 0, 0, 0);
-        chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
 
-        // only one level visible initially
-        chart.maxLevels = 2;
-        // define data fields
-        chart.dataFields.value = "count";
-        chart.dataFields.name = "name";
-        chart.dataFields.children = "children";
-        chart.homeText = "Breaking Bad character´s appearance by episodes";
+            console.log(`imprimiendo c ${Object.keys(c)}`);
 
-        // enable navigation
-        chart.navigationBar = new am4charts.NavigationBar();
-        chart.zoomable = false;
+            
+           switch( c.season ){
+               case "1" :
+                   totalCharactersS1 += c.characters.length;
+                   numEpisodes[0]= numEpisodes[0]+1;
+                   break;
+                case "2" :
+                   totalCharactersS2+= c.characters.length;
+                   numEpisodes[1] = numEpisodes[1]+1;
+                   break;
+                case "3" :
+                   totalCharactersS3+= c.characters.length;
+                   numEpisodes[2]= numEpisodes[2]+1;
+                   break;
+                case "4" :
+                   totalCharactersS4+= c.characters.length;
+                   numEpisodes[3]= numEpisodes[3]+1;
+                   break;
+                case "5" :
+                   totalCharactersS5+= c.characters.length;
+                   numEpisodes[4] = numEpisodes[4] +1;
+                   break;
+           }
 
-        // level 0 series template
-        var level0SeriesTemplate = chart.seriesTemplates.create("0");
-        level0SeriesTemplate.strokeWidth = 2;
-
-        // by default only current level series bullets are visible, but as we need brand bullets to be visible all the time, we modify it's hidden state
-        level0SeriesTemplate.bulletsContainer.hiddenState.properties.opacity = 1;
-        level0SeriesTemplate.bulletsContainer.hiddenState.properties.visible = true;
-        // create hover state
-        var columnTemplate = level0SeriesTemplate.columns.template;
-        var hoverState = columnTemplate.states.create("hover");
-
-        // darken
-        hoverState.adapter.add("fill", function (fill, target) {
-            if (fill instanceof am4core.Color) {
-                return am4core.color(am4core.colors.brighten(fill.rgb, -0.2));
-            }
-            return fill;
         });
+        for ( var i = 0; i < 5; i++){
 
-        // level1 series template
-        var level1SeriesTemplate = chart.seriesTemplates.create("1");
-        level1SeriesTemplate.columns.template.fillOpacity = 0;
-        level1SeriesTemplate.columns.template.strokeOpacity = 0.4;
+            var point = { x: "name", y: "number of episodes" , z: null}; // y=number of characters per season
 
-        var bullet1 = level1SeriesTemplate.bullets.push(
-            new am4charts.LabelBullet()
-        );
-        bullet1.locationX = 0.5;
-        bullet1.locationY = 0.5;
-        bullet1.label.text = "{name}";
-        bullet1.label.fill = am4core.color("#ffffff");
-        bullet1.label.fontSize = 9;
-        bullet1.label.fillOpacity = 0.7;
+            switch( i ){
+               case 0 :
+               point.x = "season 1"
+               point.y = numEpisodes[0];
+               point.z = totalCharactersS1;
+                   break;
+                case 1 :
+                point.x = "season 2"
+                point.y = numEpisodes[1];              
+                point.z = totalCharactersS2;
+                   break;
+                case 2 :
+                point.x = "season 3"
+                point.y = numEpisodes[2];
+                point.z = totalCharactersS3;
+                   break;
+                case 3 :
+                point.x = "season 4"
+                point.y = numEpisodes[3]
+                point.z = totalCharactersS4;
 
-        chart.data = processData(episodes);
-    }); // end am4core.ready()
+                   break;
+                case 4 :
+                point.x = "season 5"
+                point.y = numEpisodes[4];
+                point.z = totalCharactersS5;
+
+                   break;
+           }
+           
+           console.log(Object.values(point));
+           console.log(array);
+           array.push(point);
+
+        }
+        /* let points = [
+        { x: "A", y: 10 },
+        { x: "B", y: 5 },
+      ];
+   */
+   var chart = JSC.chart('chartDiv', {
+        debug: true,
+        //title_label_text: 'Breaking Bad characters per season',
+        legend_visible: false,
+        
+        
+        defaultSeries: {
+          type: 'pie donut',
+          shape: {
+            innerSize: '30%',
+            padding: 0.005,
+            offset: '1,80'
+          }
+        },
+        yAxis_label_text: 'Number of episodes in this season',
+        zAxis_label_text: 'Number of characters in this season',
+        defaultAnnotation: { label_style: { fontSize: '400px' } },
+    
+         
+        series: [
+          {
+            name: 'total of character in the serie ',
+            points: array
+              
+          }
+            ]
+        
+      });
+      
+   
+
+    }
 </script>
 
 <svelte:head>
-    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script
+    type="text/javascript" src="https://code.jscharting.com/latest/jscharting.js"
+        on:load={onLoad}></script>
+        
 </svelte:head>
 
 <main>
@@ -126,26 +170,20 @@
     </Nav>
 
     <div>
-        <h2>Uso API externa de los personajes de la serie Breaking Bad</h2>
+        <h2>Uso API externa Breaking Bad </h2>
+        <CardText> Representacón del número de personajes total que aparecen en cada temporada de la serie Breaking Bad</CardText>
     </div>
 
     {#if errorMsg}
         <p>{errorMsg}</p>
     {:else}
-        <div>
-            <canvas id="chart" />
-        </div>
+        <div id="chartDiv"  />
     {/if}
 </main>
-<div id="chartdiv" />
 
 <style>
-    body {
-        background-color: #30303d;
-        color: #fff;
-    }
-    #chartdiv {
+    #chartDiv {
         width: 100%;
-        height: 700px;
+        height: 400px;
     }
 </style>
