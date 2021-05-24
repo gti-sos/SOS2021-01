@@ -1,8 +1,9 @@
 <script>
   import { Nav, NavItem, NavLink } from "sveltestrap";
-  //Uso de API externa restcountries.eu
-  var countries = [];
-  var standardRates = [];
+  //Uso de API externa coincap.io
+  var coins = [];
+  var coinsName = [];
+  var coinsValue = [];
   var errorMsg = "";
   var okMsg = "";
 
@@ -10,21 +11,26 @@
   async function getStats() {
     console.log("Fetching data...");
 
-    const res = await fetch("/rates.json");
+    const res = await fetch("/v2/assets");
 
     if (res.ok) {
       const json = await res.json();
-
-      Object.keys(json.rates).forEach(function (key) {
-        countries.push(json.rates[key].country);
-        standardRates.push(json.rates[key].standard_rate)
+  
+      json.data.forEach(element => {
+        coinsName.push(element.symbol);
+        coinsValue.push(element.priceUsd);
       });
 
-      console.log(`We have received ${countries.length} countries.`);
+      /* Object.keys(json.rates).forEach(function (key) {
+        coinsName.push(json.rates[key].country);
+        coinsValue.push(json.rates[key].standard_rate)
+      });
+ */
+    
 
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de vatRates";
+      errorMsg = "Error recuperando datos de coinCap";
       okMsg = "";
       console.log("ERROR!" + errorMsg);
     }
@@ -33,20 +39,16 @@
   async function loadChart() {
     await getStats();
 
-    var ctx = document.getElementById("myChart").getContext("2d");
-
-    var xAxis = countries;
-    var yAxis = standardRates;
- 
+    var ctx = document.getElementById("myChart").getContext("2d"); 
 
     var myChart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: xAxis,
+        labels: coinsName,
         datasets: [
           {
-            label: "% IVA de países europeos",
-            data: yAxis,
+            label: "Precio en USD de criptomonedas",
+            data: coinsValue,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
               "rgba(54, 162, 235, 0.2)",
@@ -95,7 +97,7 @@
   </Nav>
 
   <div>
-    <h2>Uso API externa euvatrates.com</h2>
+    <h2>Uso API externa coinCap.io</h2>
   </div>
 
   {#if errorMsg}

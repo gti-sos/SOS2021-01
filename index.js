@@ -47,12 +47,12 @@ app.use(pathSanitystats, function(req, res) {
 });
 
 //Vat Rates external API
-var pathVatRates='/rates.json';
-var apiServerHostVatRates = "https://euvatrates.com";
+var pathCoins='/v2/assets';
+var apiServerHostCoins = "https://api.coincap.io";
  
-app.use(pathVatRates, function(req, res) {
-  var url = apiServerHostVatRates + req.baseUrl;
-  console.log('piped: ' + req.baseUrl);
+app.use(pathCoins, function(req, res) {
+  var url = apiServerHostCoins + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
   req.pipe(request(url)).pipe(res);
 });
 

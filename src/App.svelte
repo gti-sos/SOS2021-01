@@ -9,7 +9,7 @@
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
 	import NatalityCharts from "./front/NatalityStatsAPI/NatalityChart.svelte";
 	import NATrestcountries from "./front/NatalityStatsAPI/integrations/Rescountries.svelte";
-	import NATvatRates from "./front/NatalityStatsAPI/integrations/vatRates.svelte";
+	import NATcoinCap from "./front/NatalityStatsAPI/integrations/coinCap.svelte";
 	import NATsanityStats from "./front/NatalityStatsAPI/integrations/SanityStats.svelte";
 	import LifeAPI from "./front/lifeStatsAPI/App.svelte";
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte";
@@ -34,7 +34,7 @@
 		"/natality-stats/:country/:date": EditNatalityAPI,
 		"/natality-stats/natalityCharts": NatalityCharts,
 		"/integrations/restcountries": NATrestcountries,
-		"/integrations/vatRates": NATvatRates,
+		"/integrations/coinCap": NATcoinCap,
 		"/integrations/sanityStats": NATsanityStats,
 		//"/integrations/breakingbad": BreakingBadAPI,
 		//"/integrations/rickandmortyAPI" : RickandMortyCharactersAPI,
