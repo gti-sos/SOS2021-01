@@ -121,6 +121,8 @@
                 },
             ],
         }); */
+        
+        //eliminando los elementos repetidos 
         var hash = {};
         divorceStats = divorceStats.filter(function (current) {
             var exists = !hash[current.country];
@@ -139,10 +141,16 @@
         divorceStats.forEach((c) => {
             var dato = [];
 
+            console.log("imprimiendo el pais a añadir",c.country);
+
             dato.push(c.country);
+            
             console.log(parseFloat(-c["divorce-rate"]));
             dato.push(parseFloat(-c["divorce-rate"]));
-            arrayChartDivorces.push(dato);
+
+            arrayChartDivorces.push(dato)
+
+            console.log(arrayChartDivorces);
         });
 
         deathStats.forEach((c) => {
