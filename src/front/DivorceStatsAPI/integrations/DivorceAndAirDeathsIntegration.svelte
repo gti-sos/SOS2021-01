@@ -66,7 +66,9 @@
                 DivorceRate: null,
                 AirDeaths: null,
             };
-            data.country = c.country;
+            var pais = c.country.toString.toLowerCase();
+            pais.charAt(0).toUpperCase();
+            data.country = pais;
             data.year = c.date;
             data.DivorceRate = c["divorce-rate"];
 
@@ -90,7 +92,9 @@
                 }
             }
             if (exists != 1) {
-                data.country = c.country;
+                var pais = c.country.toString.toLowerCase();
+                pais.charAt(0).toUpperCase();
+                data.country = pais;
                 data.year = c.year;
                 data.AirDeaths = c.deaths_air_pollution;
                 array.push(data);
@@ -121,8 +125,8 @@
                 },
             ],
         }); */
-        
-        //eliminando los elementos repetidos 
+
+        //eliminando los elementos repetidos
         var hash = {};
         divorceStats = divorceStats.filter(function (current) {
             var exists = !hash[current.country];
@@ -141,14 +145,14 @@
         divorceStats.forEach((c) => {
             var dato = [];
 
-            console.log("imprimiendo el pais a añadir",c.country);
+            console.log("imprimiendo el pais a añadir", c.country);
 
             dato.push(c.country);
-            
+
             console.log(parseFloat(-c["divorce-rate"]));
             dato.push(parseFloat(-c["divorce-rate"]));
 
-            arrayChartDivorces.push(dato)
+            arrayChartDivorces.push(dato);
 
             console.log(arrayChartDivorces);
         });
