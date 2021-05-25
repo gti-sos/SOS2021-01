@@ -11,7 +11,11 @@
 			<NavLink href="/">Página Principal</NavLink>
 			</NavItem>
 			<NavItem>
-			<NavLink href="#/life-stats/lifeCharts">Analíticas</NavLink>
+			<NavLink href="#/life-stats/lifeCharts">Analítica line highchart</NavLink>
+			</NavItem>
+			
+			<NavItem>
+				<NavLink href="#/life-stats/lifeCharts2">Analítica bubble highchart</NavLink>
 			</NavItem>
 		</Nav>
 	</div>
