@@ -101,6 +101,10 @@
       <a href="/#/integrations/divorceandairdeathsintegration"
       ><Button color="primary">Divorce and Air Pollution´s Deaths Integration</Button></a
     >
+    <a href="/#/integrations/DivorceAndFoodConsumptionIntegration"
+      ><Button color="primary">Divorce and Food Consumption Integration</Button></a
+    >
+    
     </CardBody>
   </Card>
 </div>
