@@ -127,8 +127,8 @@
             var dato = [];
 
                 dato.push(c.country);
-                console.log(c["divorce-rate"].toString());
-                dato.push(-c["divorce-rate"]);
+                console.log(parseInt(-c["divorce-rate"]));
+                dato.push(parseInt(-c["divorce-rate"]));
                 arrayChartDivorces.push(dato)
             
         });
