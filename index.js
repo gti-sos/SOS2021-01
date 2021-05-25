@@ -71,6 +71,16 @@ app.use(pathUnemployment, function(req, res) {
   req.pipe(request(url)).pipe(res);
 });
 
+//Grupo: 04 illiteracy
+var pathUnemployment='/api/v1/illiteracy';
+var apiServerHostUnemployment = "https://sos2021-04.herokuapp.com";
+ 
+app.use(pathUnemployment, function(req, res) {
+  var url = apiServerHostUnemployment + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
 
 //Vat Rates external API
 var pathVatRates='/rates.json';

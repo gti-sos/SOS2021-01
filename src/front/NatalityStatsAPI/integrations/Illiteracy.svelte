@@ -6,17 +6,44 @@
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   let natalityData = [];
-  let natalityChartData = [];
+  var illiteracyData = [];
 
-let natalityChartCountryDateData = [];
-let natalityChartBornData = [];
-let natalityChartMenBornData = [];
-let natalityChartWomenBornData = [];
-let natalityChartNatalityRateData = [];
-let natalityChartFertilityRateData = [];
+  var errorMsg = "";
+  var okMsg = "";
 
+  function jsonToMap(j, k, v) {
+    var res = new Map();
+    j.forEach((element) => {
+      var key = element[k];
+      var value = element[v];
+      if (res.has(key)) {
+        var newValue = res.get(key) + value;
+        res.set(key, newValue);
+      } else {
+        res.set(key, value);
+      }
+    });
+    return res;
+  }
 
-  var msg = "";
+  async function loadApi() {
+    console.log("Loading data...");
+    const res = await fetch("/api/v1/illiteracy/loadInitialData").then(
+      function (res) {
+        if (res.ok) {
+          errorMsg = "";
+          console.log("OK");
+        } else {
+          if (res.status === 500) {
+            errorMsg = "No se ha podido acceder a la base de datos";
+          }
+          okMsg = "";
+          console.log("ERROR!" + errorMsg);
+        }
+      }
+    );
+  }
+
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -36,108 +63,160 @@ let natalityChartFertilityRateData = [];
     });
   }
 
-  async function loadChart() {
+  async function getStats() {
     console.log("Fetching data...");
     await loadStats();
     const res = await fetch(BASE_CONTACT_API_PATH + "/natality-stats");
-    
 
     if (res.ok) {
       console.log("OK");
       natalityData = await res.json();
-      natalityData.forEach(stat => {
-      natalityChartCountryDateData.push(stat.country+"-"+stat.date);
-      natalityChartBornData.push(stat.born);
-      natalityChartMenBornData.push(stat["men-born"]);
-      natalityChartWomenBornData.push(stat["women-born"]);
-      natalityChartNatalityRateData.push(stat["natality-rate"]);
-      natalityChartFertilityRateData.push(stat["fertility-rate"]); 
-      msg="";
-      });
-    }else{
-      console.log("Error");
-      msg = "Por favor primero cargue los datos de la API";
-    }
-    
-    console.log("Natality Chart DaTa: " + natalityChartData);
 
+      okMsg = "";
+      console.log(`We have received ${natalityData.length} natality-stats.`);
+    } else {
+      console.log("Error");
+      errorMsg = "Error al cargar los datos de la API";
+    }
+  }
+
+  async function getIlliteracyData() {
+    console.log("Fetching data...");
+    await loadApi();
+    const res = await fetch("/api/v1/illiteracy");
+
+    if (res.ok) {
+      const json = await res.json();
+      illiteracyData = json;
+
+      console.log(
+        `We have received ${illiteracyData.length} illiteracy-stats.`
+      );
+
+      console.log("Ok");
+    } else {
+      errorMsg = "Error recuperando datos de poverty-risks";
+      okMsg = "";
+      console.log("ERROR!" + errorMsg);
+    }
+  }
+  function commonValues(dataset1, dataset2) {
+    var data1 = dataset1.map(function (v) {
+      return v.toLowerCase();
+    });
+    var data2 = dataset2.map(function (v) {
+      return v.toLowerCase();
+    });
+    return data1.filter((value) => data2.includes(value));
+  }
+
+  function capitalLetters(dataset) {
+    for (let index = 0; index < dataset.length; index++) {
+      var str = dataset[index];
+      var space = str.indexOf(" ");
+      if (str.indexOf(" ") !== -1) {
+        dataset[index] =
+          str.charAt(0).toUpperCase() +
+          str.substr(1, space) +
+          str.charAt(space + 1).toUpperCase() +
+          str.substr(space + 2, str.length);
+      } else {
+        dataset[index] = str.charAt(0).toUpperCase() + str.substr(1);
+      }
+    }
+  }
+
+  async function loadChart() {
+    await getStats();
+    await getIlliteracyData();
+
+    var result = jsonToMap(illiteracyData, "country", "adult_illiteracy_rate");
+    var result1 = jsonToMap(natalityData, "country", "natality-rate");
+
+    var commonCountries = commonValues(
+      Array.from(result.keys()),
+      Array.from(result1.keys())
+    );
+
+    var template = {
+      name: "",
+      data: [],
+    };
+
+    var data = [];
+
+    var countriesWithCapitalLetter = commonValues(
+      Array.from(result.keys()),
+      Array.from(result1.keys())
+    );
+    capitalLetters(countriesWithCapitalLetter);
+
+    console.log("capitalletter country " + countriesWithCapitalLetter);
+    console.log("common countries: " + commonCountries);
+
+   
+    var arrayAux = [];
+    for (let j = 0; j < countriesWithCapitalLetter.length; j++) {
+      var c = countriesWithCapitalLetter[j];
+      arrayAux.push(result.get(c));
+      console.log("templatedata " + arrayAux);
+    }
+    data.push({
+name: "Alfabetizacion de adultos",
+data: arrayAux
+    });
+    arrayAux = [];
+    for (let j = 0; j < commonCountries.length; j++) {
+      var c = commonCountries[j];
+      arrayAux.push(result1.get(c));
+    }
+    data.push({
+name:"Ratio de natalidad",
+data: arrayAux
+    });
+
+    console.log(data);
     Highcharts.chart("container", {
-      title: {
-        text: "natality-stats",
+      chart: {
+        type: "bar",
       },
-      yAxis: {
-        title: {
-          text: "Valor",
-        },
+      title: {
+        text: "Ratio de natalidad y tasa de alfabetización de adultos",
       },
       xAxis: {
+        categories: commonCountries,
         title: {
-          text: "País-Año",
+          text: null,
         },
-        categories: natalityChartCountryDateData,
+      },
+     
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true,
+          },
+        },
       },
       legend: {
         layout: "vertical",
         align: "right",
-        verticalAlign: "middle",
+        verticalAlign: "top",
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFF",
+        shadow: true,
       },
-      annotations: [
-        {
-          labels: [
-            {
-              point: "date",
-              text: "",
-            },
-            {
-              point: "min",
-              text: "Min",
-              backgroundColor: "white",
-            },
-          ],
-        },
-      ],
-      series: [
-        {
-          name: "Nacimientos",
-          data: natalityChartBornData,
-        },
-        {
-          name: "Hombres nacidos",
-          data: natalityChartMenBornData,
-        },
-        {
-          name: "Mujeres nacidas",
-          data: natalityChartWomenBornData,
-        },
-        {
-          name: "Ratio de natalidad (%)",
-          data: natalityChartNatalityRateData,
-        },
-        {
-          name: "Ratio de fertilidad (%)",
-          data: natalityChartFertilityRateData,
-        }
-        
-      ],
-      responsive: {
-        rules: [
-          {
-            condition: {
-              maxWidth: 500,
-            },
-            chartOptions: {
-              legend: {
-                layout: "horizontal",
-                align: "center",
-                verticalAlign: "bottom",
-              },
-            },
-          },
-        ],
+      credits: {
+        enabled: false,
       },
+      series: data,
     });
   }
 </script>
+
 <svelte:head>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -153,24 +232,19 @@ let natalityChartFertilityRateData = [];
       <NavLink href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="#/natality-stats">Datos</NavLink>
+      <NavLink href="/#/integrations/">volver</NavLink>
     </NavItem>
   </Nav>
 
   <div>
-    <h2>
-      Análiticas
-    </h2>
+    <h2>Integración API SOS illiteracy</h2>
   </div>
 
-  {#if msg}
-    <p>{msg}</p>
+  {#if errorMsg}
+    <p>{errorMsg}</p>
   {:else}
     <figure class="highcharts-figure">
       <div id="container" />
-      <p class="highcharts-description">
-        Gráfico de líneas básico que muestra los diferentes valores para los campos de natality-stats.
-      </p>
     </figure>
   {/if}
 </main>
@@ -181,27 +255,18 @@ let natalityChartFertilityRateData = [];
     padding: 1em;
     margin: 0 auto;
   }
-  div{
+  div {
     margin-bottom: 15px;
-  }
-  p {
-    display: inline;
-  }
-  .msgRed {
-    padding: 8px;
-
-    background-color: #f8d7da;
-  }
-  .msgGreen {
-    padding: 8px;
-
-    background-color: #d4edda;
   }
   .highcharts-figure,
   .highcharts-data-table table {
-    min-width: 360px;
+    min-width: 310px;
     max-width: 800px;
     margin: 1em auto;
+  }
+
+  #container {
+    height: 400px;
   }
 
   .highcharts-data-table table {

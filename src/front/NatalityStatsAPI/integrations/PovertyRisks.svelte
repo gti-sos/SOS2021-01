@@ -9,6 +9,23 @@
   var errorMsg = "";
   var okMsg = "";
 
+  async function loadApi(){
+    console.log("Loading data...");
+    const res = await fetch(
+      "https://endpoint-poverty-risks.herokuapp.com/api/v1/loadInitialData"
+    ).then(function (res) {
+      if (res.ok) {
+        errorMsg = "";
+        console.log("OK");
+      } else {
+        if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
+        }
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
+      }
+    });
+  }
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -16,9 +33,7 @@
     ).then(function (res) {
       if (res.ok) {
         getStats();
-
         errorMsg = "";
-        okMsg = "Datos cargados correctamente";
         console.log("OK");
       } else {
         if (res.status === 500) {
@@ -49,7 +64,7 @@
 
   async function getPovertyData() {
     console.log("Fetching data...");
-
+    await loadApi();
     const res = await fetch(
       "https://endpoint-poverty-risks.herokuapp.com/api/v1/"
     );
