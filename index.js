@@ -52,14 +52,25 @@ app.use(pathSanitystats, function(req, res) {
 
 
 //Grupo: 28 platforms
-var pathCoins='/api/v1/platforms';
-var apiServerHostCoins = "https://sos2021-28.herokuapp.com";
+var pathPlatforms='/api/v1/platforms';
+var apiServerHostPlatfoms = "https://sos2021-28.herokuapp.com";
  
-app.use(pathCoins, function(req, res) {
-  var url = apiServerHostCoins + req.baseUrl + req.url;
+app.use(pathPlatforms, function(req, res) {
+  var url = apiServerHostPlatfoms + req.baseUrl + req.url;
   console.log('piped: ' + req.baseUrl + req.url);
   req.pipe(request(url)).pipe(res);
 });
+
+//Grupo: 23 unemployment
+var pathUnemployment='/api/v2/unemployment-stats';
+var apiServerHostUnemployment = "https://sos2021-23.herokuapp.com";
+ 
+app.use(pathUnemployment, function(req, res) {
+  var url = apiServerHostUnemployment + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
 
 //Vat Rates external API
 var pathVatRates='/rates.json';

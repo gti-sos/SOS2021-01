@@ -1,6 +1,4 @@
 <script>
-import { domainToASCII } from "node:url";
-
     import { Nav, NavItem, NavLink } from "sveltestrap";
   
     //Uso de API externa rick and morty

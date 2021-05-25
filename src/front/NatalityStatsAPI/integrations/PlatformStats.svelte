@@ -1,6 +1,4 @@
 <script>
-  import { element } from "svelte/internal";
-
   import { Nav, NavItem, NavLink } from "sveltestrap";
 
   //Uso API grupo 10
