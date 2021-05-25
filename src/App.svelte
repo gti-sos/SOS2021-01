@@ -15,6 +15,7 @@
 	import LifeAPI from "./front/lifeStatsAPI/App.svelte";
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte";
 	import LifeCharts from "./front/lifeStatsAPI/LifeChart.svelte";
+	import LifeExtCovid from "./front/lifeStatsAPI/integrations/externaCovid.svelte";
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
 	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
 	import DivorceCharts from "./front/DivorceStatsAPI/DivorceChart.svelte";
@@ -45,6 +46,7 @@
 		"/life-stats": LifeAPI,
 		"/life-stats/:country/:date": LifeStatEdit,
 		"/life-stats/lifeCharts": LifeCharts,
+		"/integrations/externaCovid": LifeExtCovid,
 		"/analytics": CommonChart,
 		"*": NotFound,
 	};
