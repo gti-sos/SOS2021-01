@@ -1,14 +1,11 @@
 <script>
-  import { element } from "svelte/internal";
-
   import { Nav, NavItem, NavLink } from "sveltestrap";
 
   //Uso API grupo 10
   const BASE_CONTACT_API_PATH = "/api/v2";
 
-  var platformsStats = [];
+  var povertyData = [];
   var natalityData = [];
-  var data = [];
   var errorMsg = "";
   var okMsg = "";
 
@@ -50,36 +47,38 @@
     }
   }
 
-  async function getPlatformsStats() {
+  async function getPovertyData() {
     console.log("Fetching data...");
 
-    const res = await fetch("/api/v1/platforms?platform=Nintendo 3DS");
+    const res = await fetch(
+      "https://endpoint-poverty-risks.herokuapp.com/api/v1/"
+    );
 
     if (res.ok) {
       const json = await res.json();
-      platformsStats = json;
+      povertyData = json;
 
-      console.log(`We have received ${platformsStats.length} platforms-stats.`);
+      console.log(`We have received ${povertyData.length} sanity-stats.`);
 
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de platform-stats";
+      errorMsg = "Error recuperando datos de poverty-risks";
       okMsg = "";
       console.log("ERROR!" + errorMsg);
     }
   }
 
-  function jsonToMap(j, k, v){
-    var res = new Map()
+  function jsonToMap(j, k, v) {
+    var res = new Map();
     j.forEach((element) => {
       var key = element[k];
       var value = element[v];
-      console.log("key: "+key)
-      console.log("value: "+value)
-      if(res.has(key)){
-        var newValue = res.get(key)+value;
-        res.set(key,newValue);
-      }else{
+      console.log("key: " + key);
+      console.log("value: " + value);
+      if (res.has(key)) {
+        var newValue = res.get(key) + value;
+        res.set(key, newValue);
+      } else {
         res.set(key, value);
       }
     });
@@ -88,72 +87,54 @@
 
   async function loadChart() {
     await getStats();
-    await getPlatformsStats();
+    await getPovertyData();
 
-    /////////////////////////////////////////
 
+    var years = [];
     var data = [];
-    var data1 = [];
-    var template = {
-      x: 0,
-      y: 0
-    };
-    //-------------------Sanity-stats
-    console.log("Calculating platforms-stats...");
-    var result = jsonToMap(platformsStats, "year","sold-unit");
-    
-    console.log(result);
+
+    //-------------------poverty-risks
+    console.log("Calculating poverty-risks...");
+    var result = jsonToMap(povertyData, "year", "percentage_risk_of_poverty");
+
+    years.push("Ratio de pobreza (%)");
+    var total = 0;
     for (let [key, value] of result) {
-      data.push({
-        x: parseInt(key),
-        y: parseInt(value)
-      });
+      
+      total += parseFloat(value);
     }
-    
-    
+    data.push(total);
 
-
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     console.log("Calculating natality-stats...");
-    var result1 = jsonToMap(natalityData, "date","born");
-    
-    console.log(result1);
+    var result1 = jsonToMap(natalityData, "date", "natality-rate");
+
+    var total1 = 0;
+    years.push("Ratio natalidad (%)");
     for (let [key, value] of result1) {
-      data1.push({
-        x: parseInt(key),
-        y: parseInt(value)
-      });
+      
+      total1 += parseFloat(value);
+      
     }
-   
+    data.push(total1);
 
     var ctx = document.getElementById("myChart").getContext("2d");
 
     var myChart = new Chart(ctx, {
-      type: "scatter",
-      data:{
-        label: 'Scatter Dataset',
+      type: "doughnut",
+      data: {
+        labels: years,
         datasets: [
-        {
-          label: "Consolas Nintendo 3DS por año",
-          data: data,
-          backgroundColor: "rgba(255, 0,0, 1)",
-        }, {
-          label: "Nacidos por año",
-          data: data1,
-          backgroundColor: "rgba(0,0,255, 1)",
-        }],
-      },
-      
-      options: {
-        scales: {
-          x: {
-            type: "linear",
-            position: "bottom",
-            ticks: {
-            stepSize: 1
-            }
+          {
+            label: "ratio de probeza",
+            data: data,
+            backgroundColor: [
+              "rgb(240, 162, 2)",
+              "rgb(123, 158, 137)",
+             
+            ],
+            hoverOffset: 4,
           },
-        },
+        ],
       },
     });
   }
@@ -176,11 +157,12 @@
   </Nav>
 
   <div>
-    <h2>Integración API SOS platform-stats</h2>
+    <h2>Integración API SOS poverty-risks</h2>
   </div>
 
   {#if errorMsg}
     <p>{errorMsg}</p>
+  
   {:else}
     <div>
       <canvas id="myChart" />
