@@ -46,10 +46,25 @@
         ><Button color="primary">vatRates</Button></a
       >
       <a href="/#/integrations/sanityStats">
-        <Button color="primary">sanityStats</Button></a
+        <Button color="primary">sanity-stats</Button></a
       >
       <a href="/#/integrations/platformsStats">
-        <Button color="primary">platformsStats</Button></a
+        <Button color="primary">platforms-stats</Button></a
+      >
+      <a href="/#/integrations/povertyRisks">
+        <Button color="primary">poverty-risks</Button></a
+      >
+      <a href="/#/integrations/illiteracy">
+        <Button color="primary">illiteracy</Button></a
+      >
+      <a href="/#/integrations/chidrenHIV">
+        <Button color="primary">children-with-hiv</Button></a
+      >
+      <a href="/#/integrations/childrenEmployment">
+        <Button color="primary">children-employment</Button></a
+      >
+      <a href="/#/integrations/unemployment">
+        <Button color="primary">unemployment-stats</Button></a
       >
     </CardBody>
   </Card>

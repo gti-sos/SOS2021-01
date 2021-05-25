@@ -1,5 +1,4 @@
 <script>
-  import { element } from "svelte/internal";
 
   import { Nav, NavItem, NavLink } from "sveltestrap";
 
@@ -62,7 +61,7 @@
 
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de restcountries";
+      errorMsg = "Error recuperando datos de sanity-stats";
       okMsg = "";
       console.log("ERROR!" + errorMsg);
     }
