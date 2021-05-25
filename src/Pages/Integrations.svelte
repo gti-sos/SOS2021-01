@@ -42,6 +42,9 @@
       <a href="/#/integrations/coinCap"
         ><Button color="primary">coinCap</Button></a
       >
+      <a href="/#/integrations/vatRates"
+        ><Button color="primary">vatRates</Button></a
+      >
       <a href="/#/integrations/sanityStats">
         <Button color="primary">sanityStats</Button></a
       >

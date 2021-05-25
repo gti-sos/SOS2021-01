@@ -1,36 +1,29 @@
 <script>
   import { Nav, NavItem, NavLink } from "sveltestrap";
-  //Uso de API externa coincap.io
-  var coins = [];
-  var coinsName = [];
-  var coinsValue = [];
+  //Uso de API externa restcountries.eu
+  var countries = [];
+  var standardRates = [];
   var errorMsg = "";
   var okMsg = "";
 
-  
   async function getStats() {
     console.log("Fetching data...");
 
-    const res = await fetch("https://api.coincap.io/v2/assets");
+    const res = await fetch("/rates.json");
 
     if (res.ok) {
       const json = await res.json();
-  
-      json.data.forEach(element => {
-        coinsName.push(element.symbol);
-        coinsValue.push(element.priceUsd);
+
+      Object.keys(json.rates).forEach(function (key) {
+        countries.push(json.rates[key].country);
+        standardRates.push(json.rates[key].standard_rate)
       });
 
-      /* Object.keys(json.rates).forEach(function (key) {
-        coinsName.push(json.rates[key].country);
-        coinsValue.push(json.rates[key].standard_rate)
-      });
- */
-    
+      console.log(`We have received ${countries.length} countries.`);
 
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de coinCap";
+      errorMsg = "Error recuperando datos de vatRates";
       okMsg = "";
       console.log("ERROR!" + errorMsg);
     }
@@ -39,16 +32,20 @@
   async function loadChart() {
     await getStats();
 
-    var ctx = document.getElementById("myChart").getContext("2d"); 
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    var xAxis = countries;
+    var yAxis = standardRates;
+ 
 
     var myChart = new Chart(ctx, {
-      type: "pie",
+      type: "line",
       data: {
-        labels: coinsName,
+        labels: xAxis,
         datasets: [
           {
-            label: "Precio en USD de criptomonedas",
-            data: coinsValue,
+            label: "% IVA de países europeos",
+            data: yAxis,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
               "rgba(54, 162, 235, 0.2)",
@@ -97,13 +94,13 @@
   </Nav>
 
   <div>
-    <h2>Uso API externa coinCap.io</h2>
+    <h2>Uso API externa euvatrates.com</h2>
   </div>
 
   {#if errorMsg}
     <p>{errorMsg}</p>
   {:else}
-    <div class="chart-container">
+    <div>
       <canvas id="myChart" />
     </div>
   {/if}

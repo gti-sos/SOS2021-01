@@ -12,6 +12,7 @@
 	import NATcoinCap from "./front/NatalityStatsAPI/integrations/coinCap.svelte";
 	import NATsanityStats from "./front/NatalityStatsAPI/integrations/SanityStats.svelte";
 	import NATplatformsStats from "./front/NatalityStatsAPI/integrations/PlatformStats.svelte";
+	import NATvatRates from "./front/NatalityStatsAPI/integrations/vatRates.svelte";
 	import LifeAPI from "./front/lifeStatsAPI/App.svelte";
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte";
 	import LifeCharts from "./front/lifeStatsAPI/LifeChart.svelte";
@@ -36,6 +37,7 @@
 		"/integrations/restcountries": NATrestcountries,
 		"/integrations/coinCap": NATcoinCap,
 		"/integrations/sanityStats": NATsanityStats,
+		"/integrations/vatRates": NATvatRates,
 		"/integrations/breakingbad": BreakingBadAPI,
 		"/integrations/platformsStats": NATplatformsStats,
 		"/integrations/divorceandairdeathsintegration": DivorceAndAirDeathsIntegrationAPI,

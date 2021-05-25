@@ -61,7 +61,15 @@ app.use(pathCoins, function(req, res) {
   req.pipe(request(url)).pipe(res);
 });
 
-
+//Vat Rates external API
+var pathVatRates='/rates.json';
+var apiServerHostVatRates = "https://euvatrates.com";
+ 
+app.use(pathVatRates, function(req, res) {
+  var url = apiServerHostVatRates + req.baseUrl;
+  console.log('piped: ' + req.baseUrl);
+  req.pipe(request(url)).pipe(res);
+});
 
 //----------------------------------------------Proxys de Juan---------------------------------------------------- 
 

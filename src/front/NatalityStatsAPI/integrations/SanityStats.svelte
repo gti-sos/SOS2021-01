@@ -10,7 +10,7 @@
   var natalityData = [];
   var errorMsg = "";
   var okMsg = "";
-
+  var activeSpinner = true;
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -152,6 +152,7 @@
       },
     });
   }
+  activeSpinner=false;
 </script>
 
 <svelte:head>
@@ -177,9 +178,14 @@
   {#if errorMsg}
     <p>{errorMsg}</p>
   {:else}
-    <div>
-      <canvas id="myChart" />
-    </div>
+  {#if activeSpinner}
+  <Spinner {primary} />
+  {:else}
+  <div>
+    <canvas id="myChart" />
+  </div>
+  {/if}
+   
   {/if}
 </main>
 
