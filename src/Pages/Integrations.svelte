@@ -104,6 +104,9 @@
     <a href="/#/integrations/DivorceAndFoodConsumptionIntegration"
       ><Button color="primary">Divorce and Food Consumption Integration</Button></a
     >
+    <a href="/#/integrations/DivorceAndObesityIntegration"
+      ><Button color="primary">Divorce and Obesity Integration</Button></a
+    >
     
     </CardBody>
   </Card>
