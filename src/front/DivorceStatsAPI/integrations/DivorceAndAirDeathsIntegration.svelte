@@ -121,26 +121,46 @@
                 },
             ],
         }); */
-        
+        var hash = {};
+        divorceStats = divorceStats.filter(function (current) {
+            var exists = !hash[current.country];
+            hash[current.country] = true;
+            return exists;
+        });
+        console.log(divorceStats);
+        var hash1 = {};
+        deathStats = deathStats.filter(function (current) {
+            var exists = !hash1[current.country];
+            hash1[current.country] = true;
+            return exists;
+        });
+        console.log(deathStats);
 
         divorceStats.forEach((c) => {
             var dato = [];
 
-                dato.push(c.country);
-                console.log(parseInt(-c["divorce-rate"]));
-                dato.push(parseInt(-c["divorce-rate"]));
-                arrayChartDivorces.push(dato)
-            
+            dato.push(c.country);
+            console.log(parseFloat(-c["divorce-rate"]));
+            dato.push(parseFloat(-c["divorce-rate"]));
+            arrayChartDivorces.push(dato);
         });
 
         deathStats.forEach((c) => {
             var dato = [];
 
-                dato.push(c.country);
-                dato.push(c.deaths_air_pollution);
-                arrayChartDeaths.push(dato)
-            
+            dato.push(c.country);
+            dato.push(c.deaths_air_pollution);
+            arrayChartDeaths.push(dato);
         });
+        console.log(arrayChartDeaths, arrayChartDivorces);
+        console.log(
+            Object.keys(arrayChartDeaths),
+            Object.keys(arrayChartDivorces)
+        );
+        console.log(
+            Object.values(arrayChartDeaths),
+            Object.values(arrayChartDivorces)
+        );
 
         var chart = JSC.chart("chartDiv", {
             debug: true,
@@ -160,7 +180,7 @@
                     name: "Divorce Rate",
                     points: {
                         mapTo: "x,y",
-                        data: arrayChartDivorces
+                        data: arrayChartDivorces,
                     },
                 },
                 {
@@ -185,7 +205,7 @@
                             ["70-74", 6168134],
                             ["75-79", 4394229],
                             ["80+", 7460923],
-                        ], */
+                        ], */,
                     },
                 },
             ],
