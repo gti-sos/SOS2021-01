@@ -47,7 +47,72 @@ module.exports.register = (app) => {
         "divorce-rate": 10.0,
         "ratio-actual": 4.0,
         "ratio-percent": 16.67
-      }
+      },
+      {
+        "country": "Albania",
+        "date": 2018,
+        "marriage-rate": 8.1,
+        "divorce-rate": 1.7,
+        "ratio-actual": 4.76,
+        "ratio-percent": 20.99
+    },
+    {
+        "country": "Armenia",
+        "date": 2011,
+        "marriage-rate": 6.0,
+        "divorce-rate": 1.0,
+        "ratio-actual": 6.0,
+        "ratio-percent": 16.67
+    },
+    {
+        "country": "Spain",
+        "date": 2011,
+        "marriage-rate": 1.0,
+        "divorce-rate": 10.0,
+        "ratio-actual": 4.0,
+        "ratio-percent": 16.67
+    },
+    
+        {
+          "country": "Albania",
+          "date": 2018,
+          "marriage-rate": 8.1,
+          "divorce-rate": 1.7,
+          "ratio-actual": 4.76,
+          "ratio-percent": 20.99
+        },
+        {
+          "country": "Algeria",
+          "date": 2013,
+          "marriage-rate": 10.1,
+          "divorce-rate": 1.6,
+          "ratio-actual": 6.31,
+          "ratio-percent": 15.84
+        },
+        {
+          "country": "Armenia",
+          "date": 2011,
+          "marriage-rate": 6,
+          "divorce-rate": 1,
+          "ratio-actual": 6,
+          "ratio-percent": 16.67
+        },
+        {
+          "country": "Australia (more info)",
+          "date": 2017,
+          "marriage-rate": 4.6,
+          "divorce-rate": 2,
+          "ratio-actual": 2.3,
+          "ratio-percent": 43.48
+        },
+        {
+          "country": "Austria",
+          "date": 2018,
+          "marriage-rate": 5.3,
+          "divorce-rate": 1.8,
+          "ratio-actual": 2.94,
+          "ratio-percent": 33.96
+        }
     ];
 
     // DB access when loadInitialData 
