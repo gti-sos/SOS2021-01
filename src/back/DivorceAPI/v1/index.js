@@ -24,7 +24,7 @@ module.exports.register = (app) => {
   app.get(BASE_API_PATH + "/divorce-stats/loadInitialData", (req, res) => {
     divorceStatsDataSet = [
       {
-        "country": "Albania",
+        "country": "ALBANIA",
         "date": 2018,
         "marriage-rate": 8.1,
         "divorce-rate": 1.7,
@@ -33,7 +33,7 @@ module.exports.register = (app) => {
 
       },
       {
-        "country": "Armenia",
+        "country": "ARMENIA",
         "date": 2011,
         "marriage-rate": 6.0,
         "divorce-rate": 1.0,
@@ -41,7 +41,7 @@ module.exports.register = (app) => {
         "ratio-percent": 16.67
       },
       {
-        "country": "Spain",
+        "country": "SPAIN",
         "date": 2011,
         "marriage-rate": 1.0,
         "divorce-rate": 10.0,
@@ -49,7 +49,7 @@ module.exports.register = (app) => {
         "ratio-percent": 16.67
       },
       {
-        "country": "Albania",
+        "country": "ALBANIA",
         "date": 2018,
         "marriage-rate": 8.1,
         "divorce-rate": 1.7,
@@ -57,7 +57,7 @@ module.exports.register = (app) => {
         "ratio-percent": 20.99
     },
     {
-        "country": "Armenia",
+        "country": "ARMENIA",
         "date": 2011,
         "marriage-rate": 6.0,
         "divorce-rate": 1.0,
@@ -65,7 +65,7 @@ module.exports.register = (app) => {
         "ratio-percent": 16.67
     },
     {
-        "country": "Spain",
+        "country": "SPAIN",
         "date": 2011,
         "marriage-rate": 1.0,
         "divorce-rate": 10.0,
@@ -74,7 +74,7 @@ module.exports.register = (app) => {
     },
     
         {
-          "country": "Albania",
+          "country": "ANDORRA",
           "date": 2018,
           "marriage-rate": 8.1,
           "divorce-rate": 1.7,
@@ -82,7 +82,7 @@ module.exports.register = (app) => {
           "ratio-percent": 20.99
         },
         {
-          "country": "Algeria",
+          "country": "BENIN",
           "date": 2013,
           "marriage-rate": 10.1,
           "divorce-rate": 1.6,
@@ -90,7 +90,7 @@ module.exports.register = (app) => {
           "ratio-percent": 15.84
         },
         {
-          "country": "Armenia",
+          "country": "AFGANISTAN",
           "date": 2011,
           "marriage-rate": 6,
           "divorce-rate": 1,
@@ -98,7 +98,7 @@ module.exports.register = (app) => {
           "ratio-percent": 16.67
         },
         {
-          "country": "Australia (more info)",
+          "country": "LITHUANIA",
           "date": 2017,
           "marriage-rate": 4.6,
           "divorce-rate": 2,
@@ -106,7 +106,7 @@ module.exports.register = (app) => {
           "ratio-percent": 43.48
         },
         {
-          "country": "Austria",
+          "country": "BELGIUM",
           "date": 2018,
           "marriage-rate": 5.3,
           "divorce-rate": 1.8,
