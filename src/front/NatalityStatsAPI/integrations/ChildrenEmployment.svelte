@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
   import { element } from "svelte/internal";
 
   import { Nav, NavItem, NavLink } from "sveltestrap";
@@ -6,9 +6,9 @@
   //Uso API grupo 10
   const BASE_CONTACT_API_PATH = "/api/v2";
 
-  var emplymentData = [];
+  var employmentData = [];
   var natalityData = [];
-  var data = [];
+
   var errorMsg = "";
   var okMsg = "";
 
@@ -57,9 +57,9 @@
 
     if (res.ok) {
       const json = await res.json();
-      emplymentData = json;
+      employmentData = json;
 
-      console.log(`We have received ${emplymentData.length} platforms-stats.`);
+      console.log(`We have received ${employmentData.length} platforms-stats.`);
 
       console.log("Ok");
     } else {
@@ -92,71 +92,63 @@
 
     /////////////////////////////////////////
 
+    var years = [];
     var data = [];
-    var data1 = [];
-    var template = {
-      x: 0,
-      y: 0
-    };
-    //-------------------Sanity-stats
-    console.log("Calculating platforms-stats...");
-    var result = jsonToMap(emplymentData, "year","sold-unit");
+
+    var result = jsonToMap(employmentData, "year", "percent_children_employment_t");
+
+    var result1 = jsonToMap(natalityData, "date", "fertility-rate");
+
     
-    console.log(result);
+    console.log("Calculating children-hiv...");
+    years.push("Total niños empleados");
+    var total = 0;
     for (let [key, value] of result) {
-      data.push({
-        x: parseInt(key),
-        y: parseInt(value)
-      });
+       total+=value;
     }
-    
-    
+    data.push(total);
 
-
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     console.log("Calculating natality-stats...");
-    var result1 = jsonToMap(natalityData, "date","born");
-    
-    console.log(result1);
+    var total1=0;
+    years.push("indice fecundacion");
     for (let [key, value] of result1) {
-      data1.push({
-        x: parseInt(key),
-        y: parseInt(value)
-      });
+      total1+=value;
     }
-   
+    data.push(total1);
 
     var ctx = document.getElementById("myChart").getContext("2d");
 
     var myChart = new Chart(ctx, {
-      type: "scatter",
-      data:{
-        label: 'Scatter Dataset',
+      type: "polarArea",
+      data: {
+        labels: years,
         datasets: [
-        {
-          label: "Consolas Nintendo 3DS por año",
-          data: data,
-          backgroundColor: "rgba(255, 0,0, 1)",
-        }, {
-          label: "Nacidos por año",
-          data: data1,
-          backgroundColor: "rgba(0,0,255, 1)",
-        }],
+          {
+            label: "Niños empleados y ratio de fecundación",
+            data: data,
+            backgroundColor: [
+              "rgb(255, 99, 132)",
+              "rgb(75, 192, 192)",
+              "rgb(255, 205, 86)",
+              "rgb(201, 203, 207)",
+              "rgb(54, 162, 235)",
+              "rgb(240, 162, 2)",
+              "rgb(123, 158, 137)",
+              "rgb(171, 35, 70)",
+            ],
+          },
+        ],
       },
-      
       options: {
-        scales: {
-          x: {
-            type: "linear",
-            position: "bottom",
-            ticks: {
-            stepSize: 1
-            }
+        elements: {
+          line: {
+            borderWidth: 3,
           },
         },
       },
     });
   }
+
 </script>
 
 <svelte:head>
@@ -198,4 +190,3 @@
     margin-bottom: 15px;
   }
 </style>
- -->
