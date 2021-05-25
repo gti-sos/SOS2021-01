@@ -9,6 +9,24 @@
   var errorMsg = "";
   var okMsg = "";
 
+  async function loadApi() {
+    console.log("Loading data...");
+    const res = await fetch("https://sos2021-24.herokuapp.com/api/v2/children-with-hiv/loadInitialData").then(
+      function (res) {
+        if (res.ok) {
+          errorMsg = "";
+          console.log("OK");
+        } else {
+          if (res.status === 500) {
+            errorMsg = "No se ha podido acceder a la base de datos";
+          }
+          okMsg = "";
+          console.log("ERROR!" + errorMsg);
+        }
+      }
+    );
+  }
+
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -49,7 +67,7 @@
 
   async function getHivData() {
     console.log("Fetching data...");
-
+    await loadApi();
     const res = await fetch(
       "https://sos2021-24.herokuapp.com/api/v2/children-with-hiv"
     );

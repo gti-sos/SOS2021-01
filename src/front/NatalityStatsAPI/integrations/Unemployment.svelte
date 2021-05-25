@@ -11,7 +11,7 @@
 
   async function loadApi() {
     console.log("Loading data...");
-    const res = await fetch("/api/v2/unemployment-stats/loadInitialData").then(
+    const res = await fetch("/api/v2/unemployment-stats/loadinitialdata").then(
       function (res) {
         if (res.ok) {
           errorMsg = "";

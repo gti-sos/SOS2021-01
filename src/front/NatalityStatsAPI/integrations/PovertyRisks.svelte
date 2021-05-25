@@ -73,7 +73,7 @@
       const json = await res.json();
       povertyData = json;
 
-      console.log(`We have received ${povertyData.length} sanity-stats.`);
+      console.log(`We have received ${povertyData.length} poverty-stats.`);
 
       console.log("Ok");
     } else {
