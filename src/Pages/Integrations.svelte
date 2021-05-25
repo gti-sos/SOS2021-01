@@ -62,8 +62,8 @@
     <CardBody>
       <CardSubtitle />
       <CardText />
-      <a href="/#/"
-        ><Button color="primary">.</Button></a
+      <a href="/#/integrations/externaCovid"
+        ><Button color="primary">Covid</Button></a
       >
     
     </CardBody>
