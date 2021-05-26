@@ -58,7 +58,7 @@
         divorceStats.forEach((c) => {
             //console.log(Object.keys(c));
 
-            console.log(`imprimiendo c ${c}`);
+            //console.log(`imprimiendo c ${c}`);
 
             var data = {
                 country: "",
@@ -66,8 +66,10 @@
                 DivorceRate: null,
                 AirDeaths: null,
             };
-            var pais = c.country.toString.toLowerCase();
-            pais.charAt(0).toUpperCase();
+            var pais = c.country.toLowerCase();
+            pais = pais.charAt(0).toUpperCase() + pais.substr(1);
+
+            //console.log(pais);
             data.country = pais;
             data.year = c.date;
             data.DivorceRate = c["divorce-rate"];
@@ -92,39 +94,21 @@
                 }
             }
             if (exists != 1) {
-                var pais = c.country.toString.toLowerCase();
-                pais.charAt(0).toUpperCase();
+                var pais = c.country.toLowerCase();
+                pais = pais.charAt(0).toUpperCase() + pais.substr(1);
                 data.country = pais;
                 data.year = c.year;
                 data.AirDeaths = c.deaths_air_pollution;
                 array.push(data);
             }
+            
             //console.log(Object.values(data));
             //console.log("print del array", array);
         });
 
         // { country: Spain, year: 2019, DivorceRate: 5, Air Polution´s Deaths Rate: 10] },
 
-        /* var grid = new JSC.Grid("grid", {
-            debug: true,
-            data: array,
-            headerCol: true,
-
-            columns: [
-                { header: "Country", value: "%country" },
-                { header: "Year", value: "%year" },
-                {
-                    header: "Divorce Rate",
-                    value: "%DivorceRate",
-                    align: "right",
-                },
-                {
-                    header: "Air Polution´s Deaths",
-                    value: "%AirDeaths",
-                    align: "center",
-                },
-            ],
-        }); */
+    
 
         //eliminando los elementos repetidos
         var hash = {};
@@ -133,36 +117,47 @@
             hash[current.country] = true;
             return exists;
         });
-        console.log(divorceStats);
+        //console.log(divorceStats);
         var hash1 = {};
         deathStats = deathStats.filter(function (current) {
             var exists = !hash1[current.country];
             hash1[current.country] = true;
             return exists;
         });
-        console.log(deathStats);
+        //console.log(deathStats);
+
+   
+     
+
 
         divorceStats.forEach((c) => {
             var dato = [];
 
             console.log("imprimiendo el pais a añadir", c.country);
 
-            dato.push(c.country);
+            var pais = c.country.toLowerCase();
+            pais = pais.charAt(0).toUpperCase() + pais.substr(1)
+           
+            dato.push(pais);
 
-            console.log(parseFloat(-c["divorce-rate"]));
-            dato.push(parseFloat(-c["divorce-rate"]));
+            //console.log(parseFloat(-c["divorce-rate"]));
+            dato.push(parseFloat(c["divorce-rate"])); /// aqui iria el menois para mostrrar la grafica por ambos lados 
 
             arrayChartDivorces.push(dato);
 
-            console.log(arrayChartDivorces);
+            //console.log(arrayChartDivorces);
         });
 
         deathStats.forEach((c) => {
             var dato = [];
 
-            dato.push(c.country);
-            dato.push(c.deaths_air_pollution);
+            var pais = c.country.toLowerCase();
+            pais = pais.charAt(0).toUpperCase() + pais.substr(1);
+            
+            dato.push(pais);
+            dato.push(parseFloat(c.deaths_air_pollution));
             arrayChartDeaths.push(dato);
+            
         });
         console.log(arrayChartDeaths, arrayChartDivorces);
         console.log(
@@ -173,6 +168,10 @@
             Object.values(arrayChartDeaths),
             Object.values(arrayChartDivorces)
         );
+    
+        
+
+
 
         var chart = JSC.chart("chartDiv", {
             debug: true,
@@ -192,7 +191,12 @@
                     name: "Divorce Rate",
                     points: {
                         mapTo: "x,y",
-                        data: arrayChartDivorces,
+                        data: arrayChartDivorces
+                        /* ["0-4", 9619810],
+                            ["6-9", 10092946],
+                            ["10-14", 10093446],
+                            ["15-19", 10066517],
+                            ["20-24", 11266559], */
                     },
                 },
                 {
