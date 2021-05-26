@@ -10,17 +10,16 @@
 	import NatalityAPI from "./front/NatalityStatsAPI/NatalityAPI.svelte";
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
 	import NatalityCharts from "./front/NatalityStatsAPI/NatalityChart.svelte";
-	import NATrestcountries from "./front/NatalityStatsAPI/integrations/Rescountries.svelte";
-	import NATcoinCap from "./front/NatalityStatsAPI/integrations/coinCap.svelte";
-	import NATsanityStats from "./front/NatalityStatsAPI/integrations/SanityStats.svelte";
-	import NATplatformsStats from "./front/NatalityStatsAPI/integrations/PlatformStats.svelte";
-	import NATvatRates from "./front/NatalityStatsAPI/integrations/VatRates.svelte";
-
-	import NATpovertyRisks from "./front/NatalityStatsAPI/integrations/PovertyRisks.svelte";
-	import NATilliteracy from "./front/NatalityStatsAPI/integrations/Illiteracy.svelte";
-	import NATchidrenHIV from "./front/NatalityStatsAPI/integrations/ChidrenHIV.svelte";
-	import NATchildrenEmployment from "./front/NatalityStatsAPI/integrations/ChildrenEmployment.svelte";
-	import NATunemployment from "./front/NatalityStatsAPI/integrations/Unemployment.svelte";
+	import NATrestcountries from "./front/NatalityStatsAPI/I_Rescountries.svelte";
+	import NATcoinCap from "./front/NatalityStatsAPI/I_coinCap.svelte";
+	import NATsanityStats from "./front/NatalityStatsAPI/I_SanityStats.svelte";
+	import NATplatformsStats from "./front/NatalityStatsAPI/I_PlatformStats.svelte";
+	import NATvatRates from "./front/NatalityStatsAPI/I_VatRates.svelte";
+	import NATpovertyRisks from "./front/NatalityStatsAPI/I_PovertyRisks.svelte";
+	import NATilliteracy from "./front/NatalityStatsAPI/I_Illiteracy.svelte";
+	import NATchidrenHIV from "./front/NatalityStatsAPI/I_ChidrenHIV.svelte";
+	import NATchildrenEmployment from "./front/NatalityStatsAPI/I_ChildrenEmployment.svelte";
+	import NATunemployment from "./front/NatalityStatsAPI/I_Unemployment.svelte";
 
 	import LifeAPI from "./front/lifeStatsAPI/App.svelte";
 	import LifeStatEdit from "./front/lifeStatsAPI/LifeEdit.svelte";
