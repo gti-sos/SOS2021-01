@@ -14,7 +14,6 @@
     PaginationLink,
   } from "sveltestrap";
   import { onMount } from "svelte";
-  import { querystring } from "svelte-spa-router";
 
   //------------------Nav-----------------------
 
@@ -460,10 +459,10 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="/#/natality-stats/natalityCharts">Análiticas</NavLink>
+      <NavLink id="nav_nat_analytics" href="/#/natality-stats/natalityCharts">Análiticas natalidad</NavLink>
     </NavItem>
   </Nav>
 
@@ -481,15 +480,15 @@
     {/if}
   </div>
   <div>
-    <Button color="primary" on:click={toggle1}>Cargar datos inciales</Button>
+    <Button id="b_load_toggle" color="primary" on:click={toggle1}>Cargar datos inciales</Button>
     <Modal isOpen={open1} {toggle1}>
       <ModalHeader {toggle1}>¿Cargar los datos iniciales?</ModalHeader>
       <ModalBody>
         Esta acción borrará todos los datos existentes y cargará los datos iniciales.
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" on:click={toggle1P}>Cargar</Button>
-        <Button color="secondary" on:click={toggle1}>Cancelar</Button>
+        <Button id="b_load_toggle_ok" color="primary" on:click={toggle1P}>Cargar</Button>
+        <Button id="b_load_toggle_cancel" color="secondary" on:click={toggle1}>Cancelar</Button>
       </ModalFooter>
     </Modal>
 
@@ -498,13 +497,13 @@
         >Borrar todos los datos</Button
       >
     {:else}
-      <Button color="danger" on:click={toggle2}>Borrar todos los datos</Button>
+      <Button id="b_delete_toggle" color="danger" on:click={toggle2}>Borrar todos los datos</Button>
       <Modal isOpen={open2} {toggle2}>
         <ModalHeader {toggle2}>¿Borrar todos los datos?</ModalHeader>
         <ModalBody>Esta acción no se puede deshacer.</ModalBody>
         <ModalFooter>
-          <Button color="danger" on:click={toggle2P}>Borrar</Button>
-          <Button color="secondary" on:click={toggle2}>Cancelar</Button>
+          <Button id="b_delete_toggle_ok" color="danger" on:click={toggle2P}>Borrar</Button>
+          <Button id="b_delete_toggle_cancel" color="secondary" on:click={toggle2}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     {/if}
@@ -529,6 +528,7 @@
         <tr>
           <td
             ><input
+            id="query_input_country"
               type="text"
               placeholder="spain"
               bind:value={queryStatInput.country}
@@ -536,6 +536,7 @@
           >
           <td
             ><input
+            id="query_input_date"
               type="number"
               placeholder="2019"
               min="1900"
@@ -544,6 +545,7 @@
           >
           <td
             ><input
+            id="query_input_born"
               type="number"
               placeholder="2000"
               min="1"
@@ -552,6 +554,7 @@
           >
           <td
             ><input
+            id="query_input_men_born"
               type="number"
               placeholder="1000"
               min="1"
@@ -560,6 +563,7 @@
           >
           <td
             ><input
+            id="query_input_women_born"
               type="number"
               placeholder="1000"
               min="1"
@@ -568,6 +572,7 @@
           >
           <td
             ><input
+            id="query_input_natality_rate"
               type="number"
               placeholder="10.2"
               min="1.0"
@@ -576,6 +581,7 @@
           >
           <td
             ><input
+            id="query_input_fertility_rate"
               type="number"
               placeholder="2.1"
               min="1.0"
@@ -584,7 +590,7 @@
           >
 
           <td colspan="2"
-            ><Button color="primary" on:click={searchStat}>Buscar</Button></td
+            ><Button id="query_button" color="primary" on:click={searchStat}>Buscar</Button></td
           >
         </tr>
         <tr>
@@ -593,6 +599,7 @@
         <tr>
           <td
             ><input
+            id="insert_input_country"
               type="text"
               placeholder="spain"
               bind:value={insertStatInput.country}
@@ -600,6 +607,7 @@
           >
           <td
             ><input
+            id="insert_input_date"
               type="number"
               placeholder="2019"
               min="1900"
@@ -608,6 +616,7 @@
           >
           <td
             ><input
+            id="insert_input_born"
               type="number"
               placeholder="2000"
               min="1"
@@ -616,6 +625,7 @@
           >
           <td
             ><input
+            id="insert_input_men_born"
               type="number"
               placeholder="1000"
               min="1"
@@ -624,6 +634,7 @@
           >
           <td
             ><input
+            id="insert_input_women_born"
               type="number"
               placeholder="1000"
               min="1"
@@ -632,6 +643,7 @@
           >
           <td
             ><input
+            id="insert_input_natality_rate"
               type="number"
               placeholder="10.2"
               min="1.0"
@@ -640,6 +652,7 @@
           >
           <td
             ><input
+            id="insert_input_fertility_rate"
               type="number"
               placeholder="2.1"
               min="1.0"
@@ -647,14 +660,14 @@
             /></td
           >
           <td colspan="2"
-            ><Button color="primary" on:click={insertStat}>Insertar</Button></td
+            ><Button id="insert_button" color="primary" on:click={insertStat}>Insertar</Button></td
           >
         </tr>
 
         <tr>
           <td colspan="9" />
         </tr>
-
+        
         {#each natalityStats as stat}
           <tr>
             <td>{stat.country}</td>
@@ -666,11 +679,12 @@
             <td>{stat["fertility-rate"]}</td>
             <td>
               <a href="#/natality-stats/{stat.country}/{stat.date}">
-                <Button color="primary">Editar</Button>
+                <Button id="edit_button_{stat.country}_{stat.date}" color="primary">Editar</Button>
               </a></td
             >
             <td
               ><Button
+              id="delete_button_{stat.country}_{stat.date}"
                 color="danger"
                 on:click={deleteStat(stat.country, stat.date)}>Borrar</Button
               ></td
@@ -689,6 +703,7 @@
       <PaginationItem class={current_page === 1 ? "disabled" : ""}>
         <PaginationLink
           previous
+          id="pagination_back"
           href="#/natality-stats"
           on:click={() =>
             changePage(current_page - 1, current_offset - 10, isASearch)}
@@ -698,6 +713,7 @@
         <PaginationItem class={current_page === page ? "active" : ""}>
           <PaginationLink
             previous
+            id="pagination_current"
             href="#/natality-stats"
             on:click={() => changePage(page, (page - 1) * 10, isASearch)}
             >{page}</PaginationLink
@@ -707,6 +723,7 @@
       <PaginationItem class={current_page === last_page ? "disabled" : ""}>
         <PaginationLink
           next
+          id="pagination_forward"
           href="#/natality-stats"
           on:click={() =>
             changePage(current_page + 1, current_offset + 10, isASearch)}
