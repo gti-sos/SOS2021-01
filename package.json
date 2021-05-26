@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node tests/e2e.js",
     "start": "node index"
   },
   "devDependencies": {
@@ -38,6 +38,7 @@
     "express": "^4.17.1",
     "modules": "^0.4.0",
     "nedb": "^1.8.0",
+    "puppeteer": "^9.1.1",
     "request": "^2.88.2",
     "svelte-spa-router": "^3.1.0",
     "sveltestrap": "^3.14.1"
