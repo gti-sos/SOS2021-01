@@ -1,6 +1,6 @@
 <script>
 
-  import { Nav, NavItem, NavLink } from "sveltestrap";
+  import { Nav, NavItem, NavLink,Spinner } from "sveltestrap";
 
   //Uso API grupo 10
   const BASE_CONTACT_API_PATH = "/api/v2";
@@ -35,10 +35,7 @@
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        getStats();
-
         errorMsg = "";
-        okMsg = "Datos cargados correctamente";
         console.log("OK");
       } else {
         if (res.status === 500) {
@@ -197,7 +194,7 @@
     <p>{errorMsg}</p>
   {:else}
   {#if activeSpinner}
-  <Spinner {primary} />
+  <Spinner color="primary" />
   {:else}
   <div>
     <canvas id="myChart" />

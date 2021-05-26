@@ -15,6 +15,7 @@
 	import NATsanityStats from "./front/NatalityStatsAPI/integrations/SanityStats.svelte";
 	import NATplatformsStats from "./front/NatalityStatsAPI/integrations/PlatformStats.svelte";
 	import NATvatRates from "./front/NatalityStatsAPI/integrations/VatRates.svelte";
+
 	import NATpovertyRisks from "./front/NatalityStatsAPI/integrations/PovertyRisks.svelte";
 	import NATilliteracy from "./front/NatalityStatsAPI/integrations/Illiteracy.svelte";
 	import NATchidrenHIV from "./front/NatalityStatsAPI/integrations/ChidrenHIV.svelte";

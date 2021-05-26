@@ -23,14 +23,12 @@ let natalityChartFertilityRateData = [];
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        getStats();
-        errorMsg = "";
+        msg = "";
         console.log("OK");
       } else {
         if (res.status === 500) {
-          errorMsg = "No se ha podido acceder a la base de datos";
+          msg = "No se ha podido acceder a la base de datos";
         }
-        okMsg = "";
         console.log("ERROR!" + errorMsg);
       }
     });
@@ -187,23 +185,12 @@ let natalityChartFertilityRateData = [];
   p {
     display: inline;
   }
-  .msgRed {
-    padding: 8px;
-
-    background-color: #f8d7da;
-  }
-  .msgGreen {
-    padding: 8px;
-
-    background-color: #d4edda;
-  }
   .highcharts-figure,
   .highcharts-data-table table {
     min-width: 360px;
     max-width: 800px;
     margin: 1em auto;
   }
-
   .highcharts-data-table table {
     font-family: Verdana, sans-serif;
     border-collapse: collapse;

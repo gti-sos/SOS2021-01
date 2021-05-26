@@ -32,7 +32,6 @@
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        getStats();
         errorMsg = "";
         console.log("OK");
       } else {
