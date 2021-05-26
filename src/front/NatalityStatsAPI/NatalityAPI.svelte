@@ -485,7 +485,7 @@
     <Modal isOpen={open1} {toggle1}>
       <ModalHeader {toggle1}>¿Cargar los datos iniciales?</ModalHeader>
       <ModalBody>
-        Esta acción cargará los datos siempre y cuando no existan previamente.
+        Esta acción borrará todos los datos existentes y cargará los datos iniciales.
       </ModalBody>
       <ModalFooter>
         <Button color="primary" on:click={toggle1P}>Cargar</Button>

@@ -88,47 +88,44 @@
     j.forEach((element) => {
       var key = parseInt(element[k]);
       var value = parseFloat(element[v]);
-      console.log("key: " + key);
-      console.log("value: " + value);
-      if(value!=null){
+      if (isNaN(value)) {
+        value=0;
+      }else{
         if (res.has(key)) {
-        var newValue = res.get(key) + value;
-        res.set(key, newValue);
-      } else {
-        res.set(key, value);
+          var newValue = res.get(key) + value;
+          res.set(key, newValue);
+        } else {
+          res.set(key, value);
+        }
       }
-      }
-      
     });
     return res;
   }
 
-  function commonValues(dataset1, dataset2){
-    console.log("dataset1: "+dataset1);
-    console.log("dataset2: "+dataset2);
-    return dataset1.filter(value => dataset2.includes(value));
+  function commonValues(dataset1, dataset2) {
+    console.log("dataset1: " + dataset1);
+    console.log("dataset2: " + dataset2);
+    return dataset1.filter((value) => dataset2.includes(value));
   }
 
-
-
-function capitalLetters(dataset){
-  for (let index = 0; index < dataset.length; index++) {
-    var str = dataset[index];
-    var space = str.indexOf(' ');
-    console.log('pais :'+str)
-    if (str.indexOf(' ') !== -1) {
-      console.log('if :')
-      dataset[index] = str.charAt(0).toUpperCase()
-      +str.substr(1,space)
-      +str.charAt(space+1).toUpperCase()
-      +str.substr(space+2,str.length);
-  } else {
-    dataset[index] = str.charAt(0).toUpperCase()+str.substr(1)
+  function capitalLetters(dataset) {
+    for (let index = 0; index < dataset.length; index++) {
+      var str = dataset[index];
+      var space = str.indexOf(" ");
+      console.log("pais :" + str);
+      if (str.indexOf(" ") !== -1) {
+        console.log("if :");
+        dataset[index] =
+          str.charAt(0).toUpperCase() +
+          str.substr(1, space) +
+          str.charAt(space + 1).toUpperCase() +
+          str.substr(space + 2, str.length);
+      } else {
+        dataset[index] = str.charAt(0).toUpperCase() + str.substr(1);
+      }
+    }
+    console.log(dataset);
   }
-    
-  }
-  console.log(dataset);
-}
 
   async function loadChart() {
     await getStats();
@@ -137,73 +134,45 @@ function capitalLetters(dataset){
     var data = [];
     var template = {
       x: 0,
-      y:0,
-      r:0
-    }
+      y: 0,
+      r: 0,
+    };
     var result = jsonToMap(unemploymentData, "year", "intperc");
 
     var result1 = jsonToMap(natalityData, "date", "fertility-rate");
 
-    /* var commonCountries = commonValues(
+    var commonYears = commonValues(
       Array.from(result.keys()),
       Array.from(result1.keys())
     );
- 
-    var countriesWithCapitalLetter = commonValues(
-      Array.from(result.keys()),
-      Array.from(result1.keys())
-    ); 
-    capitalLetters(countriesWithCapitalLetter);
-
-    console.log('capitalletter country '+countriesWithCapitalLetter)
-    console.log('common countries: '+commonCountries);
     
-    for (let index = 0; index < commonCountries.length; index++) {
-      var element = commonCountries[index];
-      var element2 = countriesWithCapitalLetter[index];
 
-      console.log('element: '+element);
-      console.log('element2: '+element2);
-      template.x=element;
-      template.y=Math.round(result.get(element2));
-      template.r=result1.get(element);
-      console.log('x: '+element+',+ '+'y: '+result.get(element2)+','+ 'r: '+result1.get(element))
-
-      data.push(template);
-      
-    }
-    console.log('datos: '+JSON.stringify(data,2,null)) */
-
-var commonYears = commonValues(
-      Array.from(result.keys()),
-      Array.from(result1.keys())
-    );
-console.log('nat: '+result1);
-console.log('une: '+result);
-
+    console.log("-Comonyear---------"+commonYears);
+    
     for (let index = 0; index < commonYears.length; index++) {
-      var element = commonYears[index];
+      var element = parseInt(commonYears[index]);
 
-      console.log('element: '+element);
-      template.x=element;
-      template.y=Math.round(result.get(element));
-      template.r=result1.get(element);
-      console.log('x: '+element+',+ '+'y: '+result.get(element)+','+ 'r: '+result1.get(element))
-
-      data.push(template);
+      console.log("FECHA: " + element);
+      console.log("RESULT: " + result.get(element));
+      console.log("RESULT1: " + result1.get(element));
       
+      data.push(
+        {
+        x: element,
+        y: Math.round(result.get(element)),
+        r: Math.round(result1.get(element)),
+       }
+       );
     }
-console.log(data);
+    console.log(data);
     var ctx = document.getElementById("myChart").getContext("2d");
 
-
-    
     var myChart = new Chart(ctx, {
       type: "bubble",
       data: {
         datasets: [
           {
-            label: "First Dataset",
+            label: "Porcentaje de paro y fertilidad (Año, Paro, Fertilidad)",
             data: data,
             backgroundColor: "rgb(255, 99, 132)",
           },
@@ -215,8 +184,8 @@ console.log(data);
             type: "linear",
             position: "bottom",
             ticks: {
-            stepSize: 1
-            }
+              stepSize: 1,
+            },
           },
         },
       },

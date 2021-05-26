@@ -64,7 +64,7 @@ app.use(pathPlatforms, function(req, res) {
 //Grupo: 23 unemployment
 var pathUnemployment='/api/v2/unemployment-stats';
 var apiServerHostUnemployment = "https://sos2021-23.herokuapp.com";
- 
+
 app.use(pathUnemployment, function(req, res) {
   var url = apiServerHostUnemployment + req.baseUrl + req.url;
   console.log('piped: ' + req.baseUrl + req.url);
@@ -72,11 +72,11 @@ app.use(pathUnemployment, function(req, res) {
 });
 
 //Grupo: 04 illiteracy
-var pathUnemployment='/api/v1/illiteracy';
-var apiServerHostUnemployment = "https://sos2021-04.herokuapp.com";
+var pathIlliteracy='/api/v1/illiteracy';
+var apiServerHostIlliteracy = "https://sos2021-04.herokuapp.com";
  
-app.use(pathUnemployment, function(req, res) {
-  var url = apiServerHostUnemployment + req.baseUrl + req.url;
+app.use(pathIlliteracy, function(req, res) {
+  var url = apiServerHostIlliteracy + req.baseUrl + req.url;
   console.log('piped: ' + req.baseUrl + req.url);
   req.pipe(request(url)).pipe(res);
 });
