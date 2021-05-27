@@ -14,6 +14,7 @@ module.exports.register = (app) => {
     //GET /api/v1/YYYYYY/loadInitialData 
     //Crea 2 o más recursos.
     app.get(BASE_LIFE_API_PATH + "/life-stats/loadInitialData", (req, res) => {
+        db.remove({}, {multi: true});
         db.insert(initialData);
         console.log(`Loaded initial data: <${JSON.stringify(initialData, null, 2)}>`);
         return res.sendStatus(200);
@@ -197,4 +198,18 @@ module.exports.register = (app) => {
             }
         });
     });
+
+
+    /*
+    var api01 = 'http://sos2021-20.herokuapp.com/'; // Integración mediante proxy grupo 20 renawable power capacities
+	var paths01='api/v1/renewablepowercapacities-stats';
+
+    // Integración mediante proxy Api 01 renawable power capacities
+	app.use(paths01, function(req, res) {
+        var url = api01 + req.baseUrl + req.url;
+        console.log('piped: ' + req.baseUrl + req.url);
+        req.pipe(request(url)).pipe(res);
+	});*/
+
+
 }

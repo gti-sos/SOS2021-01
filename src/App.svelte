@@ -27,7 +27,9 @@
 	import LifeCharts from "./front/lifeStatsAPI/LifeChart.svelte";
 	import LifeCharts2 from "./front/lifeStatsAPI/LifeChart2.svelte";
 	import LifeExtCovid from "./front/lifeStatsAPI/integrations/externaCovid.svelte";
-	
+	import LifeIntegration01 from "./front/lifeStatsAPI/integrations/integracion01.svelte";
+	import LifeIntegration02 from "./front/lifeStatsAPI/integrations/integracion02.svelte";
+
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
 	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
 	import DivorceCharts from "./front/DivorceStatsAPI/DivorceChart.svelte";
@@ -75,6 +77,8 @@
 		"/life-stats/lifeCharts": LifeCharts,
 		"/life-stats/lifeCharts2": LifeCharts2,
 		"/integrations/externaCovid": LifeExtCovid,
+		"/integrations/integracion01" : LifeIntegration01,
+		"/integrations/integracion02" : LifeIntegration02,
 		//-----------------------------
 		"*": NotFound
 	};

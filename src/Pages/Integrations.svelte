@@ -78,9 +78,12 @@
       <CardSubtitle />
       <CardText />
       <a href="/#/integrations/externaCovid"
-        ><Button color="primary">Covid</Button></a
-      >
-    
+        ><Button color="primary">Covid</Button></a>
+      <a href="/#/integrations/integracion01"
+      ><Button color="primary">Renawable power</Button></a>
+      <a href="/#/integrations/integracion02"
+        ><Button color="primary">Children out school</Button></a>
+  
     </CardBody>
   </Card>
 </div>

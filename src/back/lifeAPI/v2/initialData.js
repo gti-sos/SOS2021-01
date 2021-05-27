@@ -218,14 +218,14 @@ module.exports =
       "safety_index": 79.26
     },
     {
-      "country": "croatia",
+      "country": "italy",
       "date": 2018,
       "quality_life_index": 162.36,
       "purchasing_power_index": 59.77,
       "safety_index": 73
     },
     {
-      "country": "czech republic",
+      "country": "greece",
       "date": 2018,
       "quality_life_index": 162.01,
       "purchasing_power_index": 76.35,
