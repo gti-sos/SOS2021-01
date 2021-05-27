@@ -645,7 +645,7 @@
             ><input
             id="insert_input_natality_rate"
               type="number"
-              placeholder="10.2"
+              placeholder="1"
               min="1.0"
               bind:value={insertStatInput["natality-rate"]}
             /></td
@@ -654,7 +654,7 @@
             ><input
             id="insert_input_fertility_rate"
               type="number"
-              placeholder="2.1"
+              placeholder="1"
               min="1.0"
               bind:value={insertStatInput["fertility-rate"]}
             /></td

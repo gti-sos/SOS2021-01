@@ -6,6 +6,7 @@
 	import Info from "./Pages/Info.svelte";
 	import Integrations from "./Pages/Integrations.svelte";
 	import CommonChart from "./Pages/CommonChart.svelte";
+	import About from "./Pages/About.svelte";
 
 	import NatalityAPI from "./front/NatalityStatsAPI/NatalityAPI.svelte";
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
@@ -42,6 +43,7 @@
 		"/info": Info,
 		"/integrations": Integrations,
 		"/analytics": CommonChart,
+		"/about": About,
 		////-----------------------------natality-stats
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date": EditNatalityAPI,
