@@ -89,7 +89,7 @@
     </Nav>
   
     <div>
-      <h2>Uso API externa Rick and Morty API</h2>
+      <h2>Uso API externa Star Wars</h2>
     </div>
   
     {#if errorMsg}
