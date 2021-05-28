@@ -111,7 +111,7 @@
       ><Button color="primary">Divorce and Obesity Integration</Button></a
 
     >
-    <a href="/#/integrations/SWIntegration"
+    <a href="/#/integrations/SWUse"
       ><Button color="primary">Star Wars Species Integration</Button></a
       
     >

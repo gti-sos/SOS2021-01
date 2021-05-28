@@ -2,7 +2,7 @@
     import { Nav, NavItem, NavLink } from "sveltestrap";
   
     //Uso de API externa rick and morty
-    var characters = [];
+    var films = [];
     var errorMsg = "";
     var okMsg = "";
     async function getStats() {
@@ -61,7 +61,7 @@
         },
         series: [
           {
-            name: 'Especies diferentes de los personajes de Star Wars por película',
+            name: 'different species by film of the whole Saga ',
             palette: 'default',
             points: array,
           }
