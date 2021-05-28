@@ -80,9 +80,13 @@
       <a href="/#/integrations/externaCovid"
         ><Button color="primary">Covid</Button></a>
       <a href="/#/integrations/integracion01"
-      ><Button color="primary">Renawable power</Button></a>
+      ><Button color="primary">Renewable power</Button></a>
       <a href="/#/integrations/integracion02"
         ><Button color="primary">Children out school</Button></a>
+        <a href="/#/integrations/integracion03"
+        ><Button color="primary">Fire</Button></a>
+        <a href="/#/integrations/integracion04"
+        ><Button color="primary">Education expenditure</Button></a>
   
     </CardBody>
   </Card>

@@ -3,12 +3,12 @@
 
     var errorMsg = "";    
     let correctMsg = "";
-    var data02 = [];
+    var data03 = [];
     var lifeData = [];
     const BASE_LIFE_API_URL = "/api/v2/life-stats";
-    const BASE_API_URL_02 = "/api/v2/children-out-school";
+    const BASE_API_URL_03 = "/api/v2/fire-stats";
     
-    //INTEGRACION GRUPO 24
+    //INTEGRACION GRUPO 21
   async function loadMyStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -45,8 +45,8 @@
   }
     async function loadAPI() {
         console.log("Loading data...");
-        //const BASE_API_URL_02 = "http://sos2021-24.herokuapp.com/api/v2/children-out-school/";
-        const res = await fetch(BASE_API_URL_02).then(
+      //  const BASE_API_URL_03 = "https://sos2021-21.herokuapp.com/api/v2/fire-stats ";
+        const res = await fetch(BASE_API_URL_03).then(
           function (res) {
             if (res.ok) {
               errorMsg = "";
@@ -62,15 +62,16 @@
       }
     
       
-      async function getData02() {
+      async function getData03() {
         console.log("Fetching data...");
         await loadAPI();
-        const res = await fetch(BASE_API_URL_02);
+        const res = await fetch(BASE_API_URL_03);
     
         if (res.ok) {
           const json = await res.json();
-          data02 = json;
-          console.log(`We have received ${data02.length} stats.`);    
+          data03 = json;
+          console.log(`We have received ${data03.length} stats.`);
+    
           console.log("Ok");
         } else {
           errorMsg = "Error recuperando datos";
@@ -80,42 +81,101 @@
     
       async function loadChart(){
         await getMyStats();
-        await getData02();
+        await getData03();
     
         var paises = [];
-        var outSchool = [] ;
-        var qualityLife = [];
+        var fire_aee = [] ;
+        var safety = [];
 
-        data02.filter(data02 => data02.year == 2018).forEach(d => { 
+        data03.filter(data03 => data03.year == 2019).forEach(d => { 
             let country_minus = d.country.toLowerCase(); 
             lifeData.forEach((data) => {               
-                if(data.date==2018 && data.country==country_minus){
+                if(data.date==2019 && data.country==country_minus){
                     paises.push(country_minus);
-                    outSchool.push(d.children_out_school_total);
-                    qualityLife.push(data.quality_life_index);
+                    fire_aee.push(d.fire_aee);
+                    safety.push(data.safety_index);
                 }
             })
         });
-        
+
         var trace1 = {
+            type: 'scatter',
             x : paises,
-            y : outSchool,
-            name: 'Número de abandono escolar',
-            type : 'bar'
+            y : fire_aee,
+            mode: 'markers',
+            name: 'Estimación anual de emisiones',
+            marker: {
+                color: 'rgba(156, 165, 196, 0.95)',
+                line: {
+                color: 'rgba(156, 165, 196, 1.0)',
+                width: 1,
+                },
+                symbol: 'circle',
+                size: 16
+            }
         };
 
         var trace2 = {
+            type: 'scatter',
             x: paises,
-            y: qualityLife,
-            name : 'Índice de calidad de vida',
-            type: 'bar'
-        };
+            y: safety,
+            mode: 'markers',
+            name: 'Índice de seguridad',
+            marker: {
+                color: 'rgba(204, 204, 204, 0.95)',
+                line: {
+                color: 'rgba(217, 217, 217, 1.0)',
+                width: 1,
+                },
+                symbol: 'circle',
+                size: 16
+            }
+            };
 
         var data = [trace1, trace2];
 
-       var layout = {barmode: 'group'};
+        var layout = {
+            title: 'Comparación de estimación de emisiones y el índice de seguridad en el país en 2019',
+            xaxis: {
+                showgrid: false,
+                showline: true,
+                linecolor: 'rgb(102, 102, 102)',
+                titlefont: {
+                font: {
+                    color: 'rgb(204, 204, 204)'
+                }
+                },
+                tickfont: {
+                font: {
+                    color: 'rgb(102, 102, 102)'
+                }
+                },
+                autotick: false,
+                dtick: 10,
+                ticks: 'outside',
+                tickcolor: 'rgb(102, 102, 102)'
+            },
+            margin: {
+                l: 140,
+                r: 40,
+                b: 50,
+                t: 80
+            },
+            legend: {
+                font: {
+                size: 10,
+                },
+                yanchor: 'middle',
+                xanchor: 'right'
+            },
+            width: 1200,
+            height: 600,
+            paper_bgcolor: 'rgb(254, 247, 234)',
+            plot_bgcolor: 'rgb(254, 247, 234)',
+            hovermode: 'closest'
+            };
 
-        Plotly.newPlot('myDiv', data, layout);   
+            Plotly.newPlot('myDiv', data, layout);  
     }
 
     </script>
@@ -136,9 +196,8 @@
         </Nav>          
     
 
-    <h3>Integración con la API del grupo 24 de SOS</h3>
-    <h5>Se han filtrado los datos para 2018</h5> 
-    <p>Bar chart</p>
+    <h3>Integración con la API del grupo 21 de SOS</h3>
+    <p>Dot plots </p>
     <body>
         <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
     </body>
@@ -147,11 +206,12 @@
     {/if}
 </main>
 
-    
+  
 <style>
     main {
       text-align: center;
       padding: 1em;
       margin: 0 auto;
     }
+    
   </style>

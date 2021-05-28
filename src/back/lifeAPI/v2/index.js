@@ -198,18 +198,4 @@ module.exports.register = (app) => {
             }
         });
     });
-
-
-    /*
-    var api01 = 'http://sos2021-20.herokuapp.com/'; // Integración mediante proxy grupo 20 renawable power capacities
-	var paths01='api/v1/renewablepowercapacities-stats';
-
-    // Integración mediante proxy Api 01 renawable power capacities
-	app.use(paths01, function(req, res) {
-        var url = api01 + req.baseUrl + req.url;
-        console.log('piped: ' + req.baseUrl + req.url);
-        req.pipe(request(url)).pipe(res);
-	});*/
-
-
 }

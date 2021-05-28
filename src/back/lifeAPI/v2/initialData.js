@@ -162,8 +162,8 @@ module.exports =
       "safety_index": 63.26
     },
     {
-      "country": "canada",
-      "date": 2018,
+      "country": "colombia",
+      "date": 2019,
       "quality_life_index": 173.9,
       "purchasing_power_index": 118.92,
       "safety_index": 60.72
