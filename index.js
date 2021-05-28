@@ -119,7 +119,7 @@ app.use(pathWine, function(req, res) {
 //Grupo 10: Obesity stats and food consumption 
 
 var apiServerHostG10 = "https://sos2021-10.herokuapp.com";
-var pathObesity = "/api/v2/obesity-stats";
+var pathObesity = "api/integration/obesity-stats";
 var pathFoodConsumption ="/api/v2/foodconsumption-stats";
 
 app.use(pathObesity, function(req, res) {

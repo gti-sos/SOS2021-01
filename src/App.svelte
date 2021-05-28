@@ -40,6 +40,7 @@
 	import DivorceAndAirDeathsIntegrationAPI from "./front/DivorceStatsAPI/integrations/DivorceAndAirDeathsIntegration.svelte";
 	import DivorceAndFoodConsumptionIntegration from "./front/DivorceStatsAPI/integrations/DivorceAndFoodConsumptionIntegration.svelte"
 	import DivorceAndObesityIntegration from "./front/DivorceStatsAPI/integrations/DivorceAndObesityIntegration.svelte";
+	import SWIntegration from "./front/DivorceStatsAPI/integrations/SWIntegration.svelte";
 	const routes = {
 		"/": Home,
 		"/info": Info,
@@ -71,6 +72,7 @@
 		"/integrations/rickandmortyAPI": RickandMortyCharactersAPI,
 		"/integrations/DivorceAndFoodConsumptionIntegration": DivorceAndFoodConsumptionIntegration,
 		"/integrations/DivorceAndObesityIntegration": DivorceAndObesityIntegration,
+		"/integrations/SWIntegration" : SWIntegration,
 		//-----------------------------life-stats
 		"/life-stats": LifeAPI,
 		"/life-stats/:country/:date": LifeStatEdit,

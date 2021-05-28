@@ -31,7 +31,7 @@
         console.log("Fetching air death´s pollution data...");
 
         const res1 = await fetch(
-            "https://sos2021-03.herokuapp.com/api/v1/air-pollution"
+            "/api/v1/air-pollution"
         );
 
         if (res1.ok) {

@@ -109,6 +109,11 @@
     >
     <a href="/#/integrations/DivorceAndObesityIntegration"
       ><Button color="primary">Divorce and Obesity Integration</Button></a
+
+    >
+    <a href="/#/integrations/SWIntegration"
+      ><Button color="primary">Star Wars Species Integration</Button></a
+      
     >
     
     </CardBody>

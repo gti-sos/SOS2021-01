@@ -30,7 +30,7 @@
         console.log("Fetching Obesity stats data...");
 
         const res1 = await fetch(
-            "http://sos2021-10.herokuapp.com/api/integration/obesity-stats"
+            "/api/integration/obesity-stats"
         );
 
         if (res.ok) {
