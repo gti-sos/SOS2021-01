@@ -115,6 +115,10 @@
       ><Button color="primary">Star Wars Species Integration</Button></a
       
     >
+    <a href="/#/integrations/BikeUse"
+      ><Button color="primary">Renting Bikes Use by countries </Button></a
+      
+    >
     
     </CardBody>
   </Card>

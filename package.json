@@ -36,6 +36,7 @@
     "echarts": "^5.1.1",
     "echarts-for-svelte": "^0.1.11",
     "express": "^4.17.1",
+    "highcharts": "^9.1.0",
     "modules": "^0.4.0",
     "nedb": "^1.8.0",
     "puppeteer": "^9.1.1",
