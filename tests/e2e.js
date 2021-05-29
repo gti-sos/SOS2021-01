@@ -243,6 +243,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
     await page.screenshot({ path: screenshotPath + 'DIV_6_front_insert_0.png' });
     await page.waitForTimeout(2000);
     await page.click("#insert_button");
+    await page.waitForSelector('#insert_button', { visible: true });
     await page.waitForTimeout(2000);
     await page.screenshot({ path: screenshotPath + 'NAT_7_front_insert_1.png' });
     console.log(".....divorce stat inserted");
@@ -255,6 +256,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
     await page.screenshot({ path: screenshotPath + 'DIV_8_front_search_0.png' });
     await page.waitForTimeout(1000);
     await page.click("#search_button");
+    await page.waitForSelector('#search_button', { visible: true });
     
     await page.waitForTimeout(5000);
   
@@ -265,7 +267,8 @@ const screenshotPath = './tests/e2e_screenshoots/';
 
   const [response1] = await Promise.all([
     page.waitForNavigation(),
-    page.click("#body > main > main > table > tbody > tr:nth-child(2) > td:nth-child(7) > a > button"),
+    page.click("body > main > main > table > tbody > tr:nth-child(2) > td:nth-child(7) > a > button"),
+    //await page.waitForSelector('#insert_button', { visible: true });
   ]);
   await page.screenshot({ path: screenshotPath + 'DIV_10_edit_divorce_stat_0.png' });
 
@@ -274,6 +277,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
   await page.$eval('#insert_input_update_marriage_rate', data => data.value = 666)
   await page.screenshot({ path: screenshotPath + 'DIV_11_edit_divorce_stat_1.png' });
   await page.click("#input_update_button");
+  await page.waitForSelector('#input_update_button', { visible: true });
   await page.waitForTimeout(2000);
   await page.screenshot({ path: screenshotPath + 'DIV_11_edit_divorce_stat_2.png' });
   
@@ -290,6 +294,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
   await page.$eval('#insert_input_date', data => data.value='2013')
   await page.screenshot({ path: screenshotPath + 'DIV_12_edit_divorce_stat_2.png' });
   await page.click("#search_button");
+  await page.waitForSelector('#search_button', { visible: true });
   await page.screenshot({ path: screenshotPath + 'DIV_13_front_stat_updated_0.png' });
 
   console.log("Divorce press delete all button")
