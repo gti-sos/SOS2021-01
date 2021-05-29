@@ -65,12 +65,12 @@
 <div>
   <h2>Análiticas</h2>
   <a href="/#/analytics">
-    <Button color="primary">Analiticas</Button>
+    <Button color="primary">Analiticas (gráfica común) </Button>
   </a>
   <a href="/#/divorce-stats/divorceCharts">
     <Button color="secondary">Divorce-stats</Button>
   </a>
-  <a href="/#/natality-stats/natalityCharts">
+  <a href="/#/natality-stats/natalityChart">
     <Button color="secondary">Natality-stats</Button>
   </a>
   <a href="/#/life-stats/lifeCharts">

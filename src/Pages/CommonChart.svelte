@@ -8,7 +8,7 @@
   let natalityChartData = [];
   let divorceData = [];
   let divorceChartData = [];
-  let lifeData=[];
+  let lifeData = [];
   let lifeChartData = [];
 
   var dates = [];
@@ -22,6 +22,16 @@
 
   async function loadChart() {
     console.log("Fetching data...");
+
+    await fetch(
+      BASE_CONTACT_API_PATH_v2 + "/natality-stats/loadInitialData"
+    );
+   await fetch(
+      BASE_CONTACT_API_PATH_v2 + "/divorce-stats/loadInitialData"
+    );
+   await fetch(
+      BASE_CONTACT_API_PATH_v2 + "/life-stats/loadInitialData"
+    );
 
     const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
     const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats");
@@ -44,7 +54,7 @@
         console.log("Distinct dates: " + dates);
 
         //Sumamos los valores para las fechas iguales
-       
+
         dates.forEach((e) => {
           var yAxis = divorceData
             .filter((d) => d.date === e)
@@ -73,23 +83,21 @@
         console.log("Distinct dates: " + dates);
 
         //Sumamos los valores para las fechas iguales
-        
-        
+
         //natalityChartData.push("");
-        
+
         dates.forEach((e) => {
           var yAxis = natalityData
             .filter((d) => d.date === e)
             .map((nr) => nr["natality-rate"])
-            .reduce((acc, nr) => nr + acc,0);
+            .reduce((acc, nr) => nr + acc, 0);
           console.log("YAxis: " + yAxis);
           natalityChartData.push(Math.round(yAxis));
-          
         });
         msg = "";
       }
 
-      if(res2.ok){
+      if (res2.ok) {
         lifeData = await res2.json();
         console.log("RES2 OK");
         //Quitamos fechas repetidas y las ordenamos
@@ -105,15 +113,14 @@
         });
         console.log("Distinct dates: " + dates);
 
-        //Sumamos los valores para las fechas iguales         
+        //Sumamos los valores para las fechas iguales
         dates.forEach((e) => {
           var yAxis = lifeData
             .filter((d) => d.date === e)
             .map((qli) => qli["quality_life_index"])
-            .reduce((acc, qli) => qli + acc,0);
+            .reduce((acc, qli) => qli + acc, 0);
           console.log("YAxis: " + yAxis);
           lifeChartData.push(Math.round(yAxis));
-          
         });
         msg = "";
       }
@@ -127,6 +134,9 @@
     console.log("Life Chart Data: " + lifeChartData);
 
     Highcharts.chart("container", {
+      chart: {
+        type: 'bar'
+    },
       title: {
         text: "natality-stats / divorce-stats / life-stats",
       },
@@ -173,7 +183,7 @@
         {
           name: "Índice de calidad de vida",
           data: lifeChartData,
-        }
+        },
       ],
       responsive: {
         rules: [
@@ -222,8 +232,9 @@
     <figure class="highcharts-figure">
       <div id="container" />
       <p class="highcharts-description">
-        Gráfico de líneas básico que muestra las tendencias anuales para todos los países, para el índice de
-        estilo de vida y los ratios de natalidad y divorcios.
+        Gráfico de líneas básico que muestra las tendencias anuales para todos
+        los países, para el índice de estilo de vida y los ratios de natalidad y
+        divorcios.
       </p>
     </figure>
   {/if}
