@@ -3,12 +3,12 @@
 
     var errorMsg = "";    
     let correctMsg = "";
-    var data02 = [];
+    var data04 = [];
     var lifeData = [];
     const BASE_LIFE_API_URL = "/api/v2/life-stats";
-    const BASE_API_URL_02 = "/api/v2/children-out-school";
+    const BASE_API_URL_04 = "/api/v1";
     
-    //INTEGRACION GRUPO 24
+    //INTEGRACION GRUPO 04
   async function loadMyStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -45,8 +45,7 @@
   }
     async function loadAPI() {
         console.log("Loading data...");
-        //const BASE_API_URL_02 = "http://sos2021-24.herokuapp.com/api/v2/children-out-school/";
-        const res = await fetch(BASE_API_URL_02).then(
+        const res = await fetch(BASE_API_URL_04).then(
           function (res) {
             if (res.ok) {
               errorMsg = "";
@@ -62,15 +61,16 @@
       }
     
       
-      async function getData02() {
+      async function getData04() {
         console.log("Fetching data...");
         await loadAPI();
-        const res = await fetch(BASE_API_URL_02);
+        const res = await fetch(BASE_API_URL_04);
     
         if (res.ok) {
           const json = await res.json();
-          data02 = json;
-          console.log(`We have received ${data02.length} stats.`);    
+          data04 = json;
+          console.log(`We have received ${data04.length} stats.`);
+    
           console.log("Ok");
         } else {
           errorMsg = "Error recuperando datos";
@@ -79,43 +79,79 @@
       }
     
       async function loadChart(){
+        console.log("pasando por loadchart");
         await getMyStats();
-        await getData02();
+        await getData04();
     
-        var paises = [];
-        var outSchool = [] ;
-        var qualityLife = [];
+        var gasto_per_capita = [] ;
+        var gasto_millones = [];
+        var purchasingPower = [];
 
-        data02.filter(data02 => data02.year == 2018).forEach(d => { 
-            let country_minus = d.country.toLowerCase(); 
-            lifeData.forEach((data) => {               
-                if(data.date==2018 && data.country==country_minus){
-                    paises.push(country_minus);
-                    outSchool.push(d.children_out_school_total);
-                    qualityLife.push(data.quality_life_index);
-                }
+        data04.forEach(d => { 
+            let country_minus = d.country.toLowerCase();             
+            lifeData.forEach((data) =>{
+               if(data.country == country_minus){
+                    purchasingPower.push(data.purchasing_power_index);
+                    gasto_per_capita.push(d.education_expenditure_per_capita);
+                    gasto_millones.push(d.education_expenditure_per_millions);
+               }
             })
         });
-        
+
         var trace1 = {
-            x : paises,
-            y : outSchool,
-            name: 'Número de abandono escolar',
-            type : 'bar'
+            type: "pointcloud",
+            mode: "markers",
+            marker: {
+                sizemin: 0.5,
+                sizemax: 100,
+                arearatio: 0,
+                color: "rgba(255, 0, 0, 0.6)"
+            },
+            x: gasto_millones,
+            y: purchasingPower
         };
 
+             
         var trace2 = {
-            x: paises,
-            y: qualityLife,
-            name : 'Índice de calidad de vida',
-            type: 'bar'
-        };
+            type: "pointcloud",
+            mode: "markers",
+            marker: {
+                sizemin: 0.5,
+                sizemax: 100,
+                arearatio: 0,
+                color: "rgba(0, 0, 255, 0.9)",
+                opacity: 0.8,
+                blend: true
+            },
+            opacity: 0.7,
+            x: gasto_per_capita,
+            y: purchasingPower
+        }; 
 
         var data = [trace1, trace2];
 
-       var layout = {barmode: 'group'};
+        var layout = {
+            title: "Styled Point Cloud",
+            xaxis: {
+                type: "linear",
+                range: [
+                -2.501411175139456,
+                43.340777299865266],
+                autorange: true
+            },
+            yaxis: {
+                type: "linear",
+                range: [4,6],
+                autorange: true
+            },
+            height: 598,
+            width: 1080,
+            autosize: true,
+            showlegend: true
+        }
 
-        Plotly.newPlot('myDiv', data, layout);   
+        Plotly.newPlot('myDiv', data, layout);
+        
     }
 
     </script>
@@ -136,9 +172,8 @@
         </Nav>          
     
 
-    <h3>Integración con la API del grupo 24 de SOS</h3>
-    <h5>Se han filtrado los datos para 2018</h5> 
-    <p>Bar chart</p>
+    <h3>Integración con la API del grupo 04 de SOS</h3>
+    <p>Comparación de los gastos en millones de euros y los gastos per cápita con el índice de poder adquisitivo</p>
     <body>
         <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
     </body>
@@ -147,11 +182,12 @@
     {/if}
 </main>
 
-    
+  
 <style>
     main {
       text-align: center;
       padding: 1em;
       margin: 0 auto;
     }
+    
   </style>

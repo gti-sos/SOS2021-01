@@ -154,6 +154,48 @@ app.use(pathUnemployment, function(req, res) {
   req.pipe(request(url)).pipe(res);
 });
 
+//----------------------------------------------Proxys de Lucia---------------------------------------------------- 
+//Grupo 20: Renewable power
+var api01 = "http://sos2021-20.herokuapp.com";
+var path01 = "/api/v1/renewablepowercapacities-stats";
+
+app.use(path01, function(req, res) {
+  var url = api01 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+//Grupo 24: Children out school 
+var api02 = "http://sos2021-24.herokuapp.com";
+var path02 = "/api/v2/children-out-school";
+
+app.use(path02, function(req, res) {
+  var url = api02 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+//Grupo 21: Fire 
+var api03 = "http://sos2021-21.herokuapp.com";
+var path03 = "/api/v2/fire-stats";
+
+app.use(path03, function(req, res) {
+  var url = api03 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+
+//Grupo 04: Education expenditures 
+var api04 = "https://education-expenditures.herokuapp.com";
+var path04 = "/api/v1";
+
+app.use(path04, function(req, res) {
+  var url = api04 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
 
 
 //-------------------------------Recurso /cool - F02-----------------------

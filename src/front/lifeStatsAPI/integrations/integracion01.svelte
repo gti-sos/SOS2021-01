@@ -3,11 +3,12 @@
 import { Nav, NavItem, NavLink } from "sveltestrap";
 var errorMsg = "";
 var data01 = [];
+const BASE_API_URL_01 = "/api/v1/renewablepowercapacities-stats"
 
 //INTEGRACION GRUPO 20
 async function loadAPI() {
     console.log("Loading data...");
-    const BASE_API_URL_01 = "http://sos2021-20.herokuapp.com/api/v1/renewablepowercapacities-stats";
+   // const BASE_API_URL_01 = "http://sos2021-20.herokuapp.com/api/v1/renewablepowercapacities-stats";
     const res = await fetch(BASE_API_URL_01).then(
       function (res) {
         if (res.ok) {
@@ -27,9 +28,7 @@ async function loadAPI() {
   async function getData01() {
     console.log("Fetching data...");
     await loadAPI();
-    const res = await fetch(
-      "http://sos2021-20.herokuapp.com/api/v1/renewablepowercapacities-stats"
-    );
+    const res = await fetch(BASE_API_URL_01);
 
     if (res.ok) {
       const json = await res.json();
@@ -100,6 +99,7 @@ async function loadAPI() {
 
   <h3>Uso de la API del grupo 20 de SOS</h3>
   <h5>Se recogen los datos para 2008</h5> 
+  <p>Line chart</p>
   <body>
       <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
   </body>

@@ -29,6 +29,8 @@
 	import LifeExtCovid from "./front/lifeStatsAPI/integrations/externaCovid.svelte";
 	import LifeIntegration01 from "./front/lifeStatsAPI/integrations/integracion01.svelte";
 	import LifeIntegration02 from "./front/lifeStatsAPI/integrations/integracion02.svelte";
+	import LifeIntegration03 from "./front/lifeStatsAPI/integrations/integracion03.svelte";
+	import LifeIntegration04 from "./front/lifeStatsAPI/integrations/integracion04.svelte";
 
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
 	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
@@ -84,6 +86,8 @@
 		"/integrations/externaCovid": LifeExtCovid,
 		"/integrations/integracion01" : LifeIntegration01,
 		"/integrations/integracion02" : LifeIntegration02,
+		"/integrations/integracion03" : LifeIntegration03,
+		"/integrations/integracion04" : LifeIntegration04,
 		//-----------------------------
 		"*": NotFound
 	};
