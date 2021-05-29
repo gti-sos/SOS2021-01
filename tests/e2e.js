@@ -176,10 +176,8 @@ const screenshotPath = './tests/e2e_screenshoots/';
   await page.screenshot({ path: screenshotPath + 'NAT_18_front_search_4.png' });
   console.log(".....Natality stat searched");
 
-  console.log("--Natality press moroco delete button--"); //F
+  console.log("--Natality press moroco delete button--"); 
 
-
-  
   await  page.click("#delete_button_moroco_2019"),
   await page.waitForTimeout(1000);
   
