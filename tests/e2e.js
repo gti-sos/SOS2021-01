@@ -226,7 +226,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
    await page.click("body > main > main > ul > li:nth-child(3) > div > div.modal.show.d-block > div > div > div.modal-footer > button.btn.btn-danger");
    await page.screenshot({ path: screenshotPath + 'DIV_front_delete_1.png' });
  
-   console.log("Natality delete all complete")
+   console.log("Divorce delete all complete")
  
 
 
