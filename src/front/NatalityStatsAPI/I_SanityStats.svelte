@@ -188,6 +188,7 @@
 
   <div>
     <h2>Integración API SOS sanity-stats</h2>
+    <p>por favor espere unos segundos a que se cargue la gráfica</p>
   </div>
 
   {#if errorMsg}

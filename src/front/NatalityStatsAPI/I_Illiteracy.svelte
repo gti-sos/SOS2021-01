@@ -137,11 +137,6 @@
       Array.from(result1.keys())
     );
 
-    var template = {
-      name: "",
-      data: [],
-    };
-
     var data = [];
 
     var countriesWithCapitalLetter = commonValues(
@@ -153,63 +148,60 @@
     console.log("capitalletter country " + countriesWithCapitalLetter);
     console.log("common countries: " + commonCountries);
 
-   
     var arrayAux = [];
     for (let j = 0; j < countriesWithCapitalLetter.length; j++) {
       var c = countriesWithCapitalLetter[j];
       arrayAux.push(result.get(c));
       console.log("templatedata " + arrayAux);
     }
+
     data.push({
-name: "Alfabetizacion de adultos",
-data: arrayAux
+      name: "Alfabetizacion de adultos",
+      data: arrayAux,
     });
+
     arrayAux = [];
     for (let j = 0; j < commonCountries.length; j++) {
       var c = commonCountries[j];
       arrayAux.push(result1.get(c));
     }
+
     data.push({
-name:"Ratio de natalidad",
-data: arrayAux
+      name: "Ratio de natalidad",
+      data: arrayAux,
     });
 
     console.log(data);
+
     Highcharts.chart("container", {
       chart: {
-        type: "bar",
+        type: "area",
       },
       title: {
         text: "Ratio de natalidad y tasa de alfabetización de adultos",
       },
       xAxis: {
         categories: commonCountries,
+        tickmarkPlacement: "on",
         title: {
-          text: null,
+          enabled: false,
         },
       },
-     
+      yAxis: {
+        title: {
+          text: "",
+        },
+      },
       plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true,
+        area: {
+          stacking: "normal",
+          lineColor: "#666666",
+          lineWidth: 1,
+          marker: {
+            lineWidth: 1,
+            lineColor: "#666666",
           },
         },
-      },
-      legend: {
-        layout: "vertical",
-        align: "right",
-        verticalAlign: "top",
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-          Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFF",
-        shadow: true,
-      },
-      credits: {
-        enabled: false,
       },
       series: data,
     });
@@ -218,7 +210,6 @@ data: arrayAux
 
 <svelte:head>
   <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/series-label.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script
@@ -257,15 +248,15 @@ data: arrayAux
   div {
     margin-bottom: 15px;
   }
+  #container {
+    height: 400px;
+  }
+
   .highcharts-figure,
   .highcharts-data-table table {
     min-width: 310px;
     max-width: 800px;
     margin: 1em auto;
-  }
-
-  #container {
-    height: 400px;
   }
 
   .highcharts-data-table table {

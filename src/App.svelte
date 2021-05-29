@@ -10,7 +10,8 @@
 
 	import NatalityAPI from "./front/NatalityStatsAPI/NatalityAPI.svelte";
 	import EditNatalityAPI from "./front/NatalityStatsAPI/EditStat.svelte";
-	import NatalityCharts from "./front/NatalityStatsAPI/NatalityChart.svelte";
+	import NatalityChart from "./front/NatalityStatsAPI/NatalityChart.svelte";
+	import NatalityChart2 from "./front/NatalityStatsAPI/NatalityChart2.svelte";
 	import NATrestcountries from "./front/NatalityStatsAPI/I_Rescountries.svelte";
 	import NATcoinCap from "./front/NatalityStatsAPI/I_coinCap.svelte";
 	import NATsanityStats from "./front/NatalityStatsAPI/I_SanityStats.svelte";
@@ -54,7 +55,8 @@
 		////-----------------------------natality-stats
 		"/natality-stats": NatalityAPI,
 		"/natality-stats/:country/:date": EditNatalityAPI,
-		"/natality-stats/natalityCharts": NatalityCharts,
+		"/natality-stats/natalityChart": NatalityChart,
+		"/natality-stats/natalityChart2": NatalityChart2,
 		"/integrations/restcountries": NATrestcountries,
 		"/integrations/coinCap": NATcoinCap,
 		"/integrations/sanityStats": NATsanityStats,

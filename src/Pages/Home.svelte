@@ -58,6 +58,9 @@
   <a href="/#/integrations">
     <Button color="primary">Integraciones</Button>
   </a>
+  <a href="/#/about">
+    <Button color="primary">Acerca de</Button>
+  </a>
 </div>
 <div>
   <h2>Análiticas</h2>
@@ -99,6 +102,9 @@
           <a href="/#/divorce-stats">
             <Button color="primary">Interfaz</Button>
           </a>
+          <a href="/#"
+            ><Button color="primary">Video</Button></a
+          >
           <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
             ><Button color="info">Documentación v1</Button></a
           >
@@ -133,6 +139,9 @@
           <a href="/#/life-stats">
             <Button color="primary">Interfaz</Button>
           </a>
+          <a href="/#"
+            ><Button color="primary">Video</Button></a
+          >
           <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
             <Button color="info">Documentación v1</Button>
           </a>
@@ -165,6 +174,9 @@
         >
           <a href="/#/natality-stats"
             ><Button color="primary">Interfaz</Button></a
+          >
+          <a href="/#"
+            ><Button color="primary">Video</Button></a
           >
           <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
             ><Button color="info">Documentación v1</Button></a

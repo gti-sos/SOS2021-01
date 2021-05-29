@@ -4,7 +4,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
 (async () => {
   const browser = await puppeteer.launch({
     headless: true, // Especificamos que el navegador no es headless
-    slowMo: 1000 // Añadimos un delay de 1 segundo entre cada comando.
+    slowMo: 1000, // Añadimos un delay de 1 segundo entre cada comando.
   });
   const context = await browser.createIncognitoBrowserContext();
   const page = await browser.newPage();
@@ -60,21 +60,26 @@ const screenshotPath = './tests/e2e_screenshoots/';
     await page.screenshot({ path: screenshotPath + 'NAT_5_front_3.png' });
   
   //No funciona
-  /*
+  page.on('pageerror', (err) => {
+    console.error(err);
+  });
+
     console.log("Natality insert new stat.....");
     await page.$eval('#insert_input_country', el => el.value ="moroco");
-    await page.$eval('#insert_input_date', el => el.value = 2019);
-    await page.$eval('#insert_input_born',el => el.value = 10000);
-    await page.$eval('#insert_input_men_born', el => el.value = 50000);
-    await page.$eval('#insert_input_women_born', el => el.value =50000);
-    await page.$eval('#insert_input_natality_rate', el => el.value = 2);
-    await page.$eval('#insert_input_fertility_rate',el => el.value =  4);
+    await page.$eval('#insert_input_date', el => el.value = "2019");
+    await page.$eval('#insert_input_born',el => el.value = "1");
+    await page.$eval('#insert_input_men_born', el => el.value = "1");
+    await page.$eval('#insert_input_women_born', el => el.value ="1");
+    await page.$eval('#insert_input_natality_rate', el => el.value = "1");
+    await page.$eval('#insert_input_fertility_rate',el => el.value =  "1");
     await page.screenshot({ path: screenshotPath + 'NAT_6_front_insert_0.png' });
+    await page.waitForTimeout(2000);
     await page.click("#insert_button");
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
     await page.screenshot({ path: screenshotPath + 'NAT_7_front_insert_1.png' });
     console.log(".....Natality stat inserted");
   
+
 
     console.log("Natality search the new stat.....");
     await page.$eval('#query_input_country', data => data.value='moroco')
@@ -109,7 +114,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
   ]);
   await page.waitForTimeout(2000);
   await page.screenshot({ path: screenshotPath + 'NAT_12_front_stat_updated_0.png' });
-*/
+
   console.log("Natality press delete all button")
  
    await page.click("#b_delete_toggle");

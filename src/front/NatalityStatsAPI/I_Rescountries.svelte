@@ -6,8 +6,7 @@
   } from "sveltestrap";
   //Uso de API externa restcountries.eu 
 var countries = [];
-var errorMsg = "";
-var okMsg ="";
+var msg = "";
 async function getStats() {
     console.log("Fetching data...");
 
@@ -21,12 +20,12 @@ async function getStats() {
 
       console.log(`We have received ${countries.length} countries.`);
     
-
+      msg = "";
       console.log("Ok");
     } else {
-      errorMsg="Error recuperando datos de restcountries"
-      okMsg = "";
-      console.log("ERROR!" + errorMsg);
+      msg="Error recuperando datos de restcountries"
+    
+      console.log("ERROR!" + msg);
     }
   };
 
@@ -117,8 +116,8 @@ async function loadChart(){
     </h2>
   </div>
 
-  {#if errorMsg}
-    <p>{errorMsg}</p>
+  {#if msg}
+    <p>{msg}</p>
   {:else}
   <div>
     <canvas id="myChart"></canvas>
