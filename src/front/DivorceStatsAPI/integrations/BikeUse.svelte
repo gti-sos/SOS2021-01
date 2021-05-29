@@ -43,19 +43,22 @@
         });
 
         ////////////////////
-
+        var numeroMaximo = 0; 
         processedCicles.forEach((e) => {
+
+            numeroMaximo++;
+
             var padre = { id: e.country, name: e.country };
 
           
 
-            if (!padres_añadidos.includes(e.country.toString())) {
+            if (!padres_añadidos.includes(e.country.toString()) && numeroMaximo < 150) {
 
                 padres_añadidos.push(e.country.toString());
                 padres.push(padre);
 
             } else {
-                hijos.push({ name: e.city, parent: e.country });
+                if ( numeroMaximo <150) {hijos.push({ name: e.city, parent: e.country, value: 1 }); }
             }
         });
 
@@ -66,7 +69,8 @@
 
         Highcharts.chart("container", {
             series: [
-                {
+                {   
+                   
                     type: "treemap",
                     layoutAlgorithm: "stripes",
                     alternateStartingDirection: true,
@@ -98,12 +102,14 @@
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script
-        src="https://code.highcharts.com/modules/accessibility.js"
-        on:load={onLoad}></script>
+
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    
+    <script src="https://code.highcharts.com/modules/accessibility.js"on:load="{onLoad}"></script>
 </svelte:head>
 
 <main>
