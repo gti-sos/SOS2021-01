@@ -39,6 +39,7 @@
     "highcharts": "^9.1.0",
     "modules": "^0.4.0",
     "nedb": "^1.8.0",
+    "pupeteer": "0.0.1",
     "puppeteer": "^9.1.1",
     "request": "^2.88.2",
     "svelte-spa-router": "^3.1.0",

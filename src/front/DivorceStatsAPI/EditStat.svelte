@@ -125,12 +125,12 @@
         <tr>
           <td>{updateCountry}</td>
           <td>{updateDate}</td>
-          <td><input type="number" placeholder="0.0" step="0.01" min="0"   bind:value={updateMarriageRate} /></td>
-          <td><input type="number" placeholder="0.0" step="0.01" min="0"   bind:value={updateDivorceRate} /></td>
-          <td><input type="number" placeholder="0.0" step="0.01" min="0"   bind:value={updateRatioActual} /></td>
-          <td><input type="number" placeholder="0.0" step="0.01" min="0" bind:value={updateRatioPercent} /></td>
+          <td><input id="insert_input_update_marriage_rate" type="number" placeholder="0.0" step="0.01" min="0"   bind:value={updateMarriageRate} /></td>
+          <td><input id="insert_input_update_divorce_rate" type="number" placeholder="0.0" step="0.01" min="0"   bind:value={updateDivorceRate} /></td>
+          <td><input id="insert_input_update_ratio_actual" type="number" placeholder="0.0" step="0.01" min="0"   bind:value={updateRatioActual} /></td>
+          <td><input  id="insert_input_update_ratio_percent" type="number" placeholder="0.0" step="0.01" min="0" bind:value={updateRatioPercent} /></td>
           <td>
-            <Button outline color="primary" on:click={updateStat}>Actualizar</Button>
+            <Button id="input_update_button" outline color="primary" on:click={updateStat}>Actualizar</Button>
           </td>
         </tr>
       </tbody>
