@@ -412,6 +412,7 @@
       <tr>
         <td
           ><input
+          id="insert_input_country"
             type="text"
             placeholder="China"
             bind:value={newStat.country}
@@ -419,6 +420,7 @@
         >
         <td
           ><input
+          id="insert_input_date"
             type="number"
             placeholder="2019"
             min="1900"
@@ -427,6 +429,7 @@
         >
         <td
           ><input
+          id="insert_input_marriage_rate"
             type="number"
             placeholder="0.0"
             min="1"
@@ -435,6 +438,7 @@
         >
         <td
           ><input
+          id="insert_input_divorce_rate"
             type="number"
             placeholder="0.0"
             min="1"
@@ -443,6 +447,7 @@
         >
         <td
           ><input
+          id="insert_input_ratio_actual"
             type="number"
             placeholder="0.0"
             min="1"
@@ -451,6 +456,7 @@
         >
         <td
           ><input
+          id="insert_input_ratio_percent"
             type="number"
             placeholder="0.0"
             min="1.0"
@@ -458,10 +464,10 @@
           /></td
         >
         <td
-          ><Button color="secondary" on:click={insertStat}>Insertar</Button></td
+          ><Button id="insert_button" color="secondary" on:click={insertStat}>Insertar</Button></td
         >
         <td>
-          <Button color="primary" on:click={searchStat}>Buscar</Button>
+          <Button id="search_button"color="primary" on:click={searchStat}>Buscar</Button>
         </td>
       </tr>
 
@@ -494,6 +500,7 @@
     <PaginationItem class={current_page === 1 ? "disabled" : ""}>
       <PaginationLink
         previous
+        id="pagination_back"
         href="#/divorce-stats"
         on:click={() => changePage(current_page - 1, current_offset - 10)}
       />
@@ -502,6 +509,7 @@
       <PaginationItem class={current_page === page ? "active" : ""}>
         <PaginationLink
           previous
+          id="pagination_current"
           href="#/divorce-stats"
           on:click={() => changePage(page, (page - 1) * 10)}
           >{page}</PaginationLink
@@ -511,6 +519,7 @@
     <PaginationItem class={current_page === last_page ? "disabled" : ""}>
       <PaginationLink
         next
+        id="pagination_forward"
         href="#/divorce-stats"
         on:click={() => changePage(current_page + 1, current_offset + 10)}
       />
