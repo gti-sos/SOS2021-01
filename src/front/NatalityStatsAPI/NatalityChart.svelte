@@ -127,10 +127,10 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="#/natality-stats">Interfaz</NavLink>
+      <NavLink  id="nav_interface" href="#/natality-stats">Interfaz</NavLink>
     </NavItem>
     <NavItem>
       <NavLink
