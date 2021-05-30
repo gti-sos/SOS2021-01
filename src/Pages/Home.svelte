@@ -67,8 +67,11 @@
   <a href="/#/analytics">
     <Button color="primary">Analiticas (gráfica común) </Button>
   </a>
-  <a href="/#/divorce-stats/divorceCharts">
-    <Button color="secondary">Divorce-stats</Button>
+  <a href="/#/divorce-stats/divorceChart">
+    <Button color="secondary">Divorce-stats (line)</Button>
+  </a>
+  <a href="/#/divorce-stats/divorceChart2">
+    <Button color="secondary">Divorce-stats (lollipop)</Button>
   </a>
   <a href="/#/natality-stats/natalityChart">
     <Button color="secondary">Natality-stats</Button>

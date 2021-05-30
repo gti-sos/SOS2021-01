@@ -35,7 +35,8 @@
 
 	import DivorceAPI from "./front/DivorceStatsAPI/DivorceAPI.svelte";
 	import EditDivorceAPI from "./front/DivorceStatsAPI/EditStat.svelte";
-	import DivorceCharts from "./front/DivorceStatsAPI/DivorceChart.svelte";
+	import DivorceChart from "./front/DivorceStatsAPI/DivorceChart.svelte";
+	import DivorceChart2_lollipop from "./front/DivorceStatsAPI/DivorceChart2_lollipop.svelte";
 
 	import BreakingBadAPI from "./front/DivorceStatsAPI/integrations/BreakingBadAPI.svelte";
 	//import RickandmortyEcharts from "./front/DivorceStatsAPI/integrations/RickandmortyEcharts.svelte";
@@ -71,7 +72,8 @@
 		
 		"/divorce-stats": DivorceAPI,
 		"/divorce-stats/:country/:date": EditDivorceAPI,
-		"/divorce-stats/divorceCharts": DivorceCharts,
+		"/divorce-stats/divorceChart": DivorceChart,
+		"/divorce-stats/divorceChart2" : DivorceChart2_lollipop,
 		"/integrations/breakingbad": BreakingBadAPI,
 		"/integrations/divorceandairdeathsintegration": DivorceAndAirDeathsIntegrationAPI,
 		//"/integrations/rickandmortyEcharts" : RickandmortyEcharts,
