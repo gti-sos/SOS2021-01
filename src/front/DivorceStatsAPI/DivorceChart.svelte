@@ -130,7 +130,7 @@
         <NavLink href="/">Página Principal</NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="#/divorce-stats">Datos</NavLink>
+        <NavLink href="#/divorce-stats">Interfaz</NavLink>
       </NavItem>
     </Nav>
   

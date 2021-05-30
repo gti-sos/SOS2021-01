@@ -204,7 +204,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
   console.log("Home press divorce interface button")
   await Promise.all([
     page.waitForNavigation(),
-    page.click(document.querySelector("body > main > main > div:nth-child(6) > div > div:nth-child(1) > div > div.card-body > a:nth-child(5) > button")),
+    page.click("body > main > main > div:nth-child(6) > div > div:nth-child(1) > div > div.card-body > a:nth-child(5) > button"),
   ]);
  
     await page.screenshot({ path: screenshotPath + 'DIV_0_front_0.png' });
@@ -215,18 +215,53 @@ const screenshotPath = './tests/e2e_screenshoots/';
     await page.screenshot({ path: screenshotPath + 'DIV_1_front_load_0.png' });
 
     await page.click("body > main > main > ul > li:nth-child(2) > div > div.modal.show.d-block > div > div > div.modal-footer > button.btn.btn-primary");
-    await page.screenshot({ path: screenshotPath + 'DIV_front_load_1.png' });
+    await page.screenshot({ path: screenshotPath + 'DIV_2_front_load_1.png' });
   
     console.log(".....Divorce stats load complete")
-    await page.screenshot({ path: screenshotPath + 'DIV_3_front_1.png' });
-  
+    await page.screenshot({ path: screenshotPath + 'DIV_3_data_loaded_1.png' });
+
+
     console.log("Divorce go to next page.....");
-    await page.click("#pagination_forward");
-    await page.screenshot({ path: screenshotPath + 'DIV_4_front_2.png' });
+  await page.click("#pagination_forward");
+  await page.screenshot({ path: screenshotPath + 'DIV_4_next_page_2.png' });
+
+  console.log("Divorce go to previous page.....");
+  await page.click("#pagination_back");
+  await page.screenshot({ path: screenshotPath + 'DIV_5_back_page_3.png' });
+
+
+  console.log("divorce line analityc ")
+    await Promise.all([
+      page.waitForNavigation(),
+      await page.click("#nav_div_analytics"),
+      page.waitForSelector('#nav_div_analytics', { visible: true }),
+    ]);
   
-    console.log("Divorce go to previous page.....");
-    await page.click("#pagination_back");
-    await page.screenshot({ path: screenshotPath + 'DIV_5_front_3.png' });
+    await page.screenshot({ path: screenshotPath + 'DIV_6_line_analytic.png' });
+  
+    console.log("come back to the interface");
+    await Promise.all([
+      page.waitForNavigation(),
+      page.click("body > main > main > ul > li:nth-child(2) > a"),
+    ]);
+
+    console.log("divorce lollipop analityc");
+    
+    await Promise.all([
+      page.waitForNavigation(),
+      await page.click("#nav_div_analytics2"),
+      page.waitForSelector('#nav_div_analytics2', { visible: true }),
+    ]);
+  
+    await page.screenshot({ path: screenshotPath + 'DIV_7_lollipop_analytic.png' });
+  
+    console.log("come back to the interface");
+    await Promise.all([
+      page.waitForNavigation(),
+      page.click("body > main > main > ul > li:nth-child(2) > a"),
+    ]);
+  
+    
   
   //No funciona
   page.on('pageerror', (err) => {
@@ -252,7 +287,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
     await page.focus('#insert_input_ratio_percent');
     await page.keyboard.type("1");
   
-    await page.screenshot({ path: screenshotPath + ' DIV_6_front_insert_0.png' });
+    await page.screenshot({ path: screenshotPath + ' DIV_8_front_insert_0.png' });
   
     await page.focus('#insert_button');
     await page.click("#insert_button");
@@ -260,7 +295,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
       document.querySelector('#insert_button').click();
     });*/
     await page.waitForSelector('#insert_button', { visible: true });
-    await page.screenshot({ path: screenshotPath + 'DIV__f7ront_insert_1.png' });
+    await page.screenshot({ path: screenshotPath + 'DIV_9_front_insert_1.png' });
     console.log(".....Natality stat inserted");
   
 
@@ -270,11 +305,11 @@ const screenshotPath = './tests/e2e_screenshoots/';
     await page.keyboard.type("Rusia");
     await page.focus('#insert_input_date');
     await page.keyboard.type("2013");
-    await page.screenshot({ path: screenshotPath + 'DIV_8_front_search_0.png' });
+    await page.screenshot({ path: screenshotPath + 'DIV_10_front_search_0.png' });
     await page.focus('#search_button');
     await page.click("#search_button");
     await page.waitForSelector('#search_button', { visible: true });
-    await page.screenshot({ path: screenshotPath + 'DIV_9_front_search_1.png' });
+    await page.screenshot({ path: screenshotPath + 'DIV_11_front_search_1.png' });
 
     console.log(".....Divorce stat searched");
   
@@ -286,17 +321,17 @@ const screenshotPath = './tests/e2e_screenshoots/';
     page.waitForSelector('body > main > main > table > tbody > tr:nth-child(2) > td:nth-child(7) > a > button', { visible: true }),
     //await page.waitForSelector('#insert_button', { visible: true });
   ]);
-  await page.screenshot({ path: screenshotPath + 'DIV_10_edit_divorce_stat_0.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_12_edit_divorce_stat_0.png' });
 
   console.log("Divorce update Rusia 2013 .....");
   await page.focus('#insert_input_update_marriage_rate');
   await page.$eval('#insert_input_update_marriage_rate', data => data.value = "");
   await page.keyboard.type("666");
-  await page.screenshot({ path: screenshotPath + 'DIV_11_edit_divorce_stat_1.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_13_edit_divorce_stat_1.png' });
   await page.focus('#input_update_button');
   await page.click("#input_update_button");
   await page.waitForSelector('#input_update_button', { visible: true });
-  await page.screenshot({ path: screenshotPath + 'DIV_11_edit_divorce_stat_2.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_14_edit_divorce_stat_2.png' });
   console.log("Rusia 2013 stat updated")
 
 
@@ -311,25 +346,25 @@ const screenshotPath = './tests/e2e_screenshoots/';
   await page.keyboard.type("Rusia");
   await page.focus('#insert_input_date');
   await page.keyboard.type("2013");
-  await page.screenshot({ path: screenshotPath + 'DIV_12_edit_divorce_stat_2.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_15_edit_divorce_stat_2.png' });
   await page.focus('#search_button');
   await page.click("#search_button");
   await page.waitForSelector('#search_button', { visible: true });
-  await page.screenshot({ path: screenshotPath + 'DIV_13_front_stat_updated_0.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_16_front_stat_updated_0.png' });
 
   console.log("Divorce Rusia 2013 press delete button")
 
   await  page.click("body > main > main > table > tbody > tr:nth-child(2) > td:nth-child(8) > button"),
   await page.waitForTimeout(1000);
-  await page.screenshot({ path: screenshotPath + 'DIV_14_front_deleted_divorce_stat_0.png' })
+  await page.screenshot({ path: screenshotPath + 'DIV_17_front_deleted_divorce_stat_0.png' })
   
   
   console.log("Delete all divorce stats button")
 
   await page.click("body > main > main > ul > li:nth-child(3) > a"); //BORRAR TODOS LOS DATOS 
-  await page.screenshot({ path: screenshotPath + 'DIV_front_delete_0.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_18_front_delete_0.png' });
   await page.click("body > main > main > ul > li:nth-child(3) > div > div.modal.show.d-block > div > div > div.modal-footer > button.btn.btn-danger");
-  await page.screenshot({ path: screenshotPath + 'DIV_front_delete_1.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_19_front_delete_1.png' });
  
    console.log("Divorce delete all complete")
  

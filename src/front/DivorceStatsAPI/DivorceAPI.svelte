@@ -384,6 +384,11 @@
         </Modal>
       {/if}
     </NavItem>
+    <NavLink id="nav_div_analytics" href="/#/divorce-stats/divorceChart">Análitica tipo line</NavLink>
+  
+  <NavItem>
+    <NavLink id="nav_div_analytics2" href="/#/divorce-stats/divorceChart2">Análitica tipo lollipop</NavLink>
+  </NavItem>
   </Nav>
   <h2>API de Divorcios y Matrimonios</h2>
   <p />
