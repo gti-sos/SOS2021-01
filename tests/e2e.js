@@ -51,10 +51,10 @@ const screenshotPath = './tests/e2e_screenshoots/';
 
   await page.click(" body > main > main > div:nth-child(5) > div > div:nth-child(2) > div > div.card-body > a:nth-child(5) > button");
   await page.click("body > main > main > div:nth-child(3) > main > div > button.btn.btn-outline-primary");
-
-
+  await page.click("body > main > main > div.nav.svelte-1xdzfq5 > ul > li:nth-child(1) > a");
+  
   //una vez cargados los datos capturamos
-
+  
   await page.click("body > main > main > ul > li:nth-child(3)");
   await page.screenshot({ path: screenshotPath + 'INTEGRATIONS_VIEW_0.png' });
   
