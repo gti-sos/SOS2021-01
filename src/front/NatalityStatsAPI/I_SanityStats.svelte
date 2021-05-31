@@ -1,48 +1,43 @@
 <script>
-
-  import { Nav, NavItem, NavLink,Spinner } from "sveltestrap";
+  import { Nav, NavItem, NavLink, Spinner } from "sveltestrap";
 
   //Uso API grupo 10
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   var sanityStats = [];
   var natalityData = [];
-  var errorMsg = "";
-  var okMsg = "";
-  var activeSpinner = true;
+  var msg = "";
 
   async function loadApi() {
     console.log("Loading data...");
-    const res = await fetch("/sanity-stats/loadInitialData").then(
-      function (res) {
-        if (res.ok) {
-          errorMsg = "";
-          console.log("OK");
-        } else {
-          if (res.status === 500) {
-            errorMsg = "No se ha podido acceder a la base de datos";
-          }
-          okMsg = "";
-          console.log("ERROR!" + errorMsg);
+    const res = await fetch("/sanity-stats/loadInitialData").then(function (
+      res
+    ) {
+      if (res.ok) {
+        msg = "";
+        console.log("OK");
+      } else {
+        if (res.status === 500) {
+          msg = "No se ha podido acceder a la base de datos";
         }
+        console.log("ERROR!" + msg);
       }
-    );
+    });
   }
-  
+
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        errorMsg = "";
+        msg = "";
         console.log("OK");
       } else {
         if (res.status === 500) {
-          errorMsg = "No se ha podido acceder a la base de datos";
+          msg = "No se ha podido acceder a la base de datos";
         }
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
+        console.log("ERROR!" + msg);
       }
     });
   }
@@ -56,11 +51,11 @@
       console.log("OK");
       natalityData = await res.json();
 
-      okMsg = "";
+      msg = "";
       console.log(`We have received ${natalityData.length} natality-stats.`);
     } else {
       console.log("Error");
-      errorMsg = "Error al cargar los datos de la API";
+      msg = "Error al cargar los datos de la API";
     }
   }
 
@@ -74,15 +69,13 @@
       sanityStats = json;
 
       console.log(`We have received ${sanityStats.length} sanity-stats.`);
-
+      msg = "";
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de sanity-stats";
-      okMsg = "";
-      console.log("ERROR!" + errorMsg);
+      msg = "Error recuperando datos de sanity-stats";
+      console.log("ERROR!" + msg);
     }
   }
-
 
   async function loadChart() {
     await getStats();
@@ -95,79 +88,71 @@
     //-------------------Sanity-stats
     console.log("Calculating sanity-stats...");
     var index = 0;
-    sanityStats.forEach(element => {
-      var e = element.country+"-"+element.year;
-      if (!xAxis.includes(e)){
+    sanityStats.forEach((element) => {
+      var e = element.country + "-" + element.year;
+      if (!xAxis.includes(e)) {
         xAxis.push(e);
         yAxis.push(Math.round(element.health_expenditure_in_percentage));
         index++;
-        console.log("X: "+xAxis);
-        console.log("Y: "+yAxis);
+        console.log("X: " + xAxis);
+        console.log("Y: " + yAxis);
       }
     });
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     console.log("Calculating natality-stats...");
-    natalityData.forEach(element => {
-      var e = element.country+"-"+element.date;
-      if (!xAxis.includes(e)){
-        if(element["natality-rate"]!=undefined){
-          console.log("natalite-rite "+element["natality-rate"]);
+    natalityData.forEach((element) => {
+      var e = element.country + "-" + element.date;
+      if (!xAxis.includes(e)) {
+        if (element["natality-rate"] != undefined) {
+          console.log("natalite-rite " + element["natality-rate"]);
           xAxis.push(e);
-        yAxis.push(Math.round(element["natality-rate"]));
-        console.log("X: "+xAxis);
-        console.log("Y: "+yAxis);
+          yAxis.push(Math.round(element["natality-rate"]));
+          console.log("X: " + xAxis);
+          console.log("Y: " + yAxis);
         }
-        
       }
     });
 
     var yAxis1 = [];
     for (let i = 0; i < index; i++) {
-      yAxis1.push(0);    
+      yAxis1.push(0);
     }
-    var copy = yAxis.slice(index,yAxis.lengt);
-  for (let i = 0; i < copy.length; i++) {
-    yAxis1.push(copy[i]);
-    
-  }
+    var copy = yAxis.slice(index, yAxis.lengt);
+    for (let i = 0; i < copy.length; i++) {
+      yAxis1.push(copy[i]);
+    }
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log("X: "+xAxis.length);
-    console.log("Y: "+yAxis.length);
-    console.log("X-Sanity: "+xAxis.slice(0,index));
-    console.log("X-Natality: "+xAxis.slice(index,yAxis.length));
-    console.log("Y-Sanity: "+yAxis.slice(0,index));
-    console.log("Y-Natality: "+yAxis.slice(index,yAxis.length));
-    console.log("index: "+index);
-
-
+    console.log("X: " + xAxis.length);
+    console.log("Y: " + yAxis.length);
+    console.log("X-Sanity: " + xAxis.slice(0, index));
+    console.log("X-Natality: " + xAxis.slice(index, yAxis.length));
+    console.log("Y-Sanity: " + yAxis.slice(0, index));
+    console.log("Y-Natality: " + yAxis.slice(index, yAxis.length));
+    console.log("index: " + index);
 
     var ctx = document.getElementById("myChart").getContext("2d");
 
     var myChart = new Chart(ctx, {
-      
       data: {
-        
         datasets: [
           {
-            type: 'line',
+            type: "line",
             label: "Gasto en sanidad (%)",
-            data: yAxis.slice(0,index),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)'
-          
+            data: yAxis.slice(0, index),
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
           },
           {
-            type: 'bar',
+            type: "bar",
             label: "Ratio de natalidad (%)",
             data: yAxis1,
-            borderColor: 'rgb(54, 162, 235)'
+            borderColor: "rgb(54, 162, 235)",
           },
         ],
-        labels: xAxis
+        labels: xAxis,
       },
     });
   }
-  activeSpinner=false;
 </script>
 
 <svelte:head>
@@ -179,29 +164,56 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="/#/integrations/">volver</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
     </NavItem>
   </Nav>
+
 
   <div>
     <h2>Integración API SOS sanity-stats</h2>
     <p>por favor espere unos segundos a que se cargue la gráfica</p>
   </div>
 
-  {#if errorMsg}
-    <p>{errorMsg}</p>
+  {#if msg}
+    <p>{msg}</p>
+    <Spinner color="primary" />
   {:else}
-  {#if activeSpinner}
-  <Spinner color="primary" />
-  {:else}
-  <div>
-    <canvas id="myChart" />
-  </div>
-  {/if}
-   
+    <div>
+      <canvas id="myChart" />
+    </div>
   {/if}
 </main>
 

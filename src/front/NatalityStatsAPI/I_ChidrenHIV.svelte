@@ -11,20 +11,20 @@
 
   async function loadApi() {
     console.log("Loading data...");
-    const res = await fetch("https://sos2021-24.herokuapp.com/api/v2/children-with-hiv/loadInitialData").then(
-      function (res) {
-        if (res.ok) {
-          errorMsg = "";
-          console.log("OK");
-        } else {
-          if (res.status === 500) {
-            errorMsg = "No se ha podido acceder a la base de datos";
-          }
-          okMsg = "";
-          console.log("ERROR!" + errorMsg);
+    const res = await fetch(
+      "https://sos2021-24.herokuapp.com/api/v2/children-with-hiv/loadInitialData"
+    ).then(function (res) {
+      if (res.ok) {
+        errorMsg = "";
+        console.log("OK");
+      } else {
+        if (res.status === 500) {
+          errorMsg = "No se ha podido acceder a la base de datos";
         }
+        okMsg = "";
+        console.log("ERROR!" + errorMsg);
       }
-    );
+    });
   }
 
   async function loadStats() {
@@ -101,16 +101,16 @@
     return res;
   }
 
-  function commonValues(dataset1, dataset2){
-    console.log("dataset1: "+dataset1);
-    console.log("dataset2: "+dataset2);
-    var data1 = dataset1.map(function(v) {
-    return v.toLowerCase();
-     });
-var data2 = dataset2.map(function(v) {
-  return v.toLowerCase();
-});
-    return data1.filter(value => data2.includes(value));
+  function commonValues(dataset1, dataset2) {
+    console.log("dataset1: " + dataset1);
+    console.log("dataset2: " + dataset2);
+    var data1 = dataset1.map(function (v) {
+      return v.toLowerCase();
+    });
+    var data2 = dataset2.map(function (v) {
+      return v.toLowerCase();
+    });
+    return data1.filter((value) => data2.includes(value));
   }
 
   async function loadChart() {
@@ -121,31 +121,30 @@ var data2 = dataset2.map(function(v) {
     var data = [];
     var data1 = [];
 
-   
-  
     var result = jsonToMap(hivData, "country", "living_with");
-    
-    
+
     var result1 = jsonToMap(natalityData, "country", "natality-rate");
 
-    var commonCountries = commonValues(Array.from(result.keys()), Array.from(result1.keys()));
-    
-    console.log("common countries: "+commonCountries);
-    
+    var commonCountries = commonValues(
+      Array.from(result.keys()),
+      Array.from(result1.keys())
+    );
+
+    console.log("common countries: " + commonCountries);
+
     console.log("Calculating children-hiv...");
     for (let [key, value] of result) {
-      if(commonCountries.includes(key.toLowerCase())){
-        console.log("ENCONTRADO: para pais: "+key)
+      if (commonCountries.includes(key.toLowerCase())) {
+        console.log("ENCONTRADO: para pais: " + key);
         data.push(value);
       }
-      
     }
 
     console.log("Calculating natality-stats...");
     for (let [key, value] of result1) {
-      if(commonCountries.includes(key)){
-      console.log("ENCONTRADO: para pais: "+key)
-      data1.push(value);
+      if (commonCountries.includes(key)) {
+        console.log("ENCONTRADO: para pais: " + key);
+        data1.push(value);
       }
     }
 
@@ -182,14 +181,14 @@ var data2 = dataset2.map(function(v) {
       },
       options: {
         plugins: {
-            title: {
-                display: true,
-                text: 'Nacimientos y niños con VIH para los países en común de ambas APIs',
-                padding: {
-                    top: 10,
-                    bottom: 30
-                }
-            }
+          title: {
+            display: true,
+            text: "Nacimientos y niños con VIH para los países en común de ambas APIs",
+            padding: {
+              top: 10,
+              bottom: 30,
+            },
+          },
         },
         elements: {
           line: {
@@ -210,15 +209,46 @@ var data2 = dataset2.map(function(v) {
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="/#/integrations/">volver</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
     </NavItem>
   </Nav>
 
   <div>
     <h2>Integración API SOS children-hiv</h2>
+    <p>por favor espere unos segundos a que se cargue la gráfica</p>
   </div>
 
   {#if errorMsg}

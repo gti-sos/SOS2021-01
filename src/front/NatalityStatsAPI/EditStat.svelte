@@ -145,7 +145,7 @@
           <td>{updateDate}</td>
           <td
             ><input
-            id="input_update_born"
+              id="input_update_born"
               type="number"
               placeholder="2000"
               min="1"
@@ -154,7 +154,7 @@
           >
           <td
             ><input
-            id="input_update_men_born"
+              id="input_update_men_born"
               type="number"
               placeholder="1000"
               min="1"
@@ -163,7 +163,7 @@
           >
           <td
             ><input
-            id="input_update_women_born"
+              id="input_update_women_born"
               type="number"
               placeholder="1000"
               min="1"
@@ -172,7 +172,7 @@
           >
           <td
             ><input
-            id="input_update_natality_rate"
+              id="input_update_natality_rate"
               type="number"
               placeholder="10.2"
               min="1.0"
@@ -181,7 +181,7 @@
           >
           <td
             ><input
-            id="input_update_fertility_rate"
+              id="input_update_fertility_rate"
               type="number"
               placeholder="2.1"
               min="1.0"
@@ -189,8 +189,11 @@
             /></td
           >
           <td>
-            <Button id="input_update_button" outline color="primary" on:click={updateStat}
-              >Actualizar</Button
+            <Button
+              id="input_update_button"
+              outline
+              color="primary"
+              on:click={updateStat}>Actualizar</Button
             >
           </td>
         </tr>
@@ -205,7 +208,7 @@
     padding: 1em;
     margin: 0 auto;
   }
-  div{
+  div {
     margin-bottom: 15px;
   }
   p {

@@ -1,13 +1,10 @@
 <script>
   import { Nav, NavItem, NavLink } from "sveltestrap";
   //Uso de API externa coincap.io
-  var coins = [];
   var coinsName = [];
   var coinsValue = [];
-  var errorMsg = "";
-  var okMsg = "";
+  var msg = "";
 
-  
   async function getStats() {
     console.log("Fetching data...");
 
@@ -15,31 +12,25 @@
 
     if (res.ok) {
       const json = await res.json();
-  
-      json.data.forEach(element => {
+
+      json.data.forEach((element) => {
         coinsName.push(element.symbol);
         coinsValue.push(element.priceUsd);
       });
 
-      /* Object.keys(json.rates).forEach(function (key) {
-        coinsName.push(json.rates[key].country);
-        coinsValue.push(json.rates[key].standard_rate)
-      });
- */
-    
-
+      msg = "";
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de coinCap";
-      okMsg = "";
-      console.log("ERROR!" + errorMsg);
+      msg = "Error recuperando datos de coinCap";
+
+      console.log("ERROR!" + msg);
     }
   }
 
   async function loadChart() {
     await getStats();
 
-    var ctx = document.getElementById("myChart").getContext("2d"); 
+    var ctx = document.getElementById("myChart").getContext("2d");
 
     var myChart = new Chart(ctx, {
       type: "pie",
@@ -89,19 +80,50 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="/#/integrations/">volver</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
     </NavItem>
   </Nav>
+
 
   <div>
     <h2>Uso API externa coinCap.io</h2>
   </div>
 
-  {#if errorMsg}
-    <p>{errorMsg}</p>
+  {#if msg}
+    <p>{msg}</p>
   {:else}
     <div class="chart-container">
       <canvas id="myChart" />

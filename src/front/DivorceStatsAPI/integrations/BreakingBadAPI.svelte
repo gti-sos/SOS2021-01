@@ -1,6 +1,5 @@
 <script>
     import { CardText, Nav, NavItem, NavLink } from "sveltestrap";
-import CommonChart from "../../../Pages/CommonChart.svelte";
 
     //Uso de API externa Breaking Bad
     var episodes = [];

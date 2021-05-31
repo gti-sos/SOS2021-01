@@ -1,7 +1,6 @@
 <script>
-  import { Button, Nav, NavItem, NavLink } from "sveltestrap";
+  import { Nav, NavItem, NavLink } from "sveltestrap";
 
-  const BASE_CONTACT_API_PATH = "/api/v1";
   const BASE_CONTACT_API_PATH_v2 = "/api/v2";
 
   let natalityData = [];
@@ -23,15 +22,9 @@
   async function loadChart() {
     console.log("Fetching data...");
 
-    await fetch(
-      BASE_CONTACT_API_PATH_v2 + "/natality-stats/loadInitialData"
-    );
-   await fetch(
-      BASE_CONTACT_API_PATH_v2 + "/divorce-stats/loadInitialData"
-    );
-   await fetch(
-      BASE_CONTACT_API_PATH_v2 + "/life-stats/loadInitialData"
-    );
+    await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats/loadInitialData");
+    await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats/loadInitialData");
+    await fetch(BASE_CONTACT_API_PATH_v2 + "/life-stats/loadInitialData");
 
     const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
     const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats");
@@ -135,10 +128,10 @@
 
     Highcharts.chart("container", {
       chart: {
-        type: 'bar'
-    },
+        type: "bar",
+      },
       title: {
-        text: "natality-stats / divorce-stats / life-stats",
+        text: "Integración de grupo",
       },
       yAxis: {
         title: {
@@ -218,12 +211,28 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Volver</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_info" href="/#/info">Info</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_analytics" href="/#/analytics"
+        >Análiticas</NavLink
+      >
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_integrations" href="/#/integrations"
+        >Integraciones</NavLink
+      >
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_about" href="/#/about">Acerca de</NavLink>
     </NavItem>
   </Nav>
 
   <div>
-    <h2>Análiticas</h2>
+    <h1>Análiticas</h1>
   </div>
 
   {#if msg}
@@ -245,6 +254,12 @@
     text-align: center;
     padding: 1em;
     margin: 0 auto;
+  }
+  h1 {
+    color: #ff3e00;
+    text-transform: uppercase;
+    font-size: 4em;
+    font-weight: 100;
   }
   .highcharts-figure,
   .highcharts-data-table table {

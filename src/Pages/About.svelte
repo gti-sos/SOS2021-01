@@ -1,79 +1,45 @@
 <script>
-  import {
-    Button,
-    Icon,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    CardSubtitle,
-    CardText,
-    CardTitle,
-    Col,
-    Container,
-    Nav,
-    NavItem,
-    NavLink,
-    Row,
-  } from "sveltestrap";
+  import { Button, Nav, NavItem, NavLink } from "sveltestrap";
 </script>
 
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Volver</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_info" href="/#/info">Info</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_analytics" href="/#/analytics">Análiticas</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_integrations" href="/#/integrations"
+        >Integraciones</NavLink
+      >
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_about" href="/#/about">Acerca de</NavLink>
     </NavItem>
   </Nav>
 
   <div>
-  <h1>Acerca de</h1>
-</div>
-<div>
-  <Card class="mb-3">
-    <CardHeader>
-      <CardTitle><h2>natality-stats</h2></CardTitle>
-    </CardHeader>
-    <CardBody>
-      <CardSubtitle />
-      <CardText />
-      <a href="/#"
-      ><Button color="primary">Video</Button></a
-    >
-    </CardBody>
-  </Card>
-</div>
-<div>
-  <Card class="mb-3">
-    <CardHeader>
-      <CardTitle><h2>life-stats</h2></CardTitle>
-    </CardHeader>
-    <CardBody>
-      <CardSubtitle />
-      <CardText />
-      <a href="/#"
-      ><Button color="primary">Video</Button></a
-    >
-    </CardBody>
-  </Card>
-</div>
-<div>
-  <Card class="mb-3">
-    <CardHeader>
-      <CardTitle><h2>divorce-stats</h2></CardTitle>
-    </CardHeader>
-    <CardBody>
-      <CardSubtitle />
-      <CardText />
-      <a href="/#"
-      ><Button color="primary">Video</Button></a
-    >
-    </CardBody>
-  </Card>
-</div>
+    <h1>Acerca de</h1>
+  </div>
+
+  <div>
+    <a href="/#"><Button color="primary">Video divorce-stats</Button></a>
+  </div>
+  <div>
+    <a href="/#"><Button color="primary">Video life-stats</Button></a>
+  </div>
+  <div>
+    <a href="/#"><Button color="primary">Video natality-stats</Button></a>
+  </div>
 </main>
 
 <style>
-   main {
+  main {
     text-align: center;
     padding: 1em;
     max-width: 240px;
@@ -85,11 +51,8 @@
     font-size: 4em;
     font-weight: 100;
   }
-  div{
+  div {
     margin-bottom: 15px;
-  }
-  b {
-    color: #00c1ff;
   }
   @media (min-width: 640px) {
     main {

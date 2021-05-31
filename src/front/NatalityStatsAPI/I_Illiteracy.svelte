@@ -1,15 +1,12 @@
 <script>
-  import { onMount } from "svelte";
-
-  import { Table, Button, Nav, NavItem, NavLink } from "sveltestrap";
+  import { Nav, NavItem, NavLink } from "sveltestrap";
 
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   let natalityData = [];
   var illiteracyData = [];
 
-  var errorMsg = "";
-  var okMsg = "";
+  var msg = "";
 
   function jsonToMap(j, k, v) {
     var res = new Map();
@@ -31,14 +28,13 @@
     const res = await fetch("/api/v1/illiteracy/loadInitialData").then(
       function (res) {
         if (res.ok) {
-          errorMsg = "";
+          msg = "";
           console.log("OK");
         } else {
           if (res.status === 500) {
-            errorMsg = "No se ha podido acceder a la base de datos";
+            msg = "No se ha podido acceder a la base de datos";
           }
-          okMsg = "";
-          console.log("ERROR!" + errorMsg);
+          console.log("ERROR!" + msg);
         }
       }
     );
@@ -50,14 +46,13 @@
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        errorMsg = "";
+        msg = "";
         console.log("OK");
       } else {
         if (res.status === 500) {
-          errorMsg = "No se ha podido acceder a la base de datos";
+          msg = "No se ha podido acceder a la base de datos";
         }
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
+        console.log("ERROR!" + msg);
       }
     });
   }
@@ -71,11 +66,11 @@
       console.log("OK");
       natalityData = await res.json();
 
-      okMsg = "";
+      msg = "";
       console.log(`We have received ${natalityData.length} natality-stats.`);
     } else {
       console.log("Error");
-      errorMsg = "Error al cargar los datos de la API";
+      msg = "Error al cargar los datos de la API";
     }
   }
 
@@ -91,12 +86,12 @@
       console.log(
         `We have received ${illiteracyData.length} illiteracy-stats.`
       );
-
+      msg="";
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de poverty-risks";
-      okMsg = "";
-      console.log("ERROR!" + errorMsg);
+      msg = "Error recuperando datos de poverty-risks";
+
+      console.log("ERROR!" + msg);
     }
   }
   function commonValues(dataset1, dataset2) {
@@ -219,19 +214,51 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="/#/integrations/">volver</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
     </NavItem>
   </Nav>
 
+
   <div>
     <h2>Integración API SOS illiteracy</h2>
+    <p>por favor espere unos segundos a que se cargue la gráfica</p>
   </div>
 
-  {#if errorMsg}
-    <p>{errorMsg}</p>
+  {#if msg}
+    <p>{msg}</p>
   {:else}
     <figure class="highcharts-figure">
       <div id="container" />

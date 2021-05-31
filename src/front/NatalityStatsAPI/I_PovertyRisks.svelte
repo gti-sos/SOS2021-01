@@ -6,23 +6,21 @@
 
   var povertyData = [];
   var natalityData = [];
-  var errorMsg = "";
-  var okMsg = "";
+  var msg = "";
 
-  async function loadApi(){
+  async function loadApi() {
     console.log("Loading data...");
     const res = await fetch(
       "https://endpoint-poverty-risks.herokuapp.com/api/v1/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        errorMsg = "";
+        msg = "";
         console.log("OK");
       } else {
         if (res.status === 500) {
-          errorMsg = "No se ha podido acceder a la base de datos";
+          msg = "No se ha podido acceder a la base de datos";
         }
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
+        console.log("ERROR!" + msg);
       }
     });
   }
@@ -32,14 +30,13 @@
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        errorMsg = "";
+        msg = "";
         console.log("OK");
       } else {
         if (res.status === 500) {
-          errorMsg = "No se ha podido acceder a la base de datos";
+          msg = "No se ha podido acceder a la base de datos";
         }
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
+        console.log("ERROR!" + msg);
       }
     });
   }
@@ -53,11 +50,11 @@
       console.log("OK");
       natalityData = await res.json();
 
-      okMsg = "";
+      msg = "";
       console.log(`We have received ${natalityData.length} natality-stats.`);
     } else {
       console.log("Error");
-      errorMsg = "Error al cargar los datos de la API";
+      msg = "Error al cargar los datos de la API";
     }
   }
 
@@ -76,8 +73,7 @@
 
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de poverty-risks";
-      okMsg = "";
+      msg = "Error recuperando datos de poverty-risks";
       console.log("ERROR!" + errorMsg);
     }
   }
@@ -103,7 +99,6 @@
     await getStats();
     await getPovertyData();
 
-
     var years = [];
     var data = [];
 
@@ -114,7 +109,6 @@
     years.push("Ratio de pobreza (%)");
     var total = 0;
     for (let [key, value] of result) {
-      
       total += parseFloat(value);
     }
     data.push(total);
@@ -125,9 +119,7 @@
     var total1 = 0;
     years.push("Ratio natalidad (%)");
     for (let [key, value] of result1) {
-      
       total1 += parseFloat(value);
-      
     }
     data.push(total1);
 
@@ -141,11 +133,7 @@
           {
             label: "ratio de probeza",
             data: data,
-            backgroundColor: [
-              "rgb(240, 162, 2)",
-              "rgb(123, 158, 137)",
-             
-            ],
+            backgroundColor: ["rgb(240, 162, 2)", "rgb(123, 158, 137)"],
             hoverOffset: 4,
           },
         ],
@@ -163,20 +151,51 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="/#/integrations/">volver</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
     </NavItem>
   </Nav>
 
+
   <div>
     <h2>Integración API SOS poverty-risks</h2>
+    <p>por favor espere unos segundos a que se cargue la gráfica</p>
   </div>
 
-  {#if errorMsg}
-    <p>{errorMsg}</p>
-  
+  {#if msg}
+    <p>{msg}</p>
   {:else}
     <div>
       <canvas id="myChart" />

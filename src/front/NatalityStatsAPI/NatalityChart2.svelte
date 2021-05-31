@@ -63,8 +63,8 @@
 
     var ctx = document.getElementById("myChart").getContext("2d");
 
-    var resultMen = jsonToMap(natalityData, "date", "men-born")
-    var resultWomen = jsonToMap(natalityData, "date", "women-born")
+    var resultMen = jsonToMap(natalityData, "date", "men-born");
+    var resultWomen = jsonToMap(natalityData, "date", "women-born");
 
     var years = [];
     var menData = [];
@@ -86,29 +86,21 @@
           {
             label: "Hombres nacidos",
             data: menData,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-            ],
-            borderWidth: 1
+            backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+            borderColor: ["rgba(255, 99, 132, 1)"],
+            borderWidth: 1,
           },
           {
             label: "Mujeres nacidas",
             data: womenData,
-            backgroundColor: [
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
+            backgroundColor: ["rgba(255, 159, 64, 0.2)"],
+            borderColor: ["rgba(255, 159, 64, 1)"],
+            borderWidth: 1,
           },
         ],
       },
       options: {
-        indexAxis: 'y',
+        indexAxis: "y",
         responsive: true,
         plugins: {
           legend: {
@@ -131,13 +123,20 @@
       <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_interface" href="#/natality-stats">Interfaz</NavLink>
+      <NavLink id="nav_interface" href="/#/natality-stats">Interfaz</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_nat_analytics" href="/#/natality-stats/natalityChart">Análiticas todos los campos</NavLink>
+      <NavLink id="nav_nat_analytics" href="/#/natality-stats/natalityChart"
+        >Análiticas todos los campos</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink disabled id="nav_nat_analytics2" href="/#/natality-stats/natalityChart2">Análiticas hombres y mujeres nacidos</NavLink>
+      <NavLink
+        disabled
+        id="nav_nat_analytics2"
+        href="/#/natality-stats/natalityChart2"
+        >Análiticas hombres y mujeres nacidos</NavLink
+      >
     </NavItem>
   </Nav>
 

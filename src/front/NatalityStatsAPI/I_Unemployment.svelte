@@ -6,22 +6,20 @@
 
   var unemploymentData = [];
   var natalityData = [];
-  var errorMsg = "";
-  var okMsg = "";
+  var msg = "";
 
   async function loadApi() {
     console.log("Loading data...");
     const res = await fetch("/api/v2/unemployment-stats/loadinitialdata").then(
       function (res) {
         if (res.ok) {
-          errorMsg = "";
+          msg = "";
           console.log("OK");
         } else {
           if (res.status === 500) {
-            errorMsg = "No se ha podido acceder a la base de datos";
+            msg = "No se ha podido acceder a la base de datos";
           }
-          okMsg = "";
-          console.log("ERROR!" + errorMsg);
+          console.log("ERROR!" + msg);
         }
       }
     );
@@ -33,14 +31,13 @@
       BASE_CONTACT_API_PATH + "/natality-stats/loadInitialData"
     ).then(function (res) {
       if (res.ok) {
-        errorMsg = "";
+        msg = "";
         console.log("OK");
       } else {
         if (res.status === 500) {
-          errorMsg = "No se ha podido acceder a la base de datos";
+          msg = "No se ha podido acceder a la base de datos";
         }
-        okMsg = "";
-        console.log("ERROR!" + errorMsg);
+        console.log("ERROR!" + msg);
       }
     });
   }
@@ -54,11 +51,11 @@
       console.log("OK");
       natalityData = await res.json();
 
-      okMsg = "";
+      msg = "";
       console.log(`We have received ${natalityData.length} natality-stats.`);
     } else {
       console.log("Error");
-      errorMsg = "Error al cargar los datos de la API";
+      msg = "Error al cargar los datos de la API";
     }
   }
 
@@ -74,12 +71,12 @@
       console.log(
         `We have received ${unemploymentData.length} unemployment-stats.`
       );
-
+      msg = "";
       console.log("Ok");
     } else {
-      errorMsg = "Error recuperando datos de unemployment-stats";
-      okMsg = "";
-      console.log("ERROR!" + errorMsg);
+      msg = "Error recuperando datos de unemployment-stats";
+
+      console.log("ERROR!" + msg);
     }
   }
 
@@ -89,8 +86,8 @@
       var key = parseInt(element[k]);
       var value = parseFloat(element[v]);
       if (isNaN(value)) {
-        value=0;
-      }else{
+        value = 0;
+      } else {
         if (res.has(key)) {
           var newValue = res.get(key) + value;
           res.set(key, newValue);
@@ -108,35 +105,12 @@
     return dataset1.filter((value) => dataset2.includes(value));
   }
 
-  function capitalLetters(dataset) {
-    for (let index = 0; index < dataset.length; index++) {
-      var str = dataset[index];
-      var space = str.indexOf(" ");
-      console.log("pais :" + str);
-      if (str.indexOf(" ") !== -1) {
-        console.log("if :");
-        dataset[index] =
-          str.charAt(0).toUpperCase() +
-          str.substr(1, space) +
-          str.charAt(space + 1).toUpperCase() +
-          str.substr(space + 2, str.length);
-      } else {
-        dataset[index] = str.charAt(0).toUpperCase() + str.substr(1);
-      }
-    }
-    console.log(dataset);
-  }
-
   async function loadChart() {
     await getStats();
     await getUnemploymentData();
 
     var data = [];
-    var template = {
-      x: 0,
-      y: 0,
-      r: 0,
-    };
+
     var result = jsonToMap(unemploymentData, "year", "intperc");
 
     var result1 = jsonToMap(natalityData, "date", "fertility-rate");
@@ -145,24 +119,21 @@
       Array.from(result.keys()),
       Array.from(result1.keys())
     );
-    
 
-    console.log("-Comonyear---------"+commonYears);
-    
+    console.log("-Comonyear---------" + commonYears);
+
     for (let index = 0; index < commonYears.length; index++) {
       var element = parseInt(commonYears[index]);
 
       console.log("FECHA: " + element);
       console.log("RESULT: " + result.get(element));
       console.log("RESULT1: " + result1.get(element));
-      
-      data.push(
-        {
+
+      data.push({
         x: element,
         y: Math.round(result.get(element)),
         r: Math.round(result1.get(element)),
-       }
-       );
+      });
     }
     console.log(data);
     var ctx = document.getElementById("myChart").getContext("2d");
@@ -202,19 +173,51 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Página Principal</NavLink>
+      <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink href="/#/integrations/">volver</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink disabled id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
     </NavItem>
   </Nav>
 
+
   <div>
     <h2>Integración API SOS unemployment-stats</h2>
+    <p>por favor espere unos segundos a que se cargue la gráfica</p>
   </div>
 
-  {#if errorMsg}
-    <p>{errorMsg}</p>
+  {#if msg}
+    <p>{msg}</p>
   {:else}
     <div>
       <canvas id="myChart" />

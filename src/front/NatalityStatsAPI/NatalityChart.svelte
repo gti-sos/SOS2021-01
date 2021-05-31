@@ -69,24 +69,24 @@
           text: "País-Año",
         },
         scrollbar: {
-            enabled: true
+          enabled: true,
         },
-        tickLength: 0
+        tickLength: 0,
       },
-     
+
       yAxis: {
         min: 0,
         title: {
-            text: 'Valores'
-        }
-    },
+          text: "Valores",
+        },
+      },
 
-    plotOptions: {
+      plotOptions: {
         column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
+          pointPadding: 0.2,
+          borderWidth: 0,
+        },
+      },
       series: [
         {
           name: "Nacidos",
@@ -110,7 +110,6 @@
         },
       ],
     });
-  
   }
 </script>
 
@@ -119,7 +118,7 @@
   <script src="https://code.highcharts.com/modules/series-label.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  
+
   <script
     src="https://code.highcharts.com/modules/accessibility.js"
     on:load={loadChart}></script>
@@ -130,7 +129,7 @@
       <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink  id="nav_interface" href="#/natality-stats">Interfaz</NavLink>
+      <NavLink id="nav_interface" href="/#/natality-stats">Interfaz</NavLink>
     </NavItem>
     <NavItem>
       <NavLink
@@ -173,41 +172,45 @@
     display: inline;
   }
 
-  .highcharts-figure, .highcharts-data-table table {
-  min-width: 310px; 
-  max-width: 800px;
-  margin: 1em auto;
-}
+  .highcharts-figure,
+  .highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+  }
 
-#container {
-  height: 500px;
-}
+  #container {
+    height: 500px;
+  }
 
-.highcharts-data-table table {
-	font-family: Verdana, sans-serif;
-	border-collapse: collapse;
-	border: 1px solid #EBEBEB;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
-}
-.highcharts-data-table caption {
-  padding: 1em 0;
-  font-size: 1.2em;
-  color: #555;
-}
-.highcharts-data-table th {
-	font-weight: 600;
-  padding: 0.5em;
-}
-.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
-  padding: 0.5em;
-}
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
-  background: #f8f8f8;
-}
-.highcharts-data-table tr:hover {
-  background: #f1f7ff;
-}
+  .highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+  }
+  .highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+  }
+  .highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+  }
+  .highcharts-data-table td,
+  .highcharts-data-table th,
+  .highcharts-data-table caption {
+    padding: 0.5em;
+  }
+  .highcharts-data-table thead tr,
+  .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+  }
+  .highcharts-data-table tr:hover {
+    background: #f1f7ff;
+  }
 </style>
