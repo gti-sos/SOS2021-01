@@ -111,7 +111,7 @@
                 width: 1,
                 },
                 symbol: 'circle',
-                size: 16
+                size: 26
             }
         };
 
@@ -128,7 +128,7 @@
                 width: 1,
                 },
                 symbol: 'circle',
-                size: 16
+                size:26
             }
             };
 

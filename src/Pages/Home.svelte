@@ -25,7 +25,7 @@
       <NavLink id="nav_info" href="/#/info">Info</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_analytics" href="/#/analytics">Análiticas</NavLink>
+      <NavLink id="nav_analytics" href="/#/analytics">Analíticas</NavLink>
     </NavItem>
     <NavItem>
       <NavLink id="nav_integrations" href="/#/integrations"
@@ -100,11 +100,11 @@
               <Button class="mb-3" color="primary">Interfaz</Button>
             </a>
             <a href="/#/divorce-stats/divorceChart">
-              <Button class="mb-3" color="secondary">Análitica (line)</Button>
+              <Button class="mb-3" color="secondary">Analítica (line)</Button>
             </a>
             <a href="/#/divorce-stats/divorceChart2">
               <Button class="mb-3" color="secondary"
-                >Análitica (lollipop)</Button
+                >Analítica (lollipop)</Button
               >
             </a>
             <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
@@ -144,7 +144,10 @@
             </a>
             <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="/#/life-stats/lifeCharts">
-              <Button class="mb-3" color="secondary">Análiticas</Button>
+              <Button class="mb-3" color="secondary">Analítica (line)</Button>
+            </a>
+            <a href="/#/life-stats/lifeCharts2">
+              <Button class="mb-3" color="secondary">Analítica (bubble)</Button>
             </a>
             <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
               <Button class="mb-3" color="info">Documentación v1</Button>
@@ -180,10 +183,10 @@
               ><Button class="mb-3" color="primary">Interfaz</Button></a
             >
             <a href="/#/natality-stats/natalityChart">
-              <Button class="mb-3" color="secondary">Análitica 1</Button>
+              <Button class="mb-3" color="secondary">Analítica 1</Button>
             </a>
             <a href="/#/natality-stats/natalityChart2">
-              <Button class="mb-3" color="secondary">Análiitca 2</Button>
+              <Button class="mb-3" color="secondary">Analítica 2</Button>
             </a>
             <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"

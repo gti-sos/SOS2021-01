@@ -196,6 +196,17 @@ app.use(path04, function(req, res) {
   req.pipe(request(url)).pipe(res);
 });
 
+//API Externa Covid 
+var apiExt01 = "https://covid-193.p.rapidapi.com";
+var pathExt01 = "/statistics";
+
+app.use(pathExt01, function(req, res) {
+  var url = apiExt01 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
+
 
 
 //-------------------------------Recurso /cool - F02-----------------------

@@ -22,7 +22,7 @@
       <NavLink id="nav_info" href="/#/info">Info</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_analytics" href="/#/analytics">Análiticas</NavLink>
+      <NavLink id="nav_analytics" href="/#/analytics">Analíticas</NavLink>
     </NavItem>
     <NavItem>
       <NavLink disabled id="nav_integrations" href="/#/integrations"

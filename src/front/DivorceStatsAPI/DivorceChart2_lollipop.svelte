@@ -103,7 +103,7 @@
     </Nav>
 
     <div>
-        <h2>Análiticas</h2>
+        <h2>Analíticas</h2>
     </div>
 
     <div>

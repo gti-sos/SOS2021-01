@@ -218,7 +218,7 @@
     </NavItem>
     <NavItem>
       <NavLink disabled id="nav_analytics" href="/#/analytics"
-        >Análiticas</NavLink
+        >Analíticas</NavLink
       >
     </NavItem>
     <NavItem>
@@ -232,7 +232,7 @@
   </Nav>
 
   <div>
-    <h1>Análiticas</h1>
+    <h1>Analíticas</h1>
   </div>
 
   {#if msg}

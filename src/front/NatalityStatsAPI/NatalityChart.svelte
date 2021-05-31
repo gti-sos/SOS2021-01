@@ -136,18 +136,18 @@
         disabled
         id="nav_nat_analytics"
         href="/#/natality-stats/natalityChart"
-        >Análiticas todos los campos</NavLink
+        >Analíticas todos los campos</NavLink
       >
     </NavItem>
     <NavItem>
       <NavLink id="nav_nat_analytics2" href="/#/natality-stats/natalityChart2"
-        >Análiticas hombres y mujeres nacidos</NavLink
+        >Analíticas hombres y mujeres nacidos</NavLink
       >
     </NavItem>
   </Nav>
 
   <div>
-    <h2>Análitica mostrando todos los campos de natality-stats</h2>
+    <h2>Analítica mostrando todos los campos de natality-stats</h2>
   </div>
 
   {#if msg}
