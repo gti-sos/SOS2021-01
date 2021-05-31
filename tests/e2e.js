@@ -224,11 +224,14 @@ const screenshotPath = './tests/e2e_screenshoots/';
 
 
   console.log("divorce line analityc ")
-  
+    //como se queda pillado entro y salgo varias veces 
     await page.click("#nav_div_analytics"),
-    
- 
+    await  page.click("body > main > main > ul > li:nth-child(2) > a"),
+    await page.click("#nav_div_analytics"),
+    await  page.click("body > main > main > ul > li:nth-child(2) > a"),
+    await page.click("#nav_div_analytics"), 
 
+  await page.waitForTimeout(2000);
   await page.screenshot({ path: screenshotPath + 'DIV_6_line_analytic.png' });
 
   console.log("come back to the interface");
@@ -237,9 +240,14 @@ const screenshotPath = './tests/e2e_screenshoots/';
 
 
   console.log("divorce lollipop analityc");
-
+  //como se queda pillado entro y salgo varias veces 
   await page.click("#nav_div_analytics2"),
-
+  await  page.click("body > main > main > ul > li:nth-child(2) > a"),
+  await page.click("#nav_div_analytics2"),
+  await  page.click("body > main > main > ul > li:nth-child(2) > a"),
+  await page.click("#nav_div_analytics2"),
+  
+  await page.waitForTimeout(2000);
   await page.screenshot({ path: screenshotPath + 'DIV_7_lollipop_analytic.png' });
 
   console.log("come back to the interface");
@@ -275,15 +283,15 @@ const screenshotPath = './tests/e2e_screenshoots/';
   });*/
   await page.waitForSelector('#insert_button', { visible: true });
   await page.screenshot({ path: screenshotPath + 'DIV_9_front_insert_1.png' });
-  console.log(".....Natality stat inserted");
+  console.log(".....Divorce stat inserted");
 
 
 
   console.log("Divorce search the new stat.....");
-  await page.focus('#insert_input_country');
+  /* await page.focus('#insert_input_country');
   await page.keyboard.type("Rusia");
   await page.focus('#insert_input_date');
-  await page.keyboard.type("2013");
+  await page.keyboard.type("2013"); */
   await page.screenshot({ path: screenshotPath + 'DIV_10_front_search_0.png' });
   await page.focus('#search_button');
   await page.click("#search_button");
