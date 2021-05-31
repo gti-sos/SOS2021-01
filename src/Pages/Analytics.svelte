@@ -227,7 +227,7 @@
       >
     </NavItem>
     <NavItem>
-      <NavLink disabled id="nav_about" href="/#/about">Acerca de</NavLink>
+      <NavLink id="nav_about" href="/#/about">Acerca de</NavLink>
     </NavItem>
   </Nav>
 
