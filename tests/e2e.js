@@ -16,21 +16,64 @@ const screenshotPath = './tests/e2e_screenshoots/';
   await page.screenshot({ path: screenshotPath + 'HOME_0.png' });
 
   //Info
-
-
+  
+  await page.click("#nav_info");
+  await page.screenshot({ path: screenshotPath + 'Info_0.png' });
 
   //About
-
+  
+  await page.click("body > main > main > ul > li:nth-child(5)");
+  await page.screenshot({ path: screenshotPath + 'ABOUT_US_0.png' });
 
 
   //Integrations
 
+  await page.click("body > main > main > ul > li:nth-child(4)");
+  await page.screenshot({ path: screenshotPath + 'INTEGRATIONS_VIEW_0.png' });
 
 
 
   //Analytics
 
+  //cargamos los datos de cada API primero 
 
+  await page.click("#nav_home"),
+  await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(3) > div > div.card-body > a:nth-child(5) > button"),
+  await page.click("#b_load_toggle");
+  await page.click("#b_load_toggle_ok");
+  await page.click("#nav_home"),
+
+
+  await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(1) > div > div.card-body > a:nth-child(5) > button");
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+  await page.click("body > main > main > ul > li:nth-child(2) > div > div.modal.show.d-block > div > div > div.modal-footer > button.btn.btn-primary");
+  await page.click("body > main > main > ul > li:nth-child(1) > a"),
+
+  await page.click(" body > main > main > div:nth-child(5) > div > div:nth-child(2) > div > div.card-body > a:nth-child(5) > button");
+  await page.click("body > main > main > div:nth-child(3) > main > div > button.btn.btn-outline-primary");
+
+
+  //una vez cargados los datos capturamos
+
+  await page.click("body > main > main > ul > li:nth-child(3)");
+  await page.screenshot({ path: screenshotPath + 'INTEGRATIONS_VIEW_0.png' });
+  
+
+  //volvemos a vaciar las APIS
+  await page.click("body > main > main > ul > li:nth-child(1)"),
+  await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(3) > div > div.card-body > a:nth-child(5) > button"),
+  await page.click("#b_delete_toggle");
+  await page.click("#b_delete_toggle_ok");
+
+  await page.click("#nav_home"),
+  await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(1) > div > div.card-body > a:nth-child(5) > button");
+  await page.click("body > main > main > ul > li:nth-child(3) > a"); //BORRAR TODOS LOS DATOS 
+  await page.click("body > main > main > ul > li:nth-child(3) > div > div.modal.show.d-block > div > div > div.modal-footer > button.btn.btn-danger");
+
+  await page.click("body > main > main > ul > li:nth-child(1) > a"),
+  await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(2) > div > div.card-body > a:nth-child(5) > button"),
+  await page.click("body > main > main > div:nth-child(3) > main > div > button.btn.btn-outline-danger"),
+  await page.click("body > main > main > div.nav.svelte-1xdzfq5 > ul > li:nth-child(1) > a"),
 /*
   //Natality
   console.log("--Home press interface button to go to natality-stats view--")
@@ -211,7 +254,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
   await page.screenshot({ path: screenshotPath + 'DIV_2_front_load_1.png' });
 
   console.log(".....Divorce stats load complete")
-  await page.screenshot({ path: screenshotPath + 'DIV_3_data_loaded_1.png' });
+  await page.screenshot({ path: screenshotPath + 'DIV_3_data_load_1.png' });
 
 
   console.log("Divorce go to next page.....");
@@ -354,6 +397,7 @@ const screenshotPath = './tests/e2e_screenshoots/';
   await page.screenshot({ path: screenshotPath + 'DIV_19_front_delete_1.png' });
 
   console.log("Divorce delete all complete")
+  await page.click("body > main > main > ul > li:nth-child(1) > a"),
 
 
 

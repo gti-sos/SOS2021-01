@@ -352,7 +352,7 @@
 <main>
   <Nav>
     <NavItem>
-      <NavLink href="/">Volver</NavLink>
+      <NavLink href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
       <NavLink href="#" on:click={toggle1}>Cargar datos inciales</NavLink>
