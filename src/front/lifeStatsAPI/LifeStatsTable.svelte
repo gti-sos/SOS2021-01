@@ -1,8 +1,7 @@
-<script lang="ts">
-
+<script>
     import { onMount } from 'svelte';
     import { pop } from "svelte-spa-router";
-    import {Button, Table } from 'sveltestrap';    
+    import { Table, Button } from "sveltestrap";
 
     const BASE_LIFE_API_URL = "/api/v2/life-stats"; //tiene que llamar a la API para tratar los datos
 	
@@ -31,7 +30,13 @@
     let currentCountry = "";
 	let currentDate = "";
     let search = false;
-    let searchData = [];
+    let searchData = {
+    country: "",
+    date: "",
+    "quality_life_index": "",
+    "purchasing_power_index": "",
+    "safety_index": "",
+    };
     
     //let countries = [];
 
