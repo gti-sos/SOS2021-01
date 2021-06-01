@@ -153,6 +153,16 @@
           },
         ],
       },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del ratio de pobreza y del ratio de natalidad'
+            }
+        },
+      },
     });
   }
 </script>
@@ -226,5 +236,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

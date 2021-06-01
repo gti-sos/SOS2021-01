@@ -97,14 +97,14 @@
         labels: years,
         datasets: [
           {
-            label: "Hombres nacidos",
+            label: "Hombres",
             data: menData,
             backgroundColor: ["rgba(255, 99, 132, 0.2)"],
             borderColor: ["rgba(255, 99, 132, 1)"],
             borderWidth: 1,
           },
           {
-            label: "Mujeres nacidas",
+            label: "Mujeres",
             data: womenData,
             backgroundColor: ["rgba(255, 159, 64, 0.2)"],
             borderColor: ["rgba(255, 159, 64, 1)"],
@@ -113,12 +113,18 @@
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         indexAxis: "y",
         responsive: true,
         plugins: {
           legend: {
             position: "top",
           },
+          title: {
+                display: true,
+                text: 'Comparativa del nº de hombres y mujeres nacidos'
+            }
         },
       },
     });
@@ -177,5 +183,9 @@
   }
   p {
     display: inline;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

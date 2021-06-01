@@ -47,7 +47,7 @@
         labels: xAxis,
         datasets: [
           {
-            label: "% IVA de países europeos",
+            label: "IVA (%)",
             data: yAxis,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
@@ -70,6 +70,14 @@
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del IVA en países europeos'
+            }
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -168,5 +176,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

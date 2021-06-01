@@ -144,12 +144,12 @@
         label: "Scatter Dataset",
         datasets: [
           {
-            label: "Consolas Nintendo 3DS por año",
+            label: "Consolas Nintendo 3DS",
             data: data,
             backgroundColor: "rgba(255, 0,0, 1)",
           },
           {
-            label: "Nacidos por año",
+            label: "Nacidos",
             data: data1,
             backgroundColor: "rgba(0,0,255, 1)",
           },
@@ -157,6 +157,14 @@
       },
 
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa de personas nacidas y consolas Nintendo 3DS vendidas por año'
+            }
+        },
         scales: {
           x: {
             type: "linear",
@@ -262,5 +270,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

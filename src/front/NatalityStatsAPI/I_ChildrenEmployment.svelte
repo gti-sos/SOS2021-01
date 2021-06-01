@@ -120,7 +120,7 @@
     await getStats();
     await getEmplymentData();
 
-    var years = [];
+    var labels = [];
     var data = [];
 
     var result = jsonToMap(
@@ -132,7 +132,7 @@
     var result1 = jsonToMap(natalityData, "date", "fertility-rate");
 
     console.log("Calculating children-hiv...");
-    years.push("Total niños empleados");
+    labels.push("Niños empleados");
     var total = 0;
     for (let [key, value] of result) {
       total += value;
@@ -141,7 +141,7 @@
 
     console.log("Calculating natality-stats...");
     var total1 = 0;
-    years.push("indice fecundacion");
+    labels.push("indice fecundacion");
     for (let [key, value] of result1) {
       total1 += value;
     }
@@ -152,7 +152,7 @@
     var myChart = new Chart(ctx, {
       type: "polarArea",
       data: {
-        labels: years,
+        labels: labels,
         datasets: [
           {
             label: "Niños empleados y ratio de fecundación",
@@ -171,6 +171,14 @@
         ],
       },
       options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del total de niños empleados y el total de índice de fecundación'
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
         elements: {
           line: {
             borderWidth: 3,
@@ -271,5 +279,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

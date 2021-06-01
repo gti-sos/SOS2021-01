@@ -197,7 +197,7 @@
         type: "area",
       },
       title: {
-        text: "Ratio de natalidad y tasa de alfabetización de adultos",
+        text: "Comparativa del ratio de natalidad y la tasa de alfabetización en adultos",
       },
       xAxis: {
         categories: commonCountries,

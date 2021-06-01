@@ -193,10 +193,12 @@
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           title: {
             display: true,
-            text: "Nacimientos y niños con VIH para los países en común de ambas APIs",
+            text: "Comparativa de Nacimientos y niños con VIH para los países en común",
             padding: {
               top: 10,
               bottom: 30,
@@ -302,5 +304,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

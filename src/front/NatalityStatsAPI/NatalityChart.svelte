@@ -68,7 +68,7 @@
         type: "column",
       },
       title: {
-        text: "",
+        text: "Comparativa de todos los campos",
       },
       xAxis: {
         categories: natalityChartCountryDateData,

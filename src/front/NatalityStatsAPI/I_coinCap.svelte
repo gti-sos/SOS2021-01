@@ -66,6 +66,14 @@
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del precio de criptomonedas'
+            }
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -166,5 +174,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

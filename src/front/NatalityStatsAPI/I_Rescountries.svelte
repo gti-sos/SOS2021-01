@@ -53,7 +53,7 @@
         labels: xAxis,
         datasets: [
           {
-            label: "población total por países europeos",
+            label: "población total",
             data: yAxis,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
@@ -76,6 +76,14 @@
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Población por países europeos'
+            }
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -176,5 +184,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

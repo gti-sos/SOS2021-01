@@ -156,13 +156,21 @@
       data: {
         datasets: [
           {
-            label: "Porcentaje de paro y fertilidad (Año, Paro, Fertilidad)",
+            label: "(Año, Paro, Fertilidad)",
             data: data,
             backgroundColor: "rgb(255, 99, 132)",
           },
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del porcentaje de paro y fertilidads'
+            }
+        },
         scales: {
           x: {
             type: "linear",
@@ -268,5 +276,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>
