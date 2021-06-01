@@ -35,7 +35,7 @@
   </Nav>
 
   <div>
-    <h1>Integrations</h1>
+    <h1>Integraciones</h1>
   </div>
   <div>
     <Card class="mb-3">
