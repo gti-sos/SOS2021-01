@@ -168,7 +168,7 @@
         plugins: {
             title: {
                 display: true,
-                text: 'Comparativa del porcentaje de paro y fertilidads'
+                text: 'Comparativa del porcentaje de paro y fertilidad'
             }
         },
         scales: {
