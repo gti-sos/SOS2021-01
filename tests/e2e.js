@@ -9,35 +9,32 @@ var counter=0;
   const context = await browser.createIncognitoBrowserContext();
   const page = await browser.newPage();
   await page.setViewport({ width: 3688, height: 1768 });
-  //Home
+  
   //https://sos2021-01.herokuapp.com
   await page.goto('http://localhost:10000/', { waitUntil: 'networkidle2' });
 
+  console.log("--Home page--");
   await page.screenshot({ path: screenshotPath + (counter++) +'_HOME.png' });
 
   //Info
-  
+  console.log("--Info page--");
   await page.click("#nav_info");
   await page.screenshot({ path: screenshotPath + (counter++) +'_INFO.png' });
 
   //About
-  
+  console.log("--About page--");
   await page.click("body > main > main > ul > li:nth-child(5)");
   await page.screenshot({ path: screenshotPath + (counter++) +'_ABOUT_US.png' });
 
 
-  //Integrations
-
-  await page.click("body > main > main > ul > li:nth-child(4)");
-  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_VIEW.png' });
-
-
 
   //Analytics
-
+  
   //cargamos los datos de cada API primero 
 
   await page.click("#nav_home"),
+
+  console.log("Loading data.....");
   await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(3) > div > div.card-body > a:nth-child(5) > button"),
   await page.click("#b_load_toggle");
   await page.click("#b_load_toggle_ok");
@@ -54,12 +51,127 @@ var counter=0;
   await page.click("body > main > main > div.nav.svelte-1xdzfq5 > ul > li:nth-child(1) > a");
   
   //una vez cargados los datos capturamos
-  
+  console.log(".....data loaded");
+
+  console.log("--Analytics page--");
   await page.click("body > main > main > ul > li:nth-child(3)");
   await page.screenshot({ path: screenshotPath + (counter++) +'_ANALYTICS_VIEW.png' });
   
 
+  //Integrations
+  console.log("--Integrations page--");
+  await page.click("body > main > main > ul > li:nth-child(4)");
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_VIEW.png' });
+
+  //Natality
+  await page.click("body > main > main > div:nth-child(3) > div > div.card-body > a:nth-child(3) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_RESTCOUNTRIES.png' });
+
+  await page.click("#nav_coinCap");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_COINCAP.png' });
+
+  await page.click("#nav_vatRates");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_VATRATES.png' });
+
+  await page.click("#nav_sanityStats");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_SANITY-STATS.png' });
+
+  await page.click("#nav_platformsStats");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_PLATFORMS-STATS.png' });
+
+  await page.click("#nav_povertyRisks");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_POVERTY-RISKS.png' });
+
+  await page.click("#nav_illiteracy");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_ILLITERACY.png' });
+
+  await page.click("#nav_chidrenHIV");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_CHIDLREN-HIV.png' });
+
+  await page.click("#nav_childrenEmployment");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_CHIDLREN-EMPLOYMENT.png' });
+
+  await page.click("#nav_unemployment");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_NAT_UNEMPLOYMENT.png' });
+
+  await page.click("#nav_integrations");
+
+  //Divorce
+  await page.click("body > main > main > div:nth-child(5) > div > div.card-body > a:nth-child(3) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_DIV_BREAKING-BAD.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(5) > div > div.card-body > a:nth-child(4) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_DIV_RICK.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(5) > div > div.card-body > a:nth-child(5) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_DIV_AIR-POLLUTION.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(5) > div > div.card-body > a:nth-child(6) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_DIV_FOOD.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(5) > div > div.card-body > a:nth-child(7) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_DIV_OBESITY.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(5) > div > div.card-body > a:nth-child(8) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_DIV_STAR-WARS.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(5) > div > div.card-body > a:nth-child(9) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_DIV_RENTING.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  //Life
+  await page.click("body > main > main > div:nth-child(4) > div > div.card-body > a:nth-child(3) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_LIFE_COVID.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(4) > div > div.card-body > a:nth-child(4) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_LIFE_RENEWABLE.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+  
+  await page.click("body > main > main > div:nth-child(4) > div > div.card-body > a:nth-child(5) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_LIFE_CHILDREN.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(4) > div > div.card-body > a:nth-child(6) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_LIFE_.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("body > main > main > div:nth-child(4) > div > div.card-body > a:nth-child(7) > button");
+  await page.waitForTimeout(10000);
+  await page.screenshot({ path: screenshotPath + (counter++) +'_INTEGRATIONS_LIFE_EDUCATION.png' });
+  await page.click("body > main > main > ul > li:nth-child(2) > a");
+
+  await page.click("#nav_home");
+
   //volvemos a vaciar las APIS
+  console.log("erasing data.....");
   await page.click("body > main > main > ul > li:nth-child(1)"),
   await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(3) > div > div.card-body > a:nth-child(5) > button"),
   await page.click("#b_delete_toggle");
@@ -74,6 +186,8 @@ var counter=0;
   await page.click("body > main > main > div:nth-child(5) > div > div:nth-child(2) > div > div.card-body > a:nth-child(5) > button"),
   await page.click("body > main > main > div:nth-child(3) > main > div > button.btn.btn-outline-danger"),
   await page.click("body > main > main > div.nav.svelte-1xdzfq5 > ul > li:nth-child(1) > a"),
+  console.log(".....data erased");
+
 
   //Natality
   console.log("--Home press interface button to go to natality-stats view--")
