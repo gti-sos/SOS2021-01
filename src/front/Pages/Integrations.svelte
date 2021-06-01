@@ -89,6 +89,9 @@
         <a href="/#/integrations/externaCovid"
           ><Button class="mb-3" color="primary">Covid</Button></a
         >
+        <a href="/#/integrations/externaSpace"
+          ><Button class="mb-3" color="primary">Space</Button></a
+        >
         <a href="/#/integrations/integracion01"
           ><Button class="mb-3" color="primary">Renewable power</Button></a
         >

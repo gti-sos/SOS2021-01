@@ -7,11 +7,10 @@
     const BASE_LIFE_API_URL = "/api/v2/life-stats";
     var lifeData = [];
     let resData = [];
-    let deaths = [];
-    let countries = [];
-    let safety = [];
+    let starlink_name = [];
+    let mean_motion = [];
 
-    const BASE_API_EXTERNA_01 = "/statistics"
+    
     async function loadMyStats() {
         console.log("Loading data...");
         const res = await fetch(
@@ -48,52 +47,29 @@
   }
 
     async function loadChart(){
-            const res = await fetch("https://covid-193.p.rapidapi.com/statistics", {
-            "method": "GET",
-            "headers": {
-            'x-rapidapi-key': '1713dc8cbbmsh0cc9c745d493379p1f4f4ajsn885e935b7f72',
-            'x-rapidapi-host': 'covid-193.p.rapidapi.com',
-            useQueryString: true
-	        }
-         });
+            const res = await fetch("https://api.spacexdata.com/v4/starlink");
 
          await getMyStats();
 
          resData =  await res.json();
-         console.log("La respuesta es:", resData.response);  //response porqueeee....
-        
-         resData.response.forEach(d => { 
-            let country_minus = d.country.toLowerCase(); 
-            lifeData.forEach((data) => {               
-                if(data.country==country_minus){
-                    deaths.push(d.deaths.total);
-                    countries.push(data.country);
-                    safety.push(data.safety_index);
-                }
-            })
-        });
+       //  console.log("La respuesta es:", resData);
+        for(var i=0; i<6; i++){
+          var element = resData[i].spaceTrack
+          starlink_name.push(element.OBJECT_NAME);
+          mean_motion.push(element.MEAN_MOTION);
+        }
+        console.log(mean_motion);
 
-         var trace1 = {
-            x: countries,
-            y: deaths,
-            fill: 'tozeroy',
-            type: 'scatter',
-            name : "Muertes por covid"
-        };
-        
-        var trace2 = {
-            x: countries,
-            y: safety,
-            fill: 'tozeroy',
-            type: 'scatter',
-            name : "Índice de seguridad"
-        };
+         var data = [{
+            values: mean_motion,
+            labels: starlink_name,
+            type: 'pie'
+        }];
 
         var layout = {
-            title: 'Basic Overlaid Area Chart'
-        };
-
-        var data = [trace1, trace2];
+            height: 400,
+            width: 1300
+            };
 
         Plotly.newPlot('myDiv', data, layout);
 
@@ -103,6 +79,7 @@
 <svelte:head>
     <script src='https://cdn.plot.ly/plotly-1.58.4.min.js' on:load={loadChart}></script>
 </svelte:head>
+
 
 <main> 
     <Nav>
@@ -115,9 +92,9 @@
         </Nav>          
     
   
-    <h3>Integración de API externa con datos sobre muertes por Covid</h3>
-    <h5>Se recogen los datos para los mismos paises, ignorando el año.</h5> 
-    <p>Nota: por la diferencia de escala hay que pulsar en Muertes por covid (para deshabilitarlo) para poder llegar a ver el índice de seguridad en el país</p>
+    <h3>Uso de API externa sobre Starlink</h3>
+    <h5>Se han recogido datos sobre el movimiento medio solo sobre 5 de los satélites Starlink</h5> 
+    <p>Pie chart</p>
     <body>
         <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
     </body>
