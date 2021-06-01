@@ -88,38 +88,27 @@
   }
 
   /**
-   * Control del cambio de pagina
-   * @param page
-   * @param offset
-   * @param search
+   * Controla el cambio de pagina segun si es busqueda o no
+   * @param page pagina
+   * @param offset desplazamiento
+   * @param search flag de busqueda
    */
   function changePage(page, offset, search) {
-    console.log("------Change page------");
-    console.log(
-      "Params page: " + page + " offset: " + offset + " search: " + search
-    );
     last_page = Math.ceil(total / 10);
-    console.log("new last page: " + last_page);
     if (page !== current_page) {
-      console.log("enter if");
       current_offset = offset;
       current_page = page;
-      console.log("page: " + page);
-      console.log("current_offset: " + current_offset);
-      console.log("current_page: " + current_page);
       if (search == false) {
-        console.log(" search: false?" + search);
         getStats();
       } else {
-        console.log(" search: true?" + search);
         searchStat();
       }
     }
-    console.log("---------Exit change page-------");
   }
 
   /**
-   * Total de elementos de una consulta
+   * Obtiene el total de elementos de una consulta
+   * @param fullQuery
    */
   async function getNumTotal(fullQuery = "") {
     console.log("Fetching total entries");
@@ -129,9 +118,7 @@
     if (res.ok) {
       const json = await res.json();
       total = json.length;
-
       changePage(current_page, current_offset, isASearch);
-      console.log("getTotal: " + total);
     } else {
       total = 0;
       changePage(1, 0, false);
@@ -142,14 +129,12 @@
   //-------Inputs-------
 
   /**
-   * Reiniciar los inputs
-   * @param flag
+   * Permite reiniciar los inputs
+   * @param flag si es busqueda o insercion
    */
   function resetInputs(flag) {
-    console.log("Reseting inputs of: " + flag);
     switch (flag) {
       case "search":
-        console.log("reseting search");
         queryStatInput = {
           country: "",
           date: "",
@@ -164,7 +149,6 @@
         getStats();
         break;
       case "insert":
-        console.log("reseting insert");
         insertStatInput = {
           country: "",
           date: "",
@@ -227,7 +211,7 @@
   }
 
   /**
-   * Get Stats
+   * Obtiene los datos de nuestra API
    */
   async function getStats() {
     console.log("Fetching data...");
@@ -248,7 +232,6 @@
 
       isASearch = false;
 
-      //errorMsg = "";
       warningMsg = "";
 
       getNumTotal();
@@ -267,7 +250,7 @@
   }
 
   /**
-   * Busqueda de elementos
+   * Obtiene la consulta de una busqueda de elementos sobre la API
    */
   async function searchStat() {
     console.log("Searching stat...");
@@ -276,7 +259,6 @@
     let fullQuery = "";
     let querySymbol = "?";
 
-    //????
     if (isASearch == false) {
       current_offset = 0;
       current_page = 1;
@@ -289,6 +271,7 @@
       })
     );
     console.log(inputData);
+
     //Building query
     for (var [inputName, inputValue] of inputData.entries()) {
       if (inputValue !== null) {
@@ -298,6 +281,7 @@
     }
     fullQuery = querySymbol.slice(0, -1);
     console.log("with query: " + fullQuery);
+
     if (fullQuery != "") {
       const res = await fetch(
         BASE_CONTACT_API_PATH +
@@ -330,10 +314,14 @@
         console.log("ERROR!" + errorMsg);
       }
     } else {
+      //Busqueda vacia
       getStats();
     }
   }
 
+  /**
+   * Se encarga de insertar recursos en la API
+   */
   async function insertStat() {
     console.log("Inserting stat: " + JSON.stringify(insertStatInput));
 
@@ -383,6 +371,11 @@
     });
   }
 
+  /**
+   * Se encarga de borrar recursos por pais y año
+   * @param country pais
+   * @param date año
+   */
   async function deleteStat(country, date) {
     console.log(`Deleting data with name ${country} and date ${date}`);
 
@@ -422,6 +415,9 @@
     });
   }
 
+  /**
+   * Borra todos los recursos de la API
+   */
   async function deleteAllStats() {
     console.log("Deleting data...");
 
@@ -450,7 +446,6 @@
     });
   }
 
-  //functions executed
   onMount(getStats);
   getNumTotal();
 </script>

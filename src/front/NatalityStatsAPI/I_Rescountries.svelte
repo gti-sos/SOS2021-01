@@ -1,8 +1,12 @@
 <script>
   import { Nav, NavItem, NavLink } from "sveltestrap";
-  //Uso de API externa restcountries.eu
+
   var countries = [];
   var msg = "";
+
+  /**
+   * Obtiene los datos de la API externa
+   */
   async function getStats() {
     console.log("Fetching data...");
 
@@ -22,7 +26,9 @@
       console.log("ERROR!" + msg);
     }
   }
-
+  /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     await getStats();
 
@@ -33,9 +39,6 @@
 
     for (let index = 0; index < countries.length; index++) {
       const element = countries[index];
-
-      console.log("NOMBRE: " + element.name);
-      console.log("REGION1: " + element.regionalBlocs[0]);
       if (element.regionalBlocs.length != 0) {
         if (element.regionalBlocs[0].acronym == "EU") {
           xAxis.push(element.name);
@@ -95,40 +98,62 @@
       <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/"
+        >Integraciones</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink disabled id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+      <NavLink
+        disabled
+        id="nav_restcountries"
+        href="/#/integrations/restcountries">restcountries</NavLink
+      >
     </NavItem>
     <NavItem>
       <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates"
+        >vatRates</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats"
+        >sanityStats</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats"
+        >platformsStats</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks"
+        >povertyRisks</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy"
+        >illiteracy</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV"
+        >chidrenHIV</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+      <NavLink
+        id="nav_childrenEmployment"
+        href="/#/integrations/childrenEmployment">childrenEmployment</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
+      <NavLink id="nav_unemployment" href="/#/integrations/unemployment"
+        >unemployment</NavLink
+      >
     </NavItem>
   </Nav>
-
 
   <div>
     <h2>Uso API externa restcountries.eu</h2>

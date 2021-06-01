@@ -13,6 +13,11 @@
   var dates = [];
   let msg = "";
 
+  /**
+   * Obtenemos una propiedad JSON sin repetidos
+   * @param MYJSON
+   * @param prop
+   */
   function distinctRecords(MYJSON, prop) {
     return MYJSON.filter((obj, pos, arr) => {
       return arr.map((mapObj) => mapObj[prop]).indexOf(obj[prop]) === pos;
@@ -22,89 +27,91 @@
   async function loadChart() {
     console.log("Fetching data...");
 
+    //Cargamos los datos de las APIs
     await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats/loadInitialData");
     await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats/loadInitialData");
     await fetch(BASE_CONTACT_API_PATH_v2 + "/life-stats/loadInitialData");
 
+    //Obtenemos los datos de las APIs
     const res = await fetch(BASE_CONTACT_API_PATH_v2 + "/natality-stats");
     const res1 = await fetch(BASE_CONTACT_API_PATH_v2 + "/divorce-stats");
     const res2 = await fetch(BASE_CONTACT_API_PATH_v2 + "/life-stats");
 
     if (res.ok && res1.ok && res2.ok) {
+      
       console.log("procesing Divorce data....");
       if (res1.ok) {
         divorceData = await res1.json();
         console.log("RES OK");
-        //Quitamos fechas repetidas y las ordenamos
+        //Quitamos fechas repetidas 
         var distinctDates1 = distinctRecords(divorceData, "date");
+        //y las ordenamos
         distinctDates1.sort(function (a, b) {
           return a.date - b.date;
         });
+        //guardamos las fechas para la grafica
         distinctDates1.forEach((element) => {
           dates.push(element.date);
-          console.log("dates: " + element.date);
         });
-        console.log("Distinct dates: " + dates);
+        
 
         //Sumamos los valores para las fechas iguales
-
         dates.forEach((e) => {
           var yAxis = divorceData
             .filter((d) => d.date === e)
             .map((dr) => dr["divorce-rate"])
             .reduce((acc, dr) => dr + acc);
-          console.log("YAxis: " + yAxis);
+          
           divorceChartData.push(Math.round(yAxis));
         });
         msg = "";
       }
+
       console.log("procesing Natality data....");
       if (res.ok) {
         natalityData = await res.json();
         console.log("RES OK");
-        //Quitamos fechas repetidas y las ordenamos
+        
+        //Quitamos fechas repetidas 
         var distinctDates = distinctRecords(natalityData, "date");
+        //y las ordenamos
         distinctDates.sort(function (a, b) {
           return a.date - b.date;
         });
+        //Añadimos las fechas que no existen
         distinctDates.forEach((element) => {
           if (!dates.includes(element.date)) {
             dates.push(element.date);
-            console.log("dates: " + element.date);
           }
         });
-        console.log("Distinct dates: " + dates);
-
+        
         //Sumamos los valores para las fechas iguales
-
-        //natalityChartData.push("");
-
         dates.forEach((e) => {
           var yAxis = natalityData
             .filter((d) => d.date === e)
             .map((nr) => nr["natality-rate"])
             .reduce((acc, nr) => nr + acc, 0);
-          console.log("YAxis: " + yAxis);
           natalityChartData.push(Math.round(yAxis));
         });
         msg = "";
       }
 
+      console.log("procesing Life data....");
       if (res2.ok) {
         lifeData = await res2.json();
         console.log("RES2 OK");
-        //Quitamos fechas repetidas y las ordenamos
+        //Quitamos fechas repetidas 
         var distinctDates = distinctRecords(lifeData, "date");
+         //y las ordenamos
         distinctDates.sort(function (a, b) {
           return a.date - b.date;
         });
+         //Añadimos las fechas que no existen
         distinctDates.forEach((element) => {
           if (!dates.includes(element.date)) {
             dates.push(element.date);
-            console.log("dates: " + element.date);
           }
         });
-        console.log("Distinct dates: " + dates);
 
         //Sumamos los valores para las fechas iguales
         dates.forEach((e) => {
@@ -112,20 +119,16 @@
             .filter((d) => d.date === e)
             .map((qli) => qli["quality_life_index"])
             .reduce((acc, qli) => qli + acc, 0);
-          console.log("YAxis: " + yAxis);
           lifeChartData.push(Math.round(yAxis));
         });
         msg = "";
       }
     } else {
-      console.log("ERROR MSG");
+      console.log("ERROR "+msg);
       msg = "Por favor primero cargue los datos en todas las APIs";
     }
 
-    console.log("Divorce Chart DaTa: " + divorceChartData);
-    console.log("Natality Chart DaTa: " + natalityChartData);
-    console.log("Life Chart Data: " + lifeChartData);
-
+    //Creamos la grafica
     Highcharts.chart("container", {
       chart: {
         type: "bar",

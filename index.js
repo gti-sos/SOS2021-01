@@ -5,9 +5,6 @@ var path = require("path");
 var cors = require("cors");
 var bodyParser = require('body-parser');
 var request = require("request");
-const { Console } = require("console");
-
-
 
 var lifeAPIv1 = require("./src/back/lifeAPI/v1");
 var lifeAPIv2 = require("./src/back/lifeAPI/v2");

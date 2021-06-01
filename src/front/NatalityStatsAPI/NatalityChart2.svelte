@@ -1,13 +1,15 @@
 <script>
-  import { onMount } from "svelte";
-
-  import { Table, Button, Nav, NavItem, NavLink } from "sveltestrap";
+  import { Nav, NavItem, NavLink } from "sveltestrap";
 
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   let natalityData = [];
 
   var msg = "";
+
+  /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -24,7 +26,9 @@
       }
     });
   }
-
+  /**
+   * Obtiene los datos de nuestra API
+   */
   async function getStats() {
     console.log("Fetching data...");
     await loadStats();
@@ -41,13 +45,18 @@
       msg = "Error al cargar los datos de la API";
     }
   }
+
+  /**
+   * Parsea un JSON a Map
+   * @param j json
+   * @param k propiedad 1 como clave
+   * @param v propiedad 2 como valor
+   */
   function jsonToMap(j, k, v) {
     var res = new Map();
     j.forEach((element) => {
       var key = parseInt(element[k]);
       var value = parseInt(element[v]);
-      console.log("key: " + key);
-      console.log("value: " + value);
       if (res.has(key)) {
         var newValue = res.get(key) + value;
         res.set(key, newValue);
@@ -57,6 +66,10 @@
     });
     return res;
   }
+
+  /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     console.log("Ploting data...");
     await getStats();

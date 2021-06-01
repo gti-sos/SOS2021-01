@@ -15,6 +15,10 @@
   let natalityChartFertilityRateData = [];
 
   var msg = "";
+
+  /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -32,6 +36,9 @@
     });
   }
 
+   /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     console.log("Fetching data...");
     await loadStats();
