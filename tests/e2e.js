@@ -10,8 +10,8 @@ var counter=0;
   const page = await browser.newPage();
   await page.setViewport({ width: 3688, height: 1768 });
   
-  //https://sos2021-01.herokuapp.com
-  await page.goto('http://localhost:10000/', { waitUntil: 'networkidle2' });
+
+  await page.goto('https://sos2021-01.herokuapp.com', { waitUntil: 'networkidle2' });
 
   console.log("--Home page--");
   await page.screenshot({ path: screenshotPath + (counter++) +'_HOME.png' });
