@@ -1,13 +1,15 @@
 <script>
   import { Nav, NavItem, NavLink } from "sveltestrap";
 
-  //Uso API grupo 10
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   var platformsStats = [];
   var natalityData = [];
   var msg = "";
 
+  /**
+   * Carga los datos de la API SOS
+   */
   async function loadApi() {
     console.log("Loading data...");
     const res = await fetch("/api/v1/platforms/loadInitialData").then(function (
@@ -24,7 +26,9 @@
       }
     });
   }
-
+  /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -41,7 +45,9 @@
       }
     });
   }
-
+  /**
+   * Obtiene los datos de nuestra API
+   */
   async function getStats() {
     console.log("Fetching data...");
     await loadStats();
@@ -58,7 +64,9 @@
       msg = "Error al cargar los datos de la API";
     }
   }
-
+  /**
+   * Obtiene los datos de la API SOS
+   */
   async function getPlatformsStats() {
     console.log("Fetching data...");
     await loadApi();
@@ -76,14 +84,17 @@
       console.log("ERROR!" + msg);
     }
   }
-
+  /**
+   * Parsea un JSON a Map
+   * @param j json
+   * @param k propiedad 1 como clave
+   * @param v propiedad 2 como valor
+   */
   function jsonToMap(j, k, v) {
     var res = new Map();
     j.forEach((element) => {
       var key = element[k];
       var value = element[v];
-      console.log("key: " + key);
-      console.log("value: " + value);
       if (res.has(key)) {
         var newValue = res.get(key) + value;
         res.set(key, newValue);
@@ -93,17 +104,16 @@
     });
     return res;
   }
-
+  /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     await getStats();
     await getPlatformsStats();
 
-    /////////////////////////////////////////
-
     var data = [];
     var data1 = [];
 
-    //-------------------Sanity-stats
     console.log("Calculating platforms-stats...");
     var result = jsonToMap(platformsStats, "year", "sold-unit");
 
@@ -115,7 +125,6 @@
       });
     }
 
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     console.log("Calculating natality-stats...");
     var result1 = jsonToMap(natalityData, "date", "born");
 
@@ -135,12 +144,12 @@
         label: "Scatter Dataset",
         datasets: [
           {
-            label: "Consolas Nintendo 3DS por año",
+            label: "Consolas Nintendo 3DS",
             data: data,
             backgroundColor: "rgba(255, 0,0, 1)",
           },
           {
-            label: "Nacidos por año",
+            label: "Nacidos",
             data: data1,
             backgroundColor: "rgba(0,0,255, 1)",
           },
@@ -148,6 +157,14 @@
       },
 
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa de personas nacidas y consolas Nintendo 3DS vendidas por año'
+            }
+        },
         scales: {
           x: {
             type: "linear",
@@ -174,40 +191,62 @@
       <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/"
+        >Integraciones</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries"
+        >restcountries</NavLink
+      >
     </NavItem>
     <NavItem>
       <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates"
+        >vatRates</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats"
+        >sanityStats</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink disabled id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+      <NavLink
+        disabled
+        id="nav_platformsStats"
+        href="/#/integrations/platformsStats">platformsStats</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks"
+        >povertyRisks</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy"
+        >illiteracy</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV"
+        >chidrenHIV</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+      <NavLink
+        id="nav_childrenEmployment"
+        href="/#/integrations/childrenEmployment">childrenEmployment</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
+      <NavLink id="nav_unemployment" href="/#/integrations/unemployment"
+        >unemployment</NavLink
+      >
     </NavItem>
   </Nav>
-
 
   <div>
     <h2>Integración API SOS platform-stats</h2>
@@ -231,5 +270,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

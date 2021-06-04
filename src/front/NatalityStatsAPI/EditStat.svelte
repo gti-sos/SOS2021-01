@@ -4,7 +4,9 @@
   import { Table, Button, Nav, NavItem, NavLink } from "sveltestrap";
 
   const BASE_CONTACT_API_PATH = "/api/v2";
+
   export let params = {};
+
   let stat = {};
   let updateCountry = "XXXX";
   let updateDate = 1999;
@@ -16,6 +18,9 @@
   let errorMsg = "";
   let okMsg = "";
 
+  /**
+   * Obtiene un recurso
+   */
   async function getStat() {
     console.log("Fetching stat..." + params.country + " " + params.date);
     const res = await fetch(
@@ -37,7 +42,6 @@
       updateWomenBorn = stat["women-born"];
       updateNatalityRate = stat["natality-rate"];
       updateFertilityRate = stat["fertility-rate"];
-      console.log("Received stat.");
     } else {
       if (res.status === 404) {
         errorMsg = `No existe dato con pais: ${params.country} y fecha: ${params.date}`;
@@ -49,12 +53,10 @@
     }
   }
 
+  /**
+   * Actualiza un recurso
+   */
   async function updateStat() {
-    console.log(
-      "Updating stat..." +
-        JSON.stringify(params.country) +
-        JSON.stringify(params.date)
-    );
 
     const res = await fetch(
       BASE_CONTACT_API_PATH +

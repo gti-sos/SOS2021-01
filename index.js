@@ -5,9 +5,6 @@ var path = require("path");
 var cors = require("cors");
 var bodyParser = require('body-parser');
 var request = require("request");
-const { Console } = require("console");
-
-
 
 var lifeAPIv1 = require("./src/back/lifeAPI/v1");
 var lifeAPIv2 = require("./src/back/lifeAPI/v2");
@@ -195,6 +192,17 @@ app.use(path04, function(req, res) {
   console.log('piped: ' + req.baseUrl + req.url);
   req.pipe(request(url)).pipe(res);
 });
+
+//API Externa Covid 
+var apiExt01 = "https://covid-193.p.rapidapi.com";
+var pathExt01 = "/statistics";
+
+app.use(pathExt01, function(req, res) {
+  var url = apiExt01 + req.baseUrl + req.url;
+  console.log('piped: ' + req.baseUrl + req.url);
+  req.pipe(request(url)).pipe(res);
+});
+
 
 
 

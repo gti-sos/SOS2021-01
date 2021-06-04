@@ -8,6 +8,12 @@
 
   var msg = "";
 
+  /**
+   * Parsea un JSON a Map
+   * @param j json
+   * @param k propiedad 1 como clave
+   * @param v propiedad 2 como valor
+   */
   function jsonToMap(j, k, v) {
     var res = new Map();
     j.forEach((element) => {
@@ -22,7 +28,9 @@
     });
     return res;
   }
-
+/**
+   * Carga los datos de la API SOS
+   */
   async function loadApi() {
     console.log("Loading data...");
     const res = await fetch("/api/v1/illiteracy/loadInitialData").then(
@@ -39,7 +47,9 @@
       }
     );
   }
-
+ /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -56,7 +66,9 @@
       }
     });
   }
-
+/**
+   * Obtiene los datos de nuestra API
+   */
   async function getStats() {
     console.log("Fetching data...");
     await loadStats();
@@ -73,7 +85,9 @@
       msg = "Error al cargar los datos de la API";
     }
   }
-
+/**
+   * Obtiene los datos de la API SOS
+   */
   async function getIlliteracyData() {
     console.log("Fetching data...");
     await loadApi();
@@ -94,6 +108,11 @@
       console.log("ERROR!" + msg);
     }
   }
+   /**
+   * A partir de dos Arrays de datos se obtiene la interseccion
+   * @param dataset1 array 1
+   * @param dataset2 array 2
+   */
   function commonValues(dataset1, dataset2) {
     var data1 = dataset1.map(function (v) {
       return v.toLowerCase();
@@ -104,6 +123,10 @@
     return data1.filter((value) => data2.includes(value));
   }
 
+  /**
+   * Obtiene la priemra letra mayuscula para un conjunto de strings en un array
+   * @param dataset array de strings
+   */
   function capitalLetters(dataset) {
     for (let index = 0; index < dataset.length; index++) {
       var str = dataset[index];
@@ -119,7 +142,9 @@
       }
     }
   }
-
+  /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     await getStats();
     await getIlliteracyData();
@@ -147,7 +172,6 @@
     for (let j = 0; j < countriesWithCapitalLetter.length; j++) {
       var c = countriesWithCapitalLetter[j];
       arrayAux.push(result.get(c));
-      console.log("templatedata " + arrayAux);
     }
 
     data.push({
@@ -173,7 +197,7 @@
         type: "area",
       },
       title: {
-        text: "Ratio de natalidad y tasa de alfabetización de adultos",
+        text: "Comparativa del ratio de natalidad y la tasa de alfabetización en adultos",
       },
       xAxis: {
         categories: commonCountries,

@@ -1,13 +1,15 @@
 <script>
-  import { onMount } from "svelte";
-
-  import { Table, Button, Nav, NavItem, NavLink } from "sveltestrap";
+  import { Nav, NavItem, NavLink } from "sveltestrap";
 
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   let natalityData = [];
 
   var msg = "";
+
+  /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -24,7 +26,9 @@
       }
     });
   }
-
+  /**
+   * Obtiene los datos de nuestra API
+   */
   async function getStats() {
     console.log("Fetching data...");
     await loadStats();
@@ -41,13 +45,18 @@
       msg = "Error al cargar los datos de la API";
     }
   }
+
+  /**
+   * Parsea un JSON a Map
+   * @param j json
+   * @param k propiedad 1 como clave
+   * @param v propiedad 2 como valor
+   */
   function jsonToMap(j, k, v) {
     var res = new Map();
     j.forEach((element) => {
       var key = parseInt(element[k]);
       var value = parseInt(element[v]);
-      console.log("key: " + key);
-      console.log("value: " + value);
       if (res.has(key)) {
         var newValue = res.get(key) + value;
         res.set(key, newValue);
@@ -57,6 +66,10 @@
     });
     return res;
   }
+
+  /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     console.log("Ploting data...");
     await getStats();
@@ -84,14 +97,14 @@
         labels: years,
         datasets: [
           {
-            label: "Hombres nacidos",
+            label: "Hombres",
             data: menData,
             backgroundColor: ["rgba(255, 99, 132, 0.2)"],
             borderColor: ["rgba(255, 99, 132, 1)"],
             borderWidth: 1,
           },
           {
-            label: "Mujeres nacidas",
+            label: "Mujeres",
             data: womenData,
             backgroundColor: ["rgba(255, 159, 64, 0.2)"],
             borderColor: ["rgba(255, 159, 64, 1)"],
@@ -100,12 +113,18 @@
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         indexAxis: "y",
         responsive: true,
         plugins: {
           legend: {
             position: "top",
           },
+          title: {
+                display: true,
+                text: 'Comparativa del nº de hombres y mujeres nacidos'
+            }
         },
       },
     });
@@ -127,7 +146,7 @@
     </NavItem>
     <NavItem>
       <NavLink id="nav_nat_analytics" href="/#/natality-stats/natalityChart"
-        >Análiticas todos los campos</NavLink
+        >Analíticas todos los campos</NavLink
       >
     </NavItem>
     <NavItem>
@@ -135,13 +154,13 @@
         disabled
         id="nav_nat_analytics2"
         href="/#/natality-stats/natalityChart2"
-        >Análiticas hombres y mujeres nacidos</NavLink
+        >Analíticas hombres y mujeres nacidos</NavLink
       >
     </NavItem>
   </Nav>
 
   <div>
-    <h2>Análiticas Hombres y mujeres nacidos</h2>
+    <h2>Analíticas Hombres y mujeres nacidos</h2>
   </div>
 
   {#if msg}
@@ -164,5 +183,9 @@
   }
   p {
     display: inline;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

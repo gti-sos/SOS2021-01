@@ -136,7 +136,7 @@
   
     <div>
       <h2>
-        Análiticas
+        Analíticas
       </h2>
     </div>
   

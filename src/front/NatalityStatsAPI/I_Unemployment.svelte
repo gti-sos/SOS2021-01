@@ -1,13 +1,15 @@
 <script>
   import { Nav, NavItem, NavLink } from "sveltestrap";
 
-  //Uso API grupo 10
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   var unemploymentData = [];
   var natalityData = [];
   var msg = "";
 
+  /**
+   * Carga los datos de la API SOS
+   */
   async function loadApi() {
     console.log("Loading data...");
     const res = await fetch("/api/v2/unemployment-stats/loadinitialdata").then(
@@ -24,7 +26,9 @@
       }
     );
   }
-
+  /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -41,7 +45,9 @@
       }
     });
   }
-
+  /**
+   * Obtiene los datos de nuestra API
+   */
   async function getStats() {
     console.log("Fetching data...");
     await loadStats();
@@ -58,7 +64,9 @@
       msg = "Error al cargar los datos de la API";
     }
   }
-
+  /**
+   * Obtiene los datos de la API SOS
+   */
   async function getUnemploymentData() {
     console.log("Fetching data...");
     await loadApi();
@@ -79,7 +87,12 @@
       console.log("ERROR!" + msg);
     }
   }
-
+  /**
+   * Parsea un JSON a Map
+   * @param j json
+   * @param k propiedad 1 como clave
+   * @param v propiedad 2 como valor
+   */
   function jsonToMap(j, k, v) {
     var res = new Map();
     j.forEach((element) => {
@@ -99,12 +112,17 @@
     return res;
   }
 
+  /**
+   * A partir de dos Arrays de datos se obtiene la interseccion
+   * @param dataset1 array 1
+   * @param dataset2 array 2
+   */
   function commonValues(dataset1, dataset2) {
-    console.log("dataset1: " + dataset1);
-    console.log("dataset2: " + dataset2);
     return dataset1.filter((value) => dataset2.includes(value));
   }
-
+  /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     await getStats();
     await getUnemploymentData();
@@ -124,11 +142,6 @@
 
     for (let index = 0; index < commonYears.length; index++) {
       var element = parseInt(commonYears[index]);
-
-      console.log("FECHA: " + element);
-      console.log("RESULT: " + result.get(element));
-      console.log("RESULT1: " + result1.get(element));
-
       data.push({
         x: element,
         y: Math.round(result.get(element)),
@@ -143,13 +156,21 @@
       data: {
         datasets: [
           {
-            label: "Porcentaje de paro y fertilidad (Año, Paro, Fertilidad)",
+            label: "(Año, Paro, Fertilidad)",
             data: data,
             backgroundColor: "rgb(255, 99, 132)",
           },
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del porcentaje de paro y fertilidad'
+            }
+        },
         scales: {
           x: {
             type: "linear",
@@ -176,40 +197,62 @@
       <NavLink id="nav_home" href="/">Página Principal</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_integrations" href="/#/integrations/">Integraciones</NavLink>
+      <NavLink id="nav_integrations" href="/#/integrations/"
+        >Integraciones</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_restcountries" href="/#/integrations/restcountries">restcountries</NavLink>
+      <NavLink id="nav_restcountries" href="/#/integrations/restcountries"
+        >restcountries</NavLink
+      >
     </NavItem>
     <NavItem>
       <NavLink id="nav_coinCap" href="/#/integrations/coinCap">coinCap</NavLink>
     </NavItem>
     <NavItem>
-      <NavLink id="nav_vatRates" href="/#/integrations/vatRates">vatRates</NavLink>
+      <NavLink id="nav_vatRates" href="/#/integrations/vatRates"
+        >vatRates</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats">sanityStats</NavLink>
+      <NavLink id="nav_sanityStats" href="/#/integrations/sanityStats"
+        >sanityStats</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats">platformsStats</NavLink>
+      <NavLink id="nav_platformsStats" href="/#/integrations/platformsStats"
+        >platformsStats</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks">povertyRisks</NavLink>
+      <NavLink id="nav_povertyRisks" href="/#/integrations/povertyRisks"
+        >povertyRisks</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy">illiteracy</NavLink>
+      <NavLink id="nav_illiteracy" href="/#/integrations/illiteracy"
+        >illiteracy</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV">chidrenHIV</NavLink>
+      <NavLink id="nav_chidrenHIV" href="/#/integrations/chidrenHIV"
+        >chidrenHIV</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink id="nav_childrenEmployment" href="/#/integrations/childrenEmployment">childrenEmployment</NavLink>
+      <NavLink
+        id="nav_childrenEmployment"
+        href="/#/integrations/childrenEmployment">childrenEmployment</NavLink
+      >
     </NavItem>
     <NavItem>
-      <NavLink disabled id="nav_unemployment" href="/#/integrations/unemployment">unemployment</NavLink>
+      <NavLink
+        disabled
+        id="nav_unemployment"
+        href="/#/integrations/unemployment">unemployment</NavLink
+      >
     </NavItem>
   </Nav>
-
 
   <div>
     <h2>Integración API SOS unemployment-stats</h2>
@@ -233,5 +276,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

@@ -130,7 +130,7 @@
 
   <div>
       <h2>
-        Análiticas
+        Analítica con todos los campos
       </h2>
     </div>
 

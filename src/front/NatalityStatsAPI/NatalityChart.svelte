@@ -15,6 +15,10 @@
   let natalityChartFertilityRateData = [];
 
   var msg = "";
+
+  /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -32,6 +36,9 @@
     });
   }
 
+   /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     console.log("Fetching data...");
     await loadStats();
@@ -61,7 +68,7 @@
         type: "column",
       },
       title: {
-        text: "",
+        text: "Comparativa de todos los campos",
       },
       xAxis: {
         categories: natalityChartCountryDateData,
@@ -136,18 +143,18 @@
         disabled
         id="nav_nat_analytics"
         href="/#/natality-stats/natalityChart"
-        >Análiticas todos los campos</NavLink
+        >Analíticas todos los campos</NavLink
       >
     </NavItem>
     <NavItem>
       <NavLink id="nav_nat_analytics2" href="/#/natality-stats/natalityChart2"
-        >Análiticas hombres y mujeres nacidos</NavLink
+        >Analíticas hombres y mujeres nacidos</NavLink
       >
     </NavItem>
   </Nav>
 
   <div>
-    <h2>Análitica mostrando todos los campos de natality-stats</h2>
+    <h2>Analítica mostrando todos los campos de natality-stats</h2>
   </div>
 
   {#if msg}

@@ -1,13 +1,16 @@
 <script>
   import { Nav, NavItem, NavLink, Spinner } from "sveltestrap";
 
-  //Uso API grupo 10
+
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   var sanityStats = [];
   var natalityData = [];
   var msg = "";
 
+    /**
+   * Carga los datos de la API SOS
+   */
   async function loadApi() {
     console.log("Loading data...");
     const res = await fetch("/sanity-stats/loadInitialData").then(function (
@@ -24,7 +27,9 @@
       }
     });
   }
-
+ /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -41,7 +46,9 @@
       }
     });
   }
-
+ /**
+   * Obtiene los datos de nuestra API
+   */
   async function getStats() {
     console.log("Fetching data...");
     await loadStats();
@@ -58,7 +65,9 @@
       msg = "Error al cargar los datos de la API";
     }
   }
-
+/**
+   * Obtiene los datos de la API SOS
+   */
   async function getSanityStats() {
     console.log("Fetching data...");
     await loadApi();
@@ -76,7 +85,9 @@
       console.log("ERROR!" + msg);
     }
   }
-
+ /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     await getStats();
     await getSanityStats();
@@ -85,7 +96,7 @@
     var yAxis = [];
     var yAxis1 = [];
 
-    //-------------------Sanity-stats
+    
     console.log("Calculating sanity-stats...");
     var index = 0;
     sanityStats.forEach((element) => {
@@ -94,25 +105,21 @@
         xAxis.push(e);
         yAxis.push(Math.round(element.health_expenditure_in_percentage));
         index++;
-        console.log("X: " + xAxis);
-        console.log("Y: " + yAxis);
       }
     });
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    
     console.log("Calculating natality-stats...");
     natalityData.forEach((element) => {
       var e = element.country + "-" + element.date;
       if (!xAxis.includes(e)) {
         if (element["natality-rate"] != undefined) {
-          console.log("natalite-rite " + element["natality-rate"]);
           xAxis.push(e);
           yAxis.push(Math.round(element["natality-rate"]));
-          console.log("X: " + xAxis);
-          console.log("Y: " + yAxis);
         }
       }
     });
-
+    //Como los años no coinciden, hay que situar correctamente 
+    // el eje x con el y
     var yAxis1 = [];
     for (let i = 0; i < index; i++) {
       yAxis1.push(0);
@@ -121,14 +128,6 @@
     for (let i = 0; i < copy.length; i++) {
       yAxis1.push(copy[i]);
     }
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log("X: " + xAxis.length);
-    console.log("Y: " + yAxis.length);
-    console.log("X-Sanity: " + xAxis.slice(0, index));
-    console.log("X-Natality: " + xAxis.slice(index, yAxis.length));
-    console.log("Y-Sanity: " + yAxis.slice(0, index));
-    console.log("Y-Natality: " + yAxis.slice(index, yAxis.length));
-    console.log("index: " + index);
 
     var ctx = document.getElementById("myChart").getContext("2d");
 
@@ -150,6 +149,16 @@
           },
         ],
         labels: xAxis,
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del gasto en sanidad y del ratio de natalidad'
+            }
+        },
       },
     });
   }
@@ -225,5 +234,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>

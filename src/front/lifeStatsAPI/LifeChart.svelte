@@ -108,7 +108,7 @@
 
     <div>
         <h2>
-          Análiticas
+          Analítica mostrando todos los campos
         </h2>
       </div>
 

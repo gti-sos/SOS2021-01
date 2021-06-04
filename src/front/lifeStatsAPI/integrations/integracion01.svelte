@@ -57,32 +57,70 @@ async function loadAPI() {
         hPIM.push(d.hydraulic_production_in_megawatts);
         wPIM.push(d.wind_power_production_in_megawatts);
     });
+    
 
-    var trace1 = {
-        x : etiquetas,
-        y : sPIM,
-        type : 'scatter'
-    };
-    var trace2 = {
-        x: etiquetas,
-        y: hPIM,
-        type: 'scatter'
-    };
-    var trace3 = {
-        x: etiquetas,
-        y: wPIM,
-        type: 'scatter'
-    };
-
-    var data= [trace1, trace2, trace3];
-    Plotly.newPlot('myDiv', data);
+      Highcharts.chart('container', {
+          chart: {
+              type: 'areaspline'
+          },
+          title: {
+              text: 'Capacidades de energía renovable'
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'left',
+              verticalAlign: 'top',
+              x: 150,
+              y: 100,
+              floating: true,
+              borderWidth: 1,
+              backgroundColor:
+                  Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
+          },
+          xAxis: {
+              categories: etiquetas,
+          },
+          yAxis: {
+              title: {
+                  text: 'Megavatios'
+              }
+          },
+          tooltip: {
+              shared: true,
+              valueSuffix: ' units'
+          },
+          credits: {
+              enabled: false
+          },
+          plotOptions: {
+              areaspline: {
+                  fillOpacity: 0.5
+              }
+          },
+          series: [{
+              name: 'Producción solar en megavatios',
+              data: sPIM     
+          }, {
+              name: 'Podrucción hidráulica en megavatios',
+              data: hPIM
+          }, {
+            name: 'Producción de energía eólica en megavatios',
+            data : wPIM
+          }]
+      });
+         
   }
 
   
 </script>
 
 <svelte:head>
-    <script src='https://cdn.plot.ly/plotly-latest.min.js' on:load={loadChart}></script>
+    
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadChart}></script>
 </svelte:head>
 
  
@@ -95,14 +133,17 @@ async function loadAPI() {
       <NavLink href="#/integrations">Integraciones</NavLink>
       </NavItem>
       </Nav>          
-  
-
+      
   <h3>Uso de la API del grupo 20 de SOS</h3>
   <h5>Se recogen los datos para 2008</h5> 
-  <p>Line chart</p>
-  <body>
-      <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
-  </body>
+  <p>Areaspline chart</p>
+
+  <figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">    </p>
+  </figure>
+
+
   {#if errorMsg}
   <p>{errorMsg}</p>
   {/if}
@@ -114,5 +155,43 @@ async function loadAPI() {
     text-align: center;
     padding: 1em;
     margin: 0 auto;
+  }
+
+  #container {
+    height: 400px; 
+  }
+
+  .highcharts-figure, .highcharts-data-table table {
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 1em auto;
+  }
+
+  .highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+  }
+  .highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+  }
+  .highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+  }
+  .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+  }
+  .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+  }
+  .highcharts-data-table tr:hover {
+    background: #f1f7ff;
   }
 </style>

@@ -1,13 +1,16 @@
 <script>
   import { Nav, NavItem, NavLink } from "sveltestrap";
 
-  //Uso API grupo 10
+
   const BASE_CONTACT_API_PATH = "/api/v2";
 
   var povertyData = [];
   var natalityData = [];
   var msg = "";
 
+   /**
+   * Carga los datos de la API SOS
+   */
   async function loadApi() {
     console.log("Loading data...");
     const res = await fetch(
@@ -24,6 +27,9 @@
       }
     });
   }
+   /**
+   * Carga los datos de nuestra API
+   */
   async function loadStats() {
     console.log("Loading data...");
     const res = await fetch(
@@ -40,7 +46,9 @@
       }
     });
   }
-
+  /**
+   * Obtiene los datos de nuestra API
+   */
   async function getStats() {
     console.log("Fetching data...");
     await loadStats();
@@ -57,7 +65,9 @@
       msg = "Error al cargar los datos de la API";
     }
   }
-
+ /**
+   * Obtiene los datos de la API SOS
+   */
   async function getPovertyData() {
     console.log("Fetching data...");
     await loadApi();
@@ -77,14 +87,17 @@
       console.log("ERROR!" + errorMsg);
     }
   }
-
+ /**
+   * Parsea un JSON a Map
+   * @param j json
+   * @param k propiedad 1 como clave
+   * @param v propiedad 2 como valor
+   */
   function jsonToMap(j, k, v) {
     var res = new Map();
     j.forEach((element) => {
       var key = element[k];
       var value = element[v];
-      console.log("key: " + key);
-      console.log("value: " + value);
       if (res.has(key)) {
         var newValue = res.get(key) + value;
         res.set(key, newValue);
@@ -94,7 +107,9 @@
     });
     return res;
   }
-
+ /**
+   * Carga los datos en la grafica
+   */
   async function loadChart() {
     await getStats();
     await getPovertyData();
@@ -137,6 +152,16 @@
             hoverOffset: 4,
           },
         ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Comparativa del ratio de pobreza y del ratio de natalidad'
+            }
+        },
       },
     });
   }
@@ -211,5 +236,9 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #myChart{
+    width: 400px;
+    height: 500px;
   }
 </style>
