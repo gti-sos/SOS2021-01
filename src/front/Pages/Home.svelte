@@ -190,7 +190,7 @@
             <a href="/#/natality-stats/natalityChart2">
               <Button class="mb-3" color="secondary">Analítica 2</Button>
             </a>
-            <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
+            <a href="https://youtu.be/hIUO44mXPOU"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
               ><Button class="mb-3" color="info">Documentación v1</Button></a
             >
