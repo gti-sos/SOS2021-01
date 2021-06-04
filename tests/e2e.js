@@ -380,7 +380,7 @@ var counter=0;
   await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_back_page_3.png' });
 
 
-  console.log("divorce line analityc ")
+  console.log("divorce line analityc")
     //como se queda pillado entro y salgo varias veces 
     await page.click("#nav_div_analytics"),
     await  page.click("body > main > main > ul > li:nth-child(2) > a"),
@@ -398,20 +398,20 @@ var counter=0;
 
   console.log("divorce lollipop analityc");
   //como se queda pillado entro y salgo varias veces 
-  await page.click("#nav_div_analytics3"),
+  await page.click("#nav_div_analytics2"),
   await  page.click("body > main > main > ul > li:nth-child(2) > a"),
-  await page.click("#nav_div_analytics3"),
+  await page.click("#nav_div_analytics2"),
   await  page.click("body > main > main > ul > li:nth-child(2) > a"),
-  await page.click("#nav_div_analytics3"),
+  await page.click("#nav_div_analytics2"),
   
   await page.waitForTimeout(2000);
-  await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_donut_analytic.png' });
+  await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_lollipop_analytic.png' });
 
   console.log("come back to the interface");
 
   await  page.click("body > main > main > ul > li:nth-child(2) > a"),
 
-  console.log("divorce donut analityc ")
+  console.log("divorce donut analityc")
     //como se queda pillado entro y salgo varias veces 
     await page.click("#nav_div_analytics3"),
     await  page.click("body > main > main > ul > li:nth-child(2) > a"),
@@ -420,7 +420,7 @@ var counter=0;
     await page.click("#nav_div_analytics"), 
 
   await page.waitForTimeout(2000);
-  await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_line_analytic.png' });
+  await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_donut_analytic.png' });
 
   console.log("come back to the interface");
 
