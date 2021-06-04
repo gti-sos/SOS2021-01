@@ -91,26 +91,23 @@
               divorcios, relación entre matrimonios y divorcios.</CardText
             >
             <a href="https://sos2021-01.herokuapp.com/api/v1/divorce-stats">
-              <Button class="mb-3" color="primary">API v1</Button></a
-            >
+              <Button class="mb-3" color="primary">API v1</Button></a>
+
             <a href="https://sos2021-01.herokuapp.com/api/v2/divorce-stats">
-              <Button class="mb-3" color="primary">API v2</Button>
-            </a>
+              <Button class="mb-3" color="primary">API v2</Button></a>
+
             <a href="/#/divorce-stats">
-              <Button class="mb-3" color="primary">Interfaz</Button>
-            </a>
+              <Button class="mb-3" color="primary">Interfaz</Button></a>
+
             <a href="/#/divorce-stats/divorceChart">
-              <Button class="mb-3" color="secondary">Analítica (line)</Button>
-            </a>
+              <Button class="mb-3" color="secondary">Analítica (line)</Button></a>
+
             <a href="/#/divorce-stats/divorceChart2">
-              <Button class="mb-3" color="secondary"
-                >Analítica (lollipop)</Button
-              >
-              <a href="/#/divorce-stats/divorceChart3">
-                <Button class="mb-3" color="secondary"
-                  >Analítica (pie)</Button
-                >
-            </a>
+              <Button class="mb-3" color="secondary" >Analítica (lollipop)</Button></a>
+              
+            <a href="/#/divorce-stats/divorceChart3">
+                <Button class="mb-3" color="secondary">Analítica (pie)</Button></a>
+            
             <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
               ><Button class="mb-3" color="info">Documentación v1</Button></a
