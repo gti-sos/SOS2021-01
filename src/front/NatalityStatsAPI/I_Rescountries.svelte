@@ -49,6 +49,7 @@
           series: yAxis,
           chart: {
           width: 900,
+          height: 800,
           type: 'pie',
         },
         title: {
@@ -56,17 +57,6 @@
     align: 'center',
         },
         labels: xAxis,
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 900
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
         };
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
@@ -149,7 +139,9 @@
   {#if msg}
     <p>{msg}</p>
   {:else}
-  <div id='chart'></div>
+  <div id='container'>
+    <div id='chart'></div>
+  </div>
   {/if}
 </main>
 
@@ -161,5 +153,10 @@
   }
   div {
     margin-bottom: 15px;
+  }
+  #container{
+    width:100%;
+  display: flex;
+  justify-content: center;
   }
 </style>

@@ -40,6 +40,8 @@
 
     var options = {
   chart: {
+    width: 900,
+    height: 600,
     type: 'bar'
   },
   title: {
@@ -143,7 +145,9 @@ chart.render()
   {#if msg}
     <p>{msg}</p>
   {:else}
-  <div id='chart'></div>
+  <div id='container'>
+    <div id='chart'></div>
+  </div>
   {/if}
 </main>
 
@@ -156,9 +160,10 @@ chart.render()
   div {
     margin-bottom: 15px;
   }
-  #chart {
-  height: 100%;
-  width: 100%;
-}
+  #container{
+  width:100%;
+  display: flex;
+  justify-content: center;
+  }
 
 </style>
