@@ -104,11 +104,12 @@
 
             <a href="/#/divorce-stats/divorceChart2">
               <Button class="mb-3" color="secondary" >Analítica (lollipop)</Button></a>
-              
+
             <a href="/#/divorce-stats/divorceChart3">
                 <Button class="mb-3" color="secondary">Analítica (pie)</Button></a>
             
-            <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
+            <a href="https://drive.google.com/file/d/1johOWUdSpIc8F-rdAOl207uqXxjpal2i/view?usp=sharing"><Button class="mb-3" color="primary">Video</Button></a>
+
             <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
               ><Button class="mb-3" color="info">Documentación v1</Button></a
             >
