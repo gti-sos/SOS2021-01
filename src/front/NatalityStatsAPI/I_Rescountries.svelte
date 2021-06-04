@@ -32,8 +32,6 @@
   async function loadChart() {
     await getStats();
 
-    var ctx = document.getElementById("myChart").getContext("2d");
-
     var xAxis = [];
     var yAxis = [];
 
@@ -47,57 +45,38 @@
       }
     }
 
-    var myChart = new Chart(ctx, {
-      type: "bar",
-      data: {
+    var options = {
+          series: yAxis,
+          chart: {
+          width: 900,
+          type: 'pie',
+        },
+        title: {
+    text: "Población países europeos",
+    align: 'center',
+        },
         labels: xAxis,
-        datasets: [
-          {
-            label: "población total",
-            data: yAxis,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Población por países europeos'
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 900
+            },
+            legend: {
+              position: 'bottom'
             }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
   }
 </script>
 
 <svelte:head>
-  <script
-    src="https://cdn.jsdelivr.net/npm/chart.js"
-    on:load={loadChart}></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"
+  on:load={loadChart}></script>
 </svelte:head>
 
 <main>
@@ -170,9 +149,7 @@
   {#if msg}
     <p>{msg}</p>
   {:else}
-    <div>
-      <canvas id="myChart" />
-    </div>
+  <div id='chart'></div>
   {/if}
 </main>
 
@@ -184,9 +161,5 @@
   }
   div {
     margin-bottom: 15px;
-  }
-  #myChart{
-    width: 400px;
-    height: 500px;
   }
 </style>
