@@ -10,7 +10,7 @@
         console.log("Fetching divorce data...");
 
         const res = await fetch(
-            "https://sos2021-01.herokuapp.com/api/v2/divorce-stats"
+            "/api/v2/divorce-stats"
         );
 
         if (res.ok) {
@@ -31,6 +31,8 @@
 
         const res1 = await fetch(
             "/api/integration/obesity-stats"
+
+            
         );
 
         if (res.ok) {
