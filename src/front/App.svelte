@@ -38,6 +38,7 @@
   import EditDivorceAPI from "./DivorceStatsAPI/EditStat.svelte";
   import DivorceChart from "./DivorceStatsAPI/DivorceChart.svelte";
   import DivorceChart2_lollipop from "./DivorceStatsAPI/DivorceChart2_lollipop.svelte";
+  import DivorceChart3_pie from "./DivorceStatsAPI/DivorceChart3.svelte";
 
   import BreakingBadAPI from "./DivorceStatsAPI/integrations/BreakingBadAPI.svelte";
   //import RickandmortyEcharts from "./DivorceStatsAPI/integrations/RickandmortyEcharts.svelte";
@@ -47,6 +48,7 @@
   import DivorceAndObesityIntegration from "./DivorceStatsAPI/integrations/DivorceAndObesityIntegration.svelte";
   import SWUse from "./DivorceStatsAPI/integrations/SWUse.svelte";
   import BikeUse from "./DivorceStatsAPI/integrations/BikeUse.svelte";
+  
 
   const routes = {
     "/": Home,
@@ -75,6 +77,7 @@
     "/divorce-stats/:country/:date": EditDivorceAPI,
     "/divorce-stats/divorceChart": DivorceChart,
     "/divorce-stats/divorceChart2": DivorceChart2_lollipop,
+    "/divorce-stats/divorceChart3" : DivorceChart3_pie,
     "/integrations/breakingbad": BreakingBadAPI,
     "/integrations/divorceandairdeathsintegration":
       DivorceAndAirDeathsIntegrationAPI,

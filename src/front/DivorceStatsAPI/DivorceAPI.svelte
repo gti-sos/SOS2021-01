@@ -389,6 +389,9 @@
   <NavItem>
     <NavLink id="nav_div_analytics2" href="/#/divorce-stats/divorceChart2">Analítica tipo lollipop</NavLink>
   </NavItem>
+  <NavItem>
+    <NavLink id="nav_div_analytics3" href="/#/divorce-stats/divorceChart3">Analítica tipo pie</NavLink>
+  </NavItem>
   </Nav>
   <h2>API de Divorcios y Matrimonios</h2>
   <p />

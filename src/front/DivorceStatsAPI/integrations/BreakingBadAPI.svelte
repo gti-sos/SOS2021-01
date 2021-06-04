@@ -30,132 +30,139 @@
     async function onLoad() {
         await getStats();
         var array = [];
+        var charactersPerSeason = [];
 
-        var totalCharactersS1=0;
-        var totalCharactersS2=0;
-        var totalCharactersS3=0;
-        var totalCharactersS4=0;
-        var totalCharactersS5=0;
+        var totalCharactersS1 = 0;
+        var totalCharactersS2 = 0;
+        var totalCharactersS3 = 0;
+        var totalCharactersS4 = 0;
+        var totalCharactersS5 = 0;
 
-        var numEpisodes = [0,0,0,0,0]
+        var numEpisodes = [0, 0, 0, 0, 0];
 
-        var point = { x: "name", y: "number of episodes" , z: null}; // y=number of characters per season 
-
+        var point = { x: "name", y: "number of episodes", z: null }; // y=number of characters per season
 
         episodes.forEach((c) => {
             //console.log(Object.values(c));
 
-
             console.log(`imprimiendo c ${Object.keys(c)}`);
 
-            
-           switch( c.season ){
-               case "1" :
-                   totalCharactersS1 += c.characters.length;
-                   numEpisodes[0]= numEpisodes[0]+1;
-                   break;
-                case "2" :
-                   totalCharactersS2+= c.characters.length;
-                   numEpisodes[1] = numEpisodes[1]+1;
-                   break;
-                case "3" :
-                   totalCharactersS3+= c.characters.length;
-                   numEpisodes[2]= numEpisodes[2]+1;
-                   break;
-                case "4" :
-                   totalCharactersS4+= c.characters.length;
-                   numEpisodes[3]= numEpisodes[3]+1;
-                   break;
-                case "5" :
-                   totalCharactersS5+= c.characters.length;
-                   numEpisodes[4] = numEpisodes[4] +1;
-                   break;
-           }
+            switch (c.season) {
+                case "1":
+                    totalCharactersS1 += c.characters.length;
 
+                    numEpisodes[0] = numEpisodes[0] + 1;
+                    break;
+                case "2":
+                    totalCharactersS2 += c.characters.length;
+                    numEpisodes[1] = numEpisodes[1] + 1;
+                    break;
+                case "3":
+                    totalCharactersS3 += c.characters.length;
+                    numEpisodes[2] = numEpisodes[2] + 1;
+                    break;
+                case "4":
+                    totalCharactersS4 += c.characters.length;
+                    numEpisodes[3] = numEpisodes[3] + 1;
+                    break;
+                case "5":
+                    totalCharactersS5 += c.characters.length;
+                    numEpisodes[4] = numEpisodes[4] + 1;
+                    break;
+            }
         });
-        for ( var i = 0; i < 5; i++){
+        charactersPerSeason.push(
+            totalCharactersS1,
+            totalCharactersS2,
+            totalCharactersS3,
+            totalCharactersS4,
+            totalCharactersS5
+        );
 
-            var point = { x: "name", y: "number of episodes" , z: null}; // y=number of characters per season
-
-            switch( i ){
-               case 0 :
-               point.x = "season 1"
-               point.y = numEpisodes[0];
-               point.z = totalCharactersS1;
-                   break;
-                case 1 :
-                point.x = "season 2"
-                point.y = numEpisodes[1];              
-                point.z = totalCharactersS2;
-                   break;
-                case 2 :
-                point.x = "season 3"
-                point.y = numEpisodes[2];
-                point.z = totalCharactersS3;
-                   break;
-                case 3 :
-                point.x = "season 4"
-                point.y = numEpisodes[3]
-                point.z = totalCharactersS4;
-
-                   break;
-                case 4 :
-                point.x = "season 5"
-                point.y = numEpisodes[4];
-                point.z = totalCharactersS5;
-
-                   break;
-           }
-           
-           console.log(Object.values(point));
-           console.log(array);
-           array.push(point);
-
-        }
         /* let points = [
         { x: "A", y: 10 },
         { x: "B", y: 5 },
       ];
    */
-   var chart = JSC.chart('chartDiv', {
-        debug: true,
-        //title_label_text: 'Breaking Bad characters per season',
-        legend_visible: false,
-        
-        
-        defaultSeries: {
-          type: 'pie donut',
-          shape: {
-            innerSize: '30%',
-            padding: 0.005,
-            offset: '1,80'
-          }
-        },
-        yAxis_label_text: 'Number of episodes in this season',
-        zAxis_label_text: 'Number of characters in this season',
-        defaultAnnotation: { label_style: { fontSize: '400px' } },
-    
-         
-        series: [
-          {
-            name: 'total of character in the serie ',
-            points: array
-              
-          }
-            ]
-        
-      });
-      
-   
+        var options = {
+            plotOptions: {
+                pie: {
+                    customScale: 0.6,
+                },
+            },
+            series: numEpisodes,
+            labels: [
+                "Episodios Temporada 1",
+                "Episodios Temporada 2",
+                "Episodios Temporada 3",
+                "Episodios Temporada 4",
+                "Episodios Temporada 5",
+            ],
+            chart: {
+                type: "donut",
+            },
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 100,
+                        },
+                        legend: {
+                            position: "bottom",
+                        },
+                    },
+                },
+            ],
+        };
 
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        var options1 = {
+            plotOptions: {
+                pie: {
+                    customScale: 0.6,
+                },
+            },
+            series: charactersPerSeason,
+            labels: [
+                "Número de personajes Temporada 1",
+                "Número de personajes Temporada 2",
+                "Número de personajes Temporada 3",
+                "Número de personajes Temporada 4",
+                "Número de personajes Temporada 5",
+            ],
+            chart: {
+                type: "donut",
+            },
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 100,
+                        },
+                        legend: {
+                            position: "bottom",
+                        },
+                    },
+                },
+            ],
+        };
+
+        var chart1 = new ApexCharts(
+            document.querySelector("#chart1"),
+            options1
+        );
+        chart1.render();
     }
 </script>
 
 <svelte:head>
     <script
-    type="text/javascript" src="https://code.jscharting.com/latest/jscharting.js"
+        src="https://cdn.jsdelivr.net/npm/apexcharts"
         on:load={onLoad}></script>
-        
 </svelte:head>
 
 <main>
@@ -169,20 +176,21 @@
     </Nav>
 
     <div>
-        <h2>Uso API externa Breaking Bad </h2>
-        <CardText> Representacón del número de personajes total que aparecen en cada temporada de la serie Breaking Bad</CardText>
+        <h2>Uso API externa Breaking Bad</h2>
+        <CardText>
+            Representacón del número de capitulos en cada temporada de la serie
+            Breaking Bad</CardText
+        >
     </div>
 
     {#if errorMsg}
         <p>{errorMsg}</p>
     {:else}
-        <div id="chartDiv"  />
+        <div id="chart" />
+        <CardText>
+            Representación del número de personajes que aparecen en cada
+            temporada de la serie Breaking Bad</CardText
+        >
+        <div id="chart1" />
     {/if}
 </main>
-
-<style>
-    #chartDiv {
-        width: 100%;
-        height: 400px;
-    }
-</style>

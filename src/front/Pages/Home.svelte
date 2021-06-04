@@ -106,6 +106,10 @@
               <Button class="mb-3" color="secondary"
                 >Analítica (lollipop)</Button
               >
+              <a href="/#/divorce-stats/divorceChart3">
+                <Button class="mb-3" color="secondary"
+                  >Analítica (pie)</Button
+                >
             </a>
             <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="https://documenter.getpostman.com/view/14948045/TzJoDg1Q"
