@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     
     import { pop } from "svelte-spa-router";
-    import {Button, Table } from 'sveltestrap';
+    import {Table, Button } from 'sveltestrap';
     
     
     const BASE_LIFE_API_URL = "/api/v2/life-stats";
@@ -94,14 +94,14 @@
                 <tr>
                     <td>{updatedCountry}</td>
                     <td>{updatedDate}</td>
-                    <td><input type="number" placeholder="0.00"  min="0" bind:value = "{updatedQuality}" /> </td>
-                    <td><input  type="number" placeholder="0.00" min="0" bind:value = "{updatedPurchasing}" /></td>
-                    <td><input type="number" placeholder="0.00" min="0" bind:value = "{updatedSafety}" />  </td>
-                    <td> <Button color="primary" on:click={() => updateLifeStat()}> Actualizar </Button></td>
+                    <td><input id="update_input_quality" type="number" placeholder="0.00"  min="0" bind:value = "{updatedQuality}" /> </td>
+                    <td><input id="update_input_purchasing" type="number" placeholder="0.00" min="0" bind:value = "{updatedPurchasing}" /></td>
+                    <td><input id="update_input_safety" type="number" placeholder="0.00" min="0" bind:value = "{updatedSafety}" />  </td>
+                    <td> <Button id="update_button" color="primary" on:click={() => updateLifeStat()}> Actualizar </Button></td>
                 </tr>
             </tbody>
         </Table>
-        <Button style="background-color:darkgray" on:click="{pop}"> Volver </Button>
+        <Button id="volver" style="background-color:darkgray" on:click="{pop}"> Volver </Button>
         </div>
 
           

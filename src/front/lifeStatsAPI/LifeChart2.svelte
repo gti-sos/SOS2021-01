@@ -4,13 +4,9 @@
   const BASE_LIFE_API_PATH = "/api/v2";
 
   let lifeData=[];
-  let lifeChartCountryDate = [];
   let lifeChartQualityLifeI = [];
   let lifeChartPurchasingPowerI = [];
   let lifeChartSafetyI = [];
-
-  let errorMsg="Tiene que cargar los datos para visualizar las analíticas.";
-  let cargados = false;
 
   async function loadChart() {
       console.log("Fetching data...");
@@ -18,40 +14,23 @@
       const res = await fetch(BASE_LIFE_API_PATH + "/life-stats");
       lifeData = await res.json();
 
-    /* if (res.ok) {
-          lifeData.forEach(stat => {
-          lifeChartCountryDate.push(stat.country+"-"+stat.date);
-          lifeChartQualityLifeI.push(stat["quality_life_index"]);
-          lifeChartPurchasingPowerI.push(stat["purchasing_power_index"]);
-          lifeChartSafetyI.push(stat["safety_index"]);  
-          });
-          cargados=true;
-      }*/
-
       lifeData.forEach((stat) => {
-          let res = { 
+          let res1 = { 
           'name': stat.country+"-"+stat.date,
           'value': stat["quality_life_index"]
         };
-        lifeChartQualityLifeI.push(res);
-      });  
-      console.log(lifeChartPurchasingPowerI);
-      lifeData.forEach((stat) => {
-          let res = { 
+        let res2 = { 
           'name': stat.country+"-"+stat.date,
           'value': stat["purchasing_power_index"]
         };
-        lifeChartPurchasingPowerI.push(res);
-      });       
-
-      lifeData.forEach((stat) => {
-          let res = { 
+        let res3 = { 
           'name': stat.country+"-"+stat.date,
-          'value': stat["safety_index"]
+          'value':stat["safety_index"]
         };
-        lifeChartSafetyI.push(res);
-      });       
-
+        lifeChartQualityLifeI.push(res1);
+        lifeChartPurchasingPowerI.push(res2); 
+        lifeChartSafetyI.push(res3);
+      });  
 
 
         Highcharts.chart('container', {

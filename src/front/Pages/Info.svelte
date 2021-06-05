@@ -131,7 +131,13 @@
             </a>
             <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="/#/life-stats/lifeCharts">
-              <Button class="mb-3" color="secondary">Analíticas</Button>
+              <Button class="mb-3" color="secondary">Analítica (line)</Button>
+            </a>
+            <a href="/#/life-stats/lifeChart2">
+              <Button class="mb-3" color="secondary">Analítica (bubble)</Button>
+            </a>
+            <a href="/#/life-stats/lifeChart3">
+              <Button class="mb-3" color="secondary">Analítica (area)</Button>
             </a>
             <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
               <Button class="mb-3" color="info">Documentación v1</Button>
