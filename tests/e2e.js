@@ -10,10 +10,10 @@ var counter=0;
   const page = await browser.newPage();
   await page.setViewport({ width: 3688, height: 1768 });
   
-  await page.goto('http://localhost:10000/', { waitUntil: 'networkidle2' });
-  //await page.goto('https://sos2021-01.herokuapp.com', { waitUntil: 'networkidle2' }); aqui
+ // await page.goto('http://localhost:10000/', { waitUntil: 'networkidle2' });
+  await page.goto('https://sos2021-01.herokuapp.com', { waitUntil: 'networkidle2' }); 
 
-  /*
+  
 
   console.log("--Home page--");
   await page.screenshot({ path: screenshotPath + (counter++) +'_HOME.png' });
@@ -59,8 +59,6 @@ var counter=0;
   await page.click("body > main > main > ul > li:nth-child(3)");
   await page.screenshot({ path: screenshotPath + (counter++) +'_ANALYTICS_VIEW.png' });
   
-*/ 
-/*aqui
   //Integrations
   console.log("--Integrations page--");
   await page.click("body > main > main > ul > li:nth-child(4)");
@@ -195,7 +193,6 @@ var counter=0;
   await page.click("body > main > main > div:nth-child(3) > main > div > button.btn.btn-outline-danger"),
   await page.click("body > main > main > div.nav.svelte-1xdzfq5 > ul > li:nth-child(1) > a"),
   console.log(".....data erased");
-/* aqui
 
   //Natality
   console.log("--Home press interface button to go to natality-stats view--")
@@ -461,7 +458,6 @@ var counter=0;
   /*await page.evaluate(() => {
     document.querySelector('#insert_button').click();
   });*/
-  /*aqui
   await page.waitForSelector('#insert_button', { visible: true });
   await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_front_insert_1.png' });
   console.log(".....Divorce stat inserted");
@@ -473,7 +469,7 @@ var counter=0;
   await page.keyboard.type("Rusia");
   await page.focus('#insert_input_date');
   await page.keyboard.type("2013"); */
-  /*aqui
+  
   await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_front_search_0.png' });
   await page.focus('#search_button');
   await page.click("#search_button");
@@ -539,7 +535,6 @@ var counter=0;
   await page.click("body > main > main > ul > li:nth-child(1) > a"),
 
 
-aqui */
   //Life
 
   console.log("--Home press interface button to go to life-stats view--")
