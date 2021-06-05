@@ -92,7 +92,7 @@
             <NavLink href="/">Página Principal</NavLink>
         </NavItem>
         <NavItem>
-            <NavLink href="/#/integrations/">volver</NavLink>
+            <NavLink href="#/divorce-stats">Interfaz</NavLink>
         </NavItem>
     </Nav>
 
