@@ -415,9 +415,9 @@ var counter=0;
     //como se queda pillado entro y salgo varias veces 
     await page.click("#nav_div_analytics3"),
     await  page.click("body > main > main > ul > li:nth-child(2) > a"),
-    await page.click("#nav_div_analytics"),
+    await page.click("#nav_div_analytics3"),
     await  page.click("body > main > main > ul > li:nth-child(2) > a"),
-    await page.click("#nav_div_analytics"), 
+    await page.click("#nav_div_analytics3"), 
 
   await page.waitForTimeout(2000);
   await page.screenshot({ path: screenshotPath + (counter++) +'_DIV_donut_analytic.png' });
