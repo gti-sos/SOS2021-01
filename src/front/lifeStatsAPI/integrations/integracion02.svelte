@@ -113,9 +113,11 @@
 
         var data = [trace1, trace2];
 
-       var layout = {barmode: 'group'};
+       var layout = {
+        barmode: 'group', 
+        colorway: ['#D2B4DE', 'orange']};
 
-        Plotly.newPlot('myDiv', data, layout);   
+        Plotly.newPlot('myDiv', data, layout, {scrollZoom: true});   
     }
 
     </script>

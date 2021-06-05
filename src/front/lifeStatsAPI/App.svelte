@@ -15,7 +15,10 @@
 			</NavItem>
 			
 			<NavItem>
-				<NavLink href="#/life-stats/lifeCharts2">Analítica bubble highchart</NavLink>
+				<NavLink href="#/life-stats/lifeChart2">Analítica bubble highchart</NavLink>
+			</NavItem>
+			<NavItem>
+				<NavLink href="#/life-stats/lifeChart3">Analítica area plotly</NavLink>
 			</NavItem>
 		</Nav>
 	</div>

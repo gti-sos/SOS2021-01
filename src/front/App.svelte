@@ -26,7 +26,8 @@
   import LifeAPI from "./lifeStatsAPI/App.svelte";
   import LifeStatEdit from "./lifeStatsAPI/LifeEdit.svelte";
   import LifeCharts from "./lifeStatsAPI/LifeChart.svelte";
-  import LifeCharts2 from "./lifeStatsAPI/LifeChart2.svelte";
+  import LifeChart2 from "./lifeStatsAPI/LifeChart2.svelte";
+  import LifeChart3 from "./lifeStatsAPI/LifeChart3.svelte";
   import LifeExtCovid from "./lifeStatsAPI/integrations/externaCovid.svelte";
   import LifeExtSpace from "./lifeStatsAPI/integrations/externaSpace.svelte";
   import LifeIntegration01 from "./lifeStatsAPI/integrations/integracion01.svelte";
@@ -92,7 +93,8 @@
     "/life-stats": LifeAPI,
     "/life-stats/:country/:date": LifeStatEdit,
     "/life-stats/lifeCharts": LifeCharts,
-    "/life-stats/lifeCharts2": LifeCharts2,
+    "/life-stats/lifeChart2": LifeChart2,
+    "/life-stats/lifeChart3": LifeChart3,
     "/integrations/externaCovid": LifeExtCovid,
     "/integrations/externaSpace": LifeExtSpace,
     "/integrations/integracion01": LifeIntegration01,

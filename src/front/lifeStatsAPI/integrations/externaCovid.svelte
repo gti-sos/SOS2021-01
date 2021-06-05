@@ -60,43 +60,42 @@
          await getMyStats();
 
          resData =  await res.json();
-         console.log("La respuesta es:", resData.response);  //response porqueeee....
-        
+                 
          resData.response.forEach(d => { 
             let country_minus = d.country.toLowerCase(); 
             lifeData.forEach((data) => {               
                 if(data.country==country_minus){
+                  if(!countries.includes(data.country)){  //como estoy ignorando los años, si el pais ya se ha metido en el array, no lo volverá a meter (se queda con los datos para el año del primero q se ha metido)
                     deaths.push(d.deaths.total);
                     countries.push(data.country);
                     safety.push(data.safety_index);
+                  }
                 }
             })
         });
 
-         var trace1 = {
-            x: countries,
+        var data = [
+          {
+            histfunc: "sum",
             y: deaths,
-            fill: 'tozeroy',
-            type: 'scatter',
-            name : "Muertes por covid"
-        };
-        
-        var trace2 = {
             x: countries,
+            type: "histogram",
+            name: "Muertes por covid"
+          },
+          {
+            histfunc: "sum",
             y: safety,
-            fill: 'tozeroy',
-            type: 'scatter',
-            name : "Índice de seguridad"
-        };
+            x: countries,
+            type: "histogram",
+            name: "Índice de seguridad"
+          }
+        ];
 
         var layout = {
-            title: 'Basic Overlaid Area Chart'
+          colorway: ['#ABEBC6', 'red']
         };
 
-        var data = [trace1, trace2];
-
-        Plotly.newPlot('myDiv', data, layout);
-
+        Plotly.newPlot('myDiv', data, layout, {scrollZoom: true})
     }
 </script>
 
