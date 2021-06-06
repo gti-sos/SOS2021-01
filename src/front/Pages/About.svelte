@@ -32,7 +32,11 @@
    
   </div>
   <div>
-    <a href="/#"><Button color="primary">Video life-stats</Button></a>
+    <p>----------------------------------------------------------------</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/c6kVhb89NjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div>
+      <a href="https://youtu.be/c6kVhb89NjA"><Button color="primary">Video life-stats</Button></a>
+    </div>
   </div>
   <div>
     <p>----------------------------------------------------------------</p>
