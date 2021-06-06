@@ -40,10 +40,6 @@
     
     //let countries = [];
 
-
-
-    onMount(getLifeStats);
-
     async function loadLifeStats(){
         console.log("Loading data...");
         const res =  await fetch(BASE_LIFE_API_URL + "/loadInitialData");
@@ -82,8 +78,7 @@
         }else if (res.status == 404) { 
             correctMsg="";
             errorMsg = "No se encuentran datos."
-            pagBefore();
-            console.log("Error. " +  errorMsg)
+            console.log("Error. " +  errorMsg);
         } else { 
             correctMsg="" 
             errorMsg = res.status + ": " + res.statusText;
@@ -219,8 +214,7 @@
     }    
 
 
-
-    
+   onMount(getLifeStats);    
 </script>
   
 

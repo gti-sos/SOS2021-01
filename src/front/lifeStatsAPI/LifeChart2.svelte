@@ -7,30 +7,35 @@
   let lifeChartQualityLifeI = [];
   let lifeChartPurchasingPowerI = [];
   let lifeChartSafetyI = [];
+  
+  let errorMsg="Tiene que cargar los datos para visualizar las analíticas.";
+  let cargados = false;
 
   async function loadChart() {
       console.log("Fetching data...");
 
       const res = await fetch(BASE_LIFE_API_PATH + "/life-stats");
       lifeData = await res.json();
-
-      lifeData.forEach((stat) => {
-          let res1 = { 
-          'name': stat.country+"-"+stat.date,
-          'value': stat["quality_life_index"]
-        };
-        let res2 = { 
-          'name': stat.country+"-"+stat.date,
-          'value': stat["purchasing_power_index"]
-        };
-        let res3 = { 
-          'name': stat.country+"-"+stat.date,
-          'value':stat["safety_index"]
-        };
-        lifeChartQualityLifeI.push(res1);
-        lifeChartPurchasingPowerI.push(res2); 
-        lifeChartSafetyI.push(res3);
-      });  
+      if (res.ok) {
+        lifeData.forEach((stat) => {
+            let res1 = { 
+            'name': stat.country+"-"+stat.date,
+            'value': stat["quality_life_index"]
+          };
+          let res2 = { 
+            'name': stat.country+"-"+stat.date,
+            'value': stat["purchasing_power_index"]
+          };
+          let res3 = { 
+            'name': stat.country+"-"+stat.date,
+            'value':stat["safety_index"]
+          };
+          lifeChartQualityLifeI.push(res1);
+          lifeChartPurchasingPowerI.push(res2); 
+          lifeChartSafetyI.push(res3);
+        }); 
+        cargados=true;
+      }  
 
 
         Highcharts.chart('container', {
@@ -111,8 +116,14 @@
       <h2>
         Analítica con todos los campos
       </h2>
-    </div>
+    </div>    
 
+    <div>
+      {#if !cargados}
+        <p class="error">{errorMsg}</p>
+      {/if}
+    </div>
+      
     <figure class="highcharts-figure">
       <div id="container"></div>
       <p class="highcharts-description">
@@ -122,7 +133,6 @@
           Try dragging the bubbles in this chart around, and see the effects.
       </p>
   </figure>
-
 </main>
 
 <style>
@@ -130,6 +140,12 @@
       text-align: center;
       padding: 30px;       
   }
+  p.error{
+      color: red; 
+      text-align:center;
+      font-size: 20px;
+      margin-top:80px;
+    }
 
   
   .highcharts-figure, .highcharts-data-table table {

@@ -26,9 +26,7 @@
             lifeChartSafetyI.push(stat["safety_index"]);  
             });
             cargados=true;
-        }
-        
-    console.log("Life Chart Data: " + lifeData);
+        }      
             
         Highcharts.chart('container', {
 
