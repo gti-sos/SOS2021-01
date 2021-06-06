@@ -93,7 +93,7 @@
     
   
     <h3>Uso de API externa sobre Starlink</h3>
-    <h5>Se han recogido datos sobre el movimiento medio solo sobre 5 de los satélites Starlink</h5> 
+    <h5>Se han recogido datos sobre el movimiento medio solo sobre 6 de los satélites Starlink</h5> 
     <p>Pie chart</p>
     <body>
         <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
