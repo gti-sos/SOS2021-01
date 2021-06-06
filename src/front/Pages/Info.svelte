@@ -129,10 +129,16 @@
             <a href="/#/life-stats">
               <Button class="mb-3" color="primary">Interfaz</Button>
             </a>
-            <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="/#/life-stats/lifeCharts">
-              <Button class="mb-3" color="secondary">Analíticas</Button>
+              <Button class="mb-3" color="secondary">Analítica (line)</Button>
             </a>
+            <a href="/#/life-stats/lifeChart2">
+              <Button class="mb-3" color="secondary">Analítica (bubble)</Button>
+            </a>
+            <a href="/#/life-stats/lifeChart3">
+              <Button class="mb-3" color="secondary">Analítica (area)</Button>
+            </a>            
+            <a href="/#"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="https://documenter.getpostman.com/view/14961437/TzJoDg1P">
               <Button class="mb-3" color="info">Documentación v1</Button>
             </a>
@@ -172,7 +178,7 @@
             <a href="/#/natality-stats/natalityChart2">
               <Button class="mb-3" color="secondary">Analítica 2</Button>
             </a>
-            <a href="https://youtu.be/hIUO44mXPOU"><Button class="mb-3" color="primary">Video</Button></a>
+            <a href="https://youtu.be/1eYJv-wR3VQ"><Button class="mb-3" color="primary">Video</Button></a>
             <a href="https://documenter.getpostman.com/view/14932491/TzJrCzRM"
               ><Button class="mb-3" color="info">Documentación v1</Button></a
             >

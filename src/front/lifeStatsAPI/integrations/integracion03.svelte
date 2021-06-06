@@ -105,13 +105,13 @@
             mode: 'markers',
             name: 'Estimación anual de emisiones',
             marker: {
-                color: 'rgba(156, 165, 196, 0.95)',
+                color: 'green',
                 line: {
                 color: 'rgba(156, 165, 196, 1.0)',
                 width: 1,
                 },
                 symbol: 'circle',
-                size: 26
+                size: 30
             }
         };
 
@@ -122,60 +122,45 @@
             mode: 'markers',
             name: 'Índice de seguridad',
             marker: {
-                color: 'rgba(204, 204, 204, 0.95)',
+                color: 'blue',
                 line: {
                 color: 'rgba(217, 217, 217, 1.0)',
                 width: 1,
                 },
                 symbol: 'circle',
-                size:26
+                size:30
             }
             };
 
         var data = [trace1, trace2];
 
         var layout = {
-            title: 'Comparación de estimación de emisiones y el índice de seguridad en el país en 2019',
-            xaxis: {
-                showgrid: false,
-                showline: true,
-                linecolor: 'rgb(102, 102, 102)',
-                titlefont: {
-                font: {
-                    color: 'rgb(204, 204, 204)'
-                }
-                },
-                tickfont: {
-                font: {
-                    color: 'rgb(102, 102, 102)'
-                }
-                },
-                autotick: false,
-                dtick: 10,
-                ticks: 'outside',
-                tickcolor: 'rgb(102, 102, 102)'
-            },
-            margin: {
-                l: 140,
-                r: 40,
-                b: 50,
-                t: 80
-            },
-            legend: {
-                font: {
-                size: 10,
-                },
-                yanchor: 'middle',
-                xanchor: 'right'
-            },
-            width: 1200,
-            height: 600,
-            paper_bgcolor: 'rgb(254, 247, 234)',
-            plot_bgcolor: 'rgb(254, 247, 234)',
-            hovermode: 'closest'
+              title: 'Comparación de estimación de emisiones y el índice de seguridad en el país en 2019',
+              xaxis: {
+                  showgrid: false,
+                  showline: true,
+                  linecolor: 'black',
+                  titlefont: {
+                  font: {
+                      color: 'black'
+                  }
+                  }
+              },
+              legend: {
+                  font: {
+                  size: 10,
+                  },
+                  yanchor: 'middle',
+                  xanchor: 'right'
+              },
+              width: 1200,
+              height: 600,
+              paper_bgcolor: 'white',
+              plot_bgcolor: 'white',
+              hovermode: 'closest',              
             };
 
-            Plotly.newPlot('myDiv', data, layout);  
+            Plotly.newPlot('myDiv', data, layout, {scrollZoom: true});  
     }
 
     </script>

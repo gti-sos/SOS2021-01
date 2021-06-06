@@ -4,11 +4,10 @@
   const BASE_LIFE_API_PATH = "/api/v2";
 
   let lifeData=[];
-  let lifeChartCountryDate = [];
   let lifeChartQualityLifeI = [];
   let lifeChartPurchasingPowerI = [];
   let lifeChartSafetyI = [];
-
+  
   let errorMsg="Tiene que cargar los datos para visualizar las analíticas.";
   let cargados = false;
 
@@ -17,41 +16,26 @@
 
       const res = await fetch(BASE_LIFE_API_PATH + "/life-stats");
       lifeData = await res.json();
-
-    /* if (res.ok) {
-          lifeData.forEach(stat => {
-          lifeChartCountryDate.push(stat.country+"-"+stat.date);
-          lifeChartQualityLifeI.push(stat["quality_life_index"]);
-          lifeChartPurchasingPowerI.push(stat["purchasing_power_index"]);
-          lifeChartSafetyI.push(stat["safety_index"]);  
-          });
-          cargados=true;
-      }*/
-
-      lifeData.forEach((stat) => {
-          let res = { 
-          'name': stat.country+"-"+stat.date,
-          'value': stat["quality_life_index"]
-        };
-        lifeChartQualityLifeI.push(res);
-      });  
-      console.log(lifeChartPurchasingPowerI);
-      lifeData.forEach((stat) => {
-          let res = { 
-          'name': stat.country+"-"+stat.date,
-          'value': stat["purchasing_power_index"]
-        };
-        lifeChartPurchasingPowerI.push(res);
-      });       
-
-      lifeData.forEach((stat) => {
-          let res = { 
-          'name': stat.country+"-"+stat.date,
-          'value': stat["safety_index"]
-        };
-        lifeChartSafetyI.push(res);
-      });       
-
+      if (res.ok) {
+        lifeData.forEach((stat) => {
+            let res1 = { 
+            'name': stat.country+"-"+stat.date,
+            'value': stat["quality_life_index"]
+          };
+          let res2 = { 
+            'name': stat.country+"-"+stat.date,
+            'value': stat["purchasing_power_index"]
+          };
+          let res3 = { 
+            'name': stat.country+"-"+stat.date,
+            'value':stat["safety_index"]
+          };
+          lifeChartQualityLifeI.push(res1);
+          lifeChartPurchasingPowerI.push(res2); 
+          lifeChartSafetyI.push(res3);
+        }); 
+        cargados=true;
+      }  
 
 
         Highcharts.chart('container', {
@@ -132,8 +116,14 @@
       <h2>
         Analítica con todos los campos
       </h2>
-    </div>
+    </div>    
 
+    <div>
+      {#if !cargados}
+        <p class="error">{errorMsg}</p>
+      {/if}
+    </div>
+      
     <figure class="highcharts-figure">
       <div id="container"></div>
       <p class="highcharts-description">
@@ -143,7 +133,6 @@
           Try dragging the bubbles in this chart around, and see the effects.
       </p>
   </figure>
-
 </main>
 
 <style>
@@ -151,6 +140,12 @@
       text-align: center;
       padding: 30px;       
   }
+  p.error{
+      color: red; 
+      text-align:center;
+      font-size: 20px;
+      margin-top:80px;
+    }
 
   
   .highcharts-figure, .highcharts-data-table table {

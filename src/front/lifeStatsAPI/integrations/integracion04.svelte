@@ -101,12 +101,14 @@
         var trace1 = {
             type: "pointcloud",
             mode: "markers",
+            name: "Verde: (gasto en millones de euros, indice poder adquisitivo)",
             marker: {
                 sizemin: 0.5,
                 sizemax: 100,
                 arearatio: 0,
-                color: "rgba(255, 0, 0, 0.6)"
+                color: "green"
             },
+            opacity: 0.6,
             x: gasto_millones,
             y: purchasingPower
         };
@@ -115,13 +117,13 @@
         var trace2 = {
             type: "pointcloud",
             mode: "markers",
+            name: "Rosa: (gasto per capita, indice poder adquisitivo)",
             marker: {
                 sizemin: 0.5,
                 sizemax: 100,
                 arearatio: 0,
-                color: "rgba(0, 0, 255, 0.9)",
-                opacity: 0.8,
-                blend: true
+                color: "pink",
+                blend: true,                        
             },
             opacity: 0.7,
             x: gasto_per_capita,
@@ -133,24 +135,27 @@
         var layout = {
             title: "Styled Point Cloud",
             xaxis: {
-                type: "linear",
-                range: [
-                -2.501411175139456,
-                43.340777299865266],
-                autorange: true
+              showline: true,
+              linecolor: 'black',
+              type: "linear",
             },
             yaxis: {
-                type: "linear",
-                range: [4,6],
-                autorange: true
+              type: "linear",
             },
-            height: 598,
-            width: 1080,
+            legend: {
+                  font: {
+                  size: 10,
+                  },
+                  yanchor: 'middle',
+                  xanchor: 'right'
+            },
+            width: 1200,
+            height: 600,
             autosize: true,
             showlegend: true
         }
 
-        Plotly.newPlot('myDiv', data, layout);
+        Plotly.newPlot('myDiv', data, layout, {scrollZoom: true});
         
     }
 

@@ -40,10 +40,6 @@
     
     //let countries = [];
 
-
-
-    onMount(getLifeStats);
-
     async function loadLifeStats(){
         console.log("Loading data...");
         const res =  await fetch(BASE_LIFE_API_URL + "/loadInitialData");
@@ -82,8 +78,7 @@
         }else if (res.status == 404) { 
             correctMsg="";
             errorMsg = "No se encuentran datos."
-            pagBefore();
-            console.log("Error. " +  errorMsg)
+            console.log("Error. " +  errorMsg);
         } else { 
             correctMsg="" 
             errorMsg = res.status + ": " + res.statusText;
@@ -219,8 +214,7 @@
     }    
 
 
-
-    
+   onMount(getLifeStats);    
 </script>
   
 
@@ -246,9 +240,9 @@
             </thead>    
             <tbody>
                 <tr>
-					<td><input placeholder="Ej. Spain" bind:value = "{currentCountry}" /></td>
-					<td><input  type="number" placeholder="Ej. 2021" bind:value = "{currentDate}" /></td>
-                    <td><Button outline color= "info" on:click={()=>searchStat(currentCountry, currentDate)}> Buscar</Button>
+					<td><input id="search_input_country" placeholder="Ej. Spain" bind:value = "{currentCountry}" /></td>
+					<td><input id="search_input_date" type="number" placeholder="Ej. 2021" bind:value = "{currentDate}" /></td>
+                    <td><Button id="search_button" outline color= "info" on:click={()=>searchStat(currentCountry, currentDate)}> Buscar</Button>
                         <Button  style="background-color: darkgrey" on:click={()=>reset()}> Restaurar</Button></td> 
                 </tr>
             </tbody>
@@ -269,12 +263,12 @@
             </thead>
             <tbody>
                 <tr>
-					<td><input placeholder="Ej. Spain" bind:value = "{newData.country}" /></td>
-					<td><input  type="number" placeholder="Ej. 2021" bind:value = "{newData.date}" /></td>
-                    <td><input type="number" placeholder="0.00"  min="0" bind:value = "{newData['quality_life_index']}" /></td>
-					<td><input  type="number" placeholder="0.00" min="0" bind:value = "{newData['purchasing_power_index']}" /></td>
-					<td><input type="number" placeholder="0.00" min="0" bind:value = "{newData['safety_index']}" /></td>
-					<td><Button outline color= "primary" on:click={insertLifeStat}> Insertar</Button></td> 
+					<td><input id="insert_input_country" placeholder="Ej. Spain" bind:value = "{newData.country}" /></td>
+					<td><input id="insert_input_date" type="number" placeholder="Ej. 2021" bind:value = "{newData.date}" /></td>
+                    <td><input id="insert_input_quality" type="number" placeholder="0.00"  min="0" bind:value = "{newData['quality_life_index']}" /></td>
+					<td><input id="insert_input_purchasing" type="number" placeholder="0.00" min="0" bind:value = "{newData['purchasing_power_index']}" /></td>
+					<td><input id="insert_input_safety" type="number" placeholder="0.00" min="0" bind:value = "{newData['safety_index']}" /></td>
+					<td><Button id="insert_button" outline color= "primary" on:click={insertLifeStat}> Insertar</Button></td> 
 				</tr>
                 {#if search} <!-- Si se realiza una búsqueda solo aparecerá en la tabla ese recurso -->
                     <tr>
@@ -284,9 +278,9 @@
                         <td>{searchData["purchasing_power_index"]}</td>
                         <td>{searchData["safety_index"]}</td>
                         <td> <a href="#/life-stats/{searchData.country}/{searchData.date}">
-                            <Button style="background-color: yellowgreen;"> Editar </Button>
+                            <Button id="edit_button_{searchData.country}_{searchData.date}" style="background-color: yellowgreen;"> Editar </Button>
                             </a>
-                            <Button outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(searchData.country, searchData.date)}>
+                            <Button id="delete_button_{searchData.country}_{searchData.date}" outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(searchData.country, searchData.date)}>
                             Borrar </Button> 
                             </td> 
                     </tr>                 
@@ -299,9 +293,10 @@
                         <td>{stat["purchasing_power_index"]}</td>
                         <td>{stat["safety_index"]}</td>
                         <td> <a href="#/life-stats/{stat.country}/{stat.date}">
-                            <Button style="background-color: yellowgreen;"> Editar </Button>
+                            <Button 
+                            id="edit_button_{stat.country}_{stat.date}" style="background-color: yellowgreen;"> Editar </Button>
                             </a>
-                            <Button outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(stat.country, stat.date)}>
+                            <Button id="delete_button_{stat.country}_{stat.date}" outline style="margin-right: 10px;"  color="danger" on:click={()=>deleteLifeStat(stat.country, stat.date)}>
                             Borrar </Button> 
                             </td> 
                     </tr> 
